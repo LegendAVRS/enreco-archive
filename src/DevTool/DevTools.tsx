@@ -5,14 +5,14 @@ import {
     type ReactNode,
     HTMLAttributes,
 } from "react";
-import { Panel } from "@xyflow/react";
 
 import NodeInspector from "./NodeInspector";
 import ChangeLogger from "./ChangeLogger";
 import ViewportLogger from "./ViewportLogger";
+import { Panel } from "reactflow";
 
 export default function DevTools() {
-    const [nodeInspectorActive, setNodeInspectorActive] = useState(true);
+    const [nodeInspectorActive, setNodeInspectorActive] = useState(false);
     const [changeLoggerActive, setChangeLoggerActive] = useState(true);
     const [viewportLoggerActive, setViewportLoggerActive] = useState(true);
 

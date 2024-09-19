@@ -1,29 +1,40 @@
-import { ReactFlow } from "@xyflow/react";
-import "@xyflow/react/dist/style.css";
+import { SmartStepEdge } from "@tisoap/react-flow-smart-edge";
+import { useEffect, useState } from "react";
+import ReactFlow from "reactflow";
+import "reactflow/dist/style.css";
 import DevTools from "./DevTool/DevTools";
-import { dummyData } from "./libs/dummy";
 import ImageNode from "./ImageNode";
-import { useEffect } from "react";
-import { calculateHandlers } from "./libs/helper";
+import { dummyData } from "./libs/dummy";
+import { calculateHandles, calculatePositions } from "./libs/helper";
 
 const nodeTypes = {
     imageNode: ImageNode,
 };
 
+const edgeTypes = {
+    smart: SmartStepEdge,
+};
+
 const App = () => {
     const data = dummyData;
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        calculateHandlers(data);
-        console.log(data);
+        calculateHandles(data);
+        calculatePositions(data);
+        setLoading(false);
     }, [data]);
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className="w-screen h-screen">
             <ReactFlow
                 nodes={data.nodes}
                 edges={data.edges}
                 nodeTypes={nodeTypes}
-                snapGrid={[15, 15]}
-                snapToGrid={true}
+                edgeTypes={edgeTypes}
+                draggable={false}
                 fitView
             >
                 <DevTools></DevTools>

@@ -1,19 +1,65 @@
-import { ChartData } from "./type";
+import { Edge } from "reactflow";
+import { ChartData, ImageNode } from "./type";
 
-// Dummy data
-export const dummyData: ChartData = {
+const generateDummyData = (numOfNodes: number): ChartData => {
+    const nodes: ImageNode[] = Array.from({ length: numOfNodes }).map(
+        (_, index) => {
+            return {
+                id: index.toString(),
+                data: {
+                    width: 100,
+                    height: 100,
+                    imageSrc: `https://picsum.photos/200?random=${index}`,
+                },
+                position: {
+                    x: 0,
+                    y: 0,
+                },
+                type: "imageNode",
+            };
+        }
+    );
+
+    const edges: Edge[] = [];
+    for (let i = 0; i < numOfNodes; i++) {
+        for (let j = i + 1; j < numOfNodes; j++) {
+            edges.push({
+                type: "smart",
+                id: `${i}-${j}`,
+                source: i.toString(),
+                target: j.toString(),
+            });
+        }
+    }
+
+    return { nodes, edges };
+};
+
+export const hardCodeDummy: ChartData = {
     nodes: [
+        {
+            id: "0",
+            data: {
+                width: 100,
+                height: 100,
+                imageSrc: "https://picsum.photos/200?random=0",
+            },
+            position: {
+                x: 0,
+                y: 0,
+            },
+            type: "imageNode",
+        },
         {
             id: "1",
             data: {
                 width: 100,
                 height: 100,
-                imageSrc:
-                    "https://static.miraheze.org/hololivewiki/0/03/Gigi_Murin_-_Portrait_01.png",
+                imageSrc: "https://picsum.photos/200?random=1",
             },
             position: {
-                x: 100,
-                y: 100,
+                x: 200,
+                y: 0,
             },
             type: "imageNode",
         },
@@ -22,42 +68,36 @@ export const dummyData: ChartData = {
             data: {
                 width: 100,
                 height: 100,
-                imageSrc:
-                    "https://i1.sndcdn.com/artworks-ScX2qTn4KewPXHjJ-6WGqZA-t500x500.jpg",
+                imageSrc: "https://picsum.photos/200?random=1",
             },
             position: {
-                x: 300,
-                y: 100,
-            },
-            type: "imageNode",
-        },
-        {
-            id: "3",
-            data: {
-                width: 100,
-                height: 100,
-                imageSrc:
-                    "https://yt3.googleusercontent.com/RZ4Fp3L6_zyq6YA7s5WnH8-22iezMLwdJhtkBgs_EAb06mvMCnF59JKMNu9YPCqb7nhaeXMdPvY=s900-c-k-c0x00ffffff-no-rj",
-            },
-            position: {
-                x: 500,
-                y: 100,
+                x: 200,
+                y: 200,
             },
             type: "imageNode",
         },
     ],
     edges: [
         {
-            type: "step",
-            id: "1",
-            source: "1",
+            type: "smart",
+            id: "0",
+            source: "0",
             target: "2",
         },
         {
-            type: "step",
+            type: "smart",
+            id: "1",
+            source: "0",
+            target: "1",
+        },
+        {
+            type: "smart",
             id: "2",
-            source: "2",
-            target: "3",
+            source: "1",
+            target: "2",
         },
     ],
 };
+
+export const dummyData = generateDummyData(6);
+// export const dummyData = hardCodeDummy;

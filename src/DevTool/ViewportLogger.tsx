@@ -1,4 +1,4 @@
-import { Panel, useStore } from "@xyflow/react";
+import { Panel, useStore } from "reactflow";
 
 export default function ViewportLogger() {
     const viewport = useStore(
