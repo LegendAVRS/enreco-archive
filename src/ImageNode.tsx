@@ -117,7 +117,7 @@ const ImageNode = ({ id, data }) => {
             {handleElements}
             <div>
                 <img
-                    className="aspect-square object-cover rounded-lg opacity-30"
+                    className="aspect-square object-cover rounded-lg"
                     width={100}
                     src={data.imageSrc}
                 />
