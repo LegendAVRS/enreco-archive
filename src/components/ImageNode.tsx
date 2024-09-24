@@ -1,5 +1,5 @@
 import { Handle, Position } from "@xyflow/react";
-import { ImageNodeType } from "./libs/type";
+import { ImageNodeType } from "../lib/type";
 
 // Spread the handlers throughout the node based on the number of sources and targets
 

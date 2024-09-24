@@ -9,8 +9,9 @@ import {
 import "@xyflow/react/dist/style.css";
 import { useCallback } from "react";
 import DevTools from "./DevTool/DevTools";
-import { dummyData } from "./libs/dummy";
-import ImageNode from "./ImageNode";
+import { dummyData } from "./lib/dummy";
+import ImageNode from "./components/ImageNode";
+import Sidebar from "./components/Sidebar";
 
 const nodeTypes = {
     image: ImageNode,
@@ -60,6 +61,7 @@ const App = () => {
             >
                 <DevTools></DevTools>
             </ReactFlow>
+            <Sidebar></Sidebar>
         </div>
     );
 };
