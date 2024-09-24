@@ -1,28 +1,35 @@
 import { Handle, Position } from "@xyflow/react";
-import { Node } from "./libs/type";
+import { ImageNodeType } from "./libs/type";
 
 // Spread the handlers throughout the node based on the number of sources and targets
-const ImageNode = ({ data }: Node) => {
+
+interface Props {
+    data: ImageNodeType["data"];
+}
+
+const ImageNode = ({ data }: Props) => {
     return (
         <>
-            {Array.from({ length: data.numOfTargets }).map((_, index) => (
+            {data.sourceHandles.map((handle) => (
                 <Handle
-                    key={index}
-                    id={`target-${index}`}
-                    type="target"
-                    position={Position.Bottom}
-                    style={{ background: "#555" }}
-                />
-            ))}
-            {Array.from({ length: data.numOfSources }).map((_, index) => (
-                <Handle
-                    key={index}
-                    id={`source-${index}`}
+                    key={handle.id}
+                    id={handle.id}
                     type="source"
                     position={Position.Top}
                     style={{ background: "#555" }}
                 />
             ))}
+
+            {data.targetHandles.map((handle) => (
+                <Handle
+                    key={handle.id}
+                    id={handle.id}
+                    type="target"
+                    position={Position.Bottom}
+                    style={{ background: "#555" }}
+                />
+            ))}
+
             <div>
                 <img
                     className="aspect-square object-cover rounded-lg"

@@ -1,4 +1,4 @@
-import { Edge, type Node } from "@xyflow/react";
+import { Edge, Node } from "@xyflow/react";
 export type ImageNodeData = {
     imageSrc: string;
     width?: number;
@@ -7,9 +7,9 @@ export type ImageNodeData = {
     targetHandles: { id: string }[];
 };
 
-export type ImageNode = Node<ImageNodeData, "image">;
+export type ImageNodeType = Node<ImageNodeData, "image">;
 
 export type ChartData = {
-    nodes: Node[];
+    nodes: ImageNodeType[];
     edges: Edge[];
 };

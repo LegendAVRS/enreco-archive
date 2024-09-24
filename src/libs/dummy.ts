@@ -10,6 +10,8 @@ export const dummyData: ChartData = {
                 height: 100,
                 imageSrc:
                     "https://static.miraheze.org/hololivewiki/0/03/Gigi_Murin_-_Portrait_01.png",
+                sourceHandles: [{ id: "1" }],
+                targetHandles: [{ id: "2" }],
             },
             position: {
                 x: 100,
@@ -24,6 +26,8 @@ export const dummyData: ChartData = {
                 height: 100,
                 imageSrc:
                     "https://i1.sndcdn.com/artworks-ScX2qTn4KewPXHjJ-6WGqZA-t500x500.jpg",
+                sourceHandles: [{ id: "1" }],
+                targetHandles: [{ id: "2" }],
             },
             position: {
                 x: 300,
@@ -38,6 +42,8 @@ export const dummyData: ChartData = {
                 height: 100,
                 imageSrc:
                     "https://yt3.googleusercontent.com/RZ4Fp3L6_zyq6YA7s5WnH8-22iezMLwdJhtkBgs_EAb06mvMCnF59JKMNu9YPCqb7nhaeXMdPvY=s900-c-k-c0x00ffffff-no-rj",
+                sourceHandles: [{ id: "1" }],
+                targetHandles: [{ id: "2" }],
             },
             position: {
                 x: 500,
