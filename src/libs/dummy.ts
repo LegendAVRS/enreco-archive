@@ -15,7 +15,7 @@ export const dummyData: ChartData = {
                 x: 100,
                 y: 100,
             },
-            type: "imageNode",
+            type: "image",
         },
         {
             id: "2",
@@ -29,7 +29,7 @@ export const dummyData: ChartData = {
                 x: 300,
                 y: 100,
             },
-            type: "imageNode",
+            type: "image",
         },
         {
             id: "3",
@@ -43,7 +43,7 @@ export const dummyData: ChartData = {
                 x: 500,
                 y: 100,
             },
-            type: "imageNode",
+            type: "image",
         },
     ],
     edges: [

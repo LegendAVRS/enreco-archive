@@ -1,30 +1,28 @@
-import { ReactFlow } from "@xyflow/react";
+import { ReactFlow, useEdgesState, useNodesState } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import DevTools from "./DevTool/DevTools";
-import { dummyData } from "./libs/dummy";
 import ImageNode from "./ImageNode";
-import { useEffect } from "react";
-import { calculateHandlers } from "./libs/helper";
+import { dummyData } from "./libs/dummy";
 
 const nodeTypes = {
-    imageNode: ImageNode,
+    image: ImageNode,
 };
 
 const App = () => {
     const data = dummyData;
-    useEffect(() => {
-        calculateHandlers(data);
-        console.log(data);
-    }, [data]);
+    const [nodes, , onNodesChange] = useNodesState(data.nodes);
+    const [edges, , onEdgesChange] = useEdgesState(data.edges);
     return (
         <div className="w-screen h-screen">
             <ReactFlow
-                nodes={data.nodes}
-                edges={data.edges}
+                nodes={nodes}
+                edges={edges}
                 nodeTypes={nodeTypes}
                 snapGrid={[15, 15]}
                 snapToGrid={true}
                 fitView
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
             >
                 <DevTools></DevTools>
             </ReactFlow>

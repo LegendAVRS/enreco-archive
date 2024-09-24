@@ -1,27 +1,13 @@
-export type Node = {
-    id: string;
-    data: {
-        imageSrc: string;
-        width?: number;
-        height?: number;
-        numOfTargets?: number; // How many nodes goes into this node
-        numOfSources?: number; // How many nodes goes out of this node
-    };
-    position: {
-        x: number;
-        y: number;
-    };
-    type: "imageNode";
+import { Edge, type Node } from "@xyflow/react";
+export type ImageNodeData = {
+    imageSrc: string;
+    width?: number;
+    height?: number;
+    sourceHandles: { id: string }[];
+    targetHandles: { id: string }[];
 };
 
-export type EdgeType = "Marriage" | "Romaintic";
-
-export type Edge = {
-    type: "step";
-    id: string;
-    source: string;
-    target: string;
-};
+export type ImageNode = Node<ImageNodeData, "image">;
 
 export type ChartData = {
     nodes: Node[];
