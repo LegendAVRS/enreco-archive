@@ -1,3 +1,4 @@
+import { MarkerType } from "@xyflow/react";
 import { ChartData } from "./type";
 
 // Dummy data
@@ -54,16 +55,24 @@ export const dummyData: ChartData = {
     ],
     edges: [
         {
-            type: "step",
+            type: "relationship",
             id: "1",
             source: "1",
             target: "2",
+            data: {
+                relationshipType: "romantic",
+                description: "They are in love",
+            },
         },
         {
-            type: "step",
+            type: "relationship",
             id: "2",
             source: "2",
             target: "3",
+            data: {
+                relationshipType: "family",
+                description: "They are siblings",
+            },
         },
     ],
 };
