@@ -8,6 +8,8 @@ interface ChartContextProps {
     setEdgeVisibilities: SetVisibility;
     nodeVisibilities: Visibility;
     setNodeVisibilities: SetVisibility;
+    day: number;
+    setDay: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const ChartContext = createContext<ChartContextProps | undefined>(undefined);
@@ -21,6 +23,7 @@ export const ChartProvider: React.FC<{ children: ReactNode }> = ({
     const [nodeVisibilities, setNodeVisibilities] = useState<
         Record<string, boolean>
     >({});
+    const [day, setDay] = useState<number>(0);
     return (
         <ChartContext.Provider
             value={{
@@ -28,6 +31,8 @@ export const ChartProvider: React.FC<{ children: ReactNode }> = ({
                 setEdgeVisibilities,
                 nodeVisibilities,
                 setNodeVisibilities,
+                day,
+                setDay,
             }}
         >
             {children}
