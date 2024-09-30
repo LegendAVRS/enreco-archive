@@ -12,9 +12,14 @@ import { useCallback } from "react";
 import ImageNode from "./components/ImageNode";
 import DevTools from "./DevTool/DevTools";
 import { dummyData } from "./lib/dummy";
+import CustomEdge from "@/components/CustomEdge";
 
 const nodeTypes = {
     image: ImageNode,
+};
+
+const edgeTypes = {
+    custom: CustomEdge,
 };
 
 const App = () => {
@@ -53,6 +58,7 @@ const App = () => {
                 nodes={nodes}
                 edges={edges}
                 nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
                 fitView
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}

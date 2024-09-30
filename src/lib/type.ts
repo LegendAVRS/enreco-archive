@@ -15,7 +15,7 @@ export type RelationshipEdgeData = {
 };
 
 export type ImageNodeType = Node<ImageNodeData, "image">;
-export type RelationshipEdgeType = Edge<RelationshipEdgeData, "relationship">;
+export type RelationshipEdgeType = Edge<RelationshipEdgeData, "custom">;
 
 export type ChartData = {
     nodes: ImageNodeType[];

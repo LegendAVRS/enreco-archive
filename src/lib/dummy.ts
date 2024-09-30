@@ -1,6 +1,7 @@
 import { ChartData } from "./type";
 
 // Dummy data
+const edgeType = "custom";
 export const dummyData: ChartData = {
     nodes: [
         {
@@ -54,16 +55,22 @@ export const dummyData: ChartData = {
     ],
     edges: [
         {
-            type: "step",
+            type: edgeType,
             id: "1",
             source: "1",
             target: "2",
+            data: {
+                relationshipType: "romantic",
+            },
         },
         {
-            type: "step",
+            type: edgeType,
             id: "2",
             source: "2",
             target: "3",
+            data: {
+                relationshipType: "family",
+            },
         },
     ],
 };
