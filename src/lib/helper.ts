@@ -23,3 +23,23 @@ export const getEdgeStyle = (
         strokeDasharray,
     };
 };
+
+/**
+ * Map an object into Record<string, boolean> for visibility.
+ */
+export const mapObjToStringBoolObj = (object: Record<string, any>) => {
+    return Object.keys(object).reduce((acc, key) => {
+        acc[key] = true;
+        return acc;
+    }, {} as Record<string, boolean>);
+};
+
+/**
+ * Map an array of strings into Record<string, boolean> for visibility.
+ */
+export const mapArrayToStringBoolObj = (arr: string[]) => {
+    return arr.reduce((acc, key) => {
+        acc[key] = true;
+        return acc;
+    }, {} as Record<string, boolean>);
+};

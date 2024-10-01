@@ -1,13 +1,24 @@
 import { Handle, Position } from "@xyflow/react";
 import { ImageNodeType } from "../lib/type";
-
-// Spread the handlers throughout the node based on the number of sources and targets
+import { useChartContext } from "@/context/useChartContext";
 
 interface Props {
     data: ImageNodeType["data"];
 }
 
+const getVisibilityStyle = (
+    guild: string,
+    guildVisibilities: Record<string, boolean>
+) => {
+    const opacity = guildVisibilities[guild] ? "1" : "0.3";
+    return {
+        opacity,
+    };
+};
+
 const ImageNode = ({ data }: Props) => {
+    const { guildVisibilities } = useChartContext();
+    const visibilityStyle = getVisibilityStyle(data.guild, guildVisibilities);
     return (
         <>
             {data.sourceHandles.map((handle) => (
@@ -30,13 +41,12 @@ const ImageNode = ({ data }: Props) => {
                 />
             ))}
 
-            <div>
-                <img
-                    className="aspect-square object-cover rounded-lg"
-                    width={100}
-                    src={data.imageSrc}
-                />
-            </div>
+            <img
+                className="aspect-square object-cover rounded-lg transition-all"
+                width={100}
+                src={data.imageSrc}
+                style={visibilityStyle}
+            />
         </>
     );
 };

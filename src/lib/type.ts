@@ -5,6 +5,7 @@ export type ImageNodeData = {
     height?: number;
     sourceHandles: { id: string }[];
     targetHandles: { id: string }[];
+    guild: string;
 };
 
 export type RelationshipEdgeData = {
@@ -16,18 +17,24 @@ export type RelationshipEdgeData = {
 
 export type ImageNodeType = Node<ImageNodeData, "image">;
 export type RelationshipEdgeType = Edge<RelationshipEdgeData, "custom">;
-
-export type ChartData = {
-    nodes: ImageNodeType[];
-    edges: RelationshipEdgeType[];
-};
-
 export type RelationshipType = Record<
     string,
     { color: string; decoration: string }
 >;
 
-export const relationshipTypes: RelationshipType = {
+export type ChartData = {
+    nodes: ImageNodeType[];
+    edges: RelationshipEdgeType[];
+    guilds: {
+        [key: string]: {
+            name: string;
+            iconSrc: string;
+        };
+    };
+    relationshipTypes: RelationshipType;
+};
+
+export const tempRelationshipTypes: RelationshipType = {
     romantic: {
         color: "red",
         decoration: "solid",
