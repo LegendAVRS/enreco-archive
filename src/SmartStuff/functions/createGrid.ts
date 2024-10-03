@@ -68,6 +68,9 @@ export const createGrid = (
         gridRatio
     );
 
+    // console.log("startGrid", startGrid);
+    // console.log(grid);
+
     // Guarantee a walkable path between the start and end points, even if the
     // source or target where covered by another node or by padding
     const startingNode = grid.getNodeAt(startGrid.x, startGrid.y);

@@ -42,16 +42,16 @@ export const getBoundingBoxes = <NodeDataType = unknown>(
     let yMax = Number.MIN_SAFE_INTEGER;
     let xMin = Number.MAX_SAFE_INTEGER;
     let yMin = Number.MAX_SAFE_INTEGER;
-
     const nodeBoxes: NodeBoundingBox[] = nodes.map((node) => {
-        const width = Math.max(node.width || 0, 1);
-        const height = Math.max(node.height || 0, 1);
+        const width = Math.max(node.data.width || 0, 1);
+        const height = Math.max(node.data.height || 0, 1);
 
         const position: XYPosition = {
-            x: node.positionAbsolute?.x || 0,
-            y: node.positionAbsolute?.y || 0,
+            x: node.position?.x || 0,
+            y: node.position?.y || 0,
         };
 
+        // console.log(position);
         const topLeft: XYPosition = {
             x: position.x - nodePadding,
             y: position.y - nodePadding,

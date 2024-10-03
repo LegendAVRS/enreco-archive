@@ -8,11 +8,10 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useCallback } from "react";
-import DevTools from "./DevTool/DevTools";
-import { dummyData } from "./lib/dummy";
 import ImageNode from "./components/ImageNode";
 import Sidebar from "./components/Sidebar";
-import { RelationshipEdge } from "./components/RelationshipEdge";
+import DevTools from "./DevTool/DevTools";
+import { dummyData } from "./lib/dummy";
 import SmartStepEdge from "./SmartStuff/SmartStepEdge";
 
 const nodeTypes = {

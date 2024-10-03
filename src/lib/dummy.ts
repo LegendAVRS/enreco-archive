@@ -47,8 +47,8 @@ export const dummyData: ChartData = {
                 targetHandles: [{ id: "2" }],
             },
             position: {
-                x: 500,
-                y: 100,
+                x: 300,
+                y: 500,
             },
             type: "image",
         },
@@ -58,7 +58,7 @@ export const dummyData: ChartData = {
             type: "relationship",
             id: "1",
             source: "1",
-            target: "2",
+            target: "3",
             data: {
                 relationshipType: "romantic",
                 description: "They are in love",
