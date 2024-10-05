@@ -51,7 +51,6 @@ export const getBoundingBoxes = <NodeDataType = unknown>(
             y: node.position?.y || 0,
         };
 
-        // console.log(position);
         const topLeft: XYPosition = {
             x: position.x - nodePadding,
             y: position.y - nodePadding,

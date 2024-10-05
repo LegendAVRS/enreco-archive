@@ -1,3 +1,4 @@
+// index.ts
 import { EdgeProps, Node } from "@xyflow/react";
 import {
     createGrid,
@@ -12,6 +13,7 @@ import type {
     PathFindingFunction,
     SVGDrawFunction,
 } from "../functions";
+import { printGrid } from "@/lib/helper";
 
 export type EdgeParams = Pick<
     EdgeProps,
@@ -57,12 +59,10 @@ export const getSmartEdge = <NodeDataType = unknown>({
             generatePath = pathfindingAStarDiagonal,
         } = options;
 
-        let { gridRatio = 10, nodePadding = 10 } = options;
+        let { gridRatio = 5, nodePadding = 8 } = options;
         gridRatio = toInteger(gridRatio);
         nodePadding = toInteger(nodePadding);
 
-        // We use the node's information to generate bounding boxes for them
-        // and the graph
         const { graphBox, nodeBoxes } = getBoundingBoxes<NodeDataType>(
             nodes,
             nodePadding,
@@ -81,8 +81,6 @@ export const getSmartEdge = <NodeDataType = unknown>({
             position: targetPosition,
         };
 
-        // With this information, we can create a 2D grid representation of
-        // our graph, that tells us where in the graph there is a "free" space or not
         const { grid, start, end } = createGrid(
             graphBox,
             nodeBoxes,
@@ -91,7 +89,6 @@ export const getSmartEdge = <NodeDataType = unknown>({
             gridRatio
         );
 
-        // We then can use the grid representation to do pathfinding
         const generatePathResult = generatePath(grid, start, end);
 
         if (generatePathResult === null) {
@@ -99,8 +96,13 @@ export const getSmartEdge = <NodeDataType = unknown>({
         }
 
         const { fullPath, smoothedPath } = generatePathResult;
+        fullPath.forEach(([x, y]) => {
+            // grid.setWalkableAt(x, y, false);
+            console.log(x, y);
+            grid.setWeightAt(x, y, 10);
+        });
+        console.log(printGrid(grid), start, end);
 
-        // Here we convert the grid path to a sequence of graph coordinates.
         const graphPath = smoothedPath.map((gridPoint) => {
             const [x, y] = gridPoint;
             const graphPoint = gridToGraphPoint(
@@ -112,11 +114,8 @@ export const getSmartEdge = <NodeDataType = unknown>({
             return [graphPoint.x, graphPoint.y];
         });
 
-        // Finally, we can use the graph path to draw the edge
         const svgPathString = drawEdge(source, target, graphPath);
 
-        // Compute the edge's middle point using the full path, so users can use
-        // it to position their custom labels
         const index = Math.floor(fullPath.length / 2);
         const middlePoint = fullPath[index];
         const [middleX, middleY] = middlePoint;
@@ -126,6 +125,8 @@ export const getSmartEdge = <NodeDataType = unknown>({
             graphBox.yMin,
             gridRatio
         );
+
+        // Mark the path as non-walkable in the global grid
 
         return { svgPathString, edgeCenterX, edgeCenterY };
     } catch {

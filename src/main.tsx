@@ -1,13 +1,10 @@
-import { StrictMode } from "react";
+import { ReactFlowProvider } from "@xyflow/react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { ReactFlowProvider } from "@xyflow/react";
 
 createRoot(document.getElementById("root")!).render(
-    <StrictMode>
-        <ReactFlowProvider>
-            <App />
-        </ReactFlowProvider>
-    </StrictMode>
+    <ReactFlowProvider>
+        <App />
+    </ReactFlowProvider>
 );

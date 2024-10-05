@@ -6,13 +6,10 @@
 	@typescript-eslint/ban-ts-comment,
 */
 import { XYPosition } from "@xyflow/react";
-import {
-    AStarFinder,
-    JumpPointFinder,
-    Util,
-    DiagonalMovement,
-} from "pathfinding";
 import type { Grid } from "pathfinding";
+import { AStarFinder, DiagonalMovement, Util } from "pathfinding";
+import JPFNeverMoveDiagonally from "../JPFNeverMoveDiagonally";
+import CustomAStarFinder from "@/SmartStuff/functions/CustomAStarFinder";
 
 /**
  * Takes source and target {x, y} points, together with an grid representation
@@ -42,7 +39,7 @@ export const pathfindingAStarDiagonal: PathFindingFunction = (
         const smoothedPath = Util.smoothenPath(grid, fullPath);
         if (fullPath.length === 0 || smoothedPath.length === 0) return null;
         return { fullPath, smoothedPath };
-    } catch {
+    } catch (e) {
         return null;
     }
 };
@@ -73,14 +70,29 @@ export const pathfindingJumpPointNoDiagonal: PathFindingFunction = (
     try {
         // FIXME: The "pathfinding" module doe not have proper typings.
         // @ts-ignore
-        const finder = new JumpPointFinder({
+        // Replace this with newly created jumppoint
+        const finder = new AStarFinder({
             diagonalMovement: DiagonalMovement.Never,
+            heuristic: function (dx, dy) {
+                // Heuristic that encourages straight paths, penalizing turns
+                return Math.min(Math.abs(dx), Math.abs(dy));
+            },
         });
-        const fullPath = finder.findPath(start.x, start.y, end.x, end.y, grid);
+
+        const fullPath = finder.findPath(
+            start.x,
+            start.y,
+            end.x,
+            end.y,
+            grid.clone()
+        );
+
         const smoothedPath = fullPath;
+        // console.log(start.x, start.y, end.x, end.y, grid, smoothedPath);
         if (fullPath.length === 0 || smoothedPath.length === 0) return null;
         return { fullPath, smoothedPath };
-    } catch {
+    } catch (e) {
+        console.log(e);
         return null;
     }
 };

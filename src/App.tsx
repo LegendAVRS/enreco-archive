@@ -1,73 +1,45 @@
-import {
-    EdgeMouseHandler,
-    NodeMouseHandler,
-    ReactFlow,
-    useEdgesState,
-    useNodesState,
-    useReactFlow,
-} from "@xyflow/react";
+import { useEffect, useState } from "react";
 import "@xyflow/react/dist/style.css";
-import { useCallback } from "react";
-import ImageNode from "./components/ImageNode";
-import Sidebar from "./components/Sidebar";
 import DevTools from "./DevTool/DevTools";
-import { dummyData } from "./lib/dummy";
-import SmartStepEdge from "./SmartStuff/SmartStepEdge";
+import ImageNode from "@/components/ImageNode";
+import SmartStepEdge from "@/SmartStuff/SmartStepEdge";
+import { dummyData } from "@/lib/dummy";
+import { calculateHandles, calculatePositions } from "@/lib/helper";
+import { ReactFlow } from "@xyflow/react";
 
 const nodeTypes = {
-    image: ImageNode,
+    imageNode: ImageNode,
 };
 
 const edgeTypes = {
-    relationship: SmartStepEdge,
+    smart: SmartStepEdge,
 };
 
 const App = () => {
     const data = dummyData;
-    const [nodes, , onNodesChange] = useNodesState(data.nodes);
-    const [edges, , onEdgesChange] = useEdgesState(data.edges);
-    const { fitView, setCenter, getNode } = useReactFlow();
-
-    const handleNodeClick = useCallback<NodeMouseHandler>(
-        (_, node) => {
-            fitView({ nodes: [node], duration: 500 });
-        },
-        [fitView]
-    );
-
-    const handleEdgeClick = useCallback<EdgeMouseHandler>(
-        (_, edge) => {
-            const nodeA = getNode(edge.source);
-            const nodeB = getNode(edge.target);
-            if (nodeA && nodeB) {
-                setCenter(
-                    (nodeA.position.x + nodeB.position.x) / 2,
-                    (nodeA.position.y + nodeB.position.y) / 2,
-                    {
-                        duration: 500,
-                    }
-                );
-            }
-        },
-        [setCenter, getNode]
-    );
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        calculateHandles(data);
+        calculatePositions(data);
+        setLoading(false);
+    }, [data]);
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="w-screen h-screen">
             <ReactFlow
-                nodes={nodes}
-                edges={edges}
+                nodes={data.nodes}
+                edges={data.edges}
                 nodeTypes={nodeTypes}
                 edgeTypes={edgeTypes}
+                draggable={false}
                 fitView
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                onNodeClick={handleNodeClick}
-                onEdgeClick={handleEdgeClick}
+                maxZoom={3}
             >
                 <DevTools></DevTools>
             </ReactFlow>
-            <Sidebar></Sidebar>
         </div>
     );
 };

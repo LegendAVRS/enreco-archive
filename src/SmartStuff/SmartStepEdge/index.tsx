@@ -23,6 +23,7 @@ export default function SmartStepEdge<
             {...props}
             options={StepConfiguration}
             nodes={nodes}
+            interactionWidth={8}
         />
     );
 }

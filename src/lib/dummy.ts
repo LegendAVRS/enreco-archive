@@ -1,78 +1,103 @@
-import { MarkerType } from "@xyflow/react";
-import { ChartData } from "./type";
+import { Edge } from "@xyflow/react";
+import { ChartData, ImageNode } from "./type";
 
-// Dummy data
-export const dummyData: ChartData = {
+const generateDummyData = (numOfNodes: number): ChartData => {
+    const nodes: ImageNode[] = Array.from({ length: numOfNodes }).map(
+        (_, index) => {
+            return {
+                id: index.toString(),
+                data: {
+                    width: 100,
+                    height: 100,
+                    imageSrc: `https://picsum.photos/200?random=${index}`,
+                },
+                position: {
+                    x: 0,
+                    y: 0,
+                },
+                type: "imageNode",
+            };
+        }
+    );
+
+    const edges: Edge[] = [];
+    for (let i = 0; i < numOfNodes; i++) {
+        for (let j = i + 1; j < numOfNodes; j++) {
+            edges.push({
+                type: "smart",
+                id: `${i}-${j}`,
+                source: i.toString(),
+                target: j.toString(),
+            });
+        }
+    }
+
+    return { nodes, edges };
+};
+
+export const hardCodeDummy: ChartData = {
     nodes: [
+        {
+            id: "0",
+            data: {
+                width: 100,
+                height: 100,
+                imageSrc: "https://picsum.photos/200?random=0",
+            },
+            position: {
+                x: 0,
+                y: 0,
+            },
+            type: "imageNode",
+        },
         {
             id: "1",
             data: {
                 width: 100,
                 height: 100,
-                imageSrc:
-                    "https://static.miraheze.org/hololivewiki/0/03/Gigi_Murin_-_Portrait_01.png",
-                sourceHandles: [{ id: "1" }],
-                targetHandles: [{ id: "2" }],
+                imageSrc: "https://picsum.photos/200?random=1",
             },
             position: {
-                x: 100,
-                y: 100,
+                x: 200,
+                y: 0,
             },
-            type: "image",
+            type: "imageNode",
         },
         {
             id: "2",
             data: {
                 width: 100,
                 height: 100,
-                imageSrc:
-                    "https://i1.sndcdn.com/artworks-ScX2qTn4KewPXHjJ-6WGqZA-t500x500.jpg",
-                sourceHandles: [{ id: "1" }],
-                targetHandles: [{ id: "2" }],
+                imageSrc: "https://picsum.photos/200?random=1",
             },
             position: {
-                x: 300,
-                y: 100,
+                x: 200,
+                y: 200,
             },
-            type: "image",
-        },
-        {
-            id: "3",
-            data: {
-                width: 100,
-                height: 100,
-                imageSrc:
-                    "https://yt3.googleusercontent.com/RZ4Fp3L6_zyq6YA7s5WnH8-22iezMLwdJhtkBgs_EAb06mvMCnF59JKMNu9YPCqb7nhaeXMdPvY=s900-c-k-c0x00ffffff-no-rj",
-                sourceHandles: [{ id: "1" }],
-                targetHandles: [{ id: "2" }],
-            },
-            position: {
-                x: 300,
-                y: 500,
-            },
-            type: "image",
+            type: "imageNode",
         },
     ],
     edges: [
         {
-            type: "relationship",
-            id: "1",
-            source: "1",
-            target: "3",
-            data: {
-                relationshipType: "romantic",
-                description: "They are in love",
-            },
+            type: "smart",
+            id: "0",
+            source: "0",
+            target: "2",
         },
         {
-            type: "relationship",
+            type: "smart",
+            id: "1",
+            source: "0",
+            target: "1",
+        },
+        {
+            type: "smart",
             id: "2",
-            source: "2",
-            target: "3",
-            data: {
-                relationshipType: "family",
-                description: "They are siblings",
-            },
+            source: "1",
+            target: "2",
         },
     ],
 };
+
+export const dummyData = generateDummyData(9);
+// export const dummyData = hardCodeDummy;
