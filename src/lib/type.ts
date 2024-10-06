@@ -3,8 +3,8 @@ export type ImageNodeData = {
     imageSrc: string;
     width?: number;
     height?: number;
-    sourceHandles: { id: string }[];
-    targetHandles: { id: string }[];
+    sourceHandles?: { id: string }[];
+    targetHandles?: { id: string }[];
 };
 
 export type ImageNodeType = Node<ImageNodeData, "image">;
