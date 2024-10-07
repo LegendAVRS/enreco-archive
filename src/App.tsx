@@ -1,7 +1,12 @@
 import { useEditorContext } from "@/context/useEditorContext";
 import useEditor from "@/hooks/useEditor";
 import useKeyboard from "@/hooks/useKeyboard";
-import { ReactFlow, useEdgesState, useNodesState } from "@xyflow/react";
+import {
+    ConnectionMode,
+    ReactFlow,
+    useEdgesState,
+    useNodesState,
+} from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import ImageNode from "./components/ImageNode";
 import Sidebar from "./components/Sidebar";
@@ -15,8 +20,8 @@ const nodeTypes = {
 const App = () => {
     const data = dummyData;
     const [nodes, setNodes, onNodesChange] = useNodesState(data.nodes);
-    const [edges, , onEdgesChange] = useEdgesState(data.edges);
-    const { addNode, deleteElement } = useEditor(nodes, setNodes);
+    const [edges, setEdges, onEdgesChange] = useEdgesState(data.edges);
+    const { addNode, deleteElement, connectEdge } = useEditor(nodes, setNodes);
     const { mode } = useEditorContext();
 
     useKeyboard();
@@ -31,11 +36,9 @@ const App = () => {
             return;
         }
         if (mode === "view") {
-            console.log("view");
             return;
         }
         if (mode === "edit") {
-            console.log("edit");
             return;
         }
     };
@@ -53,8 +56,12 @@ const App = () => {
                 onClick={(e) => {
                     handleClick(e);
                 }}
+                onConnect={(params) => {
+                    connectEdge(params, setEdges);
+                }}
                 snapToGrid
                 snapGrid={[100, 100]}
+                connectionMode={ConnectionMode.Loose}
             >
                 <DevTools></DevTools>
             </ReactFlow>

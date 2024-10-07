@@ -1,12 +1,15 @@
+import useFlowState from "@/hooks/useFlowState";
 import { ImageNodeType } from "@/lib/type";
-import { useReactFlow } from "@xyflow/react";
+import { useReactFlow, addEdge } from "@xyflow/react";
 
 const useEditor = (
     nodes: ImageNodeType[],
     setNodes: React.Dispatch<React.SetStateAction<ImageNodeType[]>>
 ) => {
+    const { screenToFlowPosition, deleteElements } = useReactFlow();
+    const { selectedEdge, selectedNode } = useFlowState();
+
     // Add a new image node at the the given position
-    const { screenToFlowPosition } = useReactFlow();
     const addNode = (x: number, y: number) => {
         const newNode: ImageNodeType = {
             id: `node-${nodes.length}`,
@@ -20,11 +23,27 @@ const useEditor = (
         setNodes((nds) => nds.concat(newNode));
     };
 
+    // @ts-expect-error Define type later, red lines annoying
+    const connectEdge = (params, setEdges) => {
+        // @ts-expect-error Define type later, red lines annoying
+        setEdges((eds) => addEdge(params, eds));
+    };
+
     // Delete selected node
     const deleteElement = () => {
+        if (selectedNode) {
+            deleteElements({
+                nodes: [selectedNode],
+            });
+        }
+        if (selectedEdge) {
+            deleteElements({
+                edges: [selectedEdge],
+            });
+        }
         return;
     };
-    return { addNode, deleteElement };
+    return { addNode, deleteElement, connectEdge };
 };
 
 export default useEditor;
