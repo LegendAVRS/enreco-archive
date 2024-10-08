@@ -25,6 +25,7 @@ const useEditor = (
 
     // @ts-expect-error Define type later, red lines annoying
     const connectEdge = (params, setEdges) => {
+        params.type = "smoothstep";
         // @ts-expect-error Define type later, red lines annoying
         setEdges((eds) => addEdge(params, eds));
     };

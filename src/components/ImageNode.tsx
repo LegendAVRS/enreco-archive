@@ -68,7 +68,7 @@ const ImageNode = ({ data, id }: ImageNodeType) => {
     ));
     useEffect(() => {
         updateNodeInternals(id);
-    }, [handles, id]);
+    }, [handles, id, updateNodeInternals]);
     return (
         <>
             {handleElements}

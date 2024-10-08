@@ -2,7 +2,9 @@ import { useEditorContext } from "@/context/useEditorContext";
 import useEditor from "@/hooks/useEditor";
 import useKeyboard from "@/hooks/useKeyboard";
 import {
+    ConnectionLineType,
     ConnectionMode,
+    EdgeTypes,
     ReactFlow,
     useEdgesState,
     useNodesState,
@@ -62,6 +64,7 @@ const App = () => {
                 snapToGrid
                 snapGrid={[100, 100]}
                 connectionMode={ConnectionMode.Loose}
+                connectionLineType={ConnectionLineType.SmoothStep}
             >
                 <DevTools></DevTools>
             </ReactFlow>
