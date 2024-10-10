@@ -1,4 +1,4 @@
-import { ChartData } from "./type";
+import { ChartData, RelationshipStyle } from "./type";
 
 // Dummy data
 export const dummyData: ChartData = {
@@ -54,16 +54,25 @@ export const dummyData: ChartData = {
     ],
     edges: [
         {
-            type: "step",
+            type: "custom",
             id: "1",
             source: "1",
             target: "2",
         },
         {
-            type: "step",
+            type: "custom",
             id: "2",
             source: "2",
             target: "3",
         },
     ],
+};
+
+export const dummyRelationships: RelationshipStyle = {
+    romantic: {
+        stroke: "red",
+    },
+    family: {
+        stroke: "blue",
+    },
 };

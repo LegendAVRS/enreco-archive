@@ -5,7 +5,7 @@ import {
     useUpdateNodeInternals,
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
-import { ImageNodeType } from "../lib/type";
+import { ImageNodeProps } from "../lib/type";
 
 // Number of handles per side
 const NUM_OF_HANDLES = 5;
@@ -47,7 +47,7 @@ const generateHandles = (numOfHandles: number) => {
     return handles;
 };
 
-const ImageNode = ({ data, id }: ImageNodeType) => {
+const ImageNode = ({ data, id }: ImageNodeProps) => {
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
     const updateNodeInternals = useUpdateNodeInternals();
     const handleElements = handles.map((handle) => (

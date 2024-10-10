@@ -4,7 +4,6 @@ import useKeyboard from "@/hooks/useKeyboard";
 import {
     ConnectionLineType,
     ConnectionMode,
-    EdgeTypes,
     ReactFlow,
     useEdgesState,
     useNodesState,
@@ -14,9 +13,14 @@ import ImageNode from "./components/ImageNode";
 import Sidebar from "./components/Sidebar";
 import DevTools from "./DevTool/DevTools";
 import { dummyData } from "./lib/dummy";
+import CustomEdge from "@/components/CustomEdge";
 
 const nodeTypes = {
     image: ImageNode,
+};
+
+const edgeTypes = {
+    custom: CustomEdge,
 };
 
 const App = () => {
@@ -51,6 +55,7 @@ const App = () => {
                 nodes={nodes}
                 edges={edges}
                 nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
                 fitView
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
