@@ -1,4 +1,4 @@
-import { ChartContext, ChartContextProps } from "@/context/chartProvider";
+import { ChartContext, ChartContextProps } from "@/context/ChartProvider";
 import { useContext } from "react";
 
 export const useChartContext = (): ChartContextProps => {

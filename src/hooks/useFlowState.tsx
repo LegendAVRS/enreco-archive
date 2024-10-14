@@ -1,10 +1,10 @@
-import { ImageNodeType } from "@/lib/type";
-import { Edge, useOnSelectionChange } from "@xyflow/react";
+import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { useOnSelectionChange } from "@xyflow/react";
 import { useCallback, useState } from "react";
 
 const useFlowState = () => {
     const [selectedNode, setSelectedNode] = useState<ImageNodeType>();
-    const [selectedEdge, setSelectedEdge] = useState<Edge>();
+    const [selectedEdge, setSelectedEdge] = useState<CustomEdgeType>();
 
     // @ts-expect-error Define type later, red lines annoying
     const onChange = useCallback(({ nodes, edges }) => {

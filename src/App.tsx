@@ -14,6 +14,8 @@ import Sidebar from "./components/Sidebar";
 import DevTools from "./DevTool/DevTools";
 import { dummyData } from "./lib/dummy";
 import CustomEdge from "@/components/CustomEdge";
+import { useChartContext } from "@/context/useChartContext";
+import EdgeEditorCard from "@/components/EdgeEditorCard";
 
 const nodeTypes = {
     image: ImageNode,
@@ -24,10 +26,15 @@ const edgeTypes = {
 };
 
 const App = () => {
-    const data = dummyData;
+    const { data } = useChartContext();
     const [nodes, setNodes, onNodesChange] = useNodesState(data.nodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(data.edges);
-    const { addNode, deleteElement, connectEdge } = useEditor(nodes, setNodes);
+    const { addNode, deleteElement, connectEdge } = useEditor(
+        nodes,
+        setNodes,
+        edges,
+        setEdges
+    );
     const { mode } = useEditorContext();
 
     useKeyboard();
@@ -74,7 +81,8 @@ const App = () => {
                 <DevTools></DevTools>
             </ReactFlow>
             <div className="top-10 right-5 absolute">{mode}</div>
-            <Sidebar></Sidebar>
+            {/* <Sidebar></Sidebar> */}
+            <EdgeEditorCard></EdgeEditorCard>
         </div>
     );
 };

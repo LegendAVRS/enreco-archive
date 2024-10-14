@@ -16,5 +16,7 @@ export default function PositionableEdge({
         targetX,
         targetY,
     });
+
+    console.log(data?.relationship);
     return <BaseEdge path={path} style={edgeStyle} />;
 }

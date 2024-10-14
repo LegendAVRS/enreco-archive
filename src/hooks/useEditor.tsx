@@ -1,10 +1,12 @@
 import useFlowState from "@/hooks/useFlowState";
-import { ImageNodeType } from "@/lib/type";
+import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import { useReactFlow, addEdge } from "@xyflow/react";
 
 const useEditor = (
     nodes: ImageNodeType[],
-    setNodes: React.Dispatch<React.SetStateAction<ImageNodeType[]>>
+    setNodes: React.Dispatch<React.SetStateAction<ImageNodeType[]>>,
+    edges: CustomEdgeType[],
+    setEdges: React.Dispatch<React.SetStateAction<CustomEdgeType[]>>
 ) => {
     const { screenToFlowPosition, deleteElements } = useReactFlow();
     const { selectedEdge, selectedNode } = useFlowState();
@@ -25,9 +27,19 @@ const useEditor = (
 
     // @ts-expect-error Define type later, red lines annoying
     const connectEdge = (params, setEdges) => {
-        params.type = "smoothstep";
+        params.type = "custom";
         // @ts-expect-error Define type later, red lines annoying
         setEdges((eds) => addEdge(params, eds));
+    };
+
+    // @ts-expect-error Define type later, red lines annoying
+    const updateEdge = (params, setEdges) => {
+        // Replace the edge with the same id with the new edge
+        // @ts-expect-error Define type later, red lines annoying
+
+        setEdges((eds) =>
+            eds.map((edge) => (edge.id === params.id ? params : edge))
+        );
     };
 
     // Delete selected node
@@ -44,7 +56,7 @@ const useEditor = (
         }
         return;
     };
-    return { addNode, deleteElement, connectEdge };
+    return { addNode, deleteElement, connectEdge, updateEdge };
 };
 
 export default useEditor;

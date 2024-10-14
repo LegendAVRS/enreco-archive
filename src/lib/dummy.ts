@@ -58,12 +58,18 @@ export const dummyData: ChartData = {
             id: "1",
             source: "1",
             target: "2",
+            data: {
+                relationship: "romantic",
+            },
         },
         {
             type: "custom",
             id: "2",
             source: "2",
             target: "3",
+            data: {
+                relationship: "family",
+            },
         },
     ],
 };
