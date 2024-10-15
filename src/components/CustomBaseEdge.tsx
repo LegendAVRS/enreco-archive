@@ -10,7 +10,7 @@ const ClickableBaseEdge = ({
     style,
     markerEnd,
     markerStart,
-    interactionWidth = 20,
+    interactionWidth = 5,
     onClick,
 }: CustomEdgeProps) => {
     return (
@@ -21,8 +21,10 @@ const ClickableBaseEdge = ({
                 d={path}
                 fill="none"
                 className="react-flow__edge-path"
-                markerEnd={markerEnd}
-                markerStart={markerStart}
+                // markerEnd={markerEnd}
+                // markerStart={markerStart}
+                onClick={onClick}
+                strokeWidth={interactionWidth}
             />
             {interactionWidth && (
                 <path

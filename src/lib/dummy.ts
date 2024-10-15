@@ -60,17 +60,19 @@ export const dummyData: ChartData = {
             target: "2",
             data: {
                 relationship: "romantic",
+                positionHandlers: [],
             },
         },
-        {
-            type: "custom",
-            id: "2",
-            source: "2",
-            target: "3",
-            data: {
-                relationship: "family",
-            },
-        },
+        // {
+        //     type: "custom",
+        //     id: "2",
+        //     source: "2",
+        //     target: "3",
+        //     data: {
+        //         relationship: "family",
+        //         positionHandlers: [],
+        //     },
+        // },
     ],
 };
 

@@ -9,6 +9,7 @@ export type ImageNodeData = {
 
 export type CustomEdgeData = {
     relationship: string;
+    positionHandlers?: { x: number; y: number }[];
 };
 
 export type ImageNodeType = Node<ImageNodeData, "image">;

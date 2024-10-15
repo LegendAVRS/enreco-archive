@@ -29,7 +29,6 @@ const EdgeEditorCard = () => {
         }
         const copyOfSelectedEdge = { ...selectedEdge };
         copyOfSelectedEdge.data.relationship = value;
-        console.log(value);
         updateEdge(copyOfSelectedEdge, setEdges);
     };
 

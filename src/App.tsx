@@ -13,16 +13,16 @@ import ImageNode from "./components/ImageNode";
 import Sidebar from "./components/Sidebar";
 import DevTools from "./DevTool/DevTools";
 import { dummyData } from "./lib/dummy";
-import CustomEdge from "@/components/CustomEdge";
 import { useChartContext } from "@/context/useChartContext";
 import EdgeEditorCard from "@/components/EdgeEditorCard";
+import NewCustomEdge from "@/components/AnotherCustomEdge";
 
 const nodeTypes = {
     image: ImageNode,
 };
 
 const edgeTypes = {
-    custom: CustomEdge,
+    custom: NewCustomEdge,
 };
 
 const App = () => {
