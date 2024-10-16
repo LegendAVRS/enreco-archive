@@ -1,3 +1,4 @@
+import { MarkerType } from "@xyflow/react";
 import { ChartData, RelationshipStyle } from "./type";
 
 // Dummy data
@@ -60,7 +61,12 @@ export const dummyData: ChartData = {
             target: "2",
             data: {
                 relationship: "romantic",
-                positionHandlers: [],
+            },
+            markerEnd: {
+                type: MarkerType.ArrowClosed,
+                width: 20,
+                height: 20,
+                color: "red",
             },
         },
         // {

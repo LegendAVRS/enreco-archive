@@ -1,10 +1,10 @@
-// disable typescript
-
 import { useEffect, useRef, useState } from "react";
 import { BaseEdge, EdgeLabelRenderer, useReactFlow } from "@xyflow/react";
 
 import { drag } from "d3-drag";
 import { select } from "d3-selection";
+import useEdgeStyle from "@/hooks/useEdgeStyle";
+import { CustomEdgeProps, CustomEdgeType } from "@/lib/type";
 
 //copied from reactflow lib - probably you can import this util directly from
 function getEdgeCenter({ sourceX, sourceY, targetX, targetY }) {
@@ -18,11 +18,11 @@ function getEdgeCenter({ sourceX, sourceY, targetX, targetY }) {
 }
 
 // just to store some data outside the function so we can avoid re-rendering
-let storeYVal = {};
-let storeXValBottom = {};
-let storeXValTop = {};
+const storeYVal = {};
+const storeXValBottom = {};
+const storeXValTop = {};
 
-let extraPoints = {};
+const extraPoints = {};
 
 const NewCustomEdge = ({
     id,
@@ -30,12 +30,13 @@ const NewCustomEdge = ({
     sourceY,
     targetX,
     targetY,
-    sourcePosition,
-    targetPosition,
+    data,
     markerEnd,
-    style = {},
-}) => {
-    const { centerX, centerY, xOffset, yOffset } = getEdgeCenter({
+    markerStart,
+}: CustomEdgeProps) => {
+    const { edgeStyle } = useEdgeStyle(data?.relationship);
+    console.log(id, edgeStyle);
+    const { centerX, centerY, yOffset } = getEdgeCenter({
         sourceX,
         sourceY,
         targetX,
@@ -45,11 +46,13 @@ const NewCustomEdge = ({
     const [labelPointX, setLabelPointX] = useState(storeXValBottom[id] || 0);
     const [labelPointXTop, setLabelPointXTop] = useState(storeXValTop[id] || 0);
     const [extraPointsPosState, setExtraPointsPosState] = useState({});
+
+    const [showDragLabels, setShowDragLabels] = useState(true);
+
     let zoom = 0;
 
-    const { getZoom, getEdges, setEdges } = useReactFlow();
-    const edges = getEdges();
-    let isSelected = true; //edges.find((edge) => edge.id === id && edge.selected);
+    const { getZoom, setEdges } = useReactFlow();
+    const isSelected = true; //edges.find((edge) => edge.id === id && edge.selected);
 
     zoom = getZoom();
 
@@ -115,10 +118,10 @@ const NewCustomEdge = ({
             );
         }
     }, []);
-    let isFirstExtraPoint = {};
+    const isFirstExtraPoint = {};
     useEffect(() => {
         if (labelPointX !== 0 || labelPointXTop !== 0) {
-            Object.keys(extraPoints).forEach((XtraPoint, index) => {
+            Object.keys(extraPoints).forEach((XtraPoint) => {
                 if (!isFirstExtraPoint[XtraPoint]) {
                     const d3Selection = select(
                         document.getElementById(XtraPoint)
@@ -154,7 +157,7 @@ const NewCustomEdge = ({
                 }
             });
         }
-    }, [labelPointX, labelPointXTop]);
+    }, [labelPointX, labelPointXTop, id, isFirstExtraPoint, setEdges, zoom]);
 
     function generateOrthogonalEdgePath(
         startX,
@@ -167,17 +170,16 @@ const NewCustomEdge = ({
         VToffset = 0
     ) {
         // Calculate horizontal and vertical distances
-        var dx = endX - startX;
-        var dy = endY - startY;
+        const dy = endY - startY;
 
         // Calculate the position for the horizontal line
-        var horizontalY = startY + dy / 2 - Hoffset;
+        const horizontalY = startY + dy / 2 - Hoffset;
 
         // Calculate the position for the vertical line
-        var verticalX = endX - padding + Voffset;
-        var verticalXT = startX - padding + VToffset;
+        const verticalX = endX - padding + Voffset;
+        const verticalXT = startX - padding + VToffset;
         // Create a path string
-        var path =
+        let path =
             "M" +
             verticalXT +
             "," +
@@ -227,7 +229,6 @@ const NewCustomEdge = ({
             };
 
             path += "M" + endX + "," + endY + " ";
-            ``;
             path +=
                 "V" +
                 (endY + (extraPoints?.[`bottomCenter-${id}`]?.y || 0)) +
@@ -238,7 +239,7 @@ const NewCustomEdge = ({
         return path;
     }
     // generating the path
-    var path = generateOrthogonalEdgePath(
+    const path = generateOrthogonalEdgePath(
         sourceX,
         sourceY,
         targetX,
@@ -292,102 +293,114 @@ const NewCustomEdge = ({
             }
         }
     };
+    // console.log(path);
 
     return (
         <>
-            <BaseEdge key={id} path={[path]} style={style} />
-            <EdgeLabelRenderer>
-                <div
-                    ref={edgeRef}
-                    className="custom_point"
-                    style={{
-                        position: "absolute",
-                        left: `${
-                            centerX + (labelPointX + labelPointXTop) / 2
-                        }px`,
-                        top: `${centerY - labelPointY}px`,
-                        transform: isSelected
-                            ? "translateY(-5px)"
-                            : "translateY(-3.5px)",
-                        opacity: isSelected ? 1 : 0.3,
-                        width: isSelected ? "10px" : "5px",
-                        height: isSelected ? "10px" : "5px",
-                        pointerEvents: "all",
-                        borderRadius: "50%",
-                        background: "black",
-                        cursor: "row-resize",
-                    }}
-                />
+            <BaseEdge
+                key={id}
+                path={path}
+                style={edgeStyle}
+                className="z-10"
+                markerEnd={markerEnd}
+                // markerStart={markerStart}
+            />
+            {showDragLabels && (
+                <EdgeLabelRenderer>
+                    <div
+                        ref={edgeRef}
+                        className="custom_point"
+                        style={{
+                            position: "absolute",
+                            left: `${
+                                centerX + (labelPointX + labelPointXTop) / 2
+                            }px`,
+                            top: `${centerY - labelPointY}px`,
+                            transform: isSelected
+                                ? "translateY(-5px)"
+                                : "translateY(-3.5px)",
+                            opacity: isSelected ? 1 : 0.3,
+                            width: isSelected ? "10px" : "5px",
+                            height: isSelected ? "10px" : "5px",
+                            pointerEvents: "all",
+                            borderRadius: "50%",
+                            background: "black",
+                            cursor: "row-resize",
+                        }}
+                    />
 
-                <div
-                    ref={edgeRefBottom}
-                    className="custom_point"
-                    style={{
-                        position: "absolute",
-                        left: `${targetX + labelPointX}px`,
-                        top: `${getTopBottomPointsY(false)}px`,
-                        transform: isSelected
-                            ? "translateX(-5px)"
-                            : "translateX(-2.5px)",
-                        opacity: isSelected ? 1 : 0.3,
-                        width: isSelected ? "10px" : "5px",
-                        height: isSelected ? "10px" : "5px",
-                        pointerEvents: "all",
-                        borderRadius: "50%",
-                        background: "black",
-                        cursor: "col-resize",
-                    }}
-                />
-                <div
-                    ref={edgeRefTop}
-                    className="custom_point"
-                    style={{
-                        position: "absolute",
-                        left: `${sourceX + labelPointXTop}px`,
-                        top: `${getTopBottomPointsY(true)}px`,
-                        transform: isSelected
-                            ? "translateX(-5px)"
-                            : "translateX(-2.5px)",
-                        opacity: isSelected ? 1 : 0.3,
-                        width: isSelected ? "10px" : "5px",
-                        height: isSelected ? "10px" : "5px",
-                        pointerEvents: "all",
-                        borderRadius: "50%",
-                        background: "black",
-                        cursor: "col-resize",
-                    }}
-                />
-                {Object.keys(extraPoints).length > 0 &&
-                    Object.keys(extraPoints).map((pointKey, index) => {
-                        if (
-                            pointKey === `bottomCenter-${id}` ||
-                            pointKey === `topCenter-${id}`
-                        ) {
-                            return (
-                                <div
-                                    id={pointKey}
-                                    key={index}
-                                    className="custom_point"
-                                    style={{
-                                        position: "absolute",
-                                        left: extraPoints[pointKey]?.pos?.left,
-                                        top: extraPoints[pointKey]?.pos?.top,
-                                        transform:
-                                            extraPoints[pointKey]?.pos
-                                                ?.transform,
-                                        opacity: isSelected ? 1 : 0.3,
-                                        width: isSelected ? "10px" : "5px",
-                                        height: isSelected ? "10px" : "5px",
-                                        pointerEvents: "all",
-                                        borderRadius: "50%",
-                                        background: "black",
-                                        cursor: "row-resize",
-                                    }}
-                                />
-                            );
-                        }
-                    })}
-            </EdgeLabelRenderer>
+                    <div
+                        ref={edgeRefBottom}
+                        className="custom_point"
+                        style={{
+                            position: "absolute",
+                            left: `${targetX + labelPointX}px`,
+                            top: `${getTopBottomPointsY(false)}px`,
+                            transform: isSelected
+                                ? "translateX(-5px)"
+                                : "translateX(-2.5px)",
+                            opacity: isSelected ? 1 : 0.3,
+                            width: isSelected ? "10px" : "5px",
+                            height: isSelected ? "10px" : "5px",
+                            pointerEvents: "all",
+                            borderRadius: "50%",
+                            background: "black",
+                            cursor: "col-resize",
+                        }}
+                    />
+                    <div
+                        ref={edgeRefTop}
+                        className="custom_point"
+                        style={{
+                            position: "absolute",
+                            left: `${sourceX + labelPointXTop}px`,
+                            top: `${getTopBottomPointsY(true)}px`,
+                            transform: isSelected
+                                ? "translateX(-5px)"
+                                : "translateX(-2.5px)",
+                            opacity: isSelected ? 1 : 0.3,
+                            width: isSelected ? "10px" : "5px",
+                            height: isSelected ? "10px" : "5px",
+                            pointerEvents: "all",
+                            borderRadius: "50%",
+                            background: "black",
+                            cursor: "col-resize",
+                        }}
+                    />
+                    {Object.keys(extraPoints).length > 0 &&
+                        Object.keys(extraPoints).map((pointKey, index) => {
+                            if (
+                                pointKey === `bottomCenter-${id}` ||
+                                pointKey === `topCenter-${id}`
+                            ) {
+                                return (
+                                    <div
+                                        id={pointKey}
+                                        key={index}
+                                        className="custom_point"
+                                        style={{
+                                            position: "absolute",
+                                            left: extraPoints[pointKey]?.pos
+                                                ?.left,
+                                            top: extraPoints[pointKey]?.pos
+                                                ?.top,
+                                            transform:
+                                                extraPoints[pointKey]?.pos
+                                                    ?.transform,
+                                            opacity: isSelected ? 1 : 0.3,
+                                            width: isSelected ? "10px" : "5px",
+                                            height: isSelected ? "10px" : "5px",
+                                            pointerEvents: "all",
+                                            borderRadius: "50%",
+                                            background: "black",
+                                            cursor: "row-resize",
+                                        }}
+                                    />
+                                );
+                            }
+                        })}
+                </EdgeLabelRenderer>
+            )}
         </>
     );
 };

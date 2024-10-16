@@ -1,4 +1,10 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+} from "@/components/ui/card";
 import {
     Select,
     SelectContent,
@@ -9,16 +15,12 @@ import {
 import { useChartContext } from "@/context/useChartContext";
 import useEditor from "@/hooks/useEditor";
 import useFlowState from "@/hooks/useFlowState";
-import { useEdgesState, useNodesState } from "@xyflow/react";
+import { useReactFlow } from "@xyflow/react";
 
 const EdgeEditorCard = () => {
     const { selectedEdge } = useFlowState();
     const { relationships } = useChartContext();
-    const { data } = useChartContext();
-
-    const [nodes, setNodes] = useNodesState(data.nodes);
-    const [edges, setEdges] = useEdgesState(data.edges);
-    const { updateEdge } = useEditor(nodes, setNodes, edges, setEdges);
+    const { updateEdge, nodes } = useEditor();
 
     const handleUpdate = (value: string) => {
         if (!selectedEdge) {
@@ -27,16 +29,16 @@ const EdgeEditorCard = () => {
         if (!selectedEdge.data) {
             return;
         }
-        const copyOfSelectedEdge = { ...selectedEdge };
-        copyOfSelectedEdge.data.relationship = value;
-        updateEdge(copyOfSelectedEdge, setEdges);
+        selectedEdge.data.relationship = value;
+        updateEdge(selectedEdge);
     };
 
     return (
-        <Card className="absolute right-5 top-1/2 -translate-y-1/2">
-            <CardContent>
-                <h2>{selectedEdge && selectedEdge.id}</h2>
-
+        <Card className="absolute right-5 top-1/2 -translate-y-1/2 flex flex-col items-center">
+            <CardHeader>
+                <img src="" />
+            </CardHeader>
+            <CardContent className="">
                 <div>
                     <Select onValueChange={handleUpdate}>
                         <SelectTrigger className="w-[180px]">
@@ -52,6 +54,10 @@ const EdgeEditorCard = () => {
                     </Select>
                 </div>
             </CardContent>
+            <CardFooter className="flex flex-row gap-4">
+                <Button>Save</Button>
+                <Button>Delete</Button>
+            </CardFooter>
         </Card>
     );
 };

@@ -1,13 +1,22 @@
+import { useChartContext } from "@/context/useChartContext";
 import useFlowState from "@/hooks/useFlowState";
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
-import { useReactFlow, addEdge } from "@xyflow/react";
+import {
+    addEdge,
+    MarkerType,
+    useEdgesState,
+    useNodesState,
+    useReactFlow,
+} from "@xyflow/react";
 
-const useEditor = (
-    nodes: ImageNodeType[],
-    setNodes: React.Dispatch<React.SetStateAction<ImageNodeType[]>>,
-    edges: CustomEdgeType[],
-    setEdges: React.Dispatch<React.SetStateAction<CustomEdgeType[]>>
-) => {
+const useEditor = () => {
+    const { data } = useChartContext();
+    const [nodes, setNodes, onNodesChange] = useNodesState<ImageNodeType>(
+        data.nodes
+    );
+    const [edges, setEdges, onEdgesChange] = useEdgesState<CustomEdgeType>(
+        data.edges
+    );
     const { screenToFlowPosition, deleteElements } = useReactFlow();
     const { selectedEdge, selectedNode } = useFlowState();
 
@@ -25,20 +34,27 @@ const useEditor = (
         setNodes((nds) => nds.concat(newNode));
     };
 
-    // @ts-expect-error Define type later, red lines annoying
-    const connectEdge = (params, setEdges) => {
+    const connectEdge = (params: CustomEdgeType) => {
         params.type = "custom";
-        // @ts-expect-error Define type later, red lines annoying
+        params.data = {
+            relationship: null,
+        };
+        params.markerEnd = {
+            type: MarkerType.ArrowClosed,
+            width: 20,
+            height: 20,
+            color: "#FF0072",
+        };
         setEdges((eds) => addEdge(params, eds));
     };
 
     // @ts-expect-error Define type later, red lines annoying
-    const updateEdge = (params, setEdges) => {
-        // Replace the edge with the same id with the new edge
-        // @ts-expect-error Define type later, red lines annoying
-
+    const updateEdge = (params) => {
+        // Create a new edges array to force re-render
         setEdges((eds) =>
-            eds.map((edge) => (edge.id === params.id ? params : edge))
+            eds.map((edge) =>
+                edge.id === params.id ? { ...edge, ...params } : edge
+            )
         );
     };
 
@@ -56,7 +72,16 @@ const useEditor = (
         }
         return;
     };
-    return { addNode, deleteElement, connectEdge, updateEdge };
+    return {
+        addNode,
+        deleteElement,
+        connectEdge,
+        updateEdge,
+        nodes,
+        edges,
+        onNodesChange,
+        onEdgesChange,
+    };
 };
 
 export default useEditor;

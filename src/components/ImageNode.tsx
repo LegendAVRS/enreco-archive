@@ -6,6 +6,7 @@ import {
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { ImageNodeProps } from "../lib/type";
+import { useEditorContext } from "@/context/useEditorContext";
 
 // Number of handles per side
 const NUM_OF_HANDLES = 5;
@@ -48,6 +49,7 @@ const generateHandles = (numOfHandles: number) => {
 };
 
 const ImageNode = ({ data, id }: ImageNodeProps) => {
+    const { showHandles } = useEditorContext();
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
     const updateNodeInternals = useUpdateNodeInternals();
     const handleElements = handles.map((handle) => (
@@ -56,7 +58,9 @@ const ImageNode = ({ data, id }: ImageNodeProps) => {
             id={handle.id}
             type={handle.type}
             position={handle.position}
-            style={handle.style}
+            // Setting opacity to complete 0 cause some weird stuffff to happen
+            style={{ ...handle.style, opacity: showHandles ? "1" : "0.001" }}
+            isConnectable={showHandles}
             onConnect={() => {
                 setHandles((prev) =>
                     prev.map((h) =>
@@ -68,7 +72,7 @@ const ImageNode = ({ data, id }: ImageNodeProps) => {
     ));
     useEffect(() => {
         updateNodeInternals(id);
-    }, [handles, id, updateNodeInternals]);
+    }, [handles, id, updateNodeInternals, showHandles]);
     return (
         <>
             {handleElements}

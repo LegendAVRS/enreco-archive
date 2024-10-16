@@ -1,21 +1,13 @@
+import EditorCard from "@/components/EditorCard";
 import { useEditorContext } from "@/context/useEditorContext";
 import useEditor from "@/hooks/useEditor";
 import useKeyboard from "@/hooks/useKeyboard";
-import {
-    ConnectionLineType,
-    ConnectionMode,
-    ReactFlow,
-    useEdgesState,
-    useNodesState,
-} from "@xyflow/react";
+import { ConnectionLineType, ConnectionMode, ReactFlow } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import ImageNode from "./components/ImageNode";
-import Sidebar from "./components/Sidebar";
 import DevTools from "./DevTool/DevTools";
-import { dummyData } from "./lib/dummy";
-import { useChartContext } from "@/context/useChartContext";
-import EdgeEditorCard from "@/components/EdgeEditorCard";
 import NewCustomEdge from "@/components/AnotherCustomEdge";
+import EdgeEditorCard from "@/components/EdgeEditorCard";
 
 const nodeTypes = {
     image: ImageNode,
@@ -26,15 +18,15 @@ const edgeTypes = {
 };
 
 const App = () => {
-    const { data } = useChartContext();
-    const [nodes, setNodes, onNodesChange] = useNodesState(data.nodes);
-    const [edges, setEdges, onEdgesChange] = useEdgesState(data.edges);
-    const { addNode, deleteElement, connectEdge } = useEditor(
+    const {
+        addNode,
+        deleteElement,
+        connectEdge,
         nodes,
-        setNodes,
+        onNodesChange,
         edges,
-        setEdges
-    );
+        onEdgesChange,
+    } = useEditor();
     const { mode } = useEditorContext();
 
     useKeyboard();
@@ -55,6 +47,7 @@ const App = () => {
             return;
         }
     };
+    console.log(edges);
 
     return (
         <div className="w-screen h-screen">
@@ -71,7 +64,7 @@ const App = () => {
                     handleClick(e);
                 }}
                 onConnect={(params) => {
-                    connectEdge(params, setEdges);
+                    connectEdge(params);
                 }}
                 snapToGrid
                 snapGrid={[100, 100]}
@@ -82,7 +75,8 @@ const App = () => {
             </ReactFlow>
             <div className="top-10 right-5 absolute">{mode}</div>
             {/* <Sidebar></Sidebar> */}
-            <EdgeEditorCard></EdgeEditorCard>
+            {/* <EdgeEditorCard /> */}
+            <EditorCard />
         </div>
     );
 };
