@@ -41,6 +41,9 @@ const useEditor = () => {
         params.type = "custom";
         params.data = {
             relationship: null,
+            title: "",
+            content: "",
+            timestampUrl: "",
         };
         params.markerEnd = {
             type: MarkerType.ArrowClosed,

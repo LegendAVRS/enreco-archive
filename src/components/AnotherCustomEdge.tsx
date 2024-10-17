@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BaseEdge, EdgeLabelRenderer, useReactFlow } from "@xyflow/react";
 
 import { drag } from "d3-drag";
 import { select } from "d3-selection";
 import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { CustomEdgeProps, CustomEdgeType } from "@/lib/type";
+import { useFlowStore } from "@/store/flowStore";
+import { useEditorStore } from "@/store/editorStore";
 
 //copied from reactflow lib - probably you can import this util directly from
 function getEdgeCenter({ sourceX, sourceY, targetX, targetY }) {
@@ -32,7 +34,7 @@ const NewCustomEdge = ({
     targetY,
     data,
     markerEnd,
-    markerStart,
+    selected,
 }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
     const { centerX, centerY, yOffset } = getEdgeCenter({
@@ -46,8 +48,7 @@ const NewCustomEdge = ({
     const [labelPointXTop, setLabelPointXTop] = useState(storeXValTop[id] || 0);
     const [extraPointsPosState, setExtraPointsPosState] = useState({});
 
-    const [showDragLabels, setShowDragLabels] = useState(true);
-
+    const showDragLabels = true;
     let zoom = 0;
 
     const { getZoom, setEdges } = useReactFlow();
@@ -116,7 +117,7 @@ const NewCustomEdge = ({
                 })
             );
         }
-    }, []);
+    }, [id, setEdges, zoom]);
     const isFirstExtraPoint = {};
     useEffect(() => {
         if (labelPointX !== 0 || labelPointXTop !== 0) {

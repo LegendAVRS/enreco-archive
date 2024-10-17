@@ -14,8 +14,11 @@ import {
 } from "@/components/ui/select";
 import { useChartStore } from "@/store/chartStore";
 import useEditor from "@/hooks/useEditor";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFlowStore } from "@/store/flowStore";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Url } from "url";
 
 const EdgeEditorCard = () => {
     const { selectedEdge } = useFlowStore();
@@ -25,18 +28,33 @@ const EdgeEditorCard = () => {
     const [localRelationship, setLocalRelationship] = useState(
         selectedEdge?.data?.relationship
     );
-    console.log(selectedEdge);
+    const [localTitle, setLocalTitle] = useState(selectedEdge?.data?.title);
+    const [localContent, setLocalContent] = useState(
+        selectedEdge?.data?.content
+    );
+    const [localStream, setLocalStream] = useState(
+        selectedEdge?.data?.timestampUrl
+    );
+
+    // Sync local state with selectedEdge whenever selectedEdge changes
+    useEffect(() => {
+        if (selectedEdge) {
+            setLocalRelationship(selectedEdge?.data?.relationship);
+            setLocalTitle(selectedEdge?.data?.title);
+            setLocalContent(selectedEdge?.data?.content);
+            setLocalStream(selectedEdge?.data?.timestampUrl);
+        }
+    }, [selectedEdge]);
 
     const handleSave = () => {
-        if (!selectedEdge) {
-            return;
-        }
-        if (!selectedEdge.data) {
-            return;
-        }
         const newEdge = { ...selectedEdge };
-        // @ts-expect-error shut up ts
+        if (!newEdge.data) {
+            return;
+        }
         newEdge.data.relationship = localRelationship;
+        newEdge.data.title = localTitle;
+        newEdge.data.content = localContent;
+        newEdge.data.timestampUrl = localStream;
         updateEdge(newEdge);
     };
 
@@ -45,7 +63,7 @@ const EdgeEditorCard = () => {
             <CardHeader>
                 <h2 className="text-lg font-bold">Edge Editor</h2>
             </CardHeader>
-            <CardContent className="">
+            <CardContent className="flex-col flex gap-4">
                 <div>
                     <Select
                         value={localRelationship}
@@ -62,6 +80,26 @@ const EdgeEditorCard = () => {
                             ))}
                         </SelectContent>
                     </Select>
+                </div>
+                <div className="flex flex-col gap-4">
+                    <Input
+                        placeholder="Title..."
+                        onChange={(e) => setLocalTitle(e.target.value)}
+                        value={localTitle}
+                    />
+                    <Textarea
+                        placeholder="Content..."
+                        onChange={(e) => setLocalContent(e.target.value)}
+                        value={localContent}
+                    />
+                    <Input
+                        placeholder="Stream embed..."
+                        onChange={(e) => setLocalStream(e.target.value)}
+                        value={localStream}
+                    />
+                    <div>
+                        <iframe src={localStream} />
+                    </div>
                 </div>
             </CardContent>
             <CardFooter className="flex flex-row gap-4">

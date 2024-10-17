@@ -52,10 +52,13 @@ const App = () => {
                 onNodeClick={(e, node) => {
                     setCurrentCard("node");
                     setSelectedNode(node);
+                    setSelectedEdge(null);
                 }}
                 onEdgeClick={(e, edge) => {
                     setCurrentCard("edge");
+                    console.log(edge);
                     setSelectedEdge(edge);
+                    setSelectedNode(null);
                 }}
                 onConnect={(params) => {
                     connectEdge(params);
@@ -70,7 +73,11 @@ const App = () => {
             {/* <div className="top-10 right-5 absolute">{mode}</div> */}
             <Button
                 className="absolute top-5 right-5"
-                onClick={() => setCurrentCard("general")}
+                onClick={() => {
+                    setCurrentCard("general");
+                    setSelectedNode(null);
+                    setSelectedEdge(null);
+                }}
             >
                 General
             </Button>

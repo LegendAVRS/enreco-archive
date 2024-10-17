@@ -61,6 +61,9 @@ export const dummyData: ChartData = {
             target: "2",
             data: {
                 relationship: "romantic",
+                title: "",
+                content: "",
+                timestampUrl: "",
             },
             markerEnd: {
                 type: MarkerType.ArrowClosed,
