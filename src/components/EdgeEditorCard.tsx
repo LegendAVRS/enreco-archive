@@ -12,37 +12,47 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { useChartContext } from "@/context/useChartContext";
+import { useChartStore } from "@/store/chartStore";
 import useEditor from "@/hooks/useEditor";
-import useFlowState from "@/hooks/useFlowState";
-import { useReactFlow } from "@xyflow/react";
+import { useState } from "react";
+import { useFlowStore } from "@/store/flowStore";
 
 const EdgeEditorCard = () => {
-    const { selectedEdge } = useFlowState();
-    const { relationships } = useChartContext();
-    const { updateEdge, nodes } = useEditor();
+    const { selectedEdge } = useFlowStore();
+    const { relationships } = useChartStore();
+    const { updateEdge, deleteEdge } = useEditor();
 
-    const handleUpdate = (value: string) => {
+    const [localRelationship, setLocalRelationship] = useState(
+        selectedEdge?.data?.relationship
+    );
+    console.log(selectedEdge);
+
+    const handleSave = () => {
         if (!selectedEdge) {
             return;
         }
         if (!selectedEdge.data) {
             return;
         }
-        selectedEdge.data.relationship = value;
-        updateEdge(selectedEdge);
+        const newEdge = { ...selectedEdge };
+        // @ts-expect-error shut up ts
+        newEdge.data.relationship = localRelationship;
+        updateEdge(newEdge);
     };
 
     return (
         <Card className="absolute right-5 top-1/2 -translate-y-1/2 flex flex-col items-center">
             <CardHeader>
-                <img src="" />
+                <h2 className="text-lg font-bold">Edge Editor</h2>
             </CardHeader>
             <CardContent className="">
                 <div>
-                    <Select onValueChange={handleUpdate}>
+                    <Select
+                        value={localRelationship}
+                        onValueChange={setLocalRelationship}
+                    >
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Relationship..." />
+                            <SelectValue placeholder={localRelationship} />
                         </SelectTrigger>
                         <SelectContent>
                             {Object.keys(relationships).map((key) => (
@@ -55,8 +65,8 @@ const EdgeEditorCard = () => {
                 </div>
             </CardContent>
             <CardFooter className="flex flex-row gap-4">
-                <Button>Save</Button>
-                <Button>Delete</Button>
+                <Button onClick={handleSave}>Save</Button>
+                <Button onClick={deleteEdge}>Delete</Button>
             </CardFooter>
         </Card>
     );

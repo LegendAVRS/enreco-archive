@@ -1,5 +1,4 @@
-import { useChartContext } from "@/context/useChartContext";
-import useFlowState from "@/hooks/useFlowState";
+import { useChartStore } from "@/store/chartStore";
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
     addEdge,
@@ -8,9 +7,11 @@ import {
     useNodesState,
     useReactFlow,
 } from "@xyflow/react";
+import { useFlowStore } from "@/store/flowStore";
+import { useEditorStore } from "@/store/editorStore";
 
 const useEditor = () => {
-    const { data } = useChartContext();
+    const { data } = useChartStore();
     const [nodes, setNodes, onNodesChange] = useNodesState<ImageNodeType>(
         data.nodes
     );
@@ -18,7 +19,9 @@ const useEditor = () => {
         data.edges
     );
     const { screenToFlowPosition, deleteElements } = useReactFlow();
-    const { selectedEdge, selectedNode } = useFlowState();
+    const { selectedEdge, selectedNode, setSelectedEdge, setSelectedNode } =
+        useFlowStore();
+    const { setCurrentCard } = useEditorStore();
 
     // Add a new image node at the the given position
     const addNode = (x: number, y: number) => {
@@ -59,22 +62,30 @@ const useEditor = () => {
     };
 
     // Delete selected node
-    const deleteElement = () => {
-        if (selectedNode) {
-            deleteElements({
-                nodes: [selectedNode],
-            });
-        }
+    const deleteEdge = () => {
         if (selectedEdge) {
             deleteElements({
                 edges: [selectedEdge],
             });
         }
+        setSelectedEdge(null);
+        setCurrentCard(null);
+    };
+
+    const deleteNode = () => {
+        if (selectedNode) {
+            deleteElements({
+                nodes: [selectedNode],
+            });
+        }
+        setSelectedNode(null);
+        setCurrentCard(null);
         return;
     };
     return {
         addNode,
-        deleteElement,
+        deleteEdge,
+        deleteNode,
         connectEdge,
         updateEdge,
         nodes,

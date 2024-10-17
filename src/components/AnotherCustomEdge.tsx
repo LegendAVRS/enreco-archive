@@ -35,7 +35,6 @@ const NewCustomEdge = ({
     markerStart,
 }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
-    console.log(id, edgeStyle);
     const { centerX, centerY, yOffset } = getEdgeCenter({
         sourceX,
         sourceY,
@@ -293,7 +292,6 @@ const NewCustomEdge = ({
             }
         }
     };
-    // console.log(path);
 
     return (
         <>
@@ -303,6 +301,7 @@ const NewCustomEdge = ({
                 style={edgeStyle}
                 className="z-10"
                 markerEnd={markerEnd}
+
                 // markerStart={markerStart}
             />
             {showDragLabels && (

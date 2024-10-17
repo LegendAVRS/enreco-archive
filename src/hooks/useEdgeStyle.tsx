@@ -1,7 +1,7 @@
-import { useChartContext } from "@/context/useChartContext";
+import { useChartStore } from "@/store/chartStore";
 
 const useEdgeStyle = (type: string | undefined) => {
-    const { relationships } = useChartContext();
+    const { relationships } = useChartStore();
     if (!type) {
         return {};
     }

@@ -1,8 +1,8 @@
-import { useEditorContext } from "@/context/useEditorContext";
+import { useEditorStore } from "@/store/editorStore";
 import { useEffect } from "react";
 
 const useKeyboard = () => {
-    const { mode, setMode } = useEditorContext();
+    const { mode, setMode } = useEditorStore();
     useEffect(() => {
         const defaultActions: Record<string, CallableFunction> = {
             a: () => {
@@ -21,7 +21,6 @@ const useKeyboard = () => {
         const handleKeyDown = (event: KeyboardEvent) => {
             const action = defaultActions[event.key];
             if (action) {
-                console.log(event.key, mode);
                 action();
             }
         };

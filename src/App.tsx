@@ -1,5 +1,4 @@
-import EditorCard from "@/components/EditorCard";
-import { useEditorContext } from "@/context/useEditorContext";
+import GeneralEditorCard from "@/components/GeneralEditorCard";
 import useEditor from "@/hooks/useEditor";
 import useKeyboard from "@/hooks/useKeyboard";
 import { ConnectionLineType, ConnectionMode, ReactFlow } from "@xyflow/react";
@@ -8,6 +7,10 @@ import ImageNode from "./components/ImageNode";
 import DevTools from "./DevTool/DevTools";
 import NewCustomEdge from "@/components/AnotherCustomEdge";
 import EdgeEditorCard from "@/components/EdgeEditorCard";
+import { useEditorStore } from "@/store/editorStore";
+import NodeEditorCard from "@/components/NodeEditorCard";
+import { Button } from "@/components/ui/button";
+import { useFlowStore } from "@/store/flowStore";
 
 const nodeTypes = {
     image: ImageNode,
@@ -18,16 +21,10 @@ const edgeTypes = {
 };
 
 const App = () => {
-    const {
-        addNode,
-        deleteElement,
-        connectEdge,
-        nodes,
-        onNodesChange,
-        edges,
-        onEdgesChange,
-    } = useEditor();
-    const { mode } = useEditorContext();
+    const { addNode, connectEdge, nodes, onNodesChange, edges, onEdgesChange } =
+        useEditor();
+    const { mode, currentCard, setCurrentCard } = useEditorStore();
+    const { setSelectedNode, setSelectedEdge } = useFlowStore();
 
     useKeyboard();
 
@@ -36,18 +33,7 @@ const App = () => {
             addNode(event.clientX, event.clientY);
             return;
         }
-        if (mode === "delete") {
-            deleteElement();
-            return;
-        }
-        if (mode === "view") {
-            return;
-        }
-        if (mode === "edit") {
-            return;
-        }
     };
-    console.log(edges);
 
     return (
         <div className="w-screen h-screen">
@@ -63,6 +49,14 @@ const App = () => {
                 onClick={(e) => {
                     handleClick(e);
                 }}
+                onNodeClick={(e, node) => {
+                    setCurrentCard("node");
+                    setSelectedNode(node);
+                }}
+                onEdgeClick={(e, edge) => {
+                    setCurrentCard("edge");
+                    setSelectedEdge(edge);
+                }}
                 onConnect={(params) => {
                     connectEdge(params);
                 }}
@@ -73,10 +67,16 @@ const App = () => {
             >
                 <DevTools></DevTools>
             </ReactFlow>
-            <div className="top-10 right-5 absolute">{mode}</div>
-            {/* <Sidebar></Sidebar> */}
-            {/* <EdgeEditorCard /> */}
-            <EditorCard />
+            {/* <div className="top-10 right-5 absolute">{mode}</div> */}
+            <Button
+                className="absolute top-5 right-5"
+                onClick={() => setCurrentCard("general")}
+            >
+                General
+            </Button>
+            {currentCard === "node" && <NodeEditorCard />}
+            {currentCard === "edge" && <EdgeEditorCard />}
+            {currentCard === "general" && <GeneralEditorCard />}
         </div>
     );
 };

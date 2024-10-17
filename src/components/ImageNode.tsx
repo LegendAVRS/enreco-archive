@@ -1,3 +1,4 @@
+import { useEditorStore } from "@/store/editorStore";
 import {
     Handle,
     HandleType,
@@ -6,7 +7,6 @@ import {
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { ImageNodeProps } from "../lib/type";
-import { useEditorContext } from "@/context/useEditorContext";
 
 // Number of handles per side
 const NUM_OF_HANDLES = 5;
@@ -49,7 +49,7 @@ const generateHandles = (numOfHandles: number) => {
 };
 
 const ImageNode = ({ data, id }: ImageNodeProps) => {
-    const { showHandles } = useEditorContext();
+    const { showHandles } = useEditorStore();
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
     const updateNodeInternals = useUpdateNodeInternals();
     const handleElements = handles.map((handle) => (
@@ -76,13 +76,11 @@ const ImageNode = ({ data, id }: ImageNodeProps) => {
     return (
         <>
             {handleElements}
-            <div>
-                <img
-                    className="aspect-square object-cover rounded-lg"
-                    width={100}
-                    src={data.imageSrc}
-                />
-            </div>
+            <img
+                className="aspect-square object-cover rounded-lg"
+                width={100}
+                src={data.imageSrc}
+            />
         </>
     );
 };
