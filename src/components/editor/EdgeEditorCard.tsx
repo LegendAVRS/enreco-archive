@@ -22,7 +22,7 @@ import { Url } from "url";
 
 const EdgeEditorCard = () => {
     const { selectedEdge } = useFlowStore();
-    const { relationships } = useChartStore();
+    const { data } = useChartStore();
     const { updateEdge, deleteEdge } = useEditor();
 
     const [localRelationship, setLocalRelationship] = useState(
@@ -73,7 +73,7 @@ const EdgeEditorCard = () => {
                             <SelectValue placeholder={localRelationship} />
                         </SelectTrigger>
                         <SelectContent>
-                            {Object.keys(relationships).map((key) => (
+                            {Object.keys(data.relationships).map((key) => (
                                 <SelectItem key={key} value={key}>
                                     {key}
                                 </SelectItem>

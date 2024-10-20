@@ -1,4 +1,4 @@
-import GeneralEditorCard from "@/components/GeneralEditorCard";
+import GeneralEditorCard from "@/components/editor/GeneralEditorCard";
 import useEditor from "@/hooks/useEditor";
 import useKeyboard from "@/hooks/useKeyboard";
 import {
@@ -8,16 +8,17 @@ import {
     ReactFlowInstance,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import ImageNode from "./components/ImageNode";
+import ImageNode from "./components/editor/ImageNode";
 import DevTools from "./DevTool/DevTools";
-import NewCustomEdge from "@/components/AnotherCustomEdge";
-import EdgeEditorCard from "@/components/EdgeEditorCard";
+import NewCustomEdge from "@/components/editor/AnotherCustomEdge";
+import EdgeEditorCard from "@/components/editor/EdgeEditorCard";
 import { useEditorStore } from "@/store/editorStore";
-import NodeEditorCard from "@/components/NodeEditorCard";
+import NodeEditorCard from "@/components/editor/NodeEditorCard";
 import { Button } from "@/components/ui/button";
 import { useFlowStore } from "@/store/flowStore";
 import { useChartStore } from "@/store/chartStore";
 import { useState } from "react";
+import { dummyRelationships } from "@/lib/dummy";
 
 const nodeTypes = {
     image: ImageNode,
@@ -33,7 +34,6 @@ const App = () => {
     const { mode, currentCard, setCurrentCard, edgePaths, nodeHandles } =
         useEditorStore();
     const { setSelectedNode, setSelectedEdge } = useFlowStore();
-    const { relationships } = useChartStore();
     const [rfInstance, setRfInstance] = useState<ReactFlowInstance>();
     useKeyboard();
 
@@ -55,7 +55,7 @@ const App = () => {
         flow.edges.forEach((edge) => {
             edge.data.path = edgePaths[edge.id];
         });
-        flow.relationships = relationships;
+        flow.relationships = dummyRelationships;
         // export
         const dataStr = JSON.stringify(flow, null, 2);
         const dataUri =
@@ -68,9 +68,9 @@ const App = () => {
         linkElement.click();
     };
 
-    if (!nodes || !edges) {
-        return <div>Loading...</div>;
-    }
+    // if (!nodes || !edges) {
+    //     return <div>Loading...</div>;
+    // }
 
     return (
         <div className="w-screen h-screen">
@@ -101,7 +101,7 @@ const App = () => {
                     connectEdge(params);
                 }}
                 snapToGrid
-                snapGrid={[100, 100]}
+                snapGrid={[50, 50]}
                 connectionMode={ConnectionMode.Loose}
                 connectionLineType={ConnectionLineType.SmoothStep}
                 zoomOnDoubleClick={false}
@@ -121,6 +121,7 @@ const App = () => {
                     General
                 </Button>
                 <Button onClick={handleExport}>Export</Button>
+                <Button>{mode}</Button>
             </div>
             {currentCard === "node" && <NodeEditorCard />}
             {currentCard === "edge" && <EdgeEditorCard />}

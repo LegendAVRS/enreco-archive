@@ -1,27 +1,223 @@
 {
     "nodes": [
         {
-            "id": "1",
-            "data": {
-                "width": 100,
-                "height": 100,
-                "imageSrc": "https://static.miraheze.org/hololivewiki/0/03/Gigi_Murin_-_Portrait_01.png",
-                "sourceHandles": [
-                    {
-                        "id": "1"
-                    }
-                ],
-                "targetHandles": [
-                    {
-                        "id": "2"
-                    }
-                ]
-            },
-            "position": {
-                "x": 100,
-                "y": 100
-            },
+            "id": "node-0",
             "type": "image",
+            "position": {
+                "x": 650,
+                "y": 500
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2023/10/Ceres-Fauna_list_thumb.png",
+                "title": "Ceres Fauna",
+                "content": "On the third day, Fauna embarked on an exciting new venture—she officially began the construction of her very own branch of convenience stores, aptly named FaunaMart. This wasn’t just an ordinary store; Fauna had big plans for it. In addition to the usual assortment of everyday goods and essentials, FaunaMart would stand out by offering something extra: lottery tickets. Her vision was to create a one-stop shop where customers could not only pick up their daily necessities but also try their luck at winning big. The project marked the beginning of a new chapter in her entrepreneurial journey."
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-1",
+            "type": "image",
+            "position": {
+                "x": 850,
+                "y": 650
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/06/Elizabeth-Rose-Bloodflame_list_thumb.png",
+                "title": "Elizabeth Rose Bloodflame",
+                "content": "On the third day of Enreco, Elizabeth discovered that her world had shifted in ways she hadn’t anticipated. She found herself entangled in a web of complex and unexpected relationships. New alliances had formed, a delicate mix of both friends and foes. Some of these were enemies she never saw coming, while others became fierce protectors who stood by her side in moments of peril. To her surprise, amidst the chaos, romantic connections began to blossom as well, adding lovers to the intricate puzzle of her life. It was a day of revelations and unforeseen bonds, changing the course of her journey."
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-2",
+            "type": "image",
+            "position": {
+                "x": 1050,
+                "y": 650
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/08/Nerissa-Ravencroft_list_thumb.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-3",
+            "type": "image",
+            "position": {
+                "x": 650,
+                "y": 800
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/08/Mococo-Abyssgard_list_thumb.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-4",
+            "type": "image",
+            "position": {
+                "x": 1250,
+                "y": 650
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2023/01/Takanashi-Kiara_thumb.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-5",
+            "type": "image",
+            "position": {
+                "x": 1250,
+                "y": 500
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/06/Raora-Panthera_list_thumb.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-6",
+            "type": "image",
+            "position": {
+                "x": 850,
+                "y": 800
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/08/Koseki-Bijou_list_thumb.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-7",
+            "type": "image",
+            "position": {
+                "x": 1050,
+                "y": 800
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2021/07/Shiori-Novella_list_thumb.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-8",
+            "type": "image",
+            "position": {
+                "x": 1250,
+                "y": 800
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/06/Gigi-Murin_list_thumb.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-9",
+            "type": "image",
+            "position": {
+                "x": 1450,
+                "y": 800
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2022/04/%E3%82%A2%E3%83%A1%E3%83%AA%E3%82%A2.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-11",
+            "type": "image",
+            "position": {
+                "x": 1150,
+                "y": 950
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2020/07/IRyS_list_thumb.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-12",
+            "type": "image",
+            "position": {
+                "x": 1350,
+                "y": 950
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2023/10/Ouro-Kronii_list_thumb.png"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-13",
+            "type": "image",
+            "position": {
+                "x": 950,
+                "y": 950
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2022/04/%E3%81%84%E3%81%AA%E3%81%AB%E3%81%99.png"
+            },
             "measured": {
                 "width": 100,
                 "height": 100
@@ -29,93 +225,36 @@
             "selected": false
         },
         {
-            "id": "2",
-            "data": {
-                "width": 100,
-                "height": 100,
-                "imageSrc": "https://i1.sndcdn.com/artworks-ScX2qTn4KewPXHjJ-6WGqZA-t500x500.jpg",
-                "sourceHandles": [
-                    {
-                        "id": "1"
-                    }
-                ],
-                "targetHandles": [
-                    {
-                        "id": "2"
-                    }
-                ]
-            },
-            "position": {
-                "x": 300,
-                "y": 100
-            },
+            "id": "node-14",
             "type": "image",
+            "position": {
+                "x": 1450,
+                "y": 650
+            },
+            "data": {
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2022/04/%E3%82%AB%E3%83%AA%E3%82%AA%E3%83%9A.png"
+            },
             "measured": {
                 "width": 100,
                 "height": 100
-            }
-        },
-        {
-            "id": "3",
-            "data": {
-                "width": 100,
-                "height": 100,
-                "imageSrc": "https://yt3.googleusercontent.com/RZ4Fp3L6_zyq6YA7s5WnH8-22iezMLwdJhtkBgs_EAb06mvMCnF59JKMNu9YPCqb7nhaeXMdPvY=s900-c-k-c0x00ffffff-no-rj",
-                "sourceHandles": [
-                    {
-                        "id": "1"
-                    }
-                ],
-                "targetHandles": [
-                    {
-                        "id": "2"
-                    }
-                ]
             },
-            "position": {
-                "x": 500,
-                "y": 100
-            },
-            "type": "image",
-            "measured": {
-                "width": 100,
-                "height": 100
-            }
+            "selected": false,
+            "dragging": false
         }
     ],
     "edges": [
         {
-            "type": "custom",
-            "id": "1",
-            "source": "1",
-            "target": "2",
-            "data": {
-                "relationship": "romantic",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M110,97 V97 H110 H310 V97"
-            },
-            "markerEnd": {
-                "type": "arrowclosed",
-                "width": 20,
-                "height": 20,
-                "color": "red"
-            },
-            "selected": false
-        },
-        {
-            "source": "1",
-            "sourceHandle": "bottom-2",
-            "target": "2",
+            "source": "node-1",
+            "sourceHandle": "left-1",
+            "target": "node-0",
             "targetHandle": "bottom-2",
             "type": "custom",
             "data": {
-                "relationship": null,
+                "relationship": "enemies",
                 "title": "",
                 "content": "",
                 "timestampUrl": "",
-                "path": "M150,203 V269 H150 H350 V203"
+                "path": "M847.0051879882812,680.0051879882812 V678.3566927430119 H847.0051879882812 H700.0051879882812 V603.0052185058594"
             },
             "markerEnd": {
                 "type": "arrowclosed",
@@ -123,31 +262,340 @@
                 "height": 20,
                 "color": "#FF0072"
             },
-            "id": "1-2-bottom-2-bottom-2",
+            "id": "node-1-node-0-left-1-bottom-2",
+            "selected": false
+        },
+        {
+            "source": "node-1",
+            "sourceHandle": "left-3",
+            "target": "node-3",
+            "targetHandle": "top-2",
+            "type": "custom",
+            "data": {
+                "relationship": "protector",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M847.0051879882812,720.0051879882812 V720.0855500031507 H847.0051879882812 H700.0051879882812 V797.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-1-node-3-left-3-top-2",
+            "selected": false
+        },
+        {
+            "source": "node-5",
+            "sourceHandle": "bottom-2",
+            "target": "node-4",
+            "targetHandle": "top-2",
+            "type": "custom",
+            "data": {
+                "relationship": "big_cat",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M1300.0052490234375,603.0052185058594 V625.0052032470703 H1300.0052490234375 H1300.0052490234375 V647.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-5-node-4-bottom-2-top-2",
+            "selected": false
+        },
+        {
+            "source": "node-1",
+            "sourceHandle": "bottom-2",
+            "target": "node-6",
+            "targetHandle": "top-2",
+            "type": "custom",
+            "data": {
+                "relationship": "familial_relationship",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M900.0051879882812,753.0051879882812 V775.0051879882812 H900.0051879882812 H900.0051879882812 V797.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-1-node-6-bottom-2-top-2",
+            "selected": false
+        },
+        {
+            "source": "node-1",
+            "sourceHandle": "right-2",
+            "target": "node-2",
+            "targetHandle": "left-2",
+            "type": "custom",
+            "data": {
+                "relationship": "unrequited_love",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M953.0051879882812,700.0051879882812 V700.0051879882812 H953.0051879882812 H1047.0052490234375 V700.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-1-node-2-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-6",
+            "sourceHandle": "top-4",
+            "target": "node-2",
+            "targetHandle": "bottom-0",
+            "type": "custom",
+            "data": {
+                "relationship": "enemies",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M940.0051879882812,797.0051879882812 V775.0051879882812 H940.0051879882812 H1060.0052490234375 V753.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-6-node-2-top-4-bottom-0",
+            "selected": false
+        },
+        {
+            "source": "node-2",
+            "sourceHandle": "bottom-2",
+            "target": "node-7",
+            "targetHandle": "top-2",
+            "type": "custom",
+            "data": {
+                "relationship": "marriage",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M1100.0052490234375,753.0051879882812 V775.0051879882812 H1100.0052490234375 H1100.0052490234375 V797.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-2-node-7-bottom-2-top-2",
+            "selected": false
+        },
+        {
+            "source": "node-6",
+            "sourceHandle": "right-2",
+            "target": "node-7",
+            "targetHandle": "left-2",
+            "type": "custom",
+            "data": {
+                "relationship": "marriage",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M953.0051879882812,850.0051879882812 V850.0051879882812 H953.0051879882812 H1047.0052490234375 V850.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-6-node-7-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-11",
+            "sourceHandle": "left-2",
+            "target": "node-13",
+            "targetHandle": "right-2",
+            "type": "custom",
+            "data": {
+                "relationship": "marriage",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M1147.0052490234375,1000.0051879882812 V1000.0051879882812 H1147.0052490234375 H1053.0051879882812 V1000.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-11-node-13-left-2-right-2",
+            "selected": false
+        },
+        {
+            "source": "node-8",
+            "sourceHandle": "right-2",
+            "target": "node-9",
+            "targetHandle": "left-2",
+            "type": "custom",
+            "data": {
+                "relationship": "marriage",
+                "title": "Gonathan G x Jyan Watson",
+                "content": "In an unexpected twist of fate, Gonathan G, who had initially sworn on the first day to report Jyana Watson for her transgressions, completely changed his course of action. After receiving a lavish gift of 10 dazzling diamonds from her, Gonathan’s resolve began to waver. The gesture was so overwhelming that, instead of carrying out his original plan, he found himself captivated by Jyana. His heart softened, and soon he made a bold decision—rather than turning her in, he proposed to her. Their once-tense relationship took a dramatic turn, leading to an engagement and the promise of marriage.",
+                "timestampUrl": "https://www.youtube.com/embed/kB2jUKUsxtE?si=GXCQ9cWmA_xmCfOO&amp;start=2067",
+                "path": "M1353.0052490234375,850.0051879882812 V850.0051879882812 H1353.0052490234375 H1447.005126953125 V850.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-8-node-9-right-2-left-2",
+            "selected": true
+        },
+        {
+            "source": "node-14",
+            "sourceHandle": "bottom-2",
+            "target": "node-9",
+            "targetHandle": "top-2",
+            "type": "custom",
+            "data": {
+                "relationship": "familial_relationship",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M1500.005126953125,753.0051879882812 V775.0051879882812 H1500.005126953125 H1500.005126953125 V797.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-14-node-9-bottom-2-top-2",
+            "selected": false
+        },
+        {
+            "source": "node-2",
+            "sourceHandle": "right-2",
+            "target": "node-4",
+            "targetHandle": "left-2",
+            "type": "custom",
+            "data": {
+                "relationship": "romantic",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M1153.0052490234375,700.0051879882812 V700.0051879882812 H1153.0052490234375 H1247.0052490234375 V700.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-2-node-4-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-4",
+            "sourceHandle": "right-2",
+            "target": "node-14",
+            "targetHandle": "left-2",
+            "type": "custom",
+            "data": {
+                "relationship": "romantic",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M1353.0052490234375,700.0051879882812 V700.0051879882812 H1353.0052490234375 H1447.005126953125 V700.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-4-node-14-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-12",
+            "sourceHandle": "left-2",
+            "target": "node-11",
+            "targetHandle": "right-2",
+            "type": "custom",
+            "data": {
+                "relationship": "romantic",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M1347.005126953125,1000.0051879882812 V1000.0051879882812 H1347.005126953125 H1253.0052490234375 V1000.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-12-node-11-left-2-right-2",
+            "selected": false
+        },
+        {
+            "source": "node-12",
+            "sourceHandle": "top-2",
+            "target": "node-1",
+            "targetHandle": "top-2",
+            "type": "custom",
+            "data": {
+                "relationship": "enemies",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "path": "M1400.005126953125,947.0051879882812 V616.6681117315461 H1400.005126953125 H900.0051879882812 V647.0051879882812"
+            },
+            "markerEnd": {
+                "type": "arrowclosed",
+                "width": 20,
+                "height": 20,
+                "color": "#FF0072"
+            },
+            "id": "node-12-node-1-top-2-top-2",
             "selected": false
         }
     ],
     "viewport": {
-        "x": 172.5,
-        "y": 42.5,
-        "zoom": 2
+        "x": -640.172263383758,
+        "y": -508.7124700673821,
+        "zoom": 1.2753894250373825
     },
     "relationships": {
         "marriage": {
-            "stroke": "red"
+            "stroke": "#FF66C4"
         },
         "romantic": {
-            "stroke": "blue"
+            "stroke": "#FF66C4",
+            "strokeDasharray": "5, 5"
         },
         "unrequited_love": {
-            "stroke": "lightblue",
+            "stroke": "#5271FF",
             "strokeDasharray": "5, 5"
         },
         "familial_relationship": {
-            "stroke": "green"
+            "stroke": "#00BF62"
         },
         "protector": {
-            "stroke": "green",
+            "stroke": "#00BF62",
             "strokeDasharray": "5, 5"
         },
         "miscelanious": {
@@ -155,7 +603,7 @@
             "strokeDasharray": "5, 5"
         },
         "enemies": {
-            "stroke": "red"
+            "stroke": "#FF3535"
         },
         "big_cat": {
             "stroke": "purple"

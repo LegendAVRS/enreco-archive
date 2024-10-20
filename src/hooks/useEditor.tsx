@@ -1,5 +1,5 @@
 import { useChartStore } from "@/store/chartStore";
-import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { ChartData, CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
     addEdge,
     MarkerType,
@@ -11,6 +11,7 @@ import { useFlowStore } from "@/store/flowStore";
 import { useEditorStore } from "@/store/editorStore";
 import { useEffect } from "react";
 import chartData from "@/data/chart.json";
+import { dummyRelationships } from "@/lib/dummy";
 
 const loadFlow = () => {
     // load json file 'from data/chart.json'
@@ -19,7 +20,7 @@ const loadFlow = () => {
 };
 
 const useEditor = () => {
-    const { data, setData, setRelationships } = useChartStore();
+    const { data, setData } = useChartStore();
     const [nodes, setNodes, onNodesChange] = useNodesState<ImageNodeType>(
         data.nodes
     );
@@ -33,12 +34,16 @@ const useEditor = () => {
 
     useEffect(() => {
         const chartData = loadFlow();
+        // const chartData: ChartData = {
+        //     nodes: [],
+        //     edges: [],
+        //     relationships: dummyRelationships,
+        // };
         console.log(chartData);
         setData(chartData);
-        setRelationships(chartData.relationships);
         setNodes(chartData.nodes);
         setEdges(chartData.edges);
-    }, [setData, setRelationships, setNodes, setEdges]);
+    }, [setData, setNodes, setEdges]);
     console.log(nodes);
 
     // Add a new image node at the the given position

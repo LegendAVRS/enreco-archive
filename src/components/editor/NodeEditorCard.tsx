@@ -1,10 +1,10 @@
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent } from "../ui/card";
 import { useFlowStore } from "@/store/flowStore";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import useEditor from "@/hooks/useEditor";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 
 export default function NodeEditorCard() {
     const { selectedNode } = useFlowStore();

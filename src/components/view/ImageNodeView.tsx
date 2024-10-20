@@ -6,7 +6,9 @@ import {
     useUpdateNodeInternals,
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
-import { ImageNodeProps } from "../lib/type";
+import { ImageNodeProps } from "../../lib/type";
+import { useViewStore } from "@/store/viewStore";
+import { useChartStore } from "@/store/chartStore";
 
 // Number of handles per side
 const NUM_OF_HANDLES = 5;
@@ -48,9 +50,30 @@ const generateHandles = (numOfHandles: number) => {
     return handles;
 };
 
+const getImageVisibilityStyle = (visible: boolean) => {
+    return {
+        opacity: visible ? 1 : 0.2,
+    };
+};
+
 const ImageNode = ({ data, id }: ImageNodeProps) => {
     // const { showHandles } = useEditorStore();
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
+    const { edgeVisibility } = useViewStore();
+    const { data: chartData } = useChartStore();
+
+    // get edges that have either source or target as this node
+    const edges = chartData.edges.filter(
+        (edge) => edge.source === id || edge.target === id
+    );
+
+    // loop thourgh edges and check if they are there exists one edge that is visible
+    const nodeVisibility = edges.some(
+        (edge) => edgeVisibility[edge.data.relationship]
+    );
+
+    const nodeVisibilityStyle = getImageVisibilityStyle(nodeVisibility);
+
     const updateNodeInternals = useUpdateNodeInternals();
     const handleElements = handles.map((handle) => (
         <Handle
@@ -59,7 +82,7 @@ const ImageNode = ({ data, id }: ImageNodeProps) => {
             type={handle.type}
             position={handle.position}
             // Setting opacity to complete 0 cause some weird stuffff to happen
-            style={{ ...handle.style, opacity: "1" }}
+            style={{ ...handle.style, opacity: "0.001" }}
             isConnectable={true}
         />
     ));
@@ -70,9 +93,10 @@ const ImageNode = ({ data, id }: ImageNodeProps) => {
         <>
             {handleElements}
             <img
-                className="aspect-square object-cover rounded-lg"
+                className="aspect-square object-cover rounded-lg transition-all"
                 width={100}
                 src={data.imageSrc}
+                style={{ ...nodeVisibilityStyle }}
             />
         </>
     );

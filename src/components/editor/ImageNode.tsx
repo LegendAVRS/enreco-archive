@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui/input";
 import { useEditorStore } from "@/store/editorStore";
 import {
     Handle,
@@ -6,7 +7,7 @@ import {
     useUpdateNodeInternals,
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
-import { ImageNodeProps } from "../lib/type";
+import { ImageNodeProps } from "../../lib/type";
 
 // Number of handles per side
 const NUM_OF_HANDLES = 5;

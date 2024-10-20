@@ -1,12 +1,12 @@
 import { useChartStore } from "@/store/chartStore";
 
 const useEdgeStyle = (type: string | undefined) => {
-    const { relationships } = useChartStore();
+    const { data } = useChartStore();
     if (!type) {
         return {};
     }
     return {
-        edgeStyle: relationships[type],
+        edgeStyle: data.relationships[type],
     };
 };
 
