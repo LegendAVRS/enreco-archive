@@ -49,7 +49,7 @@ const generateHandles = (numOfHandles: number) => {
 };
 
 const ImageNode = ({ data, id }: ImageNodeProps) => {
-    const { showHandles } = useEditorStore();
+    // const { showHandles } = useEditorStore();
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
     const updateNodeInternals = useUpdateNodeInternals();
     const handleElements = handles.map((handle) => (
@@ -59,14 +59,13 @@ const ImageNode = ({ data, id }: ImageNodeProps) => {
             type={handle.type}
             position={handle.position}
             // Setting opacity to complete 0 cause some weird stuffff to happen
-            style={{ ...handle.style, opacity: showHandles ? "1" : "0.001" }}
-            isConnectable={showHandles}
+            style={{ ...handle.style, opacity: "1" }}
+            isConnectable={true}
         />
     ));
     useEffect(() => {
-        // filter for only connected handles
         updateNodeInternals(id);
-    }, [id, handles, updateNodeInternals, setHandles]);
+    }, [handles, id, updateNodeInternals]);
     return (
         <>
             {handleElements}

@@ -86,10 +86,31 @@ export const dummyData: ChartData = {
 };
 
 export const dummyRelationships: RelationshipStyle = {
-    romantic: {
+    marriage: {
         stroke: "red",
     },
-    family: {
+    romantic: {
         stroke: "blue",
+    },
+    unrequited_love: {
+        stroke: "lightblue",
+        strokeDasharray: "5, 5",
+    },
+    familial_relationship: {
+        stroke: "green",
+    },
+    protector: {
+        stroke: "green",
+        strokeDasharray: "5, 5",
+    },
+    miscelanious: {
+        stroke: "orange",
+        strokeDasharray: "5, 5",
+    },
+    enemies: {
+        stroke: "red",
+    },
+    big_cat: {
+        stroke: "purple",
     },
 };
