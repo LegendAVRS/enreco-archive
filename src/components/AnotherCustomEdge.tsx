@@ -48,7 +48,6 @@ const NewCustomEdge = ({
     const [labelPointXTop, setLabelPointXTop] = useState(storeXValTop[id] || 0);
     const [extraPointsPosState, setExtraPointsPosState] = useState({});
     const { setEdgePaths, edgePaths } = useEditorStore();
-    const [initialLoad, setInitialLoad] = useState(true);
 
     const showDragLabels = true;
     let zoom = 0;
@@ -299,10 +298,9 @@ const NewCustomEdge = ({
     useEffect(() => {
         setEdgePaths({ ...edgePaths, [id]: path });
     }, [path]);
-    // useEffect(() => {
-    //     console.log(data?.path);
-    // }, []);
-    // path = data?.path;
+    if (data?.path) {
+        path = data?.path;
+    }
     return (
         <>
             <svg width="0" height="0">
@@ -329,7 +327,7 @@ const NewCustomEdge = ({
                 markerEnd={`url(#arrow-${id})`}
                 // markerStart={markerStart}
             />
-            {showDragLabels && (
+            {showDragLabels && !data?.path && (
                 <EdgeLabelRenderer>
                     <div
                         ref={edgeRef}
