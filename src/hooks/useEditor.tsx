@@ -9,9 +9,17 @@ import {
 } from "@xyflow/react";
 import { useFlowStore } from "@/store/flowStore";
 import { useEditorStore } from "@/store/editorStore";
+import { useEffect } from "react";
+import chartData from "@/data/chart.json";
+
+const loadFlow = () => {
+    // load json file 'from data/chart.json'
+    const flow = chartData;
+    return flow;
+};
 
 const useEditor = () => {
-    const { data } = useChartStore();
+    const { data, setData, setRelationships } = useChartStore();
     const [nodes, setNodes, onNodesChange] = useNodesState<ImageNodeType>(
         data.nodes
     );
@@ -22,6 +30,16 @@ const useEditor = () => {
     const { selectedEdge, selectedNode, setSelectedEdge, setSelectedNode } =
         useFlowStore();
     const { setCurrentCard } = useEditorStore();
+
+    useEffect(() => {
+        const chartData = loadFlow();
+        console.log(chartData);
+        setData(chartData);
+        setRelationships(chartData.relationships);
+        setNodes(chartData.nodes);
+        setEdges(chartData.edges);
+    }, [setData, setRelationships, setNodes, setEdges]);
+    console.log(nodes);
 
     // Add a new image node at the the given position
     const addNode = (x: number, y: number) => {
@@ -51,6 +69,8 @@ const useEditor = () => {
             height: 20,
             color: "#FF0072",
         };
+
+        params.id = `${params.source}-${params.target}-${params.sourceHandle}-${params.targetHandle}`;
         setEdges((eds) => addEdge(params, eds));
     };
 
@@ -60,6 +80,15 @@ const useEditor = () => {
         setEdges((eds) =>
             eds.map((edge) =>
                 edge.id === params.id ? { ...edge, ...params } : edge
+            )
+        );
+    };
+
+    const updateNode = (params) => {
+        // Create a new nodes array to force re-render
+        setNodes((nds) =>
+            nds.map((node) =>
+                node.id === params.id ? { ...node, ...params } : node
             )
         );
     };
@@ -91,6 +120,7 @@ const useEditor = () => {
         deleteNode,
         connectEdge,
         updateEdge,
+        updateNode,
         nodes,
         edges,
         onNodesChange,

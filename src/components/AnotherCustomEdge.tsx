@@ -47,6 +47,8 @@ const NewCustomEdge = ({
     const [labelPointX, setLabelPointX] = useState(storeXValBottom[id] || 0);
     const [labelPointXTop, setLabelPointXTop] = useState(storeXValTop[id] || 0);
     const [extraPointsPosState, setExtraPointsPosState] = useState({});
+    const { setEdgePaths, edgePaths } = useEditorStore();
+    const [initialLoad, setInitialLoad] = useState(true);
 
     const showDragLabels = true;
     let zoom = 0;
@@ -239,7 +241,7 @@ const NewCustomEdge = ({
         return path;
     }
     // generating the path
-    const path = generateOrthogonalEdgePath(
+    let path = generateOrthogonalEdgePath(
         sourceX,
         sourceY,
         targetX,
@@ -293,16 +295,38 @@ const NewCustomEdge = ({
             }
         }
     };
-
+    const strokeColor = edgeStyle?.stroke || "#000";
+    useEffect(() => {
+        setEdgePaths({ ...edgePaths, [id]: path });
+    }, [path]);
+    // useEffect(() => {
+    //     console.log(data?.path);
+    // }, []);
+    // path = data?.path;
     return (
         <>
+            <svg width="0" height="0">
+                <defs>
+                    <marker
+                        id={`arrow-${id}`}
+                        viewBox="0 0 10 10"
+                        refX="10" // Adjust reference point for correct positioning
+                        refY="5" // Adjust to center the arrow on the line
+                        markerWidth="4"
+                        markerHeight="4"
+                        className="stroke-[1]"
+                        orient="auto-start-reverse" // Automatically orient the marker based on line direction
+                    >
+                        <path d="M0,0 L10,5 L0,10 z" fill={strokeColor} />
+                    </marker>
+                </defs>
+            </svg>
             <BaseEdge
                 key={id}
                 path={path}
                 style={edgeStyle}
-                className="z-10"
-                markerEnd={markerEnd}
-
+                className="z-10 stroke-[3]"
+                markerEnd={`url(#arrow-${id})`}
                 // markerStart={markerStart}
             />
             {showDragLabels && (
