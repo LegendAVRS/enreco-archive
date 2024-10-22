@@ -115,3 +115,10 @@ export const dummyRelationships: RelationshipStyle = {
         stroke: "purple",
     },
 };
+
+export const dummyTeam = {
+    "Cerulean Cup": "",
+    "Amber Coin": "",
+    "Jade Sword": "",
+    "Scarlet Wand": "",
+};

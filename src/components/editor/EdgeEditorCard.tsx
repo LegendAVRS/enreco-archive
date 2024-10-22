@@ -1,10 +1,7 @@
+import EditorCard from "@/components/editor/EditorCard";
 import { Button } from "@/components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-} from "@/components/ui/card";
+import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
     Select,
     SelectContent,
@@ -12,13 +9,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { useChartStore } from "@/store/chartStore";
-import useEditor from "@/hooks/useEditor";
-import { useEffect, useState } from "react";
-import { useFlowStore } from "@/store/flowStore";
 import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { Url } from "url";
+import useEditor from "@/hooks/useEditor";
+import { useChartStore } from "@/store/chartStore";
+import { useFlowStore } from "@/store/flowStore";
+import { useEffect, useState } from "react";
 
 const EdgeEditorCard = () => {
     const { selectedEdge } = useFlowStore();
@@ -36,13 +31,16 @@ const EdgeEditorCard = () => {
         selectedEdge?.data?.timestampUrl
     );
 
+    const [marker, setMarker] = useState(selectedEdge?.data?.marker);
+
     // Sync local state with selectedEdge whenever selectedEdge changes
     useEffect(() => {
         if (selectedEdge) {
-            setLocalRelationship(selectedEdge?.data?.relationship);
-            setLocalTitle(selectedEdge?.data?.title);
-            setLocalContent(selectedEdge?.data?.content);
-            setLocalStream(selectedEdge?.data?.timestampUrl);
+            setLocalRelationship(selectedEdge.data?.relationship);
+            setLocalTitle(selectedEdge.data?.title);
+            setLocalContent(selectedEdge.data?.content);
+            setLocalStream(selectedEdge.data?.timestampUrl);
+            setMarker(selectedEdge.data?.marker);
         }
     }, [selectedEdge]);
 
@@ -55,11 +53,12 @@ const EdgeEditorCard = () => {
         newEdge.data.title = localTitle;
         newEdge.data.content = localContent;
         newEdge.data.timestampUrl = localStream;
+        newEdge.data.marker = marker;
         updateEdge(newEdge);
     };
 
     return (
-        <Card className="absolute right-5 top-1/2 -translate-y-1/2 flex flex-col items-center">
+        <EditorCard>
             <CardHeader>
                 <h2 className="text-lg font-bold">Edge Editor</h2>
             </CardHeader>
@@ -78,6 +77,19 @@ const EdgeEditorCard = () => {
                                     {key}
                                 </SelectItem>
                             ))}
+                        </SelectContent>
+                    </Select>
+
+                    <Select
+                        value={selectedEdge?.data?.marker}
+                        onValueChange={setMarker}
+                    >
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder={marker} />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="none">None</SelectItem>
+                            <SelectItem value="single">Single</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -106,7 +118,7 @@ const EdgeEditorCard = () => {
                 <Button onClick={handleSave}>Save</Button>
                 <Button onClick={deleteEdge}>Delete</Button>
             </CardFooter>
-        </Card>
+        </EditorCard>
     );
 };
 

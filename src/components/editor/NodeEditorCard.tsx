@@ -5,10 +5,20 @@ import { Button } from "@/components/ui/button";
 import useEditor from "@/hooks/useEditor";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import EditorCard from "@/components/editor/EditorCard";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectValue,
+} from "@/components/ui/select";
+import { SelectTrigger } from "@radix-ui/react-select";
+import { useChartStore } from "@/store/chartStore";
 
 export default function NodeEditorCard() {
     const { selectedNode } = useFlowStore();
     const { updateNode, deleteNode } = useEditor();
+    const { data } = useChartStore();
 
     const [localImageSrc, setLocalImageSrc] = useState(
         selectedNode?.data?.imageSrc
@@ -17,6 +27,7 @@ export default function NodeEditorCard() {
     const [localContent, setLocalContent] = useState(
         selectedNode?.data?.content
     );
+    const [localTeam, setLocalTeam] = useState(selectedNode?.data.team);
 
     useEffect(() => {
         if (selectedNode) {
@@ -34,13 +45,24 @@ export default function NodeEditorCard() {
         newNode.data.imageSrc = localImageSrc;
         newNode.data.title = localTitle;
         newNode.data.content = localContent;
+        newNode.data.team = localTeam;
         updateNode(newNode);
     };
 
     return (
-        <Card className="flex flex-col items-center gap-4 absolute right-5 top-1/2 -translate-y-1/2 p-6 min-w-[300px]">
+        <EditorCard>
             <h1 className="text-xl font-bold">Node editor</h1>
             <div>Id: {selectedNode?.id}</div>
+            <Select value={localTeam} onValueChange={setLocalTeam}>
+                <SelectTrigger>
+                    <SelectValue placeholder={localTeam} />
+                </SelectTrigger>
+                {Object.keys(data).map((key) => (
+                    <SelectItem key={key} value={key}>
+                        {key}
+                    </SelectItem>
+                ))}
+            </Select>
             <Input
                 placeholder="Image url..."
                 value={localImageSrc}
@@ -60,6 +82,6 @@ export default function NodeEditorCard() {
                 <Button onClick={handleSave}>Save</Button>
                 <Button onClick={deleteNode}>Delete</Button>
             </div>
-        </Card>
+        </EditorCard>
     );
 }

@@ -1,11 +1,11 @@
-import { Card } from "@/components/ui/card";
+import EditorCard from "@/components/editor/EditorCard";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useEditorStore } from "@/store/editorStore";
 const GeneralEditorCard = () => {
     const { showHandles, setShowHandles } = useEditorStore();
     return (
-        <Card className="absolute right-5 top-1/2 -translate-y-1/2 px-4 py-2">
+        <EditorCard>
             <h1 className="text-2xl font-bold">General Settings</h1>
             <div className="flex flex-col items-center mt-4">
                 <div className="flex flex-row justify-between items-center w-full">
@@ -17,7 +17,7 @@ const GeneralEditorCard = () => {
                     />
                 </div>
             </div>
-        </Card>
+        </EditorCard>
     );
 };
 

@@ -1,17 +1,11 @@
-import { Edge, EdgeProps, Node, NodeProps, Position } from "@xyflow/react";
+import { Edge, EdgeProps, Node, NodeProps } from "@xyflow/react";
 export type ImageNodeData = {
     title: string;
     content: string;
     imageSrc: string;
     width?: number;
     height?: number;
-    // handles will map {source + target} to {sourceHandle + targetHandle}
-    handles: {
-        [key: string]: {
-            sourceHandle: string;
-            targetHandle: string;
-        };
-    }; // key is source + target, value is sourceHandle + targetHandle
+    team: string;
 };
 
 export type CustomEdgeData = {
@@ -20,6 +14,7 @@ export type CustomEdgeData = {
     content?: string;
     timestampUrl?: string;
     path?: string;
+    marker?: string;
 };
 
 export type ImageNodeType = Node<ImageNodeData, "image">;
@@ -32,7 +27,9 @@ export type ChartData = {
     nodes: ImageNodeType[];
     edges: CustomEdgeType[];
     relationships: RelationshipStyle;
+    teams: Teams;
 };
 
 // Type that maps a string to a style object
 export type RelationshipStyle = { [key: string]: React.CSSProperties };
+export type Teams = { [key: string]: { imgSrc: string } };

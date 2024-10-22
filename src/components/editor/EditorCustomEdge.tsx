@@ -26,7 +26,7 @@ const storeXValTop = {};
 
 const extraPoints = {};
 
-const NewCustomEdge = ({
+const EditorCustomEdge = ({
     id,
     sourceX,
     sourceY,
@@ -427,4 +427,4 @@ const NewCustomEdge = ({
     );
 };
 
-export default NewCustomEdge;
+export default EditorCustomEdge;

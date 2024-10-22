@@ -1,6 +1,13 @@
+import NewCustomEdge from "@/components/editor/EditorCustomEdge";
+import EdgeEditorCard from "@/components/editor/EdgeEditorCard";
 import GeneralEditorCard from "@/components/editor/GeneralEditorCard";
+import NodeEditorCard from "@/components/editor/NodeEditorCard";
+import { Button } from "@/components/ui/button";
 import useEditor from "@/hooks/useEditor";
 import useKeyboard from "@/hooks/useKeyboard";
+import { dummyRelationships } from "@/lib/dummy";
+import { useEditorStore } from "@/store/editorStore";
+import { useFlowStore } from "@/store/flowStore";
 import {
     ConnectionLineType,
     ConnectionMode,
@@ -8,31 +15,23 @@ import {
     ReactFlowInstance,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
+import { useState } from "react";
 import ImageNode from "./components/editor/ImageNode";
 import DevTools from "./DevTool/DevTools";
-import NewCustomEdge from "@/components/editor/AnotherCustomEdge";
-import EdgeEditorCard from "@/components/editor/EdgeEditorCard";
-import { useEditorStore } from "@/store/editorStore";
-import NodeEditorCard from "@/components/editor/NodeEditorCard";
-import { Button } from "@/components/ui/button";
-import { useFlowStore } from "@/store/flowStore";
-import { useChartStore } from "@/store/chartStore";
-import { useState } from "react";
-import { dummyRelationships } from "@/lib/dummy";
+import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
 
 const nodeTypes = {
     image: ImageNode,
 };
 
 const edgeTypes = {
-    custom: NewCustomEdge,
+    custom: EditorCustomEdge,
 };
 
 const App = () => {
     const { addNode, connectEdge, nodes, onNodesChange, edges, onEdgesChange } =
         useEditor();
-    const { mode, currentCard, setCurrentCard, edgePaths, nodeHandles } =
-        useEditorStore();
+    const { mode, currentCard, setCurrentCard, edgePaths } = useEditorStore();
     const { setSelectedNode, setSelectedEdge } = useFlowStore();
     const [rfInstance, setRfInstance] = useState<ReactFlowInstance>();
     useKeyboard();
@@ -43,7 +42,6 @@ const App = () => {
             return;
         }
     };
-    console.log(edges);
 
     // Export the chart data (nodes and edges) to a json file
     const handleExport = () => {
@@ -68,10 +66,6 @@ const App = () => {
         linkElement.click();
     };
 
-    // if (!nodes || !edges) {
-    //     return <div>Loading...</div>;
-    // }
-
     return (
         <div className="w-screen h-screen">
             <ReactFlow
@@ -86,18 +80,17 @@ const App = () => {
                 onClick={(e) => {
                     handleClick(e);
                 }}
-                onNodeClick={(e, node) => {
+                onNodeClick={(_, node) => {
                     setCurrentCard("node");
                     setSelectedNode(node);
                     setSelectedEdge(null);
                 }}
-                onEdgeClick={(e, edge) => {
+                onEdgeClick={(_, edge) => {
                     setCurrentCard("edge");
                     setSelectedEdge(edge);
                     setSelectedNode(null);
                 }}
                 onConnect={(params) => {
-                    console.log(params);
                     connectEdge(params);
                 }}
                 snapToGrid

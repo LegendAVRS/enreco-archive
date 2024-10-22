@@ -1,4 +1,4 @@
-import { CustomEdgeProps, CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import { create } from "zustand";
 
 interface FlowState {

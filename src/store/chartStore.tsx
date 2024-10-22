@@ -1,6 +1,5 @@
+import { ChartData } from "@/lib/type";
 import { create } from "zustand";
-import { dummyData, dummyRelationships } from "@/lib/dummy";
-import { ChartData, RelationshipStyle } from "@/lib/type";
 interface ChartState {
     data: ChartData;
     setData: (data: ChartData) => void;
