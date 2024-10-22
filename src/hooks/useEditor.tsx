@@ -39,12 +39,10 @@ const useEditor = () => {
         //     edges: [],
         //     relationships: dummyRelationships,
         // };
-        console.log(chartData);
         setData(chartData);
         setNodes(chartData.nodes);
         setEdges(chartData.edges);
     }, [setData, setNodes, setEdges]);
-    console.log(nodes);
 
     // Add a new image node at the the given position
     const addNode = (x: number, y: number) => {

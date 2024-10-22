@@ -30,7 +30,6 @@ const edgeTypes = {
     custom: CustomEdgeView,
 };
 
-// This is a simple view app that uses the ReactFlow component
 const ViewApp = () => {
     const [nodes, setNodes] = useNodesState<ImageNodeType>([]);
     const [edges, setEdges] = useEdgesState<CustomEdgeType>([]);
@@ -42,8 +41,6 @@ const ViewApp = () => {
 
     const loadFlow = useCallback(() => {
         const restoreFlow = async () => {
-            console.log(chart);
-            // const flow = JSON.parse(chart);
             const flow = chart;
 
             if (flow) {
