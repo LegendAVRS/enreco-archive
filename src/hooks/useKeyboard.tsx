@@ -3,25 +3,29 @@ import { useEffect } from "react";
 
 const useKeyboard = () => {
     const { mode, setMode } = useEditorStore();
+
     useEffect(() => {
         const defaultActions: Record<string, CallableFunction> = {
-            a: () => {
-                setMode("place");
-            },
-            d: () => {
-                setMode("delete");
-            },
-            v: () => {
-                setMode("view");
-            },
-            e: () => {
-                setMode("edit");
-            },
+            a: () => setMode("place"),
+            d: () => setMode("delete"),
+            v: () => setMode("view"),
+            e: () => setMode("edit"),
         };
+
         const handleKeyDown = (event: KeyboardEvent) => {
-            const action = defaultActions[event.key];
-            if (action) {
-                action();
+            const activeElement = document.activeElement as HTMLElement;
+
+            // Ignore keydown events when the target is an input, textarea, or contentEditable element
+            const isEditableElement =
+                activeElement.tagName === "INPUT" ||
+                activeElement.tagName === "TEXTAREA" ||
+                activeElement.isContentEditable;
+
+            if (!isEditableElement) {
+                const action = defaultActions[event.key];
+                if (action) {
+                    action();
+                }
             }
         };
 

@@ -1,7 +1,8 @@
 import EditorCard from "@/components/editor/EditorCard";
 import { Button } from "@/components/ui/button";
-import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
     Select,
     SelectContent,
@@ -10,37 +11,34 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import useEditor from "@/hooks/useEditor";
+import { CustomEdgeType } from "@/lib/type";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { useEffect, useState } from "react";
 
-const EdgeEditorCard = () => {
+interface EdgeEditorCardProps {
+    updateEdge: (edge: CustomEdgeType) => void;
+    deleteEdge: () => void;
+}
+
+const EdgeEditorCard = ({ updateEdge, deleteEdge }: EdgeEditorCardProps) => {
     const { selectedEdge } = useFlowStore();
     const { data } = useChartStore();
-    const { updateEdge, deleteEdge } = useEditor();
 
-    const [localRelationship, setLocalRelationship] = useState(
-        selectedEdge?.data?.relationship
-    );
-    const [localTitle, setLocalTitle] = useState(selectedEdge?.data?.title);
-    const [localContent, setLocalContent] = useState(
-        selectedEdge?.data?.content
-    );
-    const [localStream, setLocalStream] = useState(
-        selectedEdge?.data?.timestampUrl
-    );
-
-    const [marker, setMarker] = useState(selectedEdge?.data?.marker);
+    const [localRelationship, setLocalRelationship] = useState("");
+    const [localTitle, setLocalTitle] = useState("");
+    const [localContent, setLocalContent] = useState("");
+    const [localStream, setLocalStream] = useState("");
+    const [marker, setMarker] = useState(true);
 
     // Sync local state with selectedEdge whenever selectedEdge changes
     useEffect(() => {
         if (selectedEdge) {
-            setLocalRelationship(selectedEdge.data?.relationship);
-            setLocalTitle(selectedEdge.data?.title);
-            setLocalContent(selectedEdge.data?.content);
-            setLocalStream(selectedEdge.data?.timestampUrl);
-            setMarker(selectedEdge.data?.marker);
+            setLocalRelationship(selectedEdge.data?.relationship || "");
+            setLocalTitle(selectedEdge.data?.title || "");
+            setLocalContent(selectedEdge.data?.content || "");
+            setLocalStream(selectedEdge.data?.timestampUrl || "");
+            setMarker(selectedEdge.data?.marker || true);
         }
     }, [selectedEdge]);
 
@@ -59,65 +57,58 @@ const EdgeEditorCard = () => {
 
     return (
         <EditorCard>
-            <CardHeader>
+            <div>
                 <h2 className="text-lg font-bold">Edge Editor</h2>
-            </CardHeader>
-            <CardContent className="flex-col flex gap-4">
+            </div>
+            <div className="flex-col flex gap-4">
+                <Select
+                    value={localRelationship}
+                    onValueChange={setLocalRelationship}
+                >
+                    <SelectTrigger className="w-[180px]">
+                        <SelectValue
+                            placeholder={localRelationship || "Relationship..."}
+                        />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {Object.keys(data.relationships).map((key) => (
+                            <SelectItem key={key} value={key}>
+                                {key}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+                <div className="flex flex-row gap-2 items-center">
+                    <Checkbox
+                        id="marker"
+                        checked={marker}
+                        onCheckedChange={() => setMarker((prev) => !prev)}
+                    />
+                    <Label htmlFor="marker">Marker</Label>
+                </div>
+                <Input
+                    placeholder="Title..."
+                    onChange={(e) => setLocalTitle(e.target.value)}
+                    value={localTitle}
+                />
+                <Textarea
+                    placeholder="Content..."
+                    onChange={(e) => setLocalContent(e.target.value)}
+                    value={localContent}
+                />
+                <Input
+                    placeholder="Stream embed..."
+                    onChange={(e) => setLocalStream(e.target.value)}
+                    value={localStream}
+                />
                 <div>
-                    <Select
-                        value={localRelationship}
-                        onValueChange={setLocalRelationship}
-                    >
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder={localRelationship} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {Object.keys(data.relationships).map((key) => (
-                                <SelectItem key={key} value={key}>
-                                    {key}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-
-                    <Select
-                        value={selectedEdge?.data?.marker}
-                        onValueChange={setMarker}
-                    >
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder={marker} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="none">None</SelectItem>
-                            <SelectItem value="single">Single</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <iframe src={localStream} />
                 </div>
-                <div className="flex flex-col gap-4">
-                    <Input
-                        placeholder="Title..."
-                        onChange={(e) => setLocalTitle(e.target.value)}
-                        value={localTitle}
-                    />
-                    <Textarea
-                        placeholder="Content..."
-                        onChange={(e) => setLocalContent(e.target.value)}
-                        value={localContent}
-                    />
-                    <Input
-                        placeholder="Stream embed..."
-                        onChange={(e) => setLocalStream(e.target.value)}
-                        value={localStream}
-                    />
-                    <div>
-                        <iframe src={localStream} />
-                    </div>
-                </div>
-            </CardContent>
-            <CardFooter className="flex flex-row gap-4">
+            </div>
+            <div className="flex flex-row gap-4">
                 <Button onClick={handleSave}>Save</Button>
                 <Button onClick={deleteEdge}>Delete</Button>
-            </CardFooter>
+            </div>
         </EditorCard>
     );
 };

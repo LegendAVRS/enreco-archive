@@ -1,11 +1,11 @@
 import { Edge, EdgeProps, Node, NodeProps } from "@xyflow/react";
 export type ImageNodeData = {
-    title: string;
-    content: string;
-    imageSrc: string;
+    title?: string;
+    content?: string;
+    imageSrc?: string;
     width?: number;
     height?: number;
-    team: string;
+    team?: string;
 };
 
 export type CustomEdgeData = {
@@ -14,7 +14,7 @@ export type CustomEdgeData = {
     content?: string;
     timestampUrl?: string;
     path?: string;
-    marker?: string;
+    marker?: boolean;
 };
 
 export type ImageNodeType = Node<ImageNodeData, "image">;

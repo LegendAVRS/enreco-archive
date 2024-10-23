@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input";
+import { ImageNodeProps } from "@/lib/type";
 import { useEditorStore } from "@/store/editorStore";
 import {
     Handle,
@@ -7,7 +7,6 @@ import {
     useUpdateNodeInternals,
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
-import { ImageNodeProps } from "../../lib/type";
 
 // Number of handles per side
 const NUM_OF_HANDLES = 5;
@@ -49,7 +48,7 @@ const generateHandles = (numOfHandles: number) => {
     return handles;
 };
 
-const ImageNode = ({ data, id }: ImageNodeProps) => {
+const EditorImageNode = ({ data, id }: ImageNodeProps) => {
     const { showHandles } = useEditorStore();
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
     const updateNodeInternals = useUpdateNodeInternals();
@@ -80,4 +79,4 @@ const ImageNode = ({ data, id }: ImageNodeProps) => {
     );
 };
 
-export default ImageNode;
+export default EditorImageNode;

@@ -324,8 +324,7 @@ const EditorCustomEdge = ({
                 path={path}
                 style={edgeStyle}
                 className="z-10 stroke-[3]"
-                markerEnd={`url(#arrow-${id})`}
-                // markerStart={markerStart}
+                markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
             />
             {showDragLabels && !data?.path && (
                 <EdgeLabelRenderer>

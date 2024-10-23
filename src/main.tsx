@@ -7,8 +7,8 @@ import ViewApp from "@/ViewApp.tsx";
 createRoot(document.getElementById("root")!).render(
     // <StrictMode>
     <ReactFlowProvider>
-        {/* <App /> */}
-        <ViewApp />
+        <App />
+        {/* <ViewApp /> */}
     </ReactFlowProvider>
     // </StrictMode>
 );

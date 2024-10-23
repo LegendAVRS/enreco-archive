@@ -12,6 +12,8 @@ interface EditorState {
     setCurrentCard: (name: CardType) => void;
     edgePaths: { [key: string]: string };
     setEdgePaths: (edgePaths: { [key: string]: string }) => void;
+    edgeType: string;
+    setEdgeType: (edgeType: string) => void;
 }
 
 export const useEditorStore = create<EditorState>((set) => ({
@@ -24,4 +26,6 @@ export const useEditorStore = create<EditorState>((set) => ({
     edgePaths: {},
     setEdgePaths: (edgePaths: { [key: string]: string }) =>
         set(() => ({ edgePaths })),
+    edgeType: "custom",
+    setEdgeType: (edgeType: string) => set(() => ({ edgeType })),
 }));

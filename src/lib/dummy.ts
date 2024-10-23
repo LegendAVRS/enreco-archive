@@ -1,5 +1,5 @@
 import { MarkerType } from "@xyflow/react";
-import { ChartData, RelationshipStyle } from "./type";
+import { ChartData, CustomEdgeType, RelationshipStyle } from "./type";
 
 // Dummy data
 export const dummyData: ChartData = {
