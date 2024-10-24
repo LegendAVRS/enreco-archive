@@ -1,24 +1,36 @@
-import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import ViewCard from "@/components/view/ViewCard";
 import { useFlowStore } from "@/store/flowStore";
+import Markdown from "react-markdown";
 
 const NodeCardView = () => {
     const { selectedNode } = useFlowStore();
 
     return (
-        <Card className="flex flex-col shadow-xl bg-white items-center gap-4 absolute right-10 px-4 py-4 top-1/2 -translate-y-1/2 max-w-[300px] max-h-[500px] ">
+        <ViewCard className="flex flex-col items-center">
             <img
                 src={selectedNode?.data.imageSrc}
                 className="aspect-square w-[150px]"
             />
             <div className="font-semibold">{selectedNode?.data.title}</div>
             <Separator />
-
-            <div className="overflow-auto">
-                <div className="font-semibold text-lg">Recap</div>
-                {selectedNode?.data.content}
+            <div className="flex flex-row justify-around w-full">
+                <div className="flex flex-col">
+                    <div className="font-semibold">Team</div>
+                    <div>{selectedNode?.data.team}</div>
+                </div>
+                <div className="flex flex-col">
+                    <div className="font-semibold">Status</div>
+                    <div>{selectedNode?.data.status}</div>
+                </div>
             </div>
-        </Card>
+            <Separator />
+            <div className="overflow-auto max-h-[10%]">
+                {/* <div className="font-semibold text-lg">Recap</div> */}
+                {/* {selectedNode?.data.content} */}
+                <Markdown>{selectedNode?.data.content}</Markdown>
+            </div>
+        </ViewCard>
     );
 };
 

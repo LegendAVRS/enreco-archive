@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import ViewCard from "@/components/view/ViewCard";
 import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { ImageNodeType } from "@/lib/type";
 import { useChartStore } from "@/store/chartStore";
@@ -62,7 +63,7 @@ const EdgeCardView = () => {
     const nodeB: ImageNodeType = getNode(selectedEdge.target);
 
     return (
-        <Card className="flex flex-col shadow-xl bg-white items-center gap-4 absolute right-10 px-4 py-4 top-1/2 -translate-y-1/2 max-w-[300px] max-h-[600px]">
+        <ViewCard>
             <div className="flex flex-row gap-4 items-center justify-between">
                 <img
                     className="aspect-square w-[100px] object-cover"
@@ -88,7 +89,7 @@ const EdgeCardView = () => {
                     </figcaption>
                 </figure>
             </div>
-        </Card>
+        </ViewCard>
     );
 };
 

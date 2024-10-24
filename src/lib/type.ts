@@ -6,6 +6,7 @@ export type ImageNodeData = {
     width?: number;
     height?: number;
     team?: string;
+    status?: string;
 };
 
 export type CustomEdgeData = {

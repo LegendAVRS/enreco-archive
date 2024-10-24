@@ -13,6 +13,7 @@ import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { SelectTrigger } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
+import MDEditor from "@uiw/react-md-editor";
 
 interface NodeEditorCardProps {
     updateNode: (node: ImageNodeType) => void;
@@ -30,6 +31,7 @@ export default function NodeEditorCard({
     const [localTitle, setLocalTitle] = useState("");
     const [localContent, setLocalContent] = useState("");
     const [localTeam, setLocalTeam] = useState("");
+    const [localStatus, setLocalStatus] = useState("");
 
     useEffect(() => {
         if (selectedNode) {
@@ -37,6 +39,7 @@ export default function NodeEditorCard({
             setLocalTitle(selectedNode.data?.title || "");
             setLocalContent(selectedNode.data?.content || "");
             setLocalTeam(selectedNode.data?.team || "");
+            setLocalStatus(selectedNode.data?.status || "");
         }
     }, [selectedNode]);
 
@@ -60,11 +63,11 @@ export default function NodeEditorCard({
             <h1 className="text-xl font-bold">Node editor</h1>
             <div>Id: {selectedNode?.id}</div>
             <Select value={localTeam} onValueChange={setLocalTeam}>
-                <SelectTrigger>
+                <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder={localTeam || "Select a team"} />
                 </SelectTrigger>
                 <SelectContent>
-                    {Object.keys(data).map((key) => (
+                    {Object.keys(data.teams).map((key) => (
                         <SelectItem key={key} value={key}>
                             {key}
                         </SelectItem>
@@ -81,11 +84,12 @@ export default function NodeEditorCard({
                 value={localTitle}
                 onChange={(e) => setLocalTitle(e.target.value)}
             />
-            <Textarea
-                value={localContent}
-                onChange={(e) => setLocalContent(e.target.value)}
-                placeholder="Content..."
+            <Input
+                placeholder="Status..."
+                value={localStatus}
+                onChange={(e) => setLocalStatus(e.target.value)}
             />
+            <MDEditor value={localContent} onChange={setLocalContent} />
             <div className="flex flex-row gap-4">
                 <Button onClick={handleSave}>Save</Button>
                 <Button onClick={deleteNode}>Delete</Button>

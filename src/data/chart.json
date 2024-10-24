@@ -608,5 +608,11 @@
         "big_cat": {
             "stroke": "purple"
         }
+    },
+    "teams": {
+        "Cerulean Cup": "",
+        "Amber Coin": "",
+        "Jade Sword": "",
+        "Scarlet Wand": ""
     }
 }
