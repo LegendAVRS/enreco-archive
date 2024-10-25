@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import GeneralCard from "@/components/view/GeneralCard";
 import VisibilityCard from "@/components/view/VisibilityCard";
 
 const SettingCard = () => {
@@ -11,7 +12,9 @@ const SettingCard = () => {
                 <TabsTrigger value="general">General</TabsTrigger>
                 <TabsTrigger value="visibility">Edge</TabsTrigger>
             </TabsList>
-            <TabsContent value="general"></TabsContent>
+            <TabsContent value="general" className="h-[80%]">
+                <GeneralCard />
+            </TabsContent>
             <TabsContent value="visibility">
                 <VisibilityCard />
             </TabsContent>
