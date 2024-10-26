@@ -10,7 +10,9 @@
             "data": {
                 "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2023/10/Ceres-Fauna_list_thumb.png",
                 "title": "Ceres Fauna",
-                "content": "On the third day, Fauna embarked on an exciting new venture—she officially began the construction of her very own branch of convenience stores, aptly named FaunaMart. This wasn’t just an ordinary store; Fauna had big plans for it. In addition to the usual assortment of everyday goods and essentials, FaunaMart would stand out by offering something extra: lottery tickets. Her vision was to create a one-stop shop where customers could not only pick up their daily necessities but also try their luck at winning big. The project marked the beginning of a new chapter in her entrepreneurial journey."
+                "content": "On the third day, Fauna embarked on an exciting new venture—she officially began the construction of her very own branch of **convenience stores**, aptly named *FaunaMart*\n. \n\nThis wasn’t just an ordinary store; Fauna had big plans for it. In addition to the usual assortment of everyday goods and essentials, FaunaMart would stand out by offering something extra: **lottery tickets**. \n\n\n<p style=\"text-align:center;\"><em>\"Big jackpot at FaunaMart!\"</em></p>\n\nHer vision was to create a one-stop shop where customers could not only pick up their daily necessities but also try their luck at winning big. The project marked the beginning of a new chapter in her entrepreneurial journey.",
+
+                "team": "Scarlet Wand"
             },
             "measured": {
                 "width": 100,
@@ -29,7 +31,8 @@
             "data": {
                 "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/06/Elizabeth-Rose-Bloodflame_list_thumb.png",
                 "title": "Elizabeth Rose Bloodflame",
-                "content": "On the third day of Enreco, Elizabeth discovered that her world had shifted in ways she hadn’t anticipated. She found herself entangled in a web of complex and unexpected relationships. New alliances had formed, a delicate mix of both friends and foes. Some of these were enemies she never saw coming, while others became fierce protectors who stood by her side in moments of peril. To her surprise, amidst the chaos, romantic connections began to blossom as well, adding lovers to the intricate puzzle of her life. It was a day of revelations and unforeseen bonds, changing the course of her journey."
+                "content": "On the third day of Enreco, Elizabeth discovered that her world had shifted in ways she hadn’t anticipated. She found herself entangled in a web of complex and unexpected relationships. New alliances had formed, a delicate mix of both friends and foes. Some of these were enemies she never saw coming, while others became fierce protectors who stood by her side in moments of peril. To her surprise, amidst the chaos, romantic connections began to blossom as well, adding lovers to the intricate puzzle of her life. It was a day of revelations and unforeseen bonds, changing the course of her journey.",
+                "team": "Jade Sword"
             },
             "measured": {
                 "width": 100,
@@ -46,7 +49,10 @@
                 "y": 650
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/08/Nerissa-Ravencroft_list_thumb.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/08/Nerissa-Ravencroft_list_thumb.png",
+                "title": "Nerissa",
+                "content": "",
+                "team": "Scarlet Wand"
             },
             "measured": {
                 "width": 100,
@@ -63,7 +69,10 @@
                 "y": 800
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/08/Mococo-Abyssgard_list_thumb.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/08/Mococo-Abyssgard_list_thumb.png",
+                "title": "Mococoe",
+                "content": "",
+                "team": "Jade Sword"
             },
             "measured": {
                 "width": 100,
@@ -80,7 +89,10 @@
                 "y": 650
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2023/01/Takanashi-Kiara_thumb.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2023/01/Takanashi-Kiara_thumb.png",
+                "title": "Kiara",
+                "content": "",
+                "team": "Amber Coin"
             },
             "measured": {
                 "width": 100,
@@ -97,7 +109,10 @@
                 "y": 500
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/06/Raora-Panthera_list_thumb.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/06/Raora-Panthera_list_thumb.png",
+                "title": "Raora",
+                "content": "",
+                "team": "Amber Coin"
             },
             "measured": {
                 "width": 100,
@@ -114,7 +129,10 @@
                 "y": 800
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/08/Koseki-Bijou_list_thumb.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/08/Koseki-Bijou_list_thumb.png",
+                "title": "Bijou",
+                "content": "",
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
@@ -131,7 +149,10 @@
                 "y": 800
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2021/07/Shiori-Novella_list_thumb.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2021/07/Shiori-Novella_list_thumb.png",
+                "title": "shiori",
+                "content": "",
+                "team": "Scarlet Wand"
             },
             "measured": {
                 "width": 100,
@@ -148,7 +169,10 @@
                 "y": 800
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/06/Gigi-Murin_list_thumb.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2024/06/Gigi-Murin_list_thumb.png",
+                "title": "Gonathan G",
+                "content": "",
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
@@ -165,7 +189,10 @@
                 "y": 800
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2022/04/%E3%82%A2%E3%83%A1%E3%83%AA%E3%82%A2.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2022/04/%E3%82%A2%E3%83%A1%E3%83%AA%E3%82%A2.png",
+                "title": "ame",
+                "content": "",
+                "team": "Jade Sword"
             },
             "measured": {
                 "width": 100,
@@ -182,7 +209,10 @@
                 "y": 950
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2020/07/IRyS_list_thumb.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2020/07/IRyS_list_thumb.png",
+                "title": "hpo",
+                "content": "",
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
@@ -199,7 +229,10 @@
                 "y": 950
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2023/10/Ouro-Kronii_list_thumb.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2023/10/Ouro-Kronii_list_thumb.png",
+                "title": "tam",
+                "content": "",
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
@@ -216,7 +249,10 @@
                 "y": 950
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2022/04/%E3%81%84%E3%81%AA%E3%81%AB%E3%81%99.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2022/04/%E3%81%84%E3%81%AA%E3%81%AB%E3%81%99.png",
+                "title": "ina",
+                "content": "",
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
@@ -232,7 +268,10 @@
                 "y": 650
             },
             "data": {
-                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2022/04/%E3%82%AB%E3%83%AA%E3%82%AA%E3%83%9A.png"
+                "imageSrc": "https://hololive.hololivepro.com/wp-content/uploads/2022/04/%E3%82%AB%E3%83%AA%E3%82%AA%E3%83%9A.png",
+                "title": "Calli",
+                "content": "",
+                "team": "Jade Sword"
             },
             "measured": {
                 "width": 100,
@@ -319,8 +358,7 @@
                 "relationship": "familial_relationship",
                 "title": "",
                 "content": "",
-                "timestampUrl": "",
-                "path": "M900.0051879882812,753.0051879882812 V775.0051879882812 H900.0051879882812 H900.0051879882812 V797.0051879882812"
+                "timestampUrl": ""
             },
             "markerEnd": {
                 "type": "arrowclosed",
@@ -385,8 +423,7 @@
                 "relationship": "marriage",
                 "title": "",
                 "content": "",
-                "timestampUrl": "",
-                "path": "M1100.0052490234375,753.0051879882812 V775.0051879882812 H1100.0052490234375 H1100.0052490234375 V797.0051879882812"
+                "timestampUrl": ""
             },
             "markerEnd": {
                 "type": "arrowclosed",
@@ -461,7 +498,7 @@
                 "color": "#FF0072"
             },
             "id": "node-8-node-9-right-2-left-2",
-            "selected": true
+            "selected": false
         },
         {
             "source": "node-14",
@@ -473,8 +510,7 @@
                 "relationship": "familial_relationship",
                 "title": "",
                 "content": "",
-                "timestampUrl": "",
-                "path": "M1500.005126953125,753.0051879882812 V775.0051879882812 H1500.005126953125 H1500.005126953125 V797.0051879882812"
+                "timestampUrl": ""
             },
             "markerEnd": {
                 "type": "arrowclosed",
@@ -539,8 +575,7 @@
                 "relationship": "romantic",
                 "title": "",
                 "content": "",
-                "timestampUrl": "",
-                "path": "M1347.005126953125,1000.0051879882812 V1000.0051879882812 H1347.005126953125 H1253.0052490234375 V1000.0051879882812"
+                "timestampUrl": ""
             },
             "markerEnd": {
                 "type": "arrowclosed",
@@ -575,9 +610,9 @@
         }
     ],
     "viewport": {
-        "x": -640.172263383758,
-        "y": -508.7124700673821,
-        "zoom": 1.2753894250373825
+        "x": -503.95229110021546,
+        "y": -335.40268576371557,
+        "zoom": 0.9144405731839591
     },
     "relationships": {
         "marriage": {

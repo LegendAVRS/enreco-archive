@@ -35,7 +35,13 @@ const ViewApp = () => {
     const [edges, setEdges] = useEdgesState<CustomEdgeType>([]);
     const { setData } = useChartStore();
     const { setSelectedEdge, setSelectedNode } = useFlowStore();
-    const { currentCard, setCurrentCard, setEdgeVisibility } = useViewStore();
+    const {
+        currentCard,
+        setCurrentCard,
+        setEdgeVisibility,
+        setTeamVisibility,
+        setCharacterVisibility,
+    } = useViewStore();
 
     const { fitView, setCenter } = useReactFlow();
 
@@ -48,15 +54,38 @@ const ViewApp = () => {
                 setEdges(flow.edges || []);
                 setData(flow || {});
                 const edgeVisibilityLoaded: { [key: string]: boolean } = {};
+                const teamVisibilityLoaded: { [key: string]: boolean } = {};
+                const characterVisibilityLoaded: { [key: string]: boolean } =
+                    {};
+
                 Object.keys(flow.relationships).forEach((key) => {
                     edgeVisibilityLoaded[key] = true;
                 });
+
+                Object.keys(flow.teams).forEach((key) => {
+                    teamVisibilityLoaded[key] = true;
+                });
+
+                flow.nodes.forEach((node) => {
+                    teamVisibilityLoaded[node.data.team] = true;
+                    characterVisibilityLoaded[node.data.title] = true;
+                });
+
                 setEdgeVisibility(edgeVisibilityLoaded);
+                setTeamVisibility(teamVisibilityLoaded);
+                setCharacterVisibility(characterVisibilityLoaded);
             }
         };
 
         restoreFlow();
-    }, [setNodes, setEdges, setData, setEdgeVisibility]);
+    }, [
+        setNodes,
+        setEdges,
+        setData,
+        setEdgeVisibility,
+        setTeamVisibility,
+        setCharacterVisibility,
+    ]);
 
     useEffect(() => {
         loadFlow();
@@ -75,7 +104,7 @@ const ViewApp = () => {
     };
 
     return (
-        <div className="w-screen h-screen overflow-hidden">
+        <div className="w-screen h-screen overflow-hidden ">
             <ReactFlow
                 connectionMode={ConnectionMode.Loose}
                 nodes={nodes}

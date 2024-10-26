@@ -59,7 +59,8 @@ const getImageVisibilityStyle = (visible: boolean) => {
 const ImageNode = ({ data, id }: ImageNodeProps) => {
     // const { showHandles } = useEditorStore();
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
-    const { edgeVisibility } = useViewStore();
+    const { edgeVisibility, teamVisibility, characterVisibility } =
+        useViewStore();
     const { data: chartData } = useChartStore();
 
     // get edges that have either source or target as this node
@@ -68,9 +69,10 @@ const ImageNode = ({ data, id }: ImageNodeProps) => {
     );
 
     // loop thourgh edges and check if they are there exists one edge that is visible
-    const nodeVisibility = edges.some(
-        (edge) => edgeVisibility[edge.data.relationship]
-    );
+    const nodeVisibility =
+        edges.some((edge) => edgeVisibility[edge.data.relationship]) &&
+        teamVisibility[data.team] &&
+        characterVisibility[data.title];
 
     const nodeVisibilityStyle = getImageVisibilityStyle(nodeVisibility);
 

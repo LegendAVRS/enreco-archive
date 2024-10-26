@@ -1,7 +1,7 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
-import { CustomEdgeProps } from "@/lib/type";
+import { CustomEdgeProps, ImageNodeType } from "@/lib/type";
 import { useViewStore } from "@/store/viewStore";
-import { BaseEdge } from "@xyflow/react";
+import { BaseEdge, useReactFlow } from "@xyflow/react";
 
 const getVisiblityStyle = (visible: boolean) => {
     return {
@@ -9,22 +9,24 @@ const getVisiblityStyle = (visible: boolean) => {
     };
 };
 
-const CustomEdgeView = ({
-    id,
-    sourceX,
-    sourceY,
-    targetX,
-    targetY,
-    data,
-    markerEnd,
-    selected,
-}: CustomEdgeProps) => {
+const CustomEdgeView = ({ id, source, target, data }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
-    const { edgeVisibility } = useViewStore();
+    const { edgeVisibility, teamVisibility, characterVisibility } =
+        useViewStore();
     const strokeColor = edgeStyle?.stroke || "black";
-    const edgeVisibilityStyle = getVisiblityStyle(
-        edgeVisibility[data?.relationship]
-    );
+    const { getNode } = useReactFlow();
+
+    const nodeSrc = getNode(source) as ImageNodeType;
+    const nodeTarget = getNode(target) as ImageNodeType;
+
+    const isVisible =
+        edgeVisibility[data?.relationship] &&
+        teamVisibility[nodeSrc?.data.team] &&
+        teamVisibility[nodeTarget.data.team] &&
+        characterVisibility[nodeSrc.data.title] &&
+        characterVisibility[nodeTarget.data.title];
+
+    const edgeVisibilityStyle = getVisiblityStyle(isVisible);
     return (
         <>
             <svg width="0" height="0">

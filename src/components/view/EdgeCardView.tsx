@@ -7,11 +7,9 @@ import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { useReactFlow } from "@xyflow/react";
 import React from "react";
+import Markdown from "react-markdown";
 
-export const getLineSvg = (
-    style: React.CSSProperties,
-    markerDirection: "ltr" | "rtl" | "both" | "none"
-) => {
+export const getLineSvg = (style: React.CSSProperties, showMarker = false) => {
     const width = 60;
     const height = 20;
     const strokeColor = style?.stroke || "black";
@@ -39,16 +37,7 @@ export const getLineSvg = (
                 stroke={strokeColor}
                 style={style}
                 strokeWidth={4}
-                markerEnd={
-                    markerDirection === "ltr" || markerDirection === "both"
-                        ? "url(#markerArrow)"
-                        : ""
-                }
-                markerStart={
-                    markerDirection === "rtl" || markerDirection === "both"
-                        ? "url(#markerArrow)"
-                        : ""
-                }
+                markerEnd={showMarker ? "url(#markerArrow)" : ""}
             />
         </svg>
     );
@@ -69,16 +58,25 @@ const EdgeCardView = () => {
                     className="aspect-square w-[100px] object-cover"
                     src={nodeA.data.imageSrc}
                 />
-                {getLineSvg(edgeStyle!, "ltr")}
+                {getLineSvg(edgeStyle!, selectedEdge.data?.marker)}
                 <img
                     className="aspect-square w-[100px] object-cover"
                     src={nodeB.data.imageSrc}
                 />
             </div>
-            <div className="font-semibold">{selectedEdge.data.title}</div>
+            <span className="font-semibold">{selectedEdge.data.title}</span>
+            <Separator />
+
+            <div className="flex flex-col items-center">
+                <span className="text-sm underline underline-offset-2">
+                    Relationship: {selectedEdge.data?.relationship}
+                </span>
+            </div>
             <Separator />
             <div className="overflow-y-auto">
-                <div>{selectedEdge.data.content}</div>
+                <Markdown>
+                    {selectedEdge.data.content + selectedEdge.data.content}
+                </Markdown>
                 <figure>
                     <iframe
                         src={selectedEdge.data?.timestampUrl}
