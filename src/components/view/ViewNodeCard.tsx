@@ -3,7 +3,9 @@ import ViewCard from "@/components/view/ViewCard";
 import { getLighterOrDarkerColor } from "@/lib/utils";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
+import { useViewStore } from "@/store/viewStore";
 import { extractColors } from "extract-colors";
+import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -11,6 +13,7 @@ import rehypeRaw from "rehype-raw";
 const ViewNodeCard = () => {
     const { selectedNode } = useFlowStore();
     const { data } = useChartStore();
+    const { setCurrentCard } = useViewStore();
 
     const characterImageRef = useRef<HTMLImageElement>(null);
     const [color, setColor] = useState<string | null>(null);
@@ -26,6 +29,7 @@ const ViewNodeCard = () => {
 
     return (
         <ViewCard className="flex flex-col items-center">
+            <X className="top-5 right-5" onClick={() => setCurrentCard(null)} />
             <div
                 className="absolute top-0 w-full h-[100px] -z-10"
                 style={{ backgroundColor: color || "" }}

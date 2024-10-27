@@ -137,13 +137,15 @@ const EditorApp = () => {
     const handleExport = () => {
         if (!rfInstance) return;
         // @ts-expect-error type not same or sth idk
-        const flow: ChartData = rfInstance.toObject();
+        const exportData: ChartData = data;
+        const flow = rfInstance.toObject();
         flow.edges.forEach((edge) => {
             edge.data.path = edgePaths[edge.id];
         });
-        flow.relationships = dummyRelationships;
-        flow.dayRecap = data.dayRecap;
-        const dataStr = JSON.stringify(flow, null, 2);
+        exportData.relationships = dummyRelationships;
+        exportData.edges = flow.edges;
+        exportData.nodes = flow.nodes;
+        const dataStr = JSON.stringify(exportData, null, 2);
         const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(
             dataStr
         )}`;

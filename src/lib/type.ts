@@ -25,8 +25,8 @@ export type CustomEdgeType = Edge<CustomEdgeData, "custom">;
 export type CustomEdgeProps = EdgeProps<CustomEdgeType>;
 
 export type ChartData = {
-    chapter: number;
-    day: number;
+    chapter: string;
+    day: string;
     nodes: ImageNodeType[];
     edges: CustomEdgeType[];
     relationships: RelationshipStyle;
@@ -34,10 +34,14 @@ export type ChartData = {
     dayRecap: string;
 };
 
+export type Chapter = {
+    numberOfDays: number;
+    charts: ChartData[];
+};
+
 export type SiteData = {
     numberOfChapters: number;
-    numberOfDays: number;
-    currentChart: ChartData;
+    chapters: Chapter[];
 };
 
 // Type that maps a string to a style object
