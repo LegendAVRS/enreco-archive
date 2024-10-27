@@ -1,7 +1,7 @@
-import EdgeEditorCard from "@/components/editor/EdgeEditorCard";
+import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
-import GeneralEditorCard from "@/components/editor/GeneralEditorCard";
-import NodeEditorCard from "@/components/editor/NodeEditorCard";
+import EditorGeneralCard from "@/components/editor/EditorGeneralCard";
+import EditorNodeCard from "@/components/editor/EditorNodeCard";
 import { Button } from "@/components/ui/button";
 import chartData from "@/data/chart.json";
 import useKeyboard from "@/hooks/useKeyboard";
@@ -218,7 +218,7 @@ const App = () => {
                 </Button>
             </div>
             {currentCard === "node" && (
-                <NodeEditorCard
+                <EditorNodeCard
                     updateNode={updateNode}
                     deleteNode={deleteNode}
                 />
@@ -229,7 +229,7 @@ const App = () => {
                     updateEdge={updateEdge}
                 />
             )}
-            {currentCard === "general" && <GeneralEditorCard />}
+            {currentCard === "general" && <EditorGeneralCard />}
         </div>
     );
 };

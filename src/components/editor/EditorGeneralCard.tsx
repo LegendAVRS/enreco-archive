@@ -2,7 +2,7 @@ import EditorCard from "@/components/editor/EditorCard";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useEditorStore } from "@/store/editorStore";
-const GeneralEditorCard = () => {
+const EditorGeneralCard = () => {
     const { showHandles, setShowHandles } = useEditorStore();
     return (
         <EditorCard>
@@ -21,4 +21,4 @@ const GeneralEditorCard = () => {
     );
 };
 
-export default GeneralEditorCard;
+export default EditorGeneralCard;

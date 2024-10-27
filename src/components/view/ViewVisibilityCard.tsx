@@ -1,10 +1,10 @@
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getLineSvg } from "@/components/view/EdgeCardView";
+import { getLineSvg } from "@/components/view/ViewEdgeCard";
 import { useChartStore } from "@/store/chartStore";
 import { useViewStore } from "@/store/viewStore";
 
-const VisibilityCard = () => {
+const ViewVisibilityCard = () => {
     const {
         edgeVisibility,
         setEdgeVisibility,
@@ -80,4 +80,4 @@ const VisibilityCard = () => {
     );
 };
 
-export default VisibilityCard;
+export default ViewVisibilityCard;

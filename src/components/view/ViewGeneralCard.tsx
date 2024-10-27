@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 
-const GeneralCard = () => {
+const ViewGeneralCard = () => {
     return (
         <Card className="flex flex-col gap-4 p-4">
             <Button variant={"outline"}>Info</Button>
@@ -24,4 +24,4 @@ const GeneralCard = () => {
     );
 };
 
-export default GeneralCard;
+export default ViewGeneralCard;

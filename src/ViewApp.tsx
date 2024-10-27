@@ -10,24 +10,24 @@ import {
 import chart from "@/data/chart.json";
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import { useCallback, useEffect } from "react";
-import ImageNodeView from "@/components/view/ImageNodeView";
-import CustomEdgeView from "@/components/view/CustomEdgeView";
+import ImageNodeView from "@/components/view/ViewImageNode";
+import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 
 import "@xyflow/react/dist/style.css";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { useViewStore } from "@/store/viewStore";
-import NodeCardView from "@/components/view/NodeCardView";
-import EdgeCardView from "@/components/view/EdgeCardView";
+import ViewNodeCard from "@/components/view/ViewNodeCard";
+import ViewEdgeCard from "@/components/view/ViewEdgeCard";
 import { Button } from "@/components/ui/button";
-import SettingCard from "@/components/view/SettingCard";
+import ViewSettingCard from "@/components/view/ViewSettingCard";
 
 const nodeTypes = {
     image: ImageNodeView,
 };
 
 const edgeTypes = {
-    custom: CustomEdgeView,
+    custom: ViewCustomEdge,
 };
 
 const ViewApp = () => {
@@ -135,9 +135,9 @@ const ViewApp = () => {
             >
                 Settings
             </Button>
-            {currentCard === "setting" && <SettingCard />}
-            {currentCard === "node" && <NodeCardView />}
-            {currentCard === "edge" && <EdgeCardView />}
+            {currentCard === "setting" && <ViewSettingCard />}
+            {currentCard === "node" && <ViewNodeCard />}
+            {currentCard === "edge" && <ViewEdgeCard />}
         </div>
     );
 };

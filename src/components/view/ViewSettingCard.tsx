@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import GeneralCard from "@/components/view/GeneralCard";
-import VisibilityCard from "@/components/view/VisibilityCard";
+import ViewGeneralCard from "@/components/view/ViewGeneralCard";
+import ViewVisibilityCard from "@/components/view/ViewVisibilityCard";
 
-const SettingCard = () => {
+const ViewSettingCard = () => {
     return (
         <Tabs
             className="w-[400px] absolute right-10 top-1/2 -translate-y-1/2"
@@ -13,13 +13,13 @@ const SettingCard = () => {
                 <TabsTrigger value="visibility">Edge</TabsTrigger>
             </TabsList>
             <TabsContent value="general" className="h-[80%]">
-                <GeneralCard />
+                <ViewGeneralCard />
             </TabsContent>
             <TabsContent value="visibility">
-                <VisibilityCard />
+                <ViewVisibilityCard />
             </TabsContent>
         </Tabs>
     );
 };
 
-export default SettingCard;
+export default ViewSettingCard;

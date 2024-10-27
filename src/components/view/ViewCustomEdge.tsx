@@ -9,7 +9,7 @@ const getVisiblityStyle = (visible: boolean) => {
     };
 };
 
-const CustomEdgeView = ({ id, source, target, data }: CustomEdgeProps) => {
+const ViewCustomEdge = ({ id, source, target, data }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
     const { edgeVisibility, teamVisibility, characterVisibility } =
         useViewStore();
@@ -55,4 +55,4 @@ const CustomEdgeView = ({ id, source, target, data }: CustomEdgeProps) => {
     );
 };
 
-export default CustomEdgeView;
+export default ViewCustomEdge;

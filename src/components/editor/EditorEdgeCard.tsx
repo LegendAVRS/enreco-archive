@@ -16,12 +16,12 @@ import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { useEffect, useState } from "react";
 
-interface EdgeEditorCardProps {
+interface EditorEdgeCard {
     updateEdge: (edge: CustomEdgeType) => void;
     deleteEdge: () => void;
 }
 
-const EdgeEditorCard = ({ updateEdge, deleteEdge }: EdgeEditorCardProps) => {
+const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
     const { selectedEdge } = useFlowStore();
     const { data } = useChartStore();
 

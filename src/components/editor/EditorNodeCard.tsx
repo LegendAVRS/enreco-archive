@@ -15,15 +15,15 @@ import { SelectTrigger } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 
-interface NodeEditorCardProps {
+interface EditorNodeCardProps {
     updateNode: (node: ImageNodeType) => void;
     deleteNode: () => void;
 }
 
-export default function NodeEditorCard({
+export default function EditorNodeCard({
     updateNode,
     deleteNode,
-}: NodeEditorCardProps) {
+}: EditorNodeCardProps) {
     const { selectedNode } = useFlowStore();
     const { data } = useChartStore();
 

@@ -43,7 +43,7 @@ export const getLineSvg = (style: React.CSSProperties, showMarker = false) => {
     );
 };
 
-const EdgeCardView = () => {
+const ViewEdgeCard = () => {
     const { selectedEdge } = useFlowStore();
     const { getNode } = useReactFlow();
     const { edgeStyle } = useEdgeStyle(selectedEdge?.data?.relationship);
@@ -91,4 +91,4 @@ const EdgeCardView = () => {
     );
 };
 
-export default EdgeCardView;
+export default ViewEdgeCard;

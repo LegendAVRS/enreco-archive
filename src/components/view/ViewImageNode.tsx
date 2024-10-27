@@ -56,7 +56,7 @@ const getImageVisibilityStyle = (visible: boolean) => {
     };
 };
 
-const ImageNode = ({ data, id }: ImageNodeProps) => {
+const ViewImageNode = ({ data, id }: ImageNodeProps) => {
     // const { showHandles } = useEditorStore();
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
     const { edgeVisibility, teamVisibility, characterVisibility } =
@@ -104,4 +104,4 @@ const ImageNode = ({ data, id }: ImageNodeProps) => {
     );
 };
 
-export default ImageNode;
+export default ViewImageNode;

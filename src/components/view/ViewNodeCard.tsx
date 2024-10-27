@@ -3,10 +3,9 @@ import ViewCard from "@/components/view/ViewCard";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import Markdown from "react-markdown";
-import MarkdownPreview from "@uiw/react-markdown-preview";
 import rehypeRaw from "rehype-raw";
 
-const NodeCardView = () => {
+const ViewNodeCard = () => {
     const { selectedNode } = useFlowStore();
     const { data } = useChartStore();
 
@@ -51,4 +50,4 @@ const NodeCardView = () => {
     );
 };
 
-export default NodeCardView;
+export default ViewNodeCard;
