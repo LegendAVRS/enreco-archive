@@ -1,7 +1,10 @@
 import { Separator } from "@/components/ui/separator";
 import ViewCard from "@/components/view/ViewCard";
+import { getLighterOrDarkerColor } from "@/lib/utils";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
+import { extractColors } from "extract-colors";
+import { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
@@ -9,10 +12,28 @@ const ViewNodeCard = () => {
     const { selectedNode } = useFlowStore();
     const { data } = useChartStore();
 
+    const characterImageRef = useRef<HTMLImageElement>(null);
+    const [color, setColor] = useState<string | null>(null);
+    useEffect(() => {
+        if (!characterImageRef.current) return;
+        extractColors(characterImageRef.current).then((colors) => {
+            const dominantColor = colors.reduce((prev, current) =>
+                prev.area > current.area ? prev : current
+            );
+            setColor(getLighterOrDarkerColor(dominantColor.hex, 40));
+        });
+    }, [selectedNode]);
+
     return (
         <ViewCard className="flex flex-col items-center">
-            <div className="absolute top-0 bg-green-300 w-full h-[100px] -z-10"></div>
-            <div className="absolute top-[110px] bg-green-300 w-full h-[5px] -z-10"></div>
+            <div
+                className="absolute top-0 w-full h-[100px] -z-10"
+                style={{ backgroundColor: color || "" }}
+            />
+            <div
+                className="absolute top-[110px]  w-full h-[5px] -z-10"
+                style={{ backgroundColor: color || "" }}
+            />
 
             <img
                 src={data.teams[selectedNode?.data.team]}
@@ -22,6 +43,7 @@ const ViewNodeCard = () => {
             <img
                 src={selectedNode?.data.imageSrc}
                 className="aspect-square w-[150px]"
+                ref={characterImageRef}
             />
             <div className="font-semibold">{selectedNode?.data.title}</div>
             <Separator />
