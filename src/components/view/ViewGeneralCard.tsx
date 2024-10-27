@@ -2,8 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { useChartStore } from "@/store/chartStore";
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 const ViewGeneralCard = () => {
+    const { data } = useChartStore();
     return (
         <Card className="flex flex-col gap-4 p-4">
             <Button variant={"outline"}>Info</Button>
@@ -20,6 +24,7 @@ const ViewGeneralCard = () => {
                 </Select>
             </div>
             <Separator />
+            <Markdown rehypePlugins={[rehypeRaw]}>{data.dayRecap}</Markdown>
         </Card>
     );
 };

@@ -25,7 +25,7 @@ import { useEffect, useState } from "react";
 import EditorImageNode from "./components/editor/EditorImageNode";
 import DevTools from "./DevTool/DevTools";
 import EditorSmoothEdge from "@/components/editor/EditorSmoothEdge";
-import { CustomEdgeType } from "@/lib/type";
+import { ChartData, CustomEdgeType } from "@/lib/type";
 
 const nodeTypes = {
     image: EditorImageNode,
@@ -57,6 +57,7 @@ const EditorApp = () => {
     const [rfInstance, setRfInstance] = useState<ReactFlowInstance>();
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+    const { data } = useChartStore();
     useKeyboard();
 
     useEffect(() => {
@@ -135,11 +136,13 @@ const EditorApp = () => {
 
     const handleExport = () => {
         if (!rfInstance) return;
-        const flow = rfInstance.toObject();
+        // @ts-expect-error type not same or sth idk
+        const flow: ChartData = rfInstance.toObject();
         flow.edges.forEach((edge) => {
             edge.data.path = edgePaths[edge.id];
         });
         flow.relationships = dummyRelationships;
+        flow.dayRecap = data.dayRecap;
         const dataStr = JSON.stringify(flow, null, 2);
         const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(
             dataStr

@@ -59,11 +59,6 @@ const ViewNodeCard = () => {
             </div>
             <Separator />
             <div className="overflow-auto max-h-[10%]">
-                {/* <div className="font-semibold text-lg">Recap</div> */}
-                {/* {selectedNode?.data.content} */}
-                {/* <MarkdownPreview
-                    source={selectedNode?.data.content}
-                ></MarkdownPreview> */}
                 <Markdown rehypePlugins={[rehypeRaw]}>
                     {selectedNode?.data.content}
                 </Markdown>
