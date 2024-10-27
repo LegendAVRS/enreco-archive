@@ -40,7 +40,7 @@ const loadFlow = () => {
     return chartData; // Load JSON data from chart.json
 };
 
-const App = () => {
+const EditorApp = () => {
     const { setData } = useChartStore();
 
     const { screenToFlowPosition, deleteElements } = useReactFlow();
@@ -234,4 +234,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default EditorApp;
