@@ -1,6 +1,7 @@
 import EditorCard from "@/components/editor/EditorCard";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
     Select,
@@ -17,15 +18,19 @@ import { useEffect, useState } from "react";
 const EditorGeneralCard = () => {
     const { showHandles, setShowHandles } = useEditorStore();
     const { data, setData } = useChartStore();
+
+    // local states
     const [localRecap, setLocalRecap] = useState("");
-    const [chapter, setChapter] = useState("");
-    const [day, setDay] = useState("");
+    const [chapter, setChapter] = useState<number>(0);
+    const [day, setDay] = useState<number>(0);
+    const [title, setTitle] = useState("");
 
     useEffect(() => {
         setLocalRecap(data.dayRecap || "");
-        setChapter(data.chapter || "");
-        setDay(data.day || "");
-    }, [data.dayRecap, data.chapter, data.day]);
+        setChapter(data.chapter);
+        setDay(data.day);
+        setTitle(data.title || "");
+    }, [data.dayRecap, data.chapter, data.day, data.title]);
 
     const handleSave = () => {
         // Save the description
@@ -52,7 +57,16 @@ const EditorGeneralCard = () => {
                     />
                 </div>
             </div>
-            <Select value={chapter} onValueChange={setChapter}>
+            <Label htmlFor="title">Title</Label>
+            <Input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                id="title"
+            />
+            <Select
+                value={chapter.toString()}
+                onValueChange={(val) => setChapter(parseInt(val))}
+            >
                 <SelectTrigger className="grow">
                     <SelectValue
                         placeholder={
@@ -70,7 +84,10 @@ const EditorGeneralCard = () => {
                 </SelectContent>
             </Select>
 
-            <Select value={day} onValueChange={setDay}>
+            <Select
+                value={day.toString()}
+                onValueChange={(val) => setDay(parseInt(val))}
+            >
                 <SelectTrigger className="grow">
                     <SelectValue placeholder={day ? `Day ${day}` : "Day..."} />
                 </SelectTrigger>

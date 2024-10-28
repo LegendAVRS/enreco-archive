@@ -25,21 +25,24 @@ export type CustomEdgeType = Edge<CustomEdgeData, "custom">;
 export type CustomEdgeProps = EdgeProps<CustomEdgeType>;
 
 export type ChartData = {
-    chapter: string;
-    day: string;
+    chapter: number;
+    day: number;
     nodes: ImageNodeType[];
     edges: CustomEdgeType[];
     relationships: RelationshipStyle;
     teams: Teams;
     dayRecap: string;
+    title: string;
 };
 
 export type Chapter = {
+    title: string;
     numberOfDays: number;
     charts: ChartData[];
 };
 
 export type SiteData = {
+    event: string;
     numberOfChapters: number;
     chapters: Chapter[];
 };

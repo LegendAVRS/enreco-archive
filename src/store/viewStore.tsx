@@ -1,3 +1,4 @@
+import { SiteData } from "@/lib/type";
 import { create } from "zustand";
 
 export type CardType = "node" | "edge" | "setting" | null;
@@ -17,6 +18,8 @@ interface ViewState {
     setCharacterVisibility: (characterVisibility: {
         [key: string]: boolean;
     }) => void;
+    siteData: SiteData;
+    setSiteData: (data: SiteData) => void;
 }
 
 export const useViewStore = create<ViewState>((set) => ({
@@ -35,4 +38,6 @@ export const useViewStore = create<ViewState>((set) => ({
     characterVisibility: {},
     setCharacterVisibility: (characterVisibility: { [key: string]: boolean }) =>
         set(() => ({ characterVisibility })),
+    siteData: {},
+    setSiteData: (siteData: SiteData) => set(() => ({ siteData })),
 }));
