@@ -22,3 +22,7 @@ export function getLighterOrDarkerColor(color: string, percent: number) {
         .slice(1);
     return `#${newColor}`;
 }
+
+export function fetchDataFromCMS<T>(url: string) {
+    return fetch(url).then((res) => res.json());
+}

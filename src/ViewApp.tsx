@@ -1,26 +1,24 @@
-import { loadFile } from "@/lib/helper";
+import ViewCustomEdge from "@/components/view/ViewCustomEdge";
+import ImageNodeView from "@/components/view/ViewImageNode";
+import chart from "@/data/chart.json";
+import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
-    ConnectionLineType,
     ConnectionMode,
     ReactFlow,
     useEdgesState,
     useNodesState,
     useReactFlow,
 } from "@xyflow/react";
-import chart from "@/data/chart.json";
-import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import { useCallback, useEffect } from "react";
-import ImageNodeView from "@/components/view/ViewImageNode";
-import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 
-import "@xyflow/react/dist/style.css";
+import { Button } from "@/components/ui/button";
+import ViewEdgeCard from "@/components/view/ViewEdgeCard";
+import ViewNodeCard from "@/components/view/ViewNodeCard";
+import ViewSettingCard from "@/components/view/ViewSettingCard";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { useViewStore } from "@/store/viewStore";
-import ViewNodeCard from "@/components/view/ViewNodeCard";
-import ViewEdgeCard from "@/components/view/ViewEdgeCard";
-import { Button } from "@/components/ui/button";
-import ViewSettingCard from "@/components/view/ViewSettingCard";
+import "@xyflow/react/dist/style.css";
 
 const nodeTypes = {
     image: ImageNodeView,
@@ -31,9 +29,9 @@ const edgeTypes = {
 };
 
 const ViewApp = () => {
+    const { setData } = useChartStore();
     const [nodes, setNodes] = useNodesState<ImageNodeType>([]);
     const [edges, setEdges] = useEdgesState<CustomEdgeType>([]);
-    const { setData } = useChartStore();
     const { setSelectedEdge, setSelectedNode } = useFlowStore();
     const {
         currentCard,
