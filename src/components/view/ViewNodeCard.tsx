@@ -39,10 +39,12 @@ const ViewNodeCard = () => {
                 style={{ backgroundColor: color || "" }}
             />
 
-            <img
-                src={data.teams[selectedNode?.data.team]}
-                className="absolute top-2 right-2 z-10"
-            />
+            {selectedNode?.data.team && (
+                <img
+                    src={data.teams[selectedNode?.data.team].imgSrc}
+                    className="absolute top-2 right-2 z-10"
+                />
+            )}
 
             <img
                 src={selectedNode?.data.imageSrc}

@@ -1,4 +1,5 @@
-import { useEditorStore } from "@/store/editorStore";
+import { useChartStore } from "@/store/chartStore";
+import { useViewStore } from "@/store/viewStore";
 import {
     Handle,
     HandleType,
@@ -7,8 +8,6 @@ import {
 } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { ImageNodeProps } from "../../lib/type";
-import { useViewStore } from "@/store/viewStore";
-import { useChartStore } from "@/store/chartStore";
 
 // Number of handles per side
 const NUM_OF_HANDLES = 5;
@@ -69,11 +68,16 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
     );
 
     // loop thourgh edges and check if they are there exists one edge that is visible
-    const nodeVisibility =
-        edges.some((edge) => edgeVisibility[edge.data.relationship]) &&
-        teamVisibility[data.team] &&
-        characterVisibility[data.title];
-
+    let nodeVisibility = true;
+    nodeVisibility = edges.some((edge) =>
+        edge.data?.relationship ? edgeVisibility[edge.data.relationship] : true
+    );
+    if (data.team) {
+        nodeVisibility = nodeVisibility && teamVisibility[data.team];
+    }
+    if (data.title) {
+        nodeVisibility = nodeVisibility && characterVisibility[data.title];
+    }
     const nodeVisibilityStyle = getImageVisibilityStyle(nodeVisibility);
 
     const updateNodeInternals = useUpdateNodeInternals();

@@ -48,8 +48,10 @@ const ViewEdgeCard = () => {
     const { getNode } = useReactFlow();
     const { edgeStyle } = useEdgeStyle(selectedEdge?.data?.relationship);
     if (!selectedEdge) return null;
-    const nodeA: ImageNodeType = getNode(selectedEdge.source);
-    const nodeB: ImageNodeType = getNode(selectedEdge.target);
+
+    // An edge always has a source and target node
+    const nodeA: ImageNodeType = getNode(selectedEdge.source)! as ImageNodeType;
+    const nodeB: ImageNodeType = getNode(selectedEdge.target)! as ImageNodeType;
 
     return (
         <ViewCard>

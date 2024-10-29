@@ -19,12 +19,22 @@ const ViewCustomEdge = ({ id, source, target, data }: CustomEdgeProps) => {
     const nodeSrc = getNode(source) as ImageNodeType;
     const nodeTarget = getNode(target) as ImageNodeType;
 
-    const isVisible =
-        edgeVisibility[data?.relationship] &&
-        teamVisibility[nodeSrc?.data.team] &&
-        teamVisibility[nodeTarget.data.team] &&
-        characterVisibility[nodeSrc.data.title] &&
-        characterVisibility[nodeTarget.data.title];
+    let isVisible = true;
+    if (data?.relationship) {
+        isVisible = isVisible && edgeVisibility[data?.relationship];
+    }
+    if (nodeSrc?.data.team) {
+        isVisible = isVisible && teamVisibility[nodeSrc?.data.team];
+    }
+    if (nodeTarget.data.team) {
+        isVisible = isVisible && teamVisibility[nodeTarget.data.team];
+    }
+    if (nodeSrc.data.title) {
+        isVisible = isVisible && characterVisibility[nodeSrc.data.title];
+    }
+    if (nodeTarget.data.title) {
+        isVisible = isVisible && characterVisibility[nodeTarget.data.title];
+    }
 
     const edgeVisibilityStyle = getVisiblityStyle(isVisible);
     return (
@@ -47,7 +57,7 @@ const ViewCustomEdge = ({ id, source, target, data }: CustomEdgeProps) => {
             </svg>
             <BaseEdge
                 markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
-                path={data?.path}
+                path={data?.path || ""}
                 className="transition-all "
                 style={{ strokeWidth: 4, ...edgeStyle, ...edgeVisibilityStyle }}
             />
