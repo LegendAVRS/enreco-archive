@@ -12,6 +12,13 @@ import {
 import { useCallback, useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
 import ViewEdgeCard from "@/components/view/ViewEdgeCard";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
@@ -39,6 +46,8 @@ const ViewApp = () => {
         setEdgeVisibility,
         setTeamVisibility,
         setCharacterVisibility,
+        modalOpen,
+        setModalOpen,
     } = useViewStore();
 
     const { fitView, setCenter } = useReactFlow();
@@ -102,42 +111,56 @@ const ViewApp = () => {
     };
 
     return (
-        <div className="w-screen h-screen overflow-hidden ">
-            <ReactFlow
-                connectionMode={ConnectionMode.Loose}
-                nodes={nodes}
-                edges={edges}
-                nodeTypes={nodeTypes}
-                edgeTypes={edgeTypes}
-                fitView
-                onNodeClick={(e, node) => {
-                    setSelectedNode(node);
-                    fitView({ nodes: [node], duration: 500, maxZoom: 1.3 });
-                    setCurrentCard("node");
-                }}
-                onEdgeClick={(e, edge) => {
-                    setSelectedEdge(edge);
-                    if (!edge.data) return;
-                    const centerPoint = getCenter(edge.data.path || "");
-                    setCenter(centerPoint.x, centerPoint.y, {
-                        duration: 500,
-                        zoom: 1.3,
-                    });
-                    setCurrentCard("edge");
-                }}
-                minZoom={0.9}
-                zoomOnDoubleClick={false}
-            ></ReactFlow>
-            <Button
-                className="top-5 right-10 absolute"
-                onClick={() => setCurrentCard("setting")}
-            >
-                Settings
-            </Button>
-            {currentCard === "setting" && <ViewSettingCard />}
-            {currentCard === "node" && <ViewNodeCard />}
-            {currentCard === "edge" && <ViewEdgeCard />}
-        </div>
+        <>
+            <div className="w-screen h-screen overflow-hidden ">
+                <ReactFlow
+                    connectionMode={ConnectionMode.Loose}
+                    nodes={nodes}
+                    edges={edges}
+                    nodeTypes={nodeTypes}
+                    edgeTypes={edgeTypes}
+                    fitView
+                    onNodeClick={(e, node) => {
+                        setSelectedNode(node);
+                        fitView({ nodes: [node], duration: 500, maxZoom: 1.3 });
+                        setCurrentCard("node");
+                    }}
+                    onEdgeClick={(e, edge) => {
+                        setSelectedEdge(edge);
+                        if (!edge.data) return;
+                        const centerPoint = getCenter(edge.data.path || "");
+                        setCenter(centerPoint.x, centerPoint.y, {
+                            duration: 500,
+                            zoom: 1.3,
+                        });
+                        setCurrentCard("edge");
+                    }}
+                    minZoom={0.9}
+                    zoomOnDoubleClick={false}
+                ></ReactFlow>
+                <Button
+                    className="top-5 right-10 absolute"
+                    onClick={() => setCurrentCard("setting")}
+                >
+                    Settings
+                </Button>
+                {currentCard === "setting" && <ViewSettingCard />}
+                {currentCard === "node" && <ViewNodeCard />}
+                {currentCard === "edge" && <ViewEdgeCard />}
+            </div>
+            <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Are you absolutely sure?</DialogTitle>
+                        <DialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete your account and remove your data from our
+                            servers.
+                        </DialogDescription>
+                    </DialogHeader>
+                </DialogContent>
+            </Dialog>
+        </>
     );
 };
 

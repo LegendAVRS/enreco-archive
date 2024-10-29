@@ -1,8 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { getLineSvg } from "@/components/view/ViewEdgeCard";
+import { extractImageSrcFromNodes } from "@/lib/utils";
 import { useChartStore } from "@/store/chartStore";
 import { useViewStore } from "@/store/viewStore";
+import { useMemo } from "react";
 
 const ViewVisibilityCard = () => {
     const {
@@ -14,6 +17,11 @@ const ViewVisibilityCard = () => {
         setCharacterVisibility,
     } = useViewStore();
     const { data } = useChartStore();
+    const characterImagesMap = useMemo(() => {
+        const charImgMap = extractImageSrcFromNodes(data.nodes);
+        return charImgMap;
+    }, [data.nodes]);
+
     return (
         <Card className="flex flex-col gap-4 p-4 h-[500px] overflow-y-auto">
             <span className="font-bold">Edge visibility</span>
@@ -22,11 +30,17 @@ const ViewVisibilityCard = () => {
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
-                    <div className="flex flex-row gap-2">
+                    <div className="flex flex-row gap-2 items-center">
                         {getLineSvg(data.relationships[key])}
-                        <div>{key.toLowerCase()}</div>
+                        <Label
+                            htmlFor={`edge-${key.toLowerCase()}`}
+                            className="capitalize"
+                        >
+                            {key.toLowerCase()}
+                        </Label>
                     </div>
                     <Checkbox
+                        id={`edge-${key.toLowerCase()}`}
                         checked={edgeVisibility[key]}
                         onCheckedChange={(checked) =>
                             setEdgeVisibility({
@@ -43,11 +57,21 @@ const ViewVisibilityCard = () => {
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
-                    <div className="flex flex-row gap-2">
-                        <img src={data.teams[key].imgSrc} className="w-8 h-8" />
-                        <div>{key.toLowerCase()}</div>
+                    <div className="flex flex-row gap-2 items-center">
+                        <img
+                            src={data.teams[key].imgSrc}
+                            className="w-8 h-8"
+                            alt={`${key} logo`}
+                        />
+                        <Label
+                            htmlFor={`team-${key.toLowerCase()}`}
+                            className="capitalize"
+                        >
+                            {key.toLowerCase()}
+                        </Label>
                     </div>
                     <Checkbox
+                        id={`team-${key.toLowerCase()}`}
                         checked={teamVisibility[key]}
                         onCheckedChange={(checked) =>
                             setTeamVisibility({
@@ -64,8 +88,21 @@ const ViewVisibilityCard = () => {
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
-                    <div>{key}</div>
+                    <div className="flex flex-row gap-2 items-center">
+                        <img
+                            src={characterImagesMap[key]}
+                            className="w-8 h-8"
+                            alt={`${key} logo`}
+                        />
+                        <Label
+                            htmlFor={`character-${key.toLowerCase()}`}
+                            className="capitalize"
+                        >
+                            {key}
+                        </Label>
+                    </div>
                     <Checkbox
+                        id={`character-${key.toLowerCase()}`}
                         checked={characterVisibility[key]}
                         onCheckedChange={(checked) =>
                             setCharacterVisibility({

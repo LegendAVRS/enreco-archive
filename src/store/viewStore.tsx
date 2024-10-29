@@ -18,6 +18,8 @@ interface ViewState {
     setCharacterVisibility: (characterVisibility: {
         [key: string]: boolean;
     }) => void;
+    modalOpen: boolean;
+    setModalOpen: (isModalOpen: boolean) => void;
     siteData: SiteData;
     setSiteData: (data: SiteData) => void;
 }
@@ -38,6 +40,8 @@ export const useViewStore = create<ViewState>((set) => ({
     characterVisibility: {},
     setCharacterVisibility: (characterVisibility: { [key: string]: boolean }) =>
         set(() => ({ characterVisibility })),
-    siteData: {},
+    modalOpen: false,
+    setModalOpen: (modalOpen: boolean) => set(() => ({ modalOpen })),
+    siteData: { event: "", numberOfChapters: 0, chapters: [] },
     setSiteData: (siteData: SiteData) => set(() => ({ siteData })),
 }));

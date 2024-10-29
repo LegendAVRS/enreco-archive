@@ -1,3 +1,4 @@
+import { ImageNodeType } from "@/lib/type";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -26,3 +27,14 @@ export function getLighterOrDarkerColor(color: string, percent: number) {
 export function fetchDataFromCMS<T>(url: string) {
     return fetch(url).then((res) => res.json());
 }
+
+export const extractImageSrcFromNodes = (
+    nodes: ImageNodeType[]
+): { [key: string]: string } => {
+    return nodes.reduce((acc: { [key: string]: string }, node) => {
+        if (node.data.title) {
+            acc[node.data.title] = node.data.imageSrc;
+        }
+        return acc;
+    }, {});
+};

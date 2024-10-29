@@ -15,10 +15,12 @@ import rehypeRaw from "rehype-raw";
 
 const ViewGeneralCard = () => {
     const { data } = useChartStore();
-    const { siteData } = useViewStore();
+    const { siteData, setModalOpen } = useViewStore();
     return (
         <Card className="flex flex-col gap-4 p-4">
-            <Button variant={"outline"}>Info</Button>
+            <Button variant={"outline"} onClick={() => setModalOpen(true)}>
+                Info
+            </Button>
             <div className="flex flex-row gap-4">
                 <Select>
                     <SelectTrigger className="grow">
@@ -37,13 +39,14 @@ const ViewGeneralCard = () => {
                         <SelectValue placeholder={"Day..."} />
                     </SelectTrigger>
                     <SelectContent>
-                        {siteData.chapters[data.chapter].charts.map(
-                            (day, index) => (
-                                <SelectItem key={index} value={day.title}>
-                                    {day.title}
-                                </SelectItem>
-                            )
-                        )}
+                        {siteData.chapters[data.chapter] &&
+                            siteData.chapters[data.chapter].charts.map(
+                                (day, index) => (
+                                    <SelectItem key={index} value={day.title}>
+                                        {day.title}
+                                    </SelectItem>
+                                )
+                            )}
                     </SelectContent>
                 </Select>
             </div>
