@@ -1,7 +1,7 @@
 import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ImageNodeView from "@/components/view/ViewImageNode";
 import chart from "@/data/chart.json";
-import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { ChartData, CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
     ConnectionMode,
     ReactFlow,
@@ -48,9 +48,9 @@ const ViewApp = () => {
             const flow = chart;
 
             if (flow) {
-                setNodes(flow.nodes || []);
-                setEdges(flow.edges || []);
-                setData(flow || {});
+                setNodes((flow.nodes as ImageNodeType[]) || []);
+                setEdges((flow.edges as CustomEdgeType[]) || []);
+                setData((flow as ChartData) || {});
                 const edgeVisibilityLoaded: { [key: string]: boolean } = {};
                 const teamVisibilityLoaded: { [key: string]: boolean } = {};
                 const characterVisibilityLoaded: { [key: string]: boolean } =
@@ -117,7 +117,8 @@ const ViewApp = () => {
                 }}
                 onEdgeClick={(e, edge) => {
                     setSelectedEdge(edge);
-                    const centerPoint = getCenter(edge.data.path);
+                    if (!edge.data) return;
+                    const centerPoint = getCenter(edge.data.path || "");
                     setCenter(centerPoint.x, centerPoint.y, {
                         duration: 500,
                         zoom: 1.3,
