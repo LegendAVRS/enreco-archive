@@ -5,7 +5,9 @@ import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { ImageNodeType } from "@/lib/type";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
+import { useViewStore } from "@/store/viewStore";
 import { useReactFlow } from "@xyflow/react";
+import { X } from "lucide-react";
 import React from "react";
 import Markdown from "react-markdown";
 
@@ -47,6 +49,7 @@ const ViewEdgeCard = () => {
     const { selectedEdge } = useFlowStore();
     const { getNode } = useReactFlow();
     const { edgeStyle } = useEdgeStyle(selectedEdge?.data?.relationship);
+    const { setCurrentCard } = useViewStore();
     if (!selectedEdge) return null;
 
     // An edge always has a source and target node
@@ -55,6 +58,10 @@ const ViewEdgeCard = () => {
 
     return (
         <ViewCard>
+            <X
+                className="absolute top-5 right-5 cursor-pointer "
+                onClick={() => setCurrentCard(null)}
+            />
             <div className="flex flex-row gap-4 items-center justify-between">
                 <img
                     className="aspect-square w-[100px] object-cover"
@@ -66,7 +73,9 @@ const ViewEdgeCard = () => {
                     src={nodeB.data.imageSrc}
                 />
             </div>
-            <span className="font-semibold">{selectedEdge.data.title}</span>
+            {selectedEdge.data?.title && (
+                <span className="font-semibold">{selectedEdge.data.title}</span>
+            )}
             <Separator />
 
             <div className="flex flex-col items-center">
@@ -76,9 +85,9 @@ const ViewEdgeCard = () => {
             </div>
             <Separator />
             <div className="overflow-y-auto">
-                <Markdown>
-                    {selectedEdge.data.content + selectedEdge.data.content}
-                </Markdown>
+                <Markdown>{selectedEdge.data.content}</Markdown>
+                <Separator />
+
                 <figure>
                     <iframe
                         src={selectedEdge.data?.timestampUrl}

@@ -122,7 +122,7 @@ const ViewApp = () => {
                     fitView
                     onNodeClick={(e, node) => {
                         setSelectedNode(node);
-                        fitView({ nodes: [node], duration: 500, maxZoom: 1.3 });
+                        fitView({ nodes: [node], duration: 500, maxZoom: 1.5 });
                         setCurrentCard("node");
                     }}
                     onEdgeClick={(e, edge) => {
@@ -131,7 +131,7 @@ const ViewApp = () => {
                         const centerPoint = getCenter(edge.data.path || "");
                         setCenter(centerPoint.x, centerPoint.y, {
                             duration: 500,
-                            zoom: 1.3,
+                            zoom: 1.5,
                         });
                         setCurrentCard("edge");
                     }}
@@ -140,7 +140,11 @@ const ViewApp = () => {
                 ></ReactFlow>
                 <Button
                     className="top-5 right-10 absolute"
-                    onClick={() => setCurrentCard("setting")}
+                    onClick={() =>
+                        currentCard !== "setting"
+                            ? setCurrentCard("setting")
+                            : null
+                    }
                 >
                     Settings
                 </Button>
