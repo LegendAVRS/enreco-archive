@@ -9,7 +9,7 @@ import {
     useNodesState,
     useReactFlow,
 } from "@xyflow/react";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +26,7 @@ import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { useViewStore } from "@/store/viewStore";
 import "@xyflow/react/dist/style.css";
+import { isMobile } from "react-device-detect";
 
 const nodeTypes = {
     image: ImageNodeView,
@@ -51,6 +52,13 @@ const ViewApp = () => {
     } = useViewStore();
 
     const { fitView, setCenter } = useReactFlow();
+    const [minZoom, setMinZoom] = useState(0.9);
+
+    useEffect(() => {
+        if (isMobile) {
+            setMinZoom(0.5);
+        }
+    }, []);
 
     const loadFlow = useCallback(() => {
         const restoreFlow = async () => {
@@ -114,7 +122,6 @@ const ViewApp = () => {
         <>
             <div className="w-screen h-screen overflow-hidden ">
                 <ReactFlow
-                    contentEditable={false}
                     connectionMode={ConnectionMode.Loose}
                     nodes={nodes}
                     edges={edges}
@@ -136,7 +143,7 @@ const ViewApp = () => {
                         });
                         setCurrentCard("edge");
                     }}
-                    minZoom={0.9}
+                    minZoom={minZoom}
                     zoomOnDoubleClick={false}
                 ></ReactFlow>
                 <Button

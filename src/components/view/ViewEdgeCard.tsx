@@ -47,7 +47,7 @@ const ViewEdgeCard = () => {
                     setOpen={setOpen}
                     onClose={() => setCurrentCard(null)}
                 >
-                    <div className="h-full flex flex-col items-center">
+                    <div className="h-full flex flex-col gap-4 items-center">
                         <ViewEdgeContent
                             selectedEdge={selectedEdge}
                             nodeA={nodeA}
