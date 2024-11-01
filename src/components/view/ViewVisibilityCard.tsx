@@ -23,7 +23,22 @@ const ViewVisibilityCard = () => {
 
     return (
         <Card className="flex flex-col gap-4 p-4 max-h-full overflow-y-auto">
-            <span className="font-bold">Edge visibility</span>
+            <div className="flex flex-row justify-between">
+                <span className="font-bold">Edge visibility</span>
+                <Checkbox
+                    id="edge-all"
+                    checked={Object.values(edgeVisibility).every((v) => v)}
+                    onCheckedChange={(checked) => {
+                        const newEdgeVisibility = Object.keys(
+                            edgeVisibility
+                        ).reduce((acc, key) => {
+                            acc[key] = checked as boolean;
+                            return acc;
+                        }, {} as Record<string, boolean>);
+                        setEdgeVisibility(newEdgeVisibility);
+                    }}
+                />
+            </div>
             {Object.keys(data.relationships).map((key) => (
                 <div
                     className="flex flex-row justify-between w-full items-center gap-10"
@@ -50,7 +65,22 @@ const ViewVisibilityCard = () => {
                     />
                 </div>
             ))}
-            <span>Team toggles</span>
+            <div className="flex flex-row justify-between">
+                <span>Team toggles</span>
+                <Checkbox
+                    id="team-all"
+                    checked={Object.values(teamVisibility).every((v) => v)}
+                    onCheckedChange={(checked) => {
+                        const newTeamVisibility = Object.keys(
+                            teamVisibility
+                        ).reduce((acc, key) => {
+                            acc[key] = checked as boolean;
+                            return acc;
+                        }, {} as Record<string, boolean>);
+                        setTeamVisibility(newTeamVisibility);
+                    }}
+                />
+            </div>
             {Object.keys(data.teams).map((key) => (
                 <div
                     className="flex flex-row justify-between w-full items-center gap-10"
@@ -81,7 +111,22 @@ const ViewVisibilityCard = () => {
                     />
                 </div>
             ))}
-            <span>Character toggles</span>
+            <div className="flex flex-row justify-between">
+                <span>Character toggles</span>
+                <Checkbox
+                    id="character-all"
+                    checked={Object.values(characterVisibility).every((v) => v)}
+                    onCheckedChange={(checked) => {
+                        const newCharacterVisibility = Object.keys(
+                            characterVisibility
+                        ).reduce((acc, key) => {
+                            acc[key] = checked as boolean;
+                            return acc;
+                        }, {} as Record<string, boolean>);
+                        setCharacterVisibility(newCharacterVisibility);
+                    }}
+                />
+            </div>
             {Object.keys(characterVisibility).map((key) => (
                 <div
                     className="flex flex-row justify-between w-full items-center gap-10"
