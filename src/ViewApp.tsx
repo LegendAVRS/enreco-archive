@@ -51,7 +51,7 @@ const ViewApp = () => {
         setModalOpen,
     } = useViewStore();
 
-    const { fitView, setCenter } = useReactFlow();
+    const { fitView, setCenter, getNode } = useReactFlow();
     const [minZoom, setMinZoom] = useState(0.9);
 
     useEffect(() => {
@@ -106,16 +106,22 @@ const ViewApp = () => {
         loadFlow();
     }, [loadFlow]);
 
-    // function to get center of svg path
-    const getCenter = (path: string) => {
-        const pathElement = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "path"
-        );
-        pathElement.setAttribute("d", path);
-        const pathLength = pathElement.getTotalLength();
-        const { x, y } = pathElement.getPointAtLength(pathLength / 2);
-        return { x, y };
+    // function to get center of edge, based of the center of the two nodes
+    const getCenter = (nodeAID: string, nodeBID: string) => {
+        const nodeA = getNode(nodeAID);
+        const nodeB = getNode(nodeBID);
+        const nodeAPosition = nodeA!.position;
+        const nodeBPosition = nodeB!.position;
+        let offsetX = 0;
+        let offsetY = 0;
+        if (!isMobile) {
+            offsetX = Math.abs(nodeA!.position.x - nodeB!.position.x) / 2;
+            offsetY = Math.abs(nodeA!.position.y - nodeB!.position.y) / 4;
+        }
+        return {
+            x: (nodeAPosition.x + nodeBPosition.x) / 2 + offsetX,
+            y: (nodeAPosition.y + nodeBPosition.y) / 2 + offsetY,
+        };
     };
 
     return (
@@ -135,8 +141,7 @@ const ViewApp = () => {
                     }}
                     onEdgeClick={(e, edge) => {
                         setSelectedEdge(edge);
-                        if (!edge.data) return;
-                        const centerPoint = getCenter(edge.data.path || "");
+                        const centerPoint = getCenter(edge.source, edge.target);
                         setCenter(centerPoint.x, centerPoint.y, {
                             duration: 500,
                             zoom: 1.5,
