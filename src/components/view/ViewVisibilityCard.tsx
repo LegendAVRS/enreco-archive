@@ -1,8 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { getLineSvg } from "@/components/view/ViewEdgeCard";
-import { extractImageSrcFromNodes } from "@/lib/utils";
+import { extractImageSrcFromNodes, getLineSvg } from "@/lib/utils";
 import { useChartStore } from "@/store/chartStore";
 import { useViewStore } from "@/store/viewStore";
 import { useMemo } from "react";
@@ -23,7 +22,7 @@ const ViewVisibilityCard = () => {
     }, [data.nodes]);
 
     return (
-        <Card className="flex flex-col gap-4 p-4 h-[500px] overflow-y-auto">
+        <Card className="flex flex-col gap-4 p-4 max-h-full overflow-y-auto">
             <span className="font-bold">Edge visibility</span>
             {Object.keys(data.relationships).map((key) => (
                 <div

@@ -17,7 +17,7 @@ const ViewGeneralCard = () => {
     const { data } = useChartStore();
     const { siteData, setModalOpen } = useViewStore();
     return (
-        <Card className="flex flex-col gap-4 p-4">
+        <Card className="flex flex-col gap-4 p-4 h-full">
             <Button variant={"outline"} onClick={() => setModalOpen(true)}>
                 Info
             </Button>

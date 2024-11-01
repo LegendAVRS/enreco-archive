@@ -114,6 +114,7 @@ const ViewApp = () => {
         <>
             <div className="w-screen h-screen overflow-hidden ">
                 <ReactFlow
+                    contentEditable={false}
                     connectionMode={ConnectionMode.Loose}
                     nodes={nodes}
                     edges={edges}
