@@ -28,11 +28,11 @@ const ViewNodeContent = ({ selectedNode, data }: ViewNodeContentProps) => {
     return (
         <>
             <div
-                className="absolute top-0 w-full h-[100px] -z-10"
+                className="absolute top-0 w-full h-[100px] z-0"
                 style={{ backgroundColor: color || "" }}
             />
             <div
-                className="absolute top-[110px]  w-full h-[5px] -z-10"
+                className="absolute top-[110px]  w-full h-[5px] z-0 "
                 style={{ backgroundColor: color || "" }}
             />
 
@@ -45,7 +45,7 @@ const ViewNodeContent = ({ selectedNode, data }: ViewNodeContentProps) => {
 
             <img
                 src={selectedNode?.data.imageSrc}
-                className="aspect-square w-[150px]"
+                className="aspect-square w-[150px] z-10"
                 ref={characterImageRef}
             />
             <div className="font-semibold">{selectedNode?.data.title}</div>

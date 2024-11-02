@@ -51,7 +51,9 @@ const ViewGeneralCard = () => {
                 </Select>
             </div>
             <Separator />
-            <Markdown rehypePlugins={[rehypeRaw]}>{data.dayRecap}</Markdown>
+            <Markdown className={"overflow-auto"} rehypePlugins={[rehypeRaw]}>
+                {data.dayRecap}
+            </Markdown>
         </Card>
     );
 };

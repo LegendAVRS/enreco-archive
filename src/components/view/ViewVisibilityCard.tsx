@@ -23,7 +23,7 @@ const ViewVisibilityCard = () => {
 
     return (
         <Card className="flex flex-col gap-4 p-4 max-h-full overflow-y-auto">
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between items-center">
                 <span className="font-bold">Edge visibility</span>
                 <Checkbox
                     id="edge-all"

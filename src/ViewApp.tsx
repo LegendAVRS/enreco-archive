@@ -12,14 +12,8 @@ import {
 import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from "@/components/ui/dialog";
 import ViewEdgeCard from "@/components/view/ViewEdgeCard";
+import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
 import { useChartStore } from "@/store/chartStore";
@@ -55,6 +49,7 @@ const ViewApp = () => {
     const [minZoom, setMinZoom] = useState(0.9);
 
     useEffect(() => {
+        // On mobile it's harader to zoom out, so we set a lower min zoom
         if (isMobile) {
             setMinZoom(0.5);
         }
@@ -134,12 +129,12 @@ const ViewApp = () => {
                     nodeTypes={nodeTypes}
                     edgeTypes={edgeTypes}
                     fitView
-                    onNodeClick={(e, node) => {
+                    onNodeClick={(_, node) => {
                         setSelectedNode(node);
                         fitView({ nodes: [node], duration: 500, maxZoom: 1.5 });
                         setCurrentCard("node");
                     }}
-                    onEdgeClick={(e, edge) => {
+                    onEdgeClick={(_, edge) => {
                         setSelectedEdge(edge);
                         const centerPoint = getCenter(edge.source, edge.target);
                         setCenter(centerPoint.x, centerPoint.y, {
@@ -165,18 +160,7 @@ const ViewApp = () => {
                 {currentCard === "node" && <ViewNodeCard />}
                 {currentCard === "edge" && <ViewEdgeCard />}
             </div>
-            <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Are you absolutely sure?</DialogTitle>
-                        <DialogDescription>
-                            This action cannot be undone. This will permanently
-                            delete your account and remove your data from our
-                            servers.
-                        </DialogDescription>
-                    </DialogHeader>
-                </DialogContent>
-            </Dialog>
+            <ViewInfoModal open={modalOpen} onOpenChange={setModalOpen} />
         </>
     );
 };
