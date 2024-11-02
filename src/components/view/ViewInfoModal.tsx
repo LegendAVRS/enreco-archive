@@ -12,7 +12,7 @@ interface ViewInfoModalProps {
 const ViewInfoModal = ({ open, onOpenChange }: ViewInfoModalProps) => {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="rounded-lg ">
+            <DialogContent className="rounded-lg h-[80vh] max-w-none md:w-[50vw]">
                 <Tabs defaultValue="general">
                     <TabsList className="grid w-full grid-cols-3">
                         <TabsTrigger value="general">General</TabsTrigger>
