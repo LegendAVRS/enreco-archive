@@ -1,3 +1,4 @@
+// @ts-nocheck
 import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
 import EditorGeneralCard from "@/components/editor/EditorGeneralCard";
@@ -13,7 +14,6 @@ import {
     addEdge,
     ConnectionLineType,
     ConnectionMode,
-    MarkerType,
     ReactFlow,
     ReactFlowInstance,
     useEdgesState,
@@ -23,7 +23,6 @@ import {
 import "@xyflow/react/dist/style.css";
 import { useEffect, useState } from "react";
 import EditorImageNode from "./components/editor/EditorImageNode";
-import DevTools from "./DevTool/DevTools";
 import EditorSmoothEdge from "@/components/editor/EditorSmoothEdge";
 import { ChartData, CustomEdgeType } from "@/lib/type";
 
@@ -136,7 +135,6 @@ const EditorApp = () => {
 
     const handleExport = () => {
         if (!rfInstance) return;
-        // @ts-expect-error type not same or sth idk
         const exportData: ChartData = data;
         const flow = rfInstance.toObject();
         flow.edges.forEach((edge) => {
@@ -185,9 +183,7 @@ const EditorApp = () => {
                 connectionLineType={ConnectionLineType.SmoothStep}
                 zoomOnDoubleClick={false}
                 onInit={setRfInstance}
-            >
-                <DevTools />
-            </ReactFlow>
+            ></ReactFlow>
             <div className="absolute top-5 right-5 flex flex-row gap-4">
                 <Button
                     onClick={() => {

@@ -7,13 +7,12 @@ import {
     SelectItem,
     SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { ImageNodeType } from "@/lib/type";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { SelectTrigger } from "@radix-ui/react-select";
-import { useEffect, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
+import { useEffect, useState } from "react";
 
 interface EditorNodeCardProps {
     updateNode: (node: ImageNodeType) => void;
@@ -89,7 +88,10 @@ export default function EditorNodeCard({
                 value={localStatus}
                 onChange={(e) => setLocalStatus(e.target.value)}
             />
-            <MDEditor value={localContent} onChange={setLocalContent} />
+            <MDEditor
+                value={localContent}
+                onChange={(e) => setLocalContent(e || "")}
+            />
             <div className="flex flex-row gap-4">
                 <Button onClick={handleSave}>Save</Button>
                 <Button onClick={deleteNode}>Delete</Button>

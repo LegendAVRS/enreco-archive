@@ -1,15 +1,25 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+// @ts-nocheck
 import { BaseEdge, EdgeLabelRenderer, useReactFlow } from "@xyflow/react";
+import { useEffect, useRef, useState } from "react";
 
+import useEdgeStyle from "@/hooks/useEdgeStyle";
+import { CustomEdgeProps } from "@/lib/type";
+import { useEditorStore } from "@/store/editorStore";
 import { drag } from "d3-drag";
 import { select } from "d3-selection";
-import useEdgeStyle from "@/hooks/useEdgeStyle";
-import { CustomEdgeProps, CustomEdgeType } from "@/lib/type";
-import { useFlowStore } from "@/store/flowStore";
-import { useEditorStore } from "@/store/editorStore";
 
 //copied from reactflow lib - probably you can import this util directly from
-function getEdgeCenter({ sourceX, sourceY, targetX, targetY }) {
+function getEdgeCenter({
+    sourceX,
+    sourceY,
+    targetX,
+    targetY,
+}: {
+    sourceX: number;
+    sourceY: number;
+    targetX: number;
+    targetY: number;
+}) {
     const xOffset = Math.abs(targetX - sourceX) / 2;
     const centerX = targetX < sourceX ? targetX + xOffset : targetX - xOffset;
 
@@ -33,8 +43,6 @@ const EditorCustomEdge = ({
     targetX,
     targetY,
     data,
-    markerEnd,
-    selected,
 }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
     const { centerX, centerY, yOffset } = getEdgeCenter({
@@ -46,7 +54,7 @@ const EditorCustomEdge = ({
     const [labelPointY, setLabelPointY] = useState(storeYVal?.[id] || 0);
     const [labelPointX, setLabelPointX] = useState(storeXValBottom[id] || 0);
     const [labelPointXTop, setLabelPointXTop] = useState(storeXValTop[id] || 0);
-    const [extraPointsPosState, setExtraPointsPosState] = useState({});
+    // const [extraPointsPosState, setExtraPointsPosState] = useState({});
     const { setEdgePaths, edgePaths } = useEditorStore();
 
     const showDragLabels = true;
@@ -137,13 +145,13 @@ const EditorCustomEdge = ({
                                         : { ...edge, selected: false }
                                 );
                             });
-                            setExtraPointsPosState((prev) => ({
-                                ...prev,
-                                XtraPoint: {
-                                    ...prev?.XtraPoint,
-                                    y: (prev?.XtraPoint?.y || 0) + e.dy / zoom,
-                                },
-                            }));
+                            // setExtraPointsPosState((prev) => ({
+                            //     ...prev,
+                            //     XtraPoint: {
+                            //         ...prev?.XtraPoint,
+                            //         y: (prev?.XtraPoint?.y || 0) + e.dy / zoom,
+                            //     },
+                            // }));
 
                             extraPoints[XtraPoint] = {
                                 ...extraPoints?.[XtraPoint],

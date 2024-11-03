@@ -6,7 +6,16 @@ interface ChartState {
 }
 
 export const useChartStore = create<ChartState>((set) => ({
-    data: {},
+    data: {
+        chapter: 0,
+        day: 0,
+        nodes: [],
+        edges: [],
+        relationships: {},
+        teams: {},
+        dayRecap: "",
+        title: "",
+    },
 
     setData: (data: ChartData) =>
         set(() => ({

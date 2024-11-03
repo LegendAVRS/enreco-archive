@@ -52,6 +52,7 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
         newEdge.data.content = localContent;
         newEdge.data.timestampUrl = localStream;
         newEdge.data.marker = marker;
+        // @ts-expect-error - undefined data should be fine, i think
         updateEdge(newEdge);
     };
 

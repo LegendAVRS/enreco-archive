@@ -6,7 +6,7 @@ import {
     Position,
     useUpdateNodeInternals,
 } from "@xyflow/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { ImageNodeProps } from "../../lib/type";
 
 // Number of handles per side
@@ -56,8 +56,7 @@ const getImageVisibilityStyle = (visible: boolean) => {
 };
 
 const ViewImageNode = ({ data, id }: ImageNodeProps) => {
-    // const { showHandles } = useEditorStore();
-    const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
+    const handles = useMemo(() => generateHandles(NUM_OF_HANDLES), []);
     const { edgeVisibility, teamVisibility, characterVisibility } =
         useViewStore();
     const { data: chartData } = useChartStore();

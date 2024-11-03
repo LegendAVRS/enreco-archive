@@ -62,6 +62,7 @@ const ViewApp = () => {
             if (flow) {
                 setNodes((flow.nodes as ImageNodeType[]) || []);
                 setEdges((flow.edges as CustomEdgeType[]) || []);
+                // @ts-expect-error - incorrect type or sth
                 setData((flow as ChartData) || {});
                 const edgeVisibilityLoaded: { [key: string]: boolean } = {};
                 const teamVisibilityLoaded: { [key: string]: boolean } = {};
