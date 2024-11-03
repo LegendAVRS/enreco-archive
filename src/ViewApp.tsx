@@ -11,17 +11,16 @@ import {
 } from "@xyflow/react";
 import { useCallback, useEffect, useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import ViewEdgeCard from "@/components/view/ViewEdgeCard";
 import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
+import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { useViewStore } from "@/store/viewStore";
 import "@xyflow/react/dist/style.css";
 import { isMobile } from "react-device-detect";
-import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 
 const nodeTypes = {
     image: ImageNodeView,
