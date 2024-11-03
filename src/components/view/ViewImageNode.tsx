@@ -98,7 +98,7 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
         <>
             {handleElements}
             <img
-                className="aspect-square object-cover rounded-lg transition-all"
+                className="cursor-pointer aspect-square object-cover rounded-lg transition-all"
                 width={100}
                 src={data.imageSrc}
                 style={{ ...nodeVisibilityStyle }}

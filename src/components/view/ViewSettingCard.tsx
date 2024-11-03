@@ -39,7 +39,7 @@ const ViewSettingCard = () => {
                     setOpen={setOpen}
                     onClose={() => setCurrentCard(null)}
                 >
-                    <Tabs defaultValue="visibility">
+                    <Tabs defaultValue="general">
                         <TabsList className="grid w-full grid-cols-2">
                             <TabsTrigger value="general">General</TabsTrigger>
                             <TabsTrigger value="visibility">Edge</TabsTrigger>

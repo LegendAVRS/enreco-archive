@@ -21,6 +21,7 @@ import { useFlowStore } from "@/store/flowStore";
 import { useViewStore } from "@/store/viewStore";
 import "@xyflow/react/dist/style.css";
 import { isMobile } from "react-device-detect";
+import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 
 const nodeTypes = {
     image: ImageNodeView,
@@ -146,17 +147,11 @@ const ViewApp = () => {
                     }}
                     minZoom={minZoom}
                     zoomOnDoubleClick={false}
+                    onPaneClick={() => {
+                        setCurrentCard(null);
+                    }}
                 ></ReactFlow>
-                <Button
-                    className="top-5 right-10 absolute"
-                    onClick={() =>
-                        currentCard !== "setting"
-                            ? setCurrentCard("setting")
-                            : null
-                    }
-                >
-                    Settings
-                </Button>
+                <ViewSettingIcon className="absolute top-5 right-5 z-10" />
                 {currentCard === "setting" && <ViewSettingCard />}
                 {currentCard === "node" && <ViewNodeCard />}
                 {currentCard === "edge" && <ViewEdgeCard />}

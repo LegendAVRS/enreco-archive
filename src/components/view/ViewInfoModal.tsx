@@ -1,4 +1,5 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ViewInfoCredit from "@/components/view/ViewInfoCredit";
 import ViewInfoGeneral from "@/components/view/ViewInfoGeneral";
@@ -29,6 +30,14 @@ const ViewInfoModal = ({ open, onOpenChange }: ViewInfoModalProps) => {
                         <ViewInfoCredit />
                     </TabsContent>
                 </Tabs>
+                <DialogFooter>
+                    <Button
+                        onClick={() => onOpenChange(false)}
+                        className="self-end"
+                    >
+                        Close
+                    </Button>
+                </DialogFooter>
             </DialogContent>
         </Dialog>
     );
