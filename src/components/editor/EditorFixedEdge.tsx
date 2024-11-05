@@ -26,7 +26,7 @@ const EditorFixedEdge = ({ id, data }: CustomEdgeProps) => {
                 </defs>
             </svg>
             <BaseEdge
-                markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
+                // markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
                 path={data?.path || ""}
                 className="transition-all "
                 style={{ strokeWidth: 4, ...edgeStyle }}
