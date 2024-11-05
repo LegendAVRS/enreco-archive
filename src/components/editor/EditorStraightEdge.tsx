@@ -1,29 +1,24 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { CustomEdgeProps } from "@/lib/type";
 import { useEditorStore } from "@/store/editorStore";
-import { BaseEdge, getSmoothStepPath } from "@xyflow/react";
+import { BaseEdge, getStraightPath } from "@xyflow/react";
 import { useEffect } from "react";
 
-const EditorSmoothEdge = ({
+const EditorStraightEdge = ({
     id,
     sourceX,
     sourceY,
     targetX,
     targetY,
-    sourcePosition,
-    targetPosition,
     data,
 }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
     const { setEdgePaths, edgePaths } = useEditorStore();
-    let [path] = getSmoothStepPath({
+    let [path] = getStraightPath({
         sourceX,
         sourceY,
-        sourcePosition,
         targetX,
         targetY,
-        targetPosition,
-        borderRadius: 0,
     });
     const strokeColor = edgeStyle?.stroke || "#000";
     useEffect(() => {
@@ -60,4 +55,4 @@ const EditorSmoothEdge = ({
     );
 };
 
-export default EditorSmoothEdge;
+export default EditorStraightEdge;

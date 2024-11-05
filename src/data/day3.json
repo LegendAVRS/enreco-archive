@@ -1,0 +1,735 @@
+{
+    "chapter": 1,
+    "day": 3,
+    "nodes": [
+        {
+            "id": "node-1",
+            "type": "image",
+            "position": {
+                "x": 150,
+                "y": 100
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Ceres-Fauna_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-2",
+            "type": "image",
+            "position": {
+                "x": 350,
+                "y": 250
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Elizabeth-Rose-Bloodflame_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-3",
+            "type": "image",
+            "position": {
+                "x": 550,
+                "y": 250
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Nerissa-Ravencroft_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-4",
+            "type": "image",
+            "position": {
+                "x": 750,
+                "y": 250
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Takanashi-Kiara_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-5",
+            "type": "image",
+            "position": {
+                "x": 750,
+                "y": 100
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Raora-Panthera_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-6",
+            "type": "image",
+            "position": {
+                "x": 950,
+                "y": 250
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/calli.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-7",
+            "type": "image",
+            "position": {
+                "x": 750,
+                "y": 400
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Gigi-Murin_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-8",
+            "type": "image",
+            "position": {
+                "x": 950,
+                "y": 400
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/ame.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-9",
+            "type": "image",
+            "position": {
+                "x": 550,
+                "y": 400
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Shiori-Novella_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-10",
+            "type": "image",
+            "position": {
+                "x": 350,
+                "y": 400
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Koseki-Bijou_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-11",
+            "type": "image",
+            "position": {
+                "x": 150,
+                "y": 400
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Fuwawa-Abyssgard_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-13",
+            "type": "image",
+            "position": {
+                "x": 450,
+                "y": 550
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/ina.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-14",
+            "type": "image",
+            "position": {
+                "x": 650,
+                "y": 550
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/IRyS_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-15",
+            "type": "image",
+            "position": {
+                "x": 850,
+                "y": 550
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Ouro-Kronii_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-16",
+            "type": "image",
+            "position": {
+                "x": 1200,
+                "y": 100
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Nanashi-Mumei_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false
+        },
+        {
+            "id": "node-17",
+            "type": "image",
+            "position": {
+                "x": 1200,
+                "y": 200
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Hakos-Baelz_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-18",
+            "type": "image",
+            "position": {
+                "x": 1200,
+                "y": 300
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Cecilia-Immergreen_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-19",
+            "type": "image",
+            "position": {
+                "x": 1200,
+                "y": 400
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Gawr-Gura_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-21",
+            "type": "image",
+            "position": {
+                "x": 50,
+                "y": 400
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Mococo-Abyssgard_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node-20",
+            "type": "image",
+            "position": {
+                "x": 1200,
+                "y": 550
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/king.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            },
+            "selected": false,
+            "dragging": false
+        }
+    ],
+    "edges": [
+        {
+            "source": "node-2",
+            "sourceHandle": "top-2",
+            "target": "node-1",
+            "targetHandle": "right-2",
+            "type": "fixed",
+            "data": {
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": true,
+                "path": "M399.99988642051886 246.99999481411052L399.99988642051886 226.99999481411052L 399.99988642051886,150Q 399.99988642051886,150 399.99988642051886,150L273 150L253 150",
+                "relationship": "Enemies/Rivals"
+            },
+            "id": "node-2-node-1-top-2-right-2",
+            "selected": false
+        },
+        {
+            "source": "node-2",
+            "sourceHandle": "left-3",
+            "target": "node-11",
+            "targetHandle": "top-2",
+            "type": "fixed",
+            "data": {
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": true,
+                "path": "M346.99994167999694 319.999885570373L326.99994167999694 319.999885570373L 199.9999129875756,319.999885570373Q 199.9999129875756,319.999885570373 199.9999129875756,319.999885570373L199.9999129875756 376.9999948141105L199.9999129875756 396.9999948141105",
+                "relationship": "Protector"
+            },
+            "id": "node-2-node-11-left-3-top-2",
+            "selected": false
+        },
+        {
+            "source": "node-2",
+            "sourceHandle": "left-1",
+            "target": "node-21",
+            "targetHandle": "top-2",
+            "type": "fixed",
+            "data": {
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": true,
+                "path": "M346.99994167999694 279.999966971835L326.99994167999694 279.999966971835L 99.9999395546324,279.999966971835Q 99.9999395546324,279.999966971835 99.9999395546324,279.999966971835L99.9999395546324 376.9999948141105L99.9999395546324 396.9999948141105",
+                "relationship": "Protector"
+            },
+            "id": "node-2-node-21-left-1-top-2",
+            "selected": false
+        },
+        {
+            "source": "node-2",
+            "sourceHandle": "bottom-2",
+            "target": "node-10",
+            "targetHandle": "top-2",
+            "type": "fixed",
+            "data": {
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": true,
+                "relationship": "Familial Relationship"
+            },
+            "id": "node-2-node-10-bottom-2-top-2",
+            "selected": false
+        },
+        {
+            "source": "node-2",
+            "sourceHandle": "right-2",
+            "target": "node-3",
+            "targetHandle": "left-2",
+            "type": "fixed",
+            "data": {
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": true,
+                "path": "M452.99983116104073 299.9999129875756L472.99983116104073 299.9999129875756L 499.9999395546324,299.9999129875756Q 499.9999395546324,299.9999129875756 499.9999395546324,299.9999129875756L 499.9999395546324,299.9999395546324Q 499.9999395546324,299.9999395546324 499.9999395546324,299.9999395546324L527.000047948224 299.9999395546324L547.000047948224 299.9999395546324",
+                "relationship": "Unrequited Love"
+            },
+            "id": "node-2-node-3-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-3",
+            "sourceHandle": "right-2",
+            "target": "node-4",
+            "targetHandle": "left-2",
+            "type": "fixed",
+            "data": {
+                "relationship": "Romantic",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false,
+                "path": "M652.9999374292679 299.9999395546324L672.9999374292679 299.9999395546324L699.999992688746 299.9999395546324L699.999992688746 299.9999395546324L727.000047948224 299.9999395546324L747.000047948224 299.9999395546324"
+            },
+            "id": "node-3-node-4-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-10",
+            "sourceHandle": "top-3",
+            "target": "node-3",
+            "targetHandle": "bottom-0",
+            "type": "fixed",
+            "data": {
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": true,
+                "relationship": "Enemies/Rivals"
+            },
+            "id": "node-10-node-3-top-3-bottom-0",
+            "selected": false
+        },
+        {
+            "source": "node-3",
+            "sourceHandle": "bottom-2",
+            "target": "node-9",
+            "targetHandle": "top-2",
+            "type": "fixed",
+            "data": {
+                "relationship": "",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false,
+                "path": "M599.9999926887459 352.9998842951543L599.9999926887459 372.9998842951543L599.9999926887459 374.9999395546324L599.9999926887459 374.9999395546324L599.9999926887459 376.9999948141105L599.9999926887459 396.9999948141105"
+            },
+            "id": "node-3-node-9-bottom-2-top-2",
+            "selected": false
+        },
+        {
+            "source": "node-10",
+            "sourceHandle": "right-2",
+            "target": "node-9",
+            "targetHandle": "left-2",
+            "type": "fixed",
+            "data": {
+                "relationship": "",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false,
+                "path": "M452.99985772809754 449.9999395546324L472.99985772809754 449.9999395546324L499.99995283816077 449.9999395546324L499.99995283816077 449.9999395546324L527.000047948224 449.9999395546324L547.000047948224 449.9999395546324"
+            },
+            "id": "node-10-node-9-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-13",
+            "sourceHandle": "right-2",
+            "target": "node-14",
+            "targetHandle": "left-2",
+            "type": "fixed",
+            "data": {
+                "relationship": "",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false
+            },
+            "id": "node-13-node-14-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-4",
+            "sourceHandle": "right-2",
+            "target": "node-6",
+            "targetHandle": "left-2",
+            "type": "fixed",
+            "data": {
+                "relationship": "Romantic",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false,
+                "path": "M852.9998311610407 299.9999395546324L872.9998311610407 299.9999395546324L899.9998864205188 299.9999395546324L899.9998864205188 299.9999395546324L926.9999416799969 299.9999395546324L946.9999416799969 299.9999395546324"
+            },
+            "id": "node-4-node-6-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-7",
+            "sourceHandle": "right-2",
+            "target": "node-8",
+            "targetHandle": "left-2",
+            "type": "fixed",
+            "data": {
+                "relationship": "Romantic",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false,
+                "path": "M852.9998311610407 449.9999395546324L872.9998311610407 449.9999395546324L899.9998864205188 449.9999395546324L899.9998864205188 449.9999395546324L926.9999416799969 449.9999395546324L946.9999416799969 449.9999395546324"
+            },
+            "id": "node-7-node-8-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-14",
+            "sourceHandle": "top-2",
+            "target": "node-8",
+            "targetHandle": "bottom-1",
+            "type": "fixed",
+            "data": {
+                "relationship": "Misc. Romantic Relationship",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false,
+                "path": "M699.9998864205188 546.9999948141106L699.9998864205188 526.9999948141106L 699.9998864205188,524.9999395546324Q 699.9998864205188,524.9999395546324 699.9998864205188,524.9999395546324L 979.9999935388918,524.9999395546324Q 979.9999935388918,524.9999395546324 979.9999935388918,524.9999395546324L979.9999935388918 522.9998842951543L979.9999935388918 502.9998842951543"
+            },
+            "id": "node-14-node-8-top-2-bottom-1",
+            "selected": false
+        },
+        {
+            "source": "node-8",
+            "sourceHandle": "bottom-2",
+            "target": "node-15",
+            "targetHandle": "right-1",
+            "type": "fixed",
+            "data": {
+                "relationship": "Misc. Romantic Relationship",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false
+            },
+            "id": "node-8-node-15-bottom-2-right-1",
+            "selected": false
+        },
+        {
+            "source": "node-15",
+            "sourceHandle": "right-2",
+            "target": "node-20",
+            "targetHandle": "left-2",
+            "type": "fixed",
+            "data": {
+                "relationship": "Marriage",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false,
+                "path": "M952.9998311610407 599.9999395546324L972.9998311610407 599.9999395546324L1074.9998864205188 599.9999395546324L1074.9998864205188 599.9999395546324L1176.999941679997 599.9999395546324L1196.999941679997 599.9999395546324"
+            },
+            "id": "node-15-node-20-right-2-left-2",
+            "selected": false
+        },
+        {
+            "source": "node-2",
+            "sourceHandle": "top-3",
+            "target": "node-15",
+            "targetHandle": "right-3",
+            "type": "fixed",
+            "data": {
+                "relationship": "Enemies/Rivals",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false,
+                "path": "M419.999885570373,246.99999481411052 V223.80994671791677 H419.999885570373 H1130.59214607345 V619.9998855703731M952.9998311610407,619.9998855703731 V619.9998855703731 H1130.59214607345 "
+            },
+            "id": "node-2-node-15-top-3-right-3",
+            "selected": false
+        },
+        {
+            "source": "node-5",
+            "sourceHandle": "bottom-2",
+            "target": "node-4",
+            "targetHandle": "top-2",
+            "type": "fixed",
+            "data": {
+                "relationship": "",
+                "title": "",
+                "content": "",
+                "timestampUrl": "",
+                "marker": false,
+                "path": "M799.9999926887459 202.99985772809754L799.9999926887459 222.99985772809754L799.9999926887459 224.99995283816082L799.9999926887459 224.99995283816082L799.9999926887459 227.00004794822408L799.9999926887459 247.00004794822408"
+            },
+            "id": "node-5-node-4-bottom-2-top-2",
+            "selected": false
+        }
+    ],
+    "relationships": {
+        "Marriage": {
+            "stroke": "#FE65C5"
+        },
+        "Romantic": {
+            "stroke": "#FE65C5",
+            "strokeDasharray": "5,5"
+        },
+        "Unrequited Love": {
+            "stroke": "#5CE1E6",
+            "strokeDasharray": "5,5"
+        },
+        "Child": {
+            "stroke": "#00BF62"
+        },
+        "Familial Relationship": {
+            "stroke": "#00BF62",
+            "strokeDasharray": "5,5"
+        },
+        "Protector": {
+            "stroke": "#C5FD83"
+        },
+        "Misc. Romantic Relationship": {
+            "stroke": "#FD914E"
+        },
+        "Enemies/Rivals": {
+            "stroke": "#E8181D"
+        },
+        "Big Pink Cat": {
+            "stroke": "#5C18E9"
+        },
+        "Lick": {
+            "stroke": "#5C18E9",
+            "strokeDasharray": "5,5"
+        },
+        "Business": {
+            "stroke": "#A7A7A7"
+        }
+    },
+
+    "teams": {},
+    "dayRecap": "",
+    "title": ""
+}

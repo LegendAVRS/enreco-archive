@@ -29,7 +29,7 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
     const [localTitle, setLocalTitle] = useState("");
     const [localContent, setLocalContent] = useState("");
     const [localStream, setLocalStream] = useState("");
-    const [marker, setMarker] = useState(true);
+    const [marker, setMarker] = useState(false);
 
     // Sync local state with selectedEdge whenever selectedEdge changes
     useEffect(() => {
@@ -38,7 +38,7 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
             setLocalTitle(selectedEdge.data?.title || "");
             setLocalContent(selectedEdge.data?.content || "");
             setLocalStream(selectedEdge.data?.timestampUrl || "");
-            setMarker(selectedEdge.data?.marker || true);
+            setMarker(selectedEdge.data?.marker || false);
         }
     }, [selectedEdge]);
 

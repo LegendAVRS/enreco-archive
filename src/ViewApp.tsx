@@ -1,6 +1,6 @@
 import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ImageNodeView from "@/components/view/ViewImageNode";
-import chart from "@/data/chart.json";
+import chart from "@/data/day4.json";
 import { ChartData, CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
     ConnectionMode,
@@ -27,7 +27,7 @@ const nodeTypes = {
 };
 
 const edgeTypes = {
-    custom: ViewCustomEdge,
+    fixed: ViewCustomEdge,
 };
 
 const ViewApp = () => {
@@ -46,7 +46,7 @@ const ViewApp = () => {
     } = useViewStore();
 
     const { fitView, setCenter, getNode } = useReactFlow();
-    const [minZoom, setMinZoom] = useState(0.9);
+    const [minZoom, setMinZoom] = useState(0.7);
 
     useEffect(() => {
         // On mobile it's harader to zoom out, so we set a lower min zoom
@@ -62,7 +62,6 @@ const ViewApp = () => {
             if (flow) {
                 setNodes((flow.nodes as ImageNodeType[]) || []);
                 setEdges((flow.edges as CustomEdgeType[]) || []);
-                // @ts-expect-error - incorrect type or sth
                 setData((flow as ChartData) || {});
                 const edgeVisibilityLoaded: { [key: string]: boolean } = {};
                 const teamVisibilityLoaded: { [key: string]: boolean } = {};
@@ -77,10 +76,14 @@ const ViewApp = () => {
                     teamVisibilityLoaded[key] = true;
                 });
 
-                flow.nodes.forEach((node) => {
-                    teamVisibilityLoaded[node.data.team] = true;
-                    characterVisibilityLoaded[node.data.title] = true;
-                });
+                for (const node of flow.nodes) {
+                    if (node.data.team) {
+                        teamVisibilityLoaded[node.data.team] = true;
+                    }
+                    if (node.data.title) {
+                        characterVisibilityLoaded[node.data.title] = true;
+                    }
+                }
 
                 setEdgeVisibility(edgeVisibilityLoaded);
                 setTeamVisibility(teamVisibilityLoaded);
@@ -110,10 +113,10 @@ const ViewApp = () => {
         const nodeBPosition = nodeB!.position;
         let offsetX = 0;
         let offsetY = 0;
-        if (!isMobile) {
-            offsetX = Math.abs(nodeA!.position.x - nodeB!.position.x) / 2;
-            offsetY = Math.abs(nodeA!.position.y - nodeB!.position.y) / 4;
-        }
+        // if (!isMobile) {
+        //     offsetX = Math.abs(nodeA!.position.x - nodeB!.position.x) / 2;
+        //     offsetY = Math.abs(nodeA!.position.y - nodeB!.position.y) / 4;
+        // }
         return {
             x: (nodeAPosition.x + nodeBPosition.x) / 2 + offsetX,
             y: (nodeAPosition.y + nodeBPosition.y) / 2 + offsetY,

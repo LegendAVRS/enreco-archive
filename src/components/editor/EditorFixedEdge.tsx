@@ -1,37 +1,12 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { CustomEdgeProps } from "@/lib/type";
-import { useEditorStore } from "@/store/editorStore";
-import { BaseEdge, getSmoothStepPath } from "@xyflow/react";
-import { useEffect } from "react";
+import { BaseEdge } from "@xyflow/react";
 
-const EditorSmoothEdge = ({
-    id,
-    sourceX,
-    sourceY,
-    targetX,
-    targetY,
-    sourcePosition,
-    targetPosition,
-    data,
-}: CustomEdgeProps) => {
+const EditorFixedEdge = ({ id, data }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
-    const { setEdgePaths, edgePaths } = useEditorStore();
-    let [path] = getSmoothStepPath({
-        sourceX,
-        sourceY,
-        sourcePosition,
-        targetX,
-        targetY,
-        targetPosition,
-        borderRadius: 0,
-    });
-    const strokeColor = edgeStyle?.stroke || "#000";
-    useEffect(() => {
-        setEdgePaths({ ...edgePaths, [id]: path });
-    }, [path]);
-    if (data?.path) {
-        path = data?.path;
-    }
+
+    const strokeColor = edgeStyle?.stroke || "black";
+
     return (
         <>
             <svg width="0" height="0">
@@ -51,13 +26,13 @@ const EditorSmoothEdge = ({
                 </defs>
             </svg>
             <BaseEdge
-                path={path}
-                style={{ strokeWidth: 4, ...edgeStyle }}
-                className="z-10"
                 markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
+                path={data?.path || ""}
+                className="transition-all "
+                style={{ strokeWidth: 4, ...edgeStyle }}
             />
         </>
     );
 };
 
-export default EditorSmoothEdge;
+export default EditorFixedEdge;

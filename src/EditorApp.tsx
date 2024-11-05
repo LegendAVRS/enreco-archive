@@ -1,12 +1,11 @@
-// @ts-nocheck
-import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
+import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
 import EditorGeneralCard from "@/components/editor/EditorGeneralCard";
 import EditorNodeCard from "@/components/editor/EditorNodeCard";
+import EditorSmoothEdge from "@/components/editor/EditorSmoothEdge";
 import { Button } from "@/components/ui/button";
-import chartData from "@/data/chart.json";
 import useKeyboard from "@/hooks/useKeyboard";
-import { dummyRelationships } from "@/lib/dummy";
+import { ChartData, CustomEdgeType } from "@/lib/type";
 import { useChartStore } from "@/store/chartStore";
 import { useEditorStore } from "@/store/editorStore";
 import { useFlowStore } from "@/store/flowStore";
@@ -23,8 +22,10 @@ import {
 import "@xyflow/react/dist/style.css";
 import { useEffect, useState } from "react";
 import EditorImageNode from "./components/editor/EditorImageNode";
-import EditorSmoothEdge from "@/components/editor/EditorSmoothEdge";
-import { ChartData, CustomEdgeType } from "@/lib/type";
+
+import EditorFixedEdge from "@/components/editor/EditorFixedEdge";
+import EditorStraightEdge from "@/components/editor/EditorStraightEdge";
+import chartData from "@/data/day4.json";
 
 const nodeTypes = {
     image: EditorImageNode,
@@ -33,6 +34,8 @@ const nodeTypes = {
 const edgeTypes = {
     custom: EditorCustomEdge,
     customSmooth: EditorSmoothEdge,
+    customStraight: EditorStraightEdge,
+    fixed: EditorFixedEdge,
 };
 
 const loadFlow = () => {
@@ -64,6 +67,9 @@ const EditorApp = () => {
         setData(chartData);
         setNodes(chartData.nodes);
         setEdges(chartData.edges);
+        for (const edge of chartData.edges) {
+            edgePaths[edge.id] = edge.data.path;
+        }
     }, [setNodes, setEdges, setData]);
 
     const addNode = (x: number, y: number) => {
@@ -139,8 +145,9 @@ const EditorApp = () => {
         const flow = rfInstance.toObject();
         flow.edges.forEach((edge) => {
             edge.data.path = edgePaths[edge.id];
+            edge.type = "fixed";
         });
-        exportData.relationships = dummyRelationships;
+        // exportData.relationships = relationshipData;
         exportData.edges = flow.edges;
         exportData.nodes = flow.nodes;
         const dataStr = JSON.stringify(exportData, null, 2);
@@ -178,7 +185,7 @@ const EditorApp = () => {
                 }}
                 onConnect={connectEdge}
                 snapToGrid
-                snapGrid={[50, 50]}
+                snapGrid={[25, 25]}
                 connectionMode={ConnectionMode.Loose}
                 connectionLineType={ConnectionLineType.SmoothStep}
                 zoomOnDoubleClick={false}
@@ -205,6 +212,8 @@ const EditorApp = () => {
                     onClick={() => {
                         if (edgeType === "custom") {
                             setEdgeType("customSmooth");
+                        } else if (edgeType === "customSmooth") {
+                            setEdgeType("customStraight");
                         } else {
                             setEdgeType("custom");
                         }
