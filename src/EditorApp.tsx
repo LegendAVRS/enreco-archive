@@ -25,7 +25,7 @@ import EditorImageNode from "./components/editor/EditorImageNode";
 
 import EditorFixedEdge from "@/components/editor/EditorFixedEdge";
 import EditorStraightEdge from "@/components/editor/EditorStraightEdge";
-import chartData from "@/data/day5.json";
+import chartData from "@/data/day8.json";
 
 import oldChart from "@/data/day7.json";
 import newChart from "@/data/day8.json";
@@ -149,8 +149,18 @@ const EditorApp = () => {
         flow.edges.forEach((edge) => {
             edge.data.path = edgePaths[edge.id];
             edge.type = "fixed";
-            edge.data.new = true;
+            // edge.data.new = true;
+            // drop edge.selected
+            delete edge.selected;
+            // drop edge.data.marker
+            delete edge.data.marker;
         });
+
+        flow.nodes.forEach((node) => {
+            delete node.selected;
+            delete node.dragging;
+        });
+
         // exportData.relationships = relationshipData;
         exportData.edges = flow.edges;
         exportData.nodes = flow.nodes;

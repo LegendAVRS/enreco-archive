@@ -18,9 +18,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-2",
@@ -38,9 +36,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-3",
@@ -58,9 +54,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-4",
@@ -78,9 +72,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-5",
@@ -98,9 +90,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-6",
@@ -118,9 +108,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-7",
@@ -138,9 +126,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-8",
@@ -158,9 +144,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-9",
@@ -178,9 +162,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-10",
@@ -198,9 +180,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-11",
@@ -218,9 +198,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-12",
@@ -238,9 +216,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-13",
@@ -258,9 +234,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-14",
@@ -278,9 +252,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-15",
@@ -298,9 +270,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-16",
@@ -318,9 +288,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-17",
@@ -338,9 +306,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-18",
@@ -358,9 +324,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-19",
@@ -378,9 +342,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     },
     {
       "id": "node-20",
@@ -398,9 +360,7 @@
       "measured": {
         "width": 100,
         "height": 100
-      },
-      "selected": false,
-      "dragging": false
+      }
     }
   ],
   "edges": [
@@ -415,12 +375,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M402.99983116104073 399.99996612168917L422.99983116104073 399.99996612168917L474.9999129875756 399.99996612168917L474.9999129875756 399.99996612168917L526.9999948141106 399.99996612168917L546.9999948141106 399.99996612168917",
         "new": false
       },
-      "id": "node-6-node-5-right-2-left-2",
-      "selected": false
+      "id": "node-6-node-5-right-2-left-2"
     },
     {
       "source": "node-4",
@@ -432,13 +390,11 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M46.999994814110515 399.9999395546324L 26.999994814110515,399.9999395546324Q 26.999994814110515,399.9999395546324 26.999994814110515,399.9999395546324L 26.999994814110515,723.0000555069765Q 26.999994814110515,723.0000555069765 26.999994814110515,723.0000555069765L 330.00002998015873,723.0000555069765Q 330.00002998015873,723.0000555069765 330.00002998015873,723.0000555069765L330.00002998015873 703.0000555069765",
         "relationship": "Protector",
         "new": true
       },
-      "id": "node-4-node-10-left-2-bottom-1",
-      "selected": false
+      "id": "node-4-node-10-left-2-bottom-1"
     },
     {
       "source": "node-5",
@@ -451,12 +407,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M652.9998311610407,399.99996612168917 V399.9999815635118 H652.9998311610407 H796.9999385036923 V399.9999970053344",
         "new": false
       },
-      "id": "node-5-node-7-right-2-left-2",
-      "selected": false
+      "id": "node-5-node-7-right-2-left-2"
     },
     {
       "source": "node-7",
@@ -469,12 +423,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M902.999974970575 399.9999970053344L922.999974970575 399.9999970053344L974.9999970053345 399.9999970053344L974.9999970053345 399.9999970053344L1027.000019040094 399.9999970053344L1047.000019040094 399.9999970053344",
         "new": false
       },
-      "id": "node-7-node-8-right-2-left-2",
-      "selected": false
+      "id": "node-7-node-8-right-2-left-2"
     },
     {
       "source": "node-14",
@@ -486,13 +438,11 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M1349.9999970053345,597.0000190400939 V553.4562579845884 H1349.9999970053345 H849.9999970053344 V597.0000190400939",
         "relationship": "Enemies/Rivals",
         "new": true
       },
-      "id": "node-14-node-12-top-2-top-2",
-      "selected": false
+      "id": "node-14-node-12-top-2-top-2"
     },
     {
       "source": "node-12",
@@ -505,12 +455,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M902.999974970575 650.000077541736L922.999974970575 650.000077541736L974.9999970053345 650.000077541736L974.9999970053345 650.000077541736L1027.000019040094 650.000077541736L1047.000019040094 650.000077541736",
         "new": false
       },
-      "id": "node-12-node-13-right-2-left-2",
-      "selected": false
+      "id": "node-12-node-13-right-2-left-2"
     },
     {
       "source": "node-2",
@@ -522,13 +470,11 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M349.9999395546324 202.99985772809754L349.9999395546324 222.99985772809754L 349.9999395546324,274.9999395546324Q 349.9999395546324,274.9999395546324 349.9999395546324,274.9999395546324L 599.9999395546324,274.9999395546324Q 599.9999395546324,274.9999395546324 599.9999395546324,274.9999395546324L599.9999395546324 327.0000213811673L599.9999395546324 347.0000213811673",
         "relationship": "Enemies/Rivals",
         "new": true
       },
-      "id": "node-2-node-5-bottom-2-top-2",
-      "selected": false
+      "id": "node-2-node-5-bottom-2-top-2"
     },
     {
       "source": "node-1",
@@ -541,12 +487,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M153 130L173 130L 224.99999740705525,130Q 224.99999740705525,130 224.99999740705525,130L 224.99999740705525,129.99996697183502Q 224.99999740705525,129.99996697183502 224.99999740705525,129.99996697183502L276.9999948141105 129.99996697183502L296.9999948141105 129.99996697183502",
         "new": false
       },
-      "id": "node-1-node-2-right-1-left-1",
-      "selected": false
+      "id": "node-1-node-2-right-1-left-1"
     },
     {
       "source": "node-20",
@@ -559,12 +503,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M-11.89353299912068,1169.999959395377 V31.079000587355722 H-11.89353299912068 H329.9999935388918 V97.0000213811673M546.99992863699,1169.999959395377 V1169.999959395377 H-11.89353299912068",
         "new": true
       },
-      "id": "node-20-node-2-left-3-top-1",
-      "selected": false
+      "id": "node-20-node-2-left-3-top-1"
     },
     {
       "source": "node-18",
@@ -576,13 +518,11 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M975.000077541736,952.999974970575 V1002.394044503648 H975.000077541736 H224.99999700533445 V953.0000555069765",
         "relationship": "Enemies/Rivals",
         "new": true
       },
-      "id": "node-18-node-15-bottom-2-bottom-2",
-      "selected": false
+      "id": "node-18-node-15-bottom-2-bottom-2"
     },
     {
       "source": "node-10",
@@ -595,12 +535,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M350.0000372735352 703.0000555069765L350.0000372735352 723.0000555069765L 350.0000372735352,899.9999970053344Q 350.0000372735352,899.9999970053344 350.0000372735352,899.9999970053344L401.9999385036923 899.9999970053344L421.9999385036923 899.9999970053344",
         "new": true
       },
-      "id": "node-10-node-16-bottom-2-left-2",
-      "selected": false
+      "id": "node-10-node-16-bottom-2-left-2"
     },
     {
       "source": "node-11",
@@ -612,13 +550,11 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M620.000004298711,703.0000555069765 V1042.8066076232208 H620.000004298711 H1225.0000775417361 V952.999974970575",
         "relationship": "Protector",
         "new": true
       },
-      "id": "node-11-node-19-bottom-3-bottom-2",
-      "selected": false
+      "id": "node-11-node-19-bottom-3-bottom-2"
     },
     {
       "source": "node-17",
@@ -631,12 +567,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M725 953L 725,973Q 725,973 725,973L 1120,973Q 1120,973 1120,973L1120 723L1120 703",
         "new": false
       },
-      "id": "node-17-node-13-bottom-2-bottom-3",
-      "selected": false
+      "id": "node-17-node-13-bottom-2-bottom-3"
     },
     {
       "source": "node-7",
@@ -649,12 +583,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M775.8212090474308,440 V579.9636271422925 H775.8212090474308 H245 V847M797,440 V440 H775.8212090474308",
         "new": false
       },
-      "id": "node-7-node-15-left-4-top-3",
-      "selected": false
+      "id": "node-7-node-15-left-4-top-3"
     },
     {
       "source": "node-7",
@@ -667,12 +599,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M830 453L830 473L 830,525Q 830,525 830,525L 120,525Q 120,525 120,525L120 577L120 597",
         "new": true
       },
-      "id": "node-7-node-9-bottom-1-top-3",
-      "selected": false
+      "id": "node-7-node-9-bottom-1-top-3"
     },
     {
       "source": "node-7",
@@ -685,12 +615,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M903 420L923 420L 975,420Q 975,420 975,420L975 827L975 847",
         "new": true
       },
-      "id": "node-7-node-18-right-3-top-2",
-      "selected": false
+      "id": "node-7-node-18-right-3-top-2"
     },
     {
       "source": "node-6",
@@ -703,12 +631,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M350,347 V312.42857142857144 H350 H1100 V347",
         "new": true
       },
-      "id": "node-6-node-8-top-2-top-2",
-      "selected": false
+      "id": "node-6-node-8-top-2-top-2"
     },
     {
       "source": "node-8",
@@ -721,12 +647,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M1100 453L1100 473L1100 525L1100 525L1100 577L1100 597",
         "new": false
       },
-      "id": "node-8-node-13-bottom-2-top-2",
-      "selected": false
+      "id": "node-8-node-13-bottom-2-top-2"
     },
     {
       "source": "node-13",
@@ -739,12 +663,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M1153 650L1173 650L1225 650L1225 650L1277 650L1297 650",
         "new": true
       },
-      "id": "node-13-node-14-right-2-left-2",
-      "selected": false
+      "id": "node-13-node-14-right-2-left-2"
     },
     {
       "source": "node-13",
@@ -757,12 +679,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M1080,703 V723.4867724867725 H1080 H370 V703",
         "new": true
       },
-      "id": "node-13-node-10-bottom-1-bottom-3",
-      "selected": false
+      "id": "node-13-node-10-bottom-1-bottom-3"
     },
     {
       "source": "node-13",
@@ -775,12 +695,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M1100 703L1100 723L 1100,880Q 1100,880 1100,880L1048 880L1028 880",
         "new": false
       },
-      "id": "node-13-node-18-bottom-2-right-1",
-      "selected": false
+      "id": "node-13-node-18-bottom-2-right-1"
     },
     {
       "source": "node-18",
@@ -793,12 +711,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M1028 900L1048 900L1100 900L1100 900L1152 900L1172 900",
         "new": false
       },
-      "id": "node-18-node-19-right-2-left-2",
-      "selected": false
+      "id": "node-18-node-19-right-2-left-2"
     },
     {
       "source": "node-11",
@@ -811,12 +727,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M547 650L527 650L475 650L475 650L423 650L403 650",
         "new": false
       },
-      "id": "node-11-node-10-left-2-right-2",
-      "selected": false
+      "id": "node-11-node-10-left-2-right-2"
     },
     {
       "source": "node-15",
@@ -829,12 +743,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M205 847L205 827L 205,650Q 205,650 205,650L277 650L297 650",
         "new": true
       },
-      "id": "node-15-node-10-top-1-left-2",
-      "selected": false
+      "id": "node-15-node-10-top-1-left-2"
     },
     {
       "source": "node-15",
@@ -847,12 +759,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M225 847L225 827L 225,775Q 225,775 225,775L 600,775Q 600,775 600,775L600 723L600 703",
         "new": true
       },
-      "id": "node-15-node-11-top-2-bottom-2",
-      "selected": false
+      "id": "node-15-node-11-top-2-bottom-2"
     },
     {
       "source": "node-20",
@@ -865,12 +775,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M653 1150L673 1150L 850,1150Q 850,1150 850,1150L850 723L850 703",
         "new": true
       },
-      "id": "node-20-node-12-right-2-bottom-2",
-      "selected": false
+      "id": "node-20-node-12-right-2-bottom-2"
     },
     {
       "source": "node-16",
@@ -883,12 +791,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M475 953L475 973L 475,1150Q 475,1150 475,1150L527 1150L547 1150",
         "new": true
       },
-      "id": "node-16-node-20-bottom-2-left-2",
-      "selected": false
+      "id": "node-16-node-20-bottom-2-left-2"
     },
     {
       "source": "node-17",
@@ -901,12 +807,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M705 953L705 973L 705,1130Q 705,1130 705,1130L673 1130L653 1130",
         "new": true
       },
-      "id": "node-17-node-20-bottom-1-right-1",
-      "selected": false
+      "id": "node-17-node-20-bottom-1-right-1"
     },
     {
       "source": "node-12",
@@ -919,12 +823,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M797 650L777 650L 725,650Q 725,650 725,650L 725,380Q 725,380 725,380L673 380L653 380",
         "new": true
       },
-      "id": "node-12-node-5-left-2-right-1",
-      "selected": false
+      "id": "node-12-node-5-left-2-right-1"
     },
     {
       "source": "node-12",
@@ -937,12 +839,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M903 630L 923,630Q 923,630 923,630L 923,77Q 923,77 923,77L 350,77Q 350,77 350,77L350 97",
         "new": true
       },
-      "id": "node-12-node-2-right-1-top-2",
-      "selected": false
+      "id": "node-12-node-2-right-1-top-2"
     },
     {
       "source": "node-17",
@@ -955,12 +855,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M705 847L705 827L 705,420Q 705,420 705,420L673 420L653 420",
         "new": true
       },
-      "id": "node-17-node-5-top-1-right-3",
-      "selected": false
+      "id": "node-17-node-5-top-1-right-3"
     },
     {
       "source": "node-17",
@@ -973,12 +871,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M745,847 V52.81626696219314 H745 H370 V97",
         "new": true
       },
-      "id": "node-17-node-2-top-3-top-3",
-      "selected": false
+      "id": "node-17-node-2-top-3-top-3"
     },
     {
       "source": "node-16",
@@ -991,12 +887,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M528 900L548 900L600 900L600 900L652 900L672 900",
         "new": false
       },
-      "id": "node-16-node-17-right-2-left-2",
-      "selected": false
+      "id": "node-16-node-17-right-2-left-2"
     },
     {
       "source": "node-18",
@@ -1009,12 +903,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M922 900L902 900L850 900L850 900L798 900L778 900",
         "new": true
       },
-      "id": "node-18-node-17-left-2-right-2",
-      "selected": false
+      "id": "node-18-node-17-left-2-right-2"
     },
     {
       "source": "node-11",
@@ -1027,12 +919,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M679.4747620865983,650 V765 H679.4747620865983 H899.9376982611681 V880M653,650 V650 H679.4747620865983M922,880 V880 H899.9376982611681 ",
         "new": false
       },
-      "id": "node-11-node-18-right-2-left-1",
-      "selected": false
+      "id": "node-11-node-18-right-2-left-1"
     },
     {
       "source": "node-11",
@@ -1045,12 +935,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M547 630L527 630L 475,630Q 475,630 475,630L 475,150Q 475,150 475,150L423 150L403 150",
         "new": false
       },
-      "id": "node-11-node-2-left-1-right-2",
-      "selected": false
+      "id": "node-11-node-2-left-1-right-2"
     },
     {
       "source": "node-11",
@@ -1063,12 +951,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M580,703 V751.5512456187905 H580 H-57.428228230471134 V150M47,150 V150 H-57.428228230471134 ",
         "new": false
       },
-      "id": "node-11-node-1-bottom-1-left-2",
-      "selected": false
+      "id": "node-11-node-1-bottom-1-left-2"
     },
     {
       "source": "node-4",
@@ -1081,12 +967,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M153 400L173 400L225 400L225 400L277 400L297 400",
         "new": true
       },
-      "id": "node-4-node-6-right-2-left-2",
-      "selected": false
+      "id": "node-4-node-6-right-2-left-2"
     },
     {
       "source": "node-9",
@@ -1099,12 +983,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M100,597 V552.9455822025204 H100 H330 V453",
         "new": true
       },
-      "id": "node-9-node-6-top-2-bottom-1",
-      "selected": false
+      "id": "node-9-node-6-top-2-bottom-1"
     },
     {
       "source": "node-9",
@@ -1117,12 +999,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M100 703L100 723L 100,1130Q 100,1130 100,1130L527 1130L547 1130",
         "new": true
       },
-      "id": "node-9-node-20-bottom-2-left-1",
-      "selected": false
+      "id": "node-9-node-20-bottom-2-left-1"
     },
     {
       "source": "node-11",
@@ -1135,12 +1015,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M526.4085183770902,690 V803.253148926004 H526.4085183770902 H176.53312185475406 V690M547,690 V690 H526.4085183770902M153,690 V690 H176.53312185475406 ",
         "new": false
       },
-      "id": "node-11-node-9-left-4-right-4",
-      "selected": false
+      "id": "node-11-node-9-left-4-right-4"
     },
     {
       "source": "node-7",
@@ -1153,12 +1031,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M850,453 V495.5835976815574 H850 H620 V597",
         "new": true
       },
-      "id": "node-7-node-11-bottom-2-top-3",
-      "selected": false
+      "id": "node-7-node-11-bottom-2-top-3"
     },
     {
       "source": "node-5",
@@ -1171,12 +1047,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": false,
         "path": "M600,453 V525 H600 H600 V597",
         "new": true
       },
-      "id": "node-5-node-11-bottom-2-top-2",
-      "selected": false
+      "id": "node-5-node-11-bottom-2-top-2"
     },
     {
       "source": "node-9",
@@ -1188,12 +1062,10 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "marker": true,
         "path": "M80,597 V504.3234296100534 H80 H580 V453",
         "new": true
       },
-      "id": "node-9-node-5-top-1-bottom-1",
-      "selected": false
+      "id": "node-9-node-5-top-1-bottom-1"
     },
     {
       "source": "node-10",
@@ -1209,8 +1081,7 @@
         "new": false,
         "path": "M370,597 V552.866830200749 H370 H560 V453"
       },
-      "id": "node-10-node-5-top-3-bottom-0",
-      "selected": false
+      "id": "node-10-node-5-top-3-bottom-0"
     },
     {
       "source": "node-4",
@@ -1226,8 +1097,7 @@
         "new": true,
         "path": "M100,453 V481.9170194847644 H100 H295.3646627230459 V569.1227773136711M330,597 V569.1227773136711 H295.3646627230459 "
       },
-      "id": "node-4-node-10-bottom-2-top-1",
-      "selected": false
+      "id": "node-4-node-10-bottom-2-top-1"
     },
     {
       "source": "node-6",
@@ -1243,8 +1113,7 @@
         "new": false,
         "path": "M350 453L350 473L350 525L350 525L350 577L350 597"
       },
-      "id": "node-6-node-10-bottom-2-top-2",
-      "selected": true
+      "id": "node-6-node-10-bottom-2-top-2"
     }
   ],
   "teams": {},
