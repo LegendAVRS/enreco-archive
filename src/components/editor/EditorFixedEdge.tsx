@@ -1,10 +1,11 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
+import { OLD_EDGE_OPACITY } from "@/lib/constants";
 import { CustomEdgeProps } from "@/lib/type";
 import { BaseEdge } from "@xyflow/react";
 
 const EditorFixedEdge = ({ id, data }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
-
+    const isNew = data?.new || false;
     const strokeColor = edgeStyle?.stroke || "black";
 
     return (
@@ -29,7 +30,11 @@ const EditorFixedEdge = ({ id, data }: CustomEdgeProps) => {
                 // markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
                 path={data?.path || ""}
                 className="transition-all "
-                style={{ strokeWidth: 4, ...edgeStyle }}
+                style={{
+                    strokeWidth: 4,
+                    ...edgeStyle,
+                    opacity: isNew ? 1 : OLD_EDGE_OPACITY,
+                }}
             />
         </>
     );

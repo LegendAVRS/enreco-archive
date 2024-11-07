@@ -1,4 +1,5 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
+import { OLD_EDGE_OPACITY } from "@/lib/constants";
 import { CustomEdgeProps } from "@/lib/type";
 import { useEditorStore } from "@/store/editorStore";
 import { BaseEdge, getSmoothStepPath } from "@xyflow/react";
@@ -32,6 +33,7 @@ const EditorSmoothEdge = ({
     if (data?.path) {
         path = data?.path;
     }
+    const isNew = data?.new || false;
     return (
         <>
             <svg width="0" height="0">
@@ -52,7 +54,11 @@ const EditorSmoothEdge = ({
             </svg>
             <BaseEdge
                 path={path}
-                style={{ strokeWidth: 4, ...edgeStyle }}
+                style={{
+                    strokeWidth: 4,
+                    ...edgeStyle,
+                    opacity: isNew ? 1 : OLD_EDGE_OPACITY,
+                }}
                 className="z-10"
                 // markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
             />

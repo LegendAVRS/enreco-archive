@@ -415,7 +415,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M980,247 V214.7896291580434 H980 H500 V247",
-        "relationship": "Protector"
+        "relationship": "Protector",
+        "new": false
       },
       "id": "node-3-node-1-top-1-top-2",
       "selected": false
@@ -432,7 +433,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M553 300L573 300L625 300L625 300L677 300L697 300"
+        "path": "M553 300L573 300L625 300L625 300L677 300L697 300",
+        "new": false
       },
       "id": "node-1-node-2-right-2-left-2",
       "selected": false
@@ -449,7 +451,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M750 497L750 477L750 425L750 425L750 373L750 353",
-        "relationship": "Business"
+        "relationship": "Business",
+        "new": true
       },
       "id": "node-7-node-2-top-2-bottom-2",
       "selected": false
@@ -466,7 +469,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M803 300L823 300L875 300L875 300L927 300L947 300"
+        "path": "M803 300L823 300L875 300L875 300L927 300L947 300",
+        "new": true
       },
       "id": "node-2-node-3-right-2-left-2",
       "selected": false
@@ -483,7 +487,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1197 300L1177 300L1125 300L1125 300L1073 300L1053 300",
-        "relationship": "Protector"
+        "relationship": "Protector",
+        "new": false
       },
       "id": "node-5-node-3-left-2-right-2",
       "selected": false
@@ -500,7 +505,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M999.9999999999999,247 V215.00506197802645 H999.9999999999999 H1864.4331376807788 V1050M1000,247 V247 H999.9999999999999M1678,1050 V1050 H1864.4331376807788 "
+        "path": "M999.9999999999999,247 V215.00506197802645 H999.9999999999999 H1864.4331376807788 V1050M1000,247 V247 H999.9999999999999M1678,1050 V1050 H1864.4331376807788 ",
+        "new": false
       },
       "id": "node-3-node-20-top-2-right-2",
       "selected": false
@@ -517,7 +523,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M890.8684072112513,386.34576446322876 V576.5 H890.8684072112513 H890.9184870391152 V800M1000,353 V386.34576446322876 H890.8684072112513M947,800 V800 H890.9184870391152 "
+        "path": "M890.8684072112513,386.34576446322876 V576.5 H890.8684072112513 H890.9184870391152 V800M1000,353 V386.34576446322876 H890.8684072112513M947,800 V800 H890.9184870391152 ",
+        "new": true
       },
       "id": "node-3-node-13-bottom-2-left-2",
       "selected": false
@@ -534,7 +541,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M1053 320L1073 320L 1125,320Q 1125,320 1125,320L 1125,530Q 1125,530 1125,530L1177 530L1197 530"
+        "path": "M1053 320L1073 320L 1125,320Q 1125,320 1125,320L 1125,530Q 1125,530 1125,530L1177 530L1197 530",
+        "new": false
       },
       "id": "node-3-node-9-right-3-left-1",
       "selected": false
@@ -551,7 +559,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M849.9941397433346,320 V560 H849.9941397433346 H849.9872135618223 V800M947,320 V320 H849.9941397433346M803,800 V800 H849.9872135618223 "
+        "path": "M849.9941397433346,320 V560 H849.9941397433346 H849.9872135618223 V800M947,320 V320 H849.9941397433346M803,800 V800 H849.9872135618223 ",
+        "new": false
       },
       "id": "node-3-node-14-left-3-right-2",
       "selected": false
@@ -568,7 +577,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M1303 300L1323 300L1375 300L1375 300L1427 300L1447 300"
+        "path": "M1303 300L1323 300L1375 300L1375 300L1427 300L1447 300",
+        "new": false
       },
       "id": "node-5-node-4-right-2-left-2",
       "selected": false
@@ -585,7 +595,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M1250 353L1250 373L1250 425L1250 425L1250 477L1250 497"
+        "path": "M1250 353L1250 373L1250 425L1250 425L1250 477L1250 497",
+        "new": false
       },
       "id": "node-5-node-9-bottom-2-top-2",
       "selected": false
@@ -602,7 +613,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M1342.7004425131095,384.8300478967183 V642.4587105571343 H1342.7004425131095 H1605 V747M1270,353 V384.8300478967183 H1342.7004425131095"
+        "path": "M1342.7004425131095,384.8300478967183 V642.4587105571343 H1342.7004425131095 H1605 V747M1270,353 V384.8300478967183 H1342.7004425131095",
+        "new": false
       },
       "id": "node-5-node-19-bottom-3-top-1",
       "selected": false
@@ -619,7 +631,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M1372.6753183390213,320 V1125.2906226573384 H1372.6753183390213 H750 V1103M1303,320 V320 H1372.6753183390213"
+        "path": "M1372.6753183390213,320 V1125.2906226573384 H1372.6753183390213 H750 V1103M1303,320 V320 H1372.6753183390213",
+        "new": false
       },
       "id": "node-5-node-16-right-3-bottom-2",
       "selected": false
@@ -636,7 +649,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M1500 353L1500 373L1500 425L1500 425L1500 477L1500 497"
+        "path": "M1500 353L1500 373L1500 425L1500 425L1500 477L1500 497",
+        "new": false
       },
       "id": "node-4-node-12-bottom-2-top-2",
       "selected": false
@@ -653,7 +667,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M1520,497 V408.5 H1520 H1672.7485349358337 V320M1697,320 V320 H1672.7485349358337 "
+        "path": "M1520,497 V408.5 H1520 H1672.7485349358337 V320M1697,320 V320 H1672.7485349358337 ",
+        "new": false
       },
       "id": "node-12-node-6-top-3-left-3",
       "selected": false
@@ -670,7 +685,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M1000,497 V408.5 H1000 H1416.685668669792 V320M1000,497 V497 H1000M1447,320 V320 H1416.685668669792 "
+        "path": "M1000,497 V408.5 H1000 H1416.685668669792 V320M1000,497 V497 H1000M1447,320 V320 H1416.685668669792 ",
+        "new": false
       },
       "id": "node-10-node-4-top-2-left-3",
       "selected": false
@@ -687,7 +703,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": false,
-        "path": "M1750 353L1750 373L1750 425L1750 425L1750 477L1750 497"
+        "path": "M1750 353L1750 373L1750 425L1750 425L1750 477L1750 497",
+        "new": false
       },
       "id": "node-6-node-11-bottom-2-top-2",
       "selected": false
@@ -704,7 +721,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1000,1103 V1152.810270654226 H1000 H1750 V603",
-        "relationship": "Lick"
+        "relationship": "Lick",
+        "new": true
       },
       "id": "node-17-node-11-bottom-2-bottom-2",
       "selected": false
@@ -721,7 +739,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1553 550L1573 550L1625 550L1625 550L1677 550L1697 550",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": true
       },
       "id": "node-12-node-11-right-2-left-2",
       "selected": false
@@ -738,7 +757,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1730 603L1730 623L 1730,780Q 1730,780 1730,780L1698 780L1678 780",
-        "relationship": "Protector"
+        "relationship": "Protector",
+        "new": true
       },
       "id": "node-11-node-19-bottom-1-right-1",
       "selected": false
@@ -755,7 +775,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1833.0742779245995,800 V189.2287786958629 H1833.0742779245995 H1020 V247M1678,800 V800 H1833.0742779245995",
-        "relationship": "Enemies/Rivals"
+        "relationship": "Enemies/Rivals",
+        "new": false
       },
       "id": "node-19-node-3-right-2-top-3",
       "selected": false
@@ -772,7 +793,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1378.3938867590746,457.94425593010084 V457.94425593010084 H1378.3938867590746 H1730 V497M1020,497 V457.94425593010084 H1378.3938867590746",
-        "relationship": "Unrequited Love"
+        "relationship": "Unrequited Love",
+        "new": true
       },
       "id": "node-10-node-11-top-3-top-1",
       "selected": false
@@ -789,7 +811,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M 1053,550L 1197,550",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": false
       },
       "id": "node-10-node-9-right-2-left-2",
       "selected": false
@@ -806,7 +829,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M 1000,603L 1000,747",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": false
       },
       "id": "node-10-node-13-bottom-2-top-2",
       "selected": false
@@ -823,7 +847,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1053 800L1073 800L1125 800L1125 800L1177 800L1197 800",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": true
       },
       "id": "node-13-node-15-right-2-left-2",
       "selected": false
@@ -840,7 +865,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1250 603L1250 623L1250 675L1250 675L1250 727L1250 747",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": true
       },
       "id": "node-9-node-15-bottom-2-top-2",
       "selected": false
@@ -857,7 +883,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1500,603 V899.1560548945581 H1500 H1020 V853",
-        "relationship": "Lick"
+        "relationship": "Lick",
+        "new": true
       },
       "id": "node-12-node-13-bottom-2-bottom-3",
       "selected": false
@@ -874,7 +901,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1480 603L1480 623L 1480,780Q 1480,780 1480,780L1323 780L1303 780",
-        "relationship": "Side Chick"
+        "relationship": "Side Chick",
+        "new": true
       },
       "id": "node-12-node-15-bottom-1-right-1",
       "selected": false
@@ -891,7 +919,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1572 800L1552 800L1437.5 800L1437.5 800L1323 800L1303 800",
-        "relationship": "Unrequited Love"
+        "relationship": "Unrequited Love",
+        "new": true
       },
       "id": "node-19-node-15-left-2-right-2",
       "selected": false
@@ -908,7 +937,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1520 603L1520 623L 1520,780Q 1520,780 1520,780L1552 780L1572 780",
-        "relationship": "Misc. Romantic Relationship"
+        "relationship": "Misc. Romantic Relationship",
+        "new": true
       },
       "id": "node-12-node-19-bottom-3-left-1",
       "selected": false
@@ -925,7 +955,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1625 853L1625 873L1625 925L1625 925L1625 977L1625 997",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": false
       },
       "id": "node-19-node-20-bottom-2-top-2",
       "selected": false
@@ -942,7 +973,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1539.836446060083,820 V1180.9013858044334 H1539.836446060083 H730 V1103M1572,820 V820 H1539.836446060083",
-        "relationship": "Enemies/Rivals"
+        "relationship": "Enemies/Rivals",
+        "new": true
       },
       "id": "node-19-node-16-left-3-bottom-1",
       "selected": false
@@ -959,7 +991,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M665.3318101414505,1050 V1212.4093148096078 H665.3318101414505 H1230 V1103M697,1050 V1050 H665.3318101414505",
-        "relationship": "Romantic"
+        "relationship": "Romantic",
+        "new": true
       },
       "id": "node-16-node-18-left-2-bottom-1",
       "selected": false
@@ -976,7 +1009,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1270,997 V972.8555363112489 H1270 H1770 V603",
-        "relationship": "Lick"
+        "relationship": "Lick",
+        "new": true
       },
       "id": "node-18-node-11-top-3-bottom-3",
       "selected": false
@@ -993,7 +1027,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1250 853L1250 873L1250 925L1250 925L1250 977L1250 997",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": true
       },
       "id": "node-15-node-18-bottom-2-top-2",
       "selected": false
@@ -1010,7 +1045,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1000 853L1000 873L1000 925L1000 925L1000 977L1000 997",
-        "relationship": "Familial Relationship"
+        "relationship": "Familial Relationship",
+        "new": true
       },
       "id": "node-13-node-17-bottom-2-top-2",
       "selected": false
@@ -1027,7 +1063,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M750 997L750 977L 750,925Q 750,925 750,925L 980,925Q 980,925 980,925L980 873L980 853",
-        "relationship": "Child"
+        "relationship": "Child",
+        "new": true
       },
       "id": "node-16-node-13-top-2-bottom-1",
       "selected": false
@@ -1044,7 +1081,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M697 800L 677,800Q 677,800 677,800L 677,675Q 677,675 677,675L 1323,675Q 1323,675 1323,675L 1323,550Q 1323,550 1323,550L1303 550",
-        "relationship": "Business"
+        "relationship": "Business",
+        "new": true
       },
       "id": "node-14-node-9-left-2-right-2",
       "selected": false
@@ -1061,7 +1099,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M644.2196835690843,820 V1241.2356770838533 H644.2196835690843 H1250 V1103M697,820 V820 H644.2196835690843",
-        "relationship": "Business"
+        "relationship": "Business",
+        "new": true
       },
       "id": "node-14-node-18-left-3-bottom-2",
       "selected": false
@@ -1078,7 +1117,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M1197 1050L1177 1050L1125 1050L1125 1050L1073 1050L1053 1050",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": true
       },
       "id": "node-18-node-17-left-2-right-2",
       "selected": false
@@ -1095,7 +1135,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M870.4685411751723,340 V1049.947627997908 H870.4685411751723 H803 V1050M947,340 V340 H870.4685411751723",
-        "relationship": "Romantic"
+        "relationship": "Romantic",
+        "new": true
       },
       "id": "node-3-node-16-left-4-right-2",
       "selected": false
@@ -1112,7 +1153,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M928.5268892491795,530 V441.5 H928.5268892491795 H500 V353M947,530 V530 H928.5268892491795",
-        "relationship": "Unrequited Love"
+        "relationship": "Unrequited Love",
+        "new": true
       },
       "id": "node-10-node-1-left-1-bottom-2",
       "selected": false
@@ -1129,7 +1171,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M803 550L823 550L875 550L875 550L927 550L947 550",
-        "relationship": "Side Chick"
+        "relationship": "Side Chick",
+        "new": true
       },
       "id": "node-7-node-10-right-2-left-2",
       "selected": false
@@ -1146,7 +1189,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M980,603 V710.6267135908681 H980 H770 V747",
-        "relationship": "Side Chick"
+        "relationship": "Side Chick",
+        "new": true
       },
       "id": "node-10-node-14-bottom-1-top-3",
       "selected": false
@@ -1163,7 +1207,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M750 603L750 623L750 675L750 675L750 727L750 747",
-        "relationship": "Business"
+        "relationship": "Business",
+        "new": true
       },
       "id": "node-7-node-14-bottom-2-top-2",
       "selected": false
@@ -1180,7 +1225,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M405.51493710534896,162.55149371053488 V550 H405.51493710534896 H405.60843528827496 V884.6681898585495M1250,247 V162.55149371053488 H405.51493710534896M750,853 V884.6681898585495 H405.60843528827496 ",
-        "relationship": "Enemies/Rivals"
+        "relationship": "Enemies/Rivals",
+        "new": true
       },
       "id": "node-5-node-14-top-2-bottom-2",
       "selected": false
@@ -1197,7 +1243,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M617.8295253536264,550 V773.5 H617.8295253536264 H617.8418275843042 V969.2903338737692M697,550 V550 H617.8295253536264M730,997 V969.2903338737692 H617.8418275843042 ",
-        "relationship": "Protector"
+        "relationship": "Protector",
+        "new": true
       },
       "id": "node-7-node-16-left-2-top-1",
       "selected": false
@@ -1214,7 +1261,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M770,603 V640.6927943199048 H770 H916.6636202829012 V733.8049208922711M980,747 V733.8049208922711 H916.6636202829012 ",
-        "relationship": "Protector"
+        "relationship": "Protector",
+        "new": true
       },
       "id": "node-7-node-13-bottom-3-top-1",
       "selected": false
@@ -1231,7 +1279,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M960,497 V425 H960 H790 V353",
-        "relationship": "Unrequited Love"
+        "relationship": "Unrequited Love",
+        "new": true
       },
       "id": "node-10-node-2-top-0-bottom-4",
       "selected": false
@@ -1248,7 +1297,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M 1040,603L 1210,747",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": true
       },
       "id": "node-10-node-15-bottom-4-top-0",
       "selected": false
@@ -1265,7 +1315,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M 1210,603L 1040,747",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": true
       },
       "id": "node-9-node-13-bottom-0-top-4",
       "selected": false
@@ -1282,7 +1333,8 @@
         "timestampUrl": "",
         "marker": true,
         "path": "M 1210,853L 1040,997",
-        "relationship": "Marriage"
+        "relationship": "Marriage",
+        "new": false
       },
       "id": "node-15-node-17-bottom-0-top-4",
       "selected": false
@@ -1299,7 +1351,8 @@
         "content": "",
         "timestampUrl": "",
         "marker": true,
-        "path": "M1790,603 V1275.996535967768 H1790 H770 V1103"
+        "path": "M1790,603 V1275.996535967768 H1790 H770 V1103",
+        "new": true
       },
       "id": "node-11-node-16-bottom-4-bottom-3",
       "selected": false

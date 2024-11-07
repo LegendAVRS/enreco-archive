@@ -27,6 +27,7 @@ const EditorStraightEdge = ({
     if (data?.path) {
         path = data?.path;
     }
+    const isNew = data?.new || false;
     return (
         <>
             <svg width="0" height="0">
@@ -47,7 +48,11 @@ const EditorStraightEdge = ({
             </svg>
             <BaseEdge
                 path={path}
-                style={{ strokeWidth: 4, ...edgeStyle }}
+                style={{
+                    strokeWidth: 4,
+                    ...edgeStyle,
+                    opacity: isNew ? 1 : 0.3,
+                }}
                 className="z-10"
                 // markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
             />

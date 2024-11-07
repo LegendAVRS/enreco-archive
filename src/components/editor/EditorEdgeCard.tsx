@@ -29,7 +29,7 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
     const [localTitle, setLocalTitle] = useState("");
     const [localContent, setLocalContent] = useState("");
     const [localStream, setLocalStream] = useState("");
-    const [marker, setMarker] = useState(false);
+    const [localNew, setLocalNew] = useState(true);
 
     // Sync local state with selectedEdge whenever selectedEdge changes
     useEffect(() => {
@@ -38,7 +38,7 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
             setLocalTitle(selectedEdge.data?.title || "");
             setLocalContent(selectedEdge.data?.content || "");
             setLocalStream(selectedEdge.data?.timestampUrl || "");
-            setMarker(selectedEdge.data?.marker || false);
+            setLocalNew(selectedEdge.data?.new || true);
         }
     }, [selectedEdge]);
 
@@ -51,7 +51,7 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
         newEdge.data.title = localTitle;
         newEdge.data.content = localContent;
         newEdge.data.timestampUrl = localStream;
-        newEdge.data.marker = marker;
+        newEdge.data.new = localNew;
         // @ts-expect-error - undefined data should be fine, i think
         updateEdge(newEdge);
     };
@@ -82,10 +82,10 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
                 <div className="flex flex-row gap-2 items-center">
                     <Checkbox
                         id="marker"
-                        checked={marker}
-                        onCheckedChange={() => setMarker((prev) => !prev)}
+                        checked={localNew}
+                        onCheckedChange={() => setLocalNew((prev) => !prev)}
                     />
-                    <Label htmlFor="marker">Marker</Label>
+                    <Label htmlFor="marker">New</Label>
                 </div>
                 <Input
                     placeholder="Title..."

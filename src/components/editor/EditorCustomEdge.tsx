@@ -7,6 +7,7 @@ import { CustomEdgeProps } from "@/lib/type";
 import { useEditorStore } from "@/store/editorStore";
 import { drag } from "d3-drag";
 import { select } from "d3-selection";
+import { OLD_EDGE_OPACITY } from "@/lib/constants";
 
 //copied from reactflow lib - probably you can import this util directly from
 function getEdgeCenter({
@@ -309,6 +310,8 @@ const EditorCustomEdge = ({
     if (data?.path) {
         path = data?.path;
     }
+
+    const isNew = data?.new || false;
     return (
         <>
             <svg width="0" height="0">
@@ -330,7 +333,11 @@ const EditorCustomEdge = ({
             <BaseEdge
                 key={id}
                 path={path}
-                style={{ strokeWidth: 4, ...edgeStyle }}
+                style={{
+                    strokeWidth: 4,
+                    ...edgeStyle,
+                    opacity: isNew ? 1 : OLD_EDGE_OPACITY,
+                }}
                 className="z-10"
                 // markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
             />

@@ -27,6 +27,9 @@ import EditorFixedEdge from "@/components/editor/EditorFixedEdge";
 import EditorStraightEdge from "@/components/editor/EditorStraightEdge";
 import chartData from "@/data/day8.json";
 
+import oldChart from "@/data/day7.json";
+import newChart from "@/data/day8.json";
+
 const nodeTypes = {
     image: EditorImageNode,
 };
@@ -91,7 +94,7 @@ const EditorApp = () => {
             title: "",
             content: "",
             timestampUrl: "",
-            marker: true,
+            new: true,
         };
         params.id = `${params.source}-${params.target}-${params.sourceHandle}-${params.targetHandle}`;
         setEdges((eds) => addEdge(params, eds));
@@ -146,11 +149,44 @@ const EditorApp = () => {
         flow.edges.forEach((edge) => {
             edge.data.path = edgePaths[edge.id];
             edge.type = "fixed";
+            edge.data.new = true;
         });
         // exportData.relationships = relationshipData;
         exportData.edges = flow.edges;
         exportData.nodes = flow.nodes;
         const dataStr = JSON.stringify(exportData, null, 2);
+        const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(
+            dataStr
+        )}`;
+        const exportFileDefaultName = "flow.json";
+        const linkElement = document.createElement("a");
+        linkElement.setAttribute("href", dataUri);
+        linkElement.setAttribute("download", exportFileDefaultName);
+        linkElement.click();
+    };
+
+    const setNewForLaterChartBasedOnOldChart = () => {
+        const newChartLocal = newChart;
+        oldChart.edges.forEach((oldEdge) => {
+            // find the edge in newChartLocal, also get its index
+            const newEdgeIndex = newChartLocal.edges.findIndex(
+                (newEdge) =>
+                    newEdge.source === oldEdge.source &&
+                    newEdge.target === oldEdge.target &&
+                    newEdge.sourceHandle === oldEdge.sourceHandle &&
+                    newEdge.targetHandle === oldEdge.targetHandle
+            );
+            const newEdge = newChartLocal.edges[newEdgeIndex];
+            if (
+                newEdge &&
+                oldEdge.data.relationship === newEdge.data.relationship
+            ) {
+                newChartLocal.edges[newEdgeIndex].data.new = false;
+            }
+        });
+
+        // export newChartLocal
+        const dataStr = JSON.stringify(newChartLocal, null, 2);
         const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(
             dataStr
         )}`;
@@ -192,6 +228,13 @@ const EditorApp = () => {
                 onInit={setRfInstance}
             ></ReactFlow>
             <div className="absolute top-5 right-5 flex flex-row gap-4">
+                <Button
+                    onClick={() => {
+                        setNewForLaterChartBasedOnOldChart();
+                    }}
+                >
+                    New edge
+                </Button>
                 <Button
                     onClick={() => {
                         setCurrentCard(null);

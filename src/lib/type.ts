@@ -16,6 +16,7 @@ export type CustomEdgeData = {
     timestampUrl?: string;
     path?: string;
     marker?: boolean;
+    new?: boolean;
 };
 
 export type ImageNodeType = Node<ImageNodeData, "image">;
