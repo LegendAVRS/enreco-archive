@@ -10,18 +10,17 @@ const getVisiblityStyle = (visible: boolean) => {
     };
 };
 
-const ViewCustomEdge = ({ id, source, target, data }: CustomEdgeProps) => {
+const ViewCustomEdge = ({ source, target, data }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
     const { edgeVisibility, teamVisibility, characterVisibility } =
         useViewStore();
-    const strokeColor = edgeStyle?.stroke || "black";
     const { getNode } = useReactFlow();
 
     const nodeSrc = getNode(source) as ImageNodeType;
     const nodeTarget = getNode(target) as ImageNodeType;
 
     let isVisible = true;
-    const isNew = data?.new || false;
+    const isNew = data?.new || !edgeVisibility.new || false;
     if (data?.relationship) {
         isVisible = isVisible && edgeVisibility[data?.relationship];
     }

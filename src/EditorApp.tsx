@@ -25,7 +25,7 @@ import EditorImageNode from "./components/editor/EditorImageNode";
 
 import EditorFixedEdge from "@/components/editor/EditorFixedEdge";
 import EditorStraightEdge from "@/components/editor/EditorStraightEdge";
-import chartData from "@/data/day8.json";
+import chartData from "@/data/day5.json";
 
 import oldChart from "@/data/day7.json";
 import newChart from "@/data/day8.json";
