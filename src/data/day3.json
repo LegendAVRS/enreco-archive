@@ -13,7 +13,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Ceres-Fauna_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Scarlet Wand"
       },
       "measured": {
         "width": 100,
@@ -31,7 +31,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Elizabeth-Rose-Bloodflame_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Jade Sword"
       },
       "measured": {
         "width": 100,
@@ -49,7 +49,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Nerissa-Ravencroft_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Scarlet Wand"
       },
       "measured": {
         "width": 100,
@@ -67,7 +67,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Takanashi-Kiara_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Amber Coin"
       },
       "measured": {
         "width": 100,
@@ -85,7 +85,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Raora-Panthera_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Amber Coin"
       },
       "measured": {
         "width": 100,
@@ -103,7 +103,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/calli.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Jade Sword"
       },
       "measured": {
         "width": 100,
@@ -121,7 +121,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Gigi-Murin_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Cerulean Cup"
       },
       "measured": {
         "width": 100,
@@ -139,7 +139,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/ame.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Jade Sword"
       },
       "measured": {
         "width": 100,
@@ -157,7 +157,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Shiori-Novella_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Scarlet Wand"
       },
       "measured": {
         "width": 100,
@@ -175,7 +175,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Koseki-Bijou_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Cerulean Cup"
       },
       "measured": {
         "width": 100,
@@ -193,7 +193,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Fuwawa-Abyssgard_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Jade Sword"
       },
       "measured": {
         "width": 100,
@@ -211,7 +211,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/ina.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Cerulean Cup"
       },
       "measured": {
         "width": 100,
@@ -229,7 +229,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/IRyS_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Cerulean Cup"
       },
       "measured": {
         "width": 100,
@@ -247,7 +247,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Ouro-Kronii_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Cerulean Cup"
       },
       "measured": {
         "width": 100,
@@ -265,7 +265,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Nanashi-Mumei_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Amber Coin"
       },
       "measured": {
         "width": 100,
@@ -283,7 +283,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Hakos-Baelz_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Amber Coin"
       },
       "measured": {
         "width": 100,
@@ -301,7 +301,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Cecilia-Immergreen_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Scarlet Wand"
       },
       "measured": {
         "width": 100,
@@ -319,7 +319,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Gawr-Gura_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Scarlet Wand"
       },
       "measured": {
         "width": 100,
@@ -337,7 +337,7 @@
         "imageSrc": "https://cdn.holoen.fans/hefw/media/Mococo-Abyssgard_list_thumb.png",
         "title": "",
         "content": "",
-        "team": ""
+        "team": "Jade Sword"
       },
       "measured": {
         "width": 100,
@@ -752,7 +752,20 @@
       "stroke": "#A7A7A7"
     }
   },
-  "teams": {},
+  "teams": {
+    "Cerulean Cup": {
+      "imageSrc": "https://cdn.holoen.fans/hefw/media/ceruleancup.webp"
+    },
+    "Scarlet Wand": {
+      "imageSrc": "https://cdn.holoen.fans/hefw/media/scarletwand.webp"
+    },
+    "Jade Sword": {
+      "imageSrc": "https://cdn.holoen.fans/hefw/media/jadesword.webp"
+    },
+    "Amber Coin": {
+      "imageSrc": "https://cdn.holoen.fans/hefw/media/ambercoin.webp"
+    }
+  },
   "dayRecap": "",
   "title": ""
 }

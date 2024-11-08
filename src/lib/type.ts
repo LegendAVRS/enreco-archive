@@ -50,4 +50,4 @@ export type SiteData = {
 
 // Type that maps a string to a style object
 export type RelationshipStyle = { [key: string]: React.CSSProperties };
-export type Teams = { [key: string]: { imgSrc: string } };
+export type Teams = { [key: string]: { imageSrc: string } };

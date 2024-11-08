@@ -7,8 +7,8 @@ import EditorApp from "@/EditorApp";
 createRoot(document.getElementById("root")!).render(
     // <StrictMode>
     <ReactFlowProvider>
-        <EditorApp />
-        {/* <ViewApp /> */}
+        {/* <EditorApp /> */}
+        <ViewApp />
     </ReactFlowProvider>
     // </StrictMode>
 );

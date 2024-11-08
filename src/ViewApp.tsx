@@ -1,6 +1,6 @@
 import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ImageNodeView from "@/components/view/ViewImageNode";
-import chart from "@/data/day6.json";
+import chart from "@/data/day3.json";
 import { ChartData, CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
     ConnectionMode,

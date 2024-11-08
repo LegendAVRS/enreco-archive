@@ -1,6 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { ChartData, ImageNodeType } from "@/lib/type";
 import { getLighterOrDarkerColor } from "@/lib/utils";
+import { useChartStore } from "@/store/chartStore";
 import { extractColors } from "extract-colors";
 import { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
@@ -14,6 +15,7 @@ interface ViewNodeContentProps {
 const ViewNodeContent = ({ selectedNode, data }: ViewNodeContentProps) => {
     const characterImageRef = useRef<HTMLImageElement>(null);
     const [color, setColor] = useState<string | null>(null);
+    const { data: chartData } = useChartStore();
     useEffect(() => {
         if (characterImageRef.current) {
             extractColors(characterImageRef.current).then((colors) => {
@@ -24,6 +26,7 @@ const ViewNodeContent = ({ selectedNode, data }: ViewNodeContentProps) => {
             });
         }
     }, [selectedNode]);
+    console.log(selectedNode?.data.team, chartData.teams);
 
     return (
         <>
@@ -36,12 +39,13 @@ const ViewNodeContent = ({ selectedNode, data }: ViewNodeContentProps) => {
                 style={{ backgroundColor: color || "" }}
             />
 
-            {selectedNode?.data.team && (
-                <img
-                    src={data.teams[selectedNode?.data.team].imgSrc}
-                    className="absolute top-2 right-2 z-10"
-                />
-            )}
+            <img
+                src={
+                    selectedNode?.data.team &&
+                    chartData.teams[selectedNode.data.team].imageSrc
+                }
+                className="aspect-square w-[50px] top-5 left-5 z-10 absolute"
+            />
 
             <img
                 src={selectedNode?.data.imageSrc}
