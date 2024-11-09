@@ -25,10 +25,11 @@ import EditorImageNode from "./components/editor/EditorImageNode";
 
 import EditorFixedEdge from "@/components/editor/EditorFixedEdge";
 import EditorStraightEdge from "@/components/editor/EditorStraightEdge";
-import chartData from "@/data/day3.json";
 
-import oldChart from "@/data/day7.json";
-import newChart from "@/data/day8.json";
+import chartData from "@/data/day4.json";
+import oldChart from "@/data/day3.json";
+import newChart from "@/data/day4.json";
+import { copyChartData, exportChart } from "@/lib/datahelper";
 
 const nodeTypes = {
     image: EditorImageNode,
@@ -175,36 +176,11 @@ const EditorApp = () => {
         linkElement.click();
     };
 
-    const setNewForLaterChartBasedOnOldChart = () => {
-        const newChartLocal = newChart;
-        oldChart.edges.forEach((oldEdge) => {
-            // find the edge in newChartLocal, also get its index
-            const newEdgeIndex = newChartLocal.edges.findIndex(
-                (newEdge) =>
-                    newEdge.source === oldEdge.source &&
-                    newEdge.target === oldEdge.target &&
-                    newEdge.sourceHandle === oldEdge.sourceHandle &&
-                    newEdge.targetHandle === oldEdge.targetHandle
-            );
-            const newEdge = newChartLocal.edges[newEdgeIndex];
-            if (
-                newEdge &&
-                oldEdge.data.relationship === newEdge.data.relationship
-            ) {
-                newChartLocal.edges[newEdgeIndex].data.new = false;
-            }
-        });
-
-        // export newChartLocal
-        const dataStr = JSON.stringify(newChartLocal, null, 2);
-        const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(
-            dataStr
-        )}`;
-        const exportFileDefaultName = "flow.json";
-        const linkElement = document.createElement("a");
-        linkElement.setAttribute("href", dataUri);
-        linkElement.setAttribute("download", exportFileDefaultName);
-        linkElement.click();
+    const copyAndExportOldToNewChart = () => {
+        // const newChartLocal = copyChartData(oldChart, newChart);
+        // exportChart(newChartLocal);
+        const newChart = copyChartData();
+        exportChart(newChart);
     };
 
     return (
@@ -240,10 +216,10 @@ const EditorApp = () => {
             <div className="absolute top-5 right-5 flex flex-row gap-4">
                 <Button
                     onClick={() => {
-                        setNewForLaterChartBasedOnOldChart();
+                        copyAndExportOldToNewChart();
                     }}
                 >
-                    New edge
+                    Copy chart
                 </Button>
                 <Button
                     onClick={() => {

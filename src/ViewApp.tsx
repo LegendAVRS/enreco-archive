@@ -1,6 +1,5 @@
 import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ImageNodeView from "@/components/view/ViewImageNode";
-import chart from "@/data/day3.json";
 import { ChartData, CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
     ConnectionMode,
@@ -21,6 +20,8 @@ import { useFlowStore } from "@/store/flowStore";
 import { useViewStore } from "@/store/viewStore";
 import "@xyflow/react/dist/style.css";
 import { isMobile } from "react-device-detect";
+
+import chart from "@/data/day4.json";
 
 const nodeTypes = {
     image: ImageNodeView,
