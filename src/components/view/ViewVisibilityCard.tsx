@@ -16,6 +16,8 @@ const ViewVisibilityCard = () => {
         setCharacterVisibility,
     } = useViewStore();
     const { data } = useChartStore();
+
+    // Extract image src from nodes
     const characterImagesMap = useMemo(() => {
         const charImgMap = extractImageSrcFromNodes(data.nodes);
         return charImgMap;

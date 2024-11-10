@@ -1,6 +1,6 @@
-import ViewCustomEdge from "@/components/view/ViewCustomEdge";
-import ImageNodeView from "@/components/view/ViewImageNode";
-import { ChartData, CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { useCallback, useEffect, useState } from "react";
+
+import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
     ConnectionMode,
     ReactFlow,
@@ -8,8 +8,10 @@ import {
     useNodesState,
     useReactFlow,
 } from "@xyflow/react";
-import { useCallback, useEffect, useState } from "react";
+import "@xyflow/react/dist/style.css";
 
+import ImageNodeView from "@/components/view/ViewImageNode";
+import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ViewEdgeCard from "@/components/view/ViewEdgeCard";
 import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
@@ -18,7 +20,6 @@ import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { useViewStore } from "@/store/viewStore";
-import "@xyflow/react/dist/style.css";
 import { isMobile } from "react-device-detect";
 
 import siteDataIn from "@/data/site.json";
@@ -52,69 +53,65 @@ const ViewApp = () => {
 
     const { fitView, setCenter, getNode } = useReactFlow();
     const [minZoom, setMinZoom] = useState(0.5);
-    const [settingCardWidth, setSettingCardWidth] = useState(0);
-
     useEffect(() => {
         // On mobile it's harader to zoom out, so we set a lower min zoom
         if (isMobile) {
-            setMinZoom(0.5);
+            setMinZoom(0.3);
         }
 
         // Set site data, temporary until we have a proper way to load data
         // @ts-expect-error json data might be wrong
         setSiteData(siteDataIn);
     }, [setSiteData]);
-    console.log(siteData);
 
+    // Load the flow from current chart data
     const loadFlow = useCallback(() => {
-        const restoreFlow = async () => {
-            const flow = data;
+        const flow = data;
 
-            if (flow) {
-                setNodes((flow.nodes as ImageNodeType[]) || []);
-                setEdges((flow.edges as CustomEdgeType[]) || []);
-                setData((flow as ChartData) || {});
-                const edgeVisibilityLoaded: { [key: string]: boolean } = {};
-                const teamVisibilityLoaded: { [key: string]: boolean } = {};
-                const characterVisibilityLoaded: { [key: string]: boolean } =
-                    {};
+        if (flow) {
+            // Setting the nodes, edges and data
+            setNodes((flow.nodes as ImageNodeType[]) || []);
+            setEdges((flow.edges as CustomEdgeType[]) || []);
 
-                edgeVisibilityLoaded["new"] =
-                    edgeVisibilityLoaded["new"] || true;
-                Object.keys(flow.relationships).forEach((key) => {
-                    edgeVisibilityLoaded[key] = true;
-                });
+            // Setting the visibility of edges, teams and characters
+            const edgeVisibilityLoaded: { [key: string]: boolean } = {};
+            const teamVisibilityLoaded: { [key: string]: boolean } = {};
+            const characterVisibilityLoaded: { [key: string]: boolean } = {};
 
-                Object.keys(flow.teams).forEach((key) => {
-                    teamVisibilityLoaded[key] = true;
-                });
+            // To avoid overwriting current visibility for "new"
+            edgeVisibilityLoaded["new"] = edgeVisibilityLoaded["new"] || true;
 
-                for (const node of flow.nodes) {
-                    if (node.data.team) {
-                        teamVisibilityLoaded[node.data.team] = true;
-                    }
-                    if (node.data.title) {
-                        characterVisibilityLoaded[node.data.title] = true;
-                    }
+            Object.keys(flow.relationships).forEach((key) => {
+                edgeVisibilityLoaded[key] = true;
+            });
+
+            Object.keys(flow.teams).forEach((key) => {
+                teamVisibilityLoaded[key] = true;
+            });
+
+            for (const node of flow.nodes) {
+                if (node.data.team) {
+                    teamVisibilityLoaded[node.data.team] = true;
                 }
-
-                setEdgeVisibility(edgeVisibilityLoaded);
-                setTeamVisibility(teamVisibilityLoaded);
-                setCharacterVisibility(characterVisibilityLoaded);
+                if (node.data.title) {
+                    characterVisibilityLoaded[node.data.title] = true;
+                }
             }
-        };
 
-        restoreFlow();
+            setEdgeVisibility(edgeVisibilityLoaded);
+            setTeamVisibility(teamVisibilityLoaded);
+            setCharacterVisibility(characterVisibilityLoaded);
+        }
     }, [
         setNodes,
         setEdges,
-        setData,
         setEdgeVisibility,
         setTeamVisibility,
         setCharacterVisibility,
         data,
     ]);
 
+    // Update data when chapter or day changes
     useEffect(() => {
         if (
             chapter !== undefined &&
@@ -125,27 +122,19 @@ const ViewApp = () => {
         }
     }, [chapter, day, setData, siteData]);
 
+    // Load the flow when data changes
     useEffect(() => {
         loadFlow();
     }, [loadFlow, data]);
 
-    useEffect(() => {
-        if (currentCard === "setting") {
-            setSettingCardWidth(300);
-        } else {
-            setSettingCardWidth(0);
-        }
-    }, [currentCard, setSettingCardWidth]);
-
+    //Update react flow renderer width when setting card is open, so the flow is not covered by the card
     useEffect(() => {
         if (currentCard === "setting") {
             const reactFlowRenderer = document.querySelector<HTMLDivElement>(
                 ".react-flow__renderer"
             );
-            console.log(reactFlowRenderer);
             if (reactFlowRenderer && !isMobile) {
                 reactFlowRenderer.style.width = `calc(100% - ${300}px)`;
-                console.log(reactFlowRenderer);
             }
             fitView({ padding: 0.5, duration: 1000 });
         } else {
@@ -156,13 +145,14 @@ const ViewApp = () => {
             if (reactFlowRenderer && !isMobile) {
                 reactFlowRenderer.style.width = `100%`;
             }
+            // Fit view when no card is open
             if (currentCard === null) {
                 fitView({ padding: 0.5, duration: 1000 });
             }
         }
-    }, [settingCardWidth, fitView, nodes, edges, currentCard]);
+    }, [fitView, nodes, edges, currentCard]);
 
-    // function to get center of edge, based of the center of the two nodes
+    // Get center of edge, based of the center of the two nodes (needs to be improved)
     const getCenter = (nodeAID: string, nodeBID: string) => {
         const nodeA = getNode(nodeAID);
         const nodeB = getNode(nodeBID);

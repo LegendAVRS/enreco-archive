@@ -16,6 +16,9 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
     const characterImageRef = useRef<HTMLImageElement>(null);
     const [color, setColor] = useState<string | null>(null);
     const { data: chartData } = useChartStore();
+
+    // Extract the dominant color from the character image and set it as the background color
+    // (Might not do this cause it's a bit slow)
     useEffect(() => {
         if (characterImageRef.current) {
             extractColors(characterImageRef.current).then((colors) => {
@@ -26,7 +29,6 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
             });
         }
     }, [selectedNode]);
-    console.log(selectedNode?.data.team, chartData.teams);
 
     return (
         <>

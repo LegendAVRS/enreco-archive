@@ -37,6 +37,7 @@ const ViewGeneralCard = () => {
                 </Select>
                 <Select onValueChange={(e) => setDay(parseInt(e.valueOf()))}>
                     <SelectTrigger className="grow">
+                        {/* Change placeholder and values later, +3 for now cause I haven't set the titles for each day yet */}
                         <SelectValue placeholder={`Day ${day + 3}`} />
                     </SelectTrigger>
                     <SelectContent>

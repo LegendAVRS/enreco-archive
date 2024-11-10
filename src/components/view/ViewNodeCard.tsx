@@ -2,12 +2,13 @@ import ViewCard from "@/components/view/ViewCard";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { useViewStore } from "@/store/viewStore";
-import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import VaulDrawer from "@/components/view/VaulDrawer";
 import ViewNodeContent from "@/components/view/ViewNodeContent";
 import { BrowserView, MobileView } from "react-device-detect";
+
+import { X } from "lucide-react";
 
 const ViewNodeCard = () => {
     const { selectedNode } = useFlowStore();

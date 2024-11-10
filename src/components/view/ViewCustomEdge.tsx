@@ -19,8 +19,9 @@ const ViewCustomEdge = ({ source, target, data }: CustomEdgeProps) => {
     const nodeSrc = getNode(source) as ImageNodeType;
     const nodeTarget = getNode(target) as ImageNodeType;
 
-    let isVisible = true;
     const isNew = data?.new || !edgeVisibility.new || false;
+
+    let isVisible = true;
     if (data?.relationship) {
         isVisible = isVisible && edgeVisibility[data?.relationship];
     }
@@ -36,22 +37,19 @@ const ViewCustomEdge = ({ source, target, data }: CustomEdgeProps) => {
     if (nodeTarget.data.title) {
         isVisible = isVisible && characterVisibility[nodeTarget.data.title];
     }
-
     const edgeVisibilityStyle = getVisiblityStyle(isVisible);
+
     return (
-        <>
-            <BaseEdge
-                // markerEnd={data?.marker ? `url(#arrow-${id})` : ""}
-                path={data?.path || ""}
-                className="transition-all "
-                style={{
-                    strokeWidth: 4,
-                    ...edgeStyle,
-                    ...edgeVisibilityStyle,
-                    opacity: isNew ? 1 : OLD_EDGE_OPACITY,
-                }}
-            />
-        </>
+        <BaseEdge
+            path={data?.path || ""}
+            className="transition-all"
+            style={{
+                strokeWidth: 4,
+                ...edgeStyle,
+                ...edgeVisibilityStyle,
+                opacity: isNew ? 1 : OLD_EDGE_OPACITY,
+            }}
+        />
     );
 };
 

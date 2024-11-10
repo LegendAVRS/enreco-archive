@@ -86,11 +86,13 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
             id={handle.id}
             type={handle.type}
             position={handle.position}
-            // Setting opacity to complete 0 cause some weird stuffff to happen
+            // Setting opacity to complete 0 cause some weird stuff to happen
             style={{ ...handle.style, opacity: "0.001" }}
             isConnectable={true}
         />
     ));
+
+    // Need this for some reasons (https://reactflow.dev/api-reference/hooks/use-update-node-internals)
     useEffect(() => {
         updateNodeInternals(id);
     }, [handles, id, updateNodeInternals]);

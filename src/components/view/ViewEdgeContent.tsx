@@ -41,6 +41,7 @@ const ViewEdgeContent = ({
                 </span>
             </div>
             <Separator />
+
             <div className="overflow-y-auto">
                 <Markdown>
                     {selectedEdge.data && selectedEdge.data.content}

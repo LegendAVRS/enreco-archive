@@ -1,4 +1,5 @@
 // @ts-nocheck
+// No check because EditorApp isn't going in the final build, it's just for development, and I'm too lazy to fix the types
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
 import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
 import EditorGeneralCard from "@/components/editor/EditorGeneralCard";
@@ -70,6 +71,7 @@ const EditorApp = () => {
     const { data } = useChartStore();
     useKeyboard();
 
+    // Setting edgePaths as one of the dependencies will cause an infinite loop
     useEffect(() => {
         const chartData = loadFlow();
         setData(chartData);

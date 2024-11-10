@@ -8,8 +8,10 @@ interface ViewState {
     setChapter: (chapter: number) => void;
     day: number;
     setDay: (day: number) => void;
+
     currentCard: CardType;
     setCurrentCard: (name: CardType) => void;
+
     edgeVisibility: { [key: string]: boolean };
     setEdgeVisibility: (edgeVisibility: { [key: string]: boolean }) => void;
     teamVisibility: { [key: string]: boolean };
@@ -18,6 +20,7 @@ interface ViewState {
     setCharacterVisibility: (characterVisibility: {
         [key: string]: boolean;
     }) => void;
+
     modalOpen: boolean;
     setModalOpen: (isModalOpen: boolean) => void;
     siteData: SiteData;
@@ -29,8 +32,10 @@ export const useViewStore = create<ViewState>((set) => ({
     setChapter: (chapter: number) => set(() => ({ chapter })),
     day: 0,
     setDay: (day: number) => set(() => ({ day })),
+
     currentCard: null,
     setCurrentCard: (currentCard: CardType) => set(() => ({ currentCard })),
+
     edgeVisibility: {},
     setEdgeVisibility: (edgeVisibility: { [key: string]: boolean }) =>
         set(() => ({ edgeVisibility })),
@@ -40,6 +45,7 @@ export const useViewStore = create<ViewState>((set) => ({
     characterVisibility: {},
     setCharacterVisibility: (characterVisibility: { [key: string]: boolean }) =>
         set(() => ({ characterVisibility })),
+
     modalOpen: false,
     setModalOpen: (modalOpen: boolean) => set(() => ({ modalOpen })),
     siteData: { event: "", chapters: [] },
