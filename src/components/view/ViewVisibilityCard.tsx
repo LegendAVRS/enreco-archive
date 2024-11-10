@@ -101,7 +101,7 @@ const ViewVisibilityCard = () => {
                 >
                     <div className="flex flex-row gap-2 items-center">
                         <img
-                            src={data.teams[key].imgSrc}
+                            src={data.teams[key].imageSrc}
                             className="w-8 h-8"
                             alt={`${key} logo`}
                         />

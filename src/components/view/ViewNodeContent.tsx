@@ -12,7 +12,7 @@ interface ViewNodeContentProps {
     data: ChartData;
 }
 
-const ViewNodeContent = ({ selectedNode, data }: ViewNodeContentProps) => {
+const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
     const characterImageRef = useRef<HTMLImageElement>(null);
     const [color, setColor] = useState<string | null>(null);
     const { data: chartData } = useChartStore();
