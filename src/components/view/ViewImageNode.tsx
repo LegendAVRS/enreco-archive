@@ -126,12 +126,13 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
     return (
         <>
             {handleElements}
-            <img
-                className="cursor-pointer aspect-square object-cover rounded-lg transition-all"
-                width={100}
-                src={data.imageSrc}
-                style={nodeVisibilityStyle}
-            />
+            <div className="relative overflow-hidden w-[100px] h-[100px] rounded">
+                <img
+                    className="cursor-pointer aspect-square object-cover rounded-lg transition-transform duration-300 ease-in-out transform scale-100 hover:scale-110"
+                    src={data.imageSrc}
+                    style={nodeVisibilityStyle}
+                />
+            </div>
         </>
     );
 };
