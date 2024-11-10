@@ -148,7 +148,7 @@ const ViewApp = () => {
                 console.log(reactFlowRenderer);
             }
             fitView({ padding: 0.5, duration: 1000 });
-        } else if (currentCard === null) {
+        } else {
             const reactFlowRenderer = document.querySelector<HTMLDivElement>(
                 ".react-flow__renderer"
             );
@@ -156,7 +156,9 @@ const ViewApp = () => {
             if (reactFlowRenderer && !isMobile) {
                 reactFlowRenderer.style.width = `100%`;
             }
-            fitView({ padding: 0.5, duration: 1000 });
+            if (currentCard === null) {
+                fitView({ padding: 0.5, duration: 1000 });
+            }
         }
     }, [settingCardWidth, fitView, nodes, edges, currentCard]);
 
