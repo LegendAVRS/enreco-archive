@@ -8,6 +8,7 @@
    npm run install
    ```
 Note: You might need you install all the shadcn radix dependency manually if it asks you too, I don't know how to get around this yet
+
 2. Start the development server:
    ```bash
    npm run dev
