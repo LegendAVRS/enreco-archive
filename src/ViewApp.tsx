@@ -53,6 +53,8 @@ const ViewApp = () => {
 
     const { fitView, setCenter, getNode } = useReactFlow();
     const [minZoom, setMinZoom] = useState(0.5);
+    const [settingCardWidth, setSettingCardWidth] = useState(0);
+
     useEffect(() => {
         // On mobile it's harader to zoom out, so we set a lower min zoom
         if (isMobile) {
@@ -127,7 +129,17 @@ const ViewApp = () => {
         loadFlow();
     }, [loadFlow, data]);
 
-    //Update react flow renderer width when setting card is open, so the flow is not covered by the card
+    // This seems very reduntant and hacky, but idk why, fitView (in the useEffect down below) needs to be called twice to work
+    // This is a temporary fix, if we don't do this it'd flip the fitView (when setting opens it zooms in even though it should zoom out)
+    useEffect(() => {
+        if (currentCard === "setting") {
+            setSettingCardWidth(300);
+        } else {
+            setSettingCardWidth(0);
+        }
+    }, [currentCard, setSettingCardWidth]);
+
+    // Update react flow renderer width when setting card is open, so the flow is not covered by the card
     useEffect(() => {
         if (currentCard === "setting") {
             const reactFlowRenderer = document.querySelector<HTMLDivElement>(
@@ -150,7 +162,7 @@ const ViewApp = () => {
                 fitView({ padding: 0.5, duration: 1000 });
             }
         }
-    }, [fitView, nodes, edges, currentCard]);
+    }, [settingCardWidth, fitView, nodes, edges, currentCard]);
 
     // Get center of edge, based of the center of the two nodes (needs to be improved)
     const getCenter = (nodeAID: string, nodeBID: string) => {
