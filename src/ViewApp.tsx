@@ -10,9 +10,9 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
-import ImageNodeView from "@/components/view/ViewImageNode";
 import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ViewEdgeCard from "@/components/view/ViewEdgeCard";
+import ImageNodeView from "@/components/view/ViewImageNode";
 import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
@@ -153,7 +153,6 @@ const ViewApp = () => {
             const reactFlowRenderer = document.querySelector<HTMLDivElement>(
                 ".react-flow__renderer"
             );
-            console.log(reactFlowRenderer);
             if (reactFlowRenderer && !isMobile) {
                 reactFlowRenderer.style.width = `100%`;
             }

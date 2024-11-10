@@ -3,12 +3,11 @@ import { OLD_EDGE_OPACITY } from "@/lib/constants";
 import { CustomEdgeProps, ImageNodeType } from "@/lib/type";
 import { useViewStore } from "@/store/viewStore";
 import { BaseEdge, useReactFlow } from "@xyflow/react";
+import { useMemo } from "react";
 
-const getVisiblityStyle = (visible: boolean) => {
-    return {
-        opacity: visible ? 1 : 0.2,
-    };
-};
+const getVisibilityStyle = (visible: boolean) => ({
+    opacity: visible ? 1 : 0.2,
+});
 
 const ViewCustomEdge = ({ source, target, data }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
@@ -19,25 +18,43 @@ const ViewCustomEdge = ({ source, target, data }: CustomEdgeProps) => {
     const nodeSrc = getNode(source) as ImageNodeType;
     const nodeTarget = getNode(target) as ImageNodeType;
 
-    const isNew = data?.new || !edgeVisibility.new || false;
+    // Memoize visibility calculations for performance
+    const isVisible = useMemo(() => {
+        let visibility = true;
+        if (data?.relationship) {
+            visibility = visibility && edgeVisibility[data.relationship];
+        }
+        if (nodeSrc?.data.team) {
+            visibility = visibility && teamVisibility[nodeSrc.data.team];
+        }
+        if (nodeTarget?.data.team) {
+            visibility = visibility && teamVisibility[nodeTarget.data.team];
+        }
+        if (nodeSrc?.data.title) {
+            visibility = visibility && characterVisibility[nodeSrc.data.title];
+        }
+        if (nodeTarget?.data.title) {
+            visibility =
+                visibility && characterVisibility[nodeTarget.data.title];
+        }
+        return visibility;
+    }, [
+        data?.relationship,
+        edgeVisibility,
+        teamVisibility,
+        characterVisibility,
+        nodeSrc?.data.team,
+        nodeSrc?.data.title,
+        nodeTarget?.data.team,
+        nodeTarget?.data.title,
+    ]);
 
-    let isVisible = true;
-    if (data?.relationship) {
-        isVisible = isVisible && edgeVisibility[data?.relationship];
-    }
-    if (nodeSrc?.data.team) {
-        isVisible = isVisible && teamVisibility[nodeSrc?.data.team];
-    }
-    if (nodeTarget.data.team) {
-        isVisible = isVisible && teamVisibility[nodeTarget.data.team];
-    }
-    if (nodeSrc.data.title) {
-        isVisible = isVisible && characterVisibility[nodeSrc.data.title];
-    }
-    if (nodeTarget.data.title) {
-        isVisible = isVisible && characterVisibility[nodeTarget.data.title];
-    }
-    const edgeVisibilityStyle = getVisiblityStyle(isVisible);
+    const edgeVisibilityStyle = useMemo(
+        () => getVisibilityStyle(isVisible),
+        [isVisible]
+    );
+
+    const isNew = data?.new || !edgeVisibility.new || false;
 
     return (
         <BaseEdge

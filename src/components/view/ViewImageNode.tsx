@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import { useChartStore } from "@/store/chartStore";
 import { useViewStore } from "@/store/viewStore";
 import {
@@ -6,10 +7,8 @@ import {
     Position,
     useUpdateNodeInternals,
 } from "@xyflow/react";
-import { useEffect, useMemo } from "react";
 import { ImageNodeProps } from "../../lib/type";
 
-// Number of handles per side
 const NUM_OF_HANDLES = 5;
 
 const generateHandlesOnSide = (
@@ -36,66 +35,94 @@ const generateHandlesOnSide = (
     }
     return handles;
 };
-// Generate node handles, spread on all 4 sides
-const generateHandles = (numOfHandles: number) => {
-    const handles = [];
-    handles.push(...generateHandlesOnSide(Position.Top, "left", numOfHandles));
-    handles.push(...generateHandlesOnSide(Position.Right, "top", numOfHandles));
-    handles.push(
-        ...generateHandlesOnSide(Position.Bottom, "left", numOfHandles)
-    );
-    handles.push(...generateHandlesOnSide(Position.Left, "top", numOfHandles));
 
-    return handles;
-};
+const generateHandles = (numOfHandles: number) => [
+    ...generateHandlesOnSide(Position.Top, "left", numOfHandles),
+    ...generateHandlesOnSide(Position.Right, "top", numOfHandles),
+    ...generateHandlesOnSide(Position.Bottom, "left", numOfHandles),
+    ...generateHandlesOnSide(Position.Left, "top", numOfHandles),
+];
 
-const getImageVisibilityStyle = (visible: boolean) => {
-    return {
-        opacity: visible ? 1 : 0.2,
-    };
-};
+const getImageVisibilityStyle = (visible: boolean) => ({
+    opacity: visible ? 1 : 0.2,
+});
 
 const ViewImageNode = ({ data, id }: ImageNodeProps) => {
-    const handles = useMemo(() => generateHandles(NUM_OF_HANDLES), []);
     const { edgeVisibility, teamVisibility, characterVisibility } =
         useViewStore();
     const { data: chartData } = useChartStore();
 
-    // get edges that have either source or target as this node
-    const edges = chartData.edges.filter(
-        (edge) => edge.source === id || edge.target === id
+    // Generate handles only on mount since they’re static
+    const handles = useMemo(() => generateHandles(NUM_OF_HANDLES), []);
+
+    // Destructure edges from chartData and use it in `useMemo` hooks
+    const { edges: chartEdges } = chartData;
+
+    // Filter edges based on the current node ID
+    const edges = useMemo(
+        () =>
+            chartEdges.filter(
+                (edge) => edge.source === id || edge.target === id
+            ),
+        [id, chartEdges]
     );
 
-    // loop thourgh edges and check if they are there exists one edge that is visible
-    let nodeVisibility = true;
-    nodeVisibility = edges.some((edge) =>
-        edge.data?.relationship ? edgeVisibility[edge.data.relationship] : true
+    // Compute node visibility based on related edge and viewstore settings
+    const nodeVisibility = useMemo(() => {
+        let isVisible = edges.some((edge) =>
+            edge.data?.relationship
+                ? edgeVisibility[edge.data.relationship]
+                : true
+        );
+        if (data.team) isVisible = isVisible && teamVisibility[data.team];
+        if (data.title)
+            isVisible = isVisible && characterVisibility[data.title];
+        return isVisible;
+    }, [
+        edges,
+        edgeVisibility,
+        teamVisibility,
+        characterVisibility,
+        data.team,
+        data.title,
+    ]);
+
+    const nodeVisibilityStyle = useMemo(
+        () => getImageVisibilityStyle(nodeVisibility),
+        [nodeVisibility]
     );
-    if (data.team) {
-        nodeVisibility = nodeVisibility && teamVisibility[data.team];
-    }
-    if (data.title) {
-        nodeVisibility = nodeVisibility && characterVisibility[data.title];
-    }
-    const nodeVisibilityStyle = getImageVisibilityStyle(nodeVisibility);
+
+    // Filter handles based on used edges
+    const usedHandles = useMemo(() => {
+        const usedHandleIds = edges.reduce((acc, edge) => {
+            if (edge.source === id) acc.add(`${edge.sourceHandle}`);
+            if (edge.target === id) acc.add(`${edge.targetHandle}`);
+            return acc;
+        }, new Set<string>());
+        return handles.filter((handle) => usedHandleIds.has(handle.id));
+    }, [edges, handles, id]);
 
     const updateNodeInternals = useUpdateNodeInternals();
-    const handleElements = handles.map((handle) => (
-        <Handle
-            key={handle.key}
-            id={handle.id}
-            type={handle.type}
-            position={handle.position}
-            // Setting opacity to complete 0 cause some weird stuff to happen
-            style={{ ...handle.style, opacity: "0.001" }}
-            isConnectable={true}
-        />
-    ));
+    const handleElements = useMemo(
+        () =>
+            usedHandles.map((handle) => (
+                <Handle
+                    key={handle.key}
+                    id={handle.id}
+                    type={handle.type}
+                    position={handle.position}
+                    style={{ ...handle.style, opacity: "0.001" }}
+                    isConnectable={true}
+                />
+            )),
+        [usedHandles]
+    );
 
-    // Need this for some reasons (https://reactflow.dev/api-reference/hooks/use-update-node-internals)
+    // Update node internals with debounced effect
     useEffect(() => {
         updateNodeInternals(id);
-    }, [handles, id, updateNodeInternals]);
+    }, [id, usedHandles, updateNodeInternals]);
+
     return (
         <>
             {handleElements}
@@ -103,7 +130,7 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
                 className="cursor-pointer aspect-square object-cover rounded-lg transition-all"
                 width={100}
                 src={data.imageSrc}
-                style={{ ...nodeVisibilityStyle }}
+                style={nodeVisibilityStyle}
             />
         </>
     );
