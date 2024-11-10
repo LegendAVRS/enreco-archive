@@ -38,13 +38,11 @@ export type ChartData = {
 
 export type Chapter = {
     title: string;
-    numberOfDays: number;
     charts: ChartData[];
 };
 
 export type SiteData = {
     event: string;
-    numberOfChapters: number;
     chapters: Chapter[];
 };
 

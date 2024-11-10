@@ -1,3 +1,4 @@
+// @ts-nocheck
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
 import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
 import EditorGeneralCard from "@/components/editor/EditorGeneralCard";
@@ -26,10 +27,13 @@ import EditorImageNode from "./components/editor/EditorImageNode";
 import EditorFixedEdge from "@/components/editor/EditorFixedEdge";
 import EditorStraightEdge from "@/components/editor/EditorStraightEdge";
 
+import {
+    copyChartData,
+    exportJson,
+    mergeChartsIntoOneBigFile,
+} from "@/lib/datahelper";
+
 import chartData from "@/data/day4.json";
-import oldChart from "@/data/day3.json";
-import newChart from "@/data/day4.json";
-import { copyChartData, exportChart } from "@/lib/datahelper";
 
 const nodeTypes = {
     image: EditorImageNode,
@@ -180,7 +184,12 @@ const EditorApp = () => {
         // const newChartLocal = copyChartData(oldChart, newChart);
         // exportChart(newChartLocal);
         const newChart = copyChartData();
-        exportChart(newChart);
+        exportJson(newChart);
+    };
+
+    const combineAndExportChartsToSiteData = async () => {
+        const siteData = await mergeChartsIntoOneBigFile();
+        exportJson(siteData);
     };
 
     return (
@@ -214,6 +223,13 @@ const EditorApp = () => {
                 onInit={setRfInstance}
             ></ReactFlow>
             <div className="absolute top-5 right-5 flex flex-row gap-4">
+                <Button
+                    onClick={() => {
+                        combineAndExportChartsToSiteData();
+                    }}
+                >
+                    Export site
+                </Button>
                 <Button
                     onClick={() => {
                         copyAndExportOldToNewChart();

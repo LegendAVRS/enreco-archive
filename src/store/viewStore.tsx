@@ -25,9 +25,9 @@ interface ViewState {
 }
 
 export const useViewStore = create<ViewState>((set) => ({
-    chapter: 1,
+    chapter: 0,
     setChapter: (chapter: number) => set(() => ({ chapter })),
-    day: 1,
+    day: 0,
     setDay: (day: number) => set(() => ({ day })),
     currentCard: null,
     setCurrentCard: (currentCard: CardType) => set(() => ({ currentCard })),
@@ -42,6 +42,6 @@ export const useViewStore = create<ViewState>((set) => ({
         set(() => ({ characterVisibility })),
     modalOpen: false,
     setModalOpen: (modalOpen: boolean) => set(() => ({ modalOpen })),
-    siteData: { event: "", numberOfChapters: 0, chapters: [] },
+    siteData: { event: "", chapters: [] },
     setSiteData: (siteData: SiteData) => set(() => ({ siteData })),
 }));

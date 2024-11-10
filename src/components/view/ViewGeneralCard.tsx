@@ -15,7 +15,8 @@ import rehypeRaw from "rehype-raw";
 
 const ViewGeneralCard = () => {
     const { data } = useChartStore();
-    const { siteData, setModalOpen } = useViewStore();
+    const { siteData, setModalOpen, chapter, day, setDay } = useViewStore();
+    const currentChapter = siteData.chapters[chapter];
     return (
         <Card className="flex flex-col gap-4 p-4 h-full">
             <Button variant={"outline"} onClick={() => setModalOpen(true)}>
@@ -24,7 +25,7 @@ const ViewGeneralCard = () => {
             <div className="flex flex-row gap-4">
                 <Select>
                     <SelectTrigger className="grow">
-                        <SelectValue placeholder={"Chapter..."} />
+                        <SelectValue placeholder={`Chapter ${chapter + 1}`} />
                     </SelectTrigger>
                     <SelectContent>
                         {siteData.chapters.map((chapter, index) => (
@@ -34,19 +35,20 @@ const ViewGeneralCard = () => {
                         ))}
                     </SelectContent>
                 </Select>
-                <Select>
+                <Select onValueChange={(e) => setDay(parseInt(e.valueOf()))}>
                     <SelectTrigger className="grow">
-                        <SelectValue placeholder={"Day..."} />
+                        <SelectValue placeholder={`Day ${day + 3}`} />
                     </SelectTrigger>
                     <SelectContent>
-                        {siteData.chapters[data.chapter] &&
-                            siteData.chapters[data.chapter].charts.map(
-                                (day, index) => (
-                                    <SelectItem key={index} value={day.title}>
-                                        {day.title}
-                                    </SelectItem>
-                                )
-                            )}
+                        {currentChapter &&
+                            currentChapter.charts.map((day, index) => (
+                                <SelectItem
+                                    key={index}
+                                    value={index.toString()}
+                                >
+                                    {`Day ${index + 3}`}
+                                </SelectItem>
+                            ))}
                     </SelectContent>
                 </Select>
             </div>
