@@ -49,6 +49,7 @@ const ViewApp = () => {
         chapter,
         day,
         siteData,
+        setHoveredEdgeId,
     } = useViewStore();
 
     const { fitView, setCenter, getNode } = useReactFlow();
@@ -210,6 +211,12 @@ const ViewApp = () => {
                     zoomOnDoubleClick={false}
                     onPaneClick={() => {
                         setCurrentCard(null);
+                    }}
+                    onEdgeMouseEnter={(_, edge) => {
+                        setHoveredEdgeId(edge.id);
+                    }}
+                    onEdgeMouseLeave={() => {
+                        setHoveredEdgeId("");
                     }}
                 ></ReactFlow>
                 <ViewSettingIcon className="absolute top-5 right-5 z-10" />

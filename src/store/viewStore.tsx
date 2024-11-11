@@ -25,6 +25,9 @@ interface ViewState {
     setModalOpen: (isModalOpen: boolean) => void;
     siteData: SiteData;
     setSiteData: (data: SiteData) => void;
+
+    hoveredEdgeId: string | null;
+    setHoveredEdgeId: (hoveredEdgeId: string) => void;
 }
 
 export const useViewStore = create<ViewState>((set) => ({
@@ -48,6 +51,9 @@ export const useViewStore = create<ViewState>((set) => ({
 
     modalOpen: false,
     setModalOpen: (modalOpen: boolean) => set(() => ({ modalOpen })),
-    siteData: { event: "", chapters: [] },
+    siteData: { event: "", chapter: { title: "", charts: [] } },
     setSiteData: (siteData: SiteData) => set(() => ({ siteData })),
+
+    hoveredEdgeId: null,
+    setHoveredEdgeId: (hoveredEdgeId: string) => set(() => ({ hoveredEdgeId })),
 }));

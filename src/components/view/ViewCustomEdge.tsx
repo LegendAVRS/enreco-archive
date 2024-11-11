@@ -1,6 +1,7 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { OLD_EDGE_OPACITY } from "@/lib/constants";
 import { CustomEdgeProps, ImageNodeType } from "@/lib/type";
+import { cn } from "@/lib/utils";
 import { useViewStore } from "@/store/viewStore";
 import { BaseEdge, useReactFlow } from "@xyflow/react";
 import { useMemo } from "react";
@@ -9,10 +10,14 @@ const getVisibilityStyle = (visible: boolean) => ({
     opacity: visible ? 1 : 0.2,
 });
 
-const ViewCustomEdge = ({ source, target, data }: CustomEdgeProps) => {
+const ViewCustomEdge = ({ source, target, data, id }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
-    const { edgeVisibility, teamVisibility, characterVisibility } =
-        useViewStore();
+    const {
+        edgeVisibility,
+        teamVisibility,
+        characterVisibility,
+        hoveredEdgeId,
+    } = useViewStore();
     const { getNode } = useReactFlow();
 
     const nodeSrc = getNode(source) as ImageNodeType;
@@ -53,15 +58,15 @@ const ViewCustomEdge = ({ source, target, data }: CustomEdgeProps) => {
         () => getVisibilityStyle(isVisible),
         [isVisible]
     );
-
+    console.log(hoveredEdgeId);
     const isNew = data?.new || !edgeVisibility.new || false;
 
     return (
         <BaseEdge
             path={data?.path || ""}
-            className="transition-all"
+            className={cn("transition-all", {})}
             style={{
-                strokeWidth: 4,
+                strokeWidth: id === hoveredEdgeId ? 6 : 4,
                 ...edgeStyle,
                 ...edgeVisibilityStyle,
                 opacity: isNew ? 1 : OLD_EDGE_OPACITY,
