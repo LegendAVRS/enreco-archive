@@ -14,3 +14,8 @@ Note: You might need you install all the shadcn radix dependency manually if it 
    npm run dev
    ```
 Note: You only need to care about the "View" stuff in "./view", the editor stuff is only for developent (it's also gross to look at))
+
+## Stack
+- ShadCN (https://ui.shadcn.com/), TailwindCSS
+- React
+- React Flow
