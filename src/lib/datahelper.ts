@@ -123,15 +123,18 @@ export const checkChartMissingData = (chartData: ChartData) => {
 export const mergeChartsIntoOneBigFile = async () => {
     const siteData: SiteData = {
         event: "ENigmatic Recollection",
-        chapters: [],
+        chapter: {
+            title: "ENigmatic Recollection Chapter 1",
+            charts: [],
+        },
     };
 
     // @ts-expect-error idk
     const charts: ChartData[] = [day3, day4, day5, day6, day7, day8];
 
-    siteData.chapters.push({
+    siteData.chapter = {
         title: "ENigmatic Recollection Chapter 1",
         charts: charts,
-    });
+    };
     return siteData;
 };

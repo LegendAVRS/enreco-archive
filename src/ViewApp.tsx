@@ -115,12 +115,8 @@ const ViewApp = () => {
 
     // Update data when chapter or day changes
     useEffect(() => {
-        if (
-            chapter !== undefined &&
-            day !== undefined &&
-            siteData.chapters.length > 0
-        ) {
-            setData(siteData.chapters[chapter].charts[day]);
+        if (chapter !== undefined && day !== undefined && siteData.chapter) {
+            setData(siteData.chapter.charts[day]);
         }
     }, [chapter, day, setData, siteData]);
 

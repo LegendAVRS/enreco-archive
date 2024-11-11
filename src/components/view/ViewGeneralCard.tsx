@@ -16,7 +16,7 @@ import rehypeRaw from "rehype-raw";
 const ViewGeneralCard = () => {
     const { data } = useChartStore();
     const { siteData, setModalOpen, chapter, day, setDay } = useViewStore();
-    const currentChapter = siteData.chapters[chapter];
+    const currentChapter = siteData.chapter;
     return (
         <Card className="flex flex-col gap-4 p-4 h-full">
             <Button variant={"outline"} onClick={() => setModalOpen(true)}>
@@ -28,11 +28,11 @@ const ViewGeneralCard = () => {
                         <SelectValue placeholder={`Chapter ${chapter + 1}`} />
                     </SelectTrigger>
                     <SelectContent>
-                        {siteData.chapters.map((chapter, index) => (
+                        {/* {siteData.chapters.map((chapter, index) => (
                             <SelectItem key={index} value={chapter.title}>
                                 {chapter.title}
                             </SelectItem>
-                        ))}
+                        ))} */}
                     </SelectContent>
                 </Select>
                 <Select onValueChange={(e) => setDay(parseInt(e.valueOf()))}>
