@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
@@ -55,6 +55,7 @@ const ViewApp = () => {
     const { fitView, setCenter, getNode } = useReactFlow();
     const [minZoom, setMinZoom] = useState(0.5);
     const [settingCardWidth, setSettingCardWidth] = useState(0);
+    const panFromSetting = useRef(false);
 
     useEffect(() => {
         // On mobile it's harader to zoom out, so we set a lower min zoom
@@ -131,10 +132,14 @@ const ViewApp = () => {
     useEffect(() => {
         if (currentCard === "setting") {
             setSettingCardWidth(300);
+            panFromSetting.current = true;
         } else {
+            if (currentCard !== null) {
+                panFromSetting.current = false;
+            }
             setSettingCardWidth(0);
         }
-    }, [currentCard, setSettingCardWidth]);
+    }, [currentCard, setSettingCardWidth, panFromSetting]);
 
     // Update react flow renderer width when setting card is open, so the flow is not covered by the card
     useEffect(() => {
@@ -154,11 +159,13 @@ const ViewApp = () => {
                 reactFlowRenderer.style.width = `100%`;
             }
             // Fit view when no card is open
-            if (currentCard === null) {
+            console.log(panFromSetting);
+            if (currentCard === null && (isMobile || panFromSetting.current)) {
                 fitView({ padding: 0.5, duration: 1000 });
+                // panFromSetting.current = false;
             }
         }
-    }, [settingCardWidth, fitView, nodes, edges, currentCard]);
+    }, [settingCardWidth, fitView, nodes, edges, currentCard, panFromSetting]);
 
     // Get center of edge, based of the center of the two nodes (needs to be improved)
     const getCenter = (nodeAID: string, nodeBID: string) => {
