@@ -1,5 +1,5 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
-import { INVS_EDGE_OPACITY, OLD_EDGE_OPACITY } from "@/lib/constants";
+import { OLD_EDGE_OPACITY } from "@/lib/constants";
 import { CustomEdgeProps, ImageNodeType } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { useViewStore } from "@/store/viewStore";
@@ -9,7 +9,8 @@ import { useMemo } from "react";
 const getVisibilityStyle = (visible: boolean, isNew: boolean) => {
     if (!visible) {
         return {
-            opacity: INVS_EDGE_OPACITY,
+            opacity: 0,
+            strokeWidth: 0,
         };
     }
     if (!isNew) {
