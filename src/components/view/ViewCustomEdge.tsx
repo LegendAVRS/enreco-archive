@@ -58,7 +58,6 @@ const ViewCustomEdge = ({ source, target, data, id }: CustomEdgeProps) => {
         () => getVisibilityStyle(isVisible),
         [isVisible]
     );
-    console.log(hoveredEdgeId);
     const isNew = data?.new || !edgeVisibility.new || false;
 
     return (
