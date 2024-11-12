@@ -16,7 +16,7 @@ export default function VaulDrawer({
     onClose,
     children,
 }: VaulDrawerProps) {
-    const { currentCard } = useViewStore();
+    const { currentCard, setCurrentCard } = useViewStore();
     const [isScrollable, setIsScrollable] = useState(false);
     return (
         <Drawer.Root
@@ -37,6 +37,7 @@ export default function VaulDrawer({
                 if (!isOpen) {
                     onClose?.();
                 }
+                setCurrentCard(null);
             }}
             fadeFromIndex={0}
         >

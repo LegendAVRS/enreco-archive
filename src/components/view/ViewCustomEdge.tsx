@@ -1,14 +1,26 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
-import { OLD_EDGE_OPACITY } from "@/lib/constants";
+import { INVS_EDGE_OPACITY, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { CustomEdgeProps, ImageNodeType } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { useViewStore } from "@/store/viewStore";
 import { BaseEdge, useReactFlow } from "@xyflow/react";
 import { useMemo } from "react";
 
-const getVisibilityStyle = (visible: boolean) => ({
-    opacity: visible ? 1 : 0.2,
-});
+const getVisibilityStyle = (visible: boolean, isNew: boolean) => {
+    if (!visible) {
+        return {
+            opacity: INVS_EDGE_OPACITY,
+        };
+    }
+    if (!isNew) {
+        return {
+            opacity: OLD_EDGE_OPACITY,
+        };
+    }
+    return {
+        opacity: 1,
+    };
+};
 
 const ViewCustomEdge = ({ source, target, data, id }: CustomEdgeProps) => {
     const { edgeStyle } = useEdgeStyle(data?.relationship);
@@ -54,11 +66,11 @@ const ViewCustomEdge = ({ source, target, data, id }: CustomEdgeProps) => {
         nodeTarget?.data.title,
     ]);
 
-    const edgeVisibilityStyle = useMemo(
-        () => getVisibilityStyle(isVisible),
-        [isVisible]
-    );
     const isNew = data?.new || !edgeVisibility.new || false;
+    const edgeVisibilityStyle = useMemo(
+        () => getVisibilityStyle(isVisible, isNew),
+        [isVisible, isNew]
+    );
 
     return (
         <BaseEdge
@@ -68,7 +80,6 @@ const ViewCustomEdge = ({ source, target, data, id }: CustomEdgeProps) => {
                 strokeWidth: id === hoveredEdgeId ? 6 : 4,
                 ...edgeStyle,
                 ...edgeVisibilityStyle,
-                opacity: isNew ? 1 : OLD_EDGE_OPACITY,
             }}
         />
     );
