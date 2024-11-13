@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
@@ -130,7 +131,7 @@ const ViewApp = () => {
 
             window.history.replaceState({}, "", `#${chapter}/${day}`);
         }
-    }, [chapter, day])
+    }, [chapter, day]);
 
     // Load the flow when data changes
     useEffect(() => {
@@ -168,8 +169,7 @@ const ViewApp = () => {
             if (reactFlowRenderer && !isMobile) {
                 reactFlowRenderer.style.width = `100%`;
             }
-            // Fit view when no card is open
-            console.log(panFromSetting);
+            // Fit view when no card is open (only on mobile or when closing from setting)
             if (currentCard === null && (isMobile || panFromSetting.current)) {
                 fitView({ padding: 0.5, duration: 1000 });
                 // panFromSetting.current = false;

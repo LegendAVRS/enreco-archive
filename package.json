@@ -4,9 +4,10 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite --host",
-        "build": "tsc -b && vite build",
-        "lint": "eslint .",
+        "dev": "next dev",
+        "build": "tsc -b && next build",
+        "start": "next start",
+        "lint": "next lint",
         "preview": "vite preview"
     },
     "dependencies": {
@@ -27,6 +28,7 @@
         "extract-colors": "^4.1.0",
         "lodash": "^4.17.21",
         "lucide-react": "^0.445.0",
+        "next": "^15.0.3",
         "react": "^18.3.1",
         "react-device-detect": "^2.2.3",
         "react-dom": "^18.3.1",
