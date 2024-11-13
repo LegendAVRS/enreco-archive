@@ -2,6 +2,25 @@ import { SiteData } from "@/lib/type";
 import { create } from "zustand";
 export type CardType = "node" | "edge" | "setting" | null;
 
+export function parseChapterAndDay(): [number, number] {
+    const isBrowserWindowReady = (): boolean => typeof window !== "undefined";
+    const parseOrZero = (value: string): number => {
+        const parsed = parseInt(value, 10);
+        return Number.isNaN(parsed) ? 0 : parsed;
+    };
+
+    if (isBrowserWindowReady()) {
+        const { hash } = window.location;
+        const parts = hash.replace("#", "").split("/");
+
+        if (parts.length === 2) {
+            const chapter = parseOrZero(parts[0])
+            const day = parseOrZero(parts[1])
+            return [chapter, day];
+        }
+    }
+    return [0, 0];
+}
 interface ViewState {
     chapter: number;
     setChapter: (chapter: number) => void;
@@ -31,25 +50,7 @@ interface ViewState {
     validateChapterAndDay: (chapter: number, day: number) => [number, number];
 }
 export const useViewStore = create<ViewState>((set, get) => {
-    const isBrowserWindowReady = (): boolean => typeof window !== "undefined";
-    const parseOrZero = (value: string): number => {
-        const parsed = parseInt(value, 10);
-        return Number.isNaN(parsed) ? 0 : parsed;
-    };
-
-    function getInitialChapterAndDay(): [number, number] {
-        if (isBrowserWindowReady()) {
-            const { hash } = window.location;
-            const parts = hash.replace("#", "").split("/");
-
-            if (parts.length === 2) {
-                return [parseOrZero(parts[0]), parseOrZero(parts[1])];
-            }
-        }
-        return [0, 0];
-    }
-
-    const [initialChapter, initialDay] = getInitialChapterAndDay();
+    const [initialChapter, initialDay] = parseChapterAndDay();
 
     return {
         chapter: initialChapter,
@@ -80,7 +81,7 @@ export const useViewStore = create<ViewState>((set, get) => {
         },
         setSiteData: (siteData: SiteData) => {
             set(() => ({ siteData }));
-            const [chapter, day] = get().validateChapterAndDay(initialChapter, initialDay);
+            const [chapter, day] = get().validateChapterAndDay(get().chapter, get().day);
             set(() => ({ chapter, day }));
         },
 
@@ -92,10 +93,10 @@ export const useViewStore = create<ViewState>((set, get) => {
             const { siteData } = get();
             const numberOfChapters = siteData.numberOfChapters;
             const numberOfDays = siteData.chapter.numberOfDays;
-            
-            const validChapter = chapter >= 0 && chapter < numberOfChapters ? chapter : 0;
-            const validDay = day >= 0 && day < numberOfDays ? day : 0;
-            
+
+            const validChapter = (chapter >= 0 && chapter < numberOfChapters) ? chapter : 0;
+            const validDay = (day >= 0 && day < numberOfDays) ? day : 0;
+
             return [validChapter, validDay];
         }
     };

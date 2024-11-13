@@ -19,7 +19,7 @@ import ViewSettingCard from "@/components/view/ViewSettingCard";
 import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
-import { useViewStore } from "@/store/viewStore";
+import { parseChapterAndDay, useViewStore } from "@/store/viewStore";
 import { isMobile } from "react-device-detect";
 
 import siteDataIn from "@/data/site.json";
@@ -47,9 +47,12 @@ const ViewApp = () => {
         setModalOpen,
         setSiteData,
         chapter,
+        setChapter,
         day,
+        setDay,
         siteData,
         setHoveredEdgeId,
+        validateChapterAndDay
     } = useViewStore();
 
     const { fitView, setCenter, getNode } = useReactFlow();
@@ -131,6 +134,26 @@ const ViewApp = () => {
             window.history.replaceState({}, "", `#${chapter}/${day}`);
         }
     }, [chapter, day])
+
+    // Update the chapter and day if the URL hash changes too
+    useEffect(() => {
+        const handleHashChange = () => {
+            const [possibleNewChapter, possibleNewDay] = parseChapterAndDay();
+            const [newChapter, newDay] = validateChapterAndDay(possibleNewChapter, possibleNewDay);
+
+            setChapter(newChapter);
+            setDay(newDay);
+
+            // If they set something dumb, should this also "reset" the URL to whatever we're actually
+            // internally using?
+            window.history.replaceState({}, "", `#${newChapter}/${newDay}`);
+        }
+
+        window.addEventListener('hashchange', handleHashChange);
+        return (() => {
+            window.removeEventListener("hashchange", handleHashChange)
+        })
+    }, [setChapter, setDay, validateChapterAndDay])
 
     // Load the flow when data changes
     useEffect(() => {
