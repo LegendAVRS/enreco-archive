@@ -1,6 +1,7 @@
 {
   "event": "ENigmatic Recollection",
   "chapter": {
+    "numberOfDays": 6,
     "title": "ENigmatic Recollection Chapter 1",
     "charts": [
       {
@@ -7390,7 +7391,8 @@
         },
         "teams": {},
         "dayRecap": "",
-        "title": ""
+        "title": "",
+        "numberOfChapters": 1
       }
     ]
   }
