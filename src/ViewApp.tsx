@@ -122,6 +122,16 @@ const ViewApp = () => {
         }
     }, [chapter, day, setData, siteData]);
 
+    // Update the URL when the chapter or day changes
+    useEffect(() => {
+        if (chapter !== undefined && day !== undefined) {
+            // This works but it also modifies history.
+            // document.location.hash = `${chapter}/${day}`
+
+            window.history.replaceState({}, "", `#${chapter}/${day}`);
+        }
+    }, [chapter, day])
+
     // Load the flow when data changes
     useEffect(() => {
         loadFlow();
