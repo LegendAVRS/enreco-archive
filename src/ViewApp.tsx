@@ -53,7 +53,7 @@ const ViewApp = () => {
         setDay,
         siteData,
         setHoveredEdgeId,
-        validateChapterAndDay
+        validateChapterAndDay,
     } = useViewStore();
 
     const { fitView, setCenter, getNode } = useReactFlow();
@@ -140,7 +140,10 @@ const ViewApp = () => {
     useEffect(() => {
         const handleHashChange = () => {
             const [possibleNewChapter, possibleNewDay] = parseChapterAndDay();
-            const [newChapter, newDay] = validateChapterAndDay(possibleNewChapter, possibleNewDay);
+            const [newChapter, newDay] = validateChapterAndDay(
+                possibleNewChapter,
+                possibleNewDay
+            );
 
             setChapter(newChapter);
             setDay(newDay);
@@ -148,21 +151,19 @@ const ViewApp = () => {
             // If they set something dumb, should this also "reset" the URL to whatever we're actually
             // internally using?
             window.history.replaceState({}, "", `#${newChapter}/${newDay}`);
-        }
+        };
 
-        window.addEventListener('hashchange', handleHashChange);
-        return (() => {
-            window.removeEventListener("hashchange", handleHashChange)
-        })
-    }, [setChapter, setDay, validateChapterAndDay])
+        window.addEventListener("hashchange", handleHashChange);
+        return () => {
+            window.removeEventListener("hashchange", handleHashChange);
+        };
+    }, [setChapter, setDay, validateChapterAndDay]);
 
     // Load the flow when data changes
     useEffect(() => {
         loadFlow();
     }, [loadFlow, data]);
 
-    // This seems very reduntant and hacky, but idk why, fitView (in the useEffect down below) needs to be called twice to work
-    // This is a temporary fix, if we don't do this it'd flip the fitView (when setting opens it zooms in even though it should zoom out)
     useEffect(() => {
         if (currentCard === "setting") {
             setSettingCardWidth(300);
@@ -201,7 +202,8 @@ const ViewApp = () => {
         }
     }, [fitView, currentCard, nodes, edges, panFromSetting, settingCardWidth]);
 
-    // Get center of edge, based of the center of the two nodes (needs to be improved)
+    // Get center of edge, based of the center of the two nodes
+    // TODO: needs to be improved
     const getCenter = (nodeAID: string, nodeBID: string) => {
         const nodeA = getNode(nodeAID);
         const nodeB = getNode(nodeBID);
@@ -258,6 +260,9 @@ const ViewApp = () => {
                     }}
                     onEdgeMouseLeave={() => {
                         setHoveredEdgeId("");
+                    }}
+                    proOptions={{
+                        hideAttribution: true,
                     }}
                 ></ReactFlow>
                 <ViewSettingIcon className="absolute top-5 right-5 z-10" />
