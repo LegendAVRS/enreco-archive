@@ -19,7 +19,7 @@ const ViewEdgeContent = ({
 
     return (
         <>
-            <div className="flex flex-row gap-4 items-center justify-between">
+            <div className="z-10 flex flex-row gap-4 items-center justify-between">
                 <img
                     className="aspect-square w-[100px] object-cover"
                     src={nodeA.data.imageSrc}
@@ -30,14 +30,18 @@ const ViewEdgeContent = ({
                     src={nodeB.data.imageSrc}
                 />
             </div>
+
             {selectedEdge.data?.title && (
                 <span className="font-semibold">{selectedEdge.data.title}</span>
             )}
             <Separator />
 
             <div className="flex flex-col items-center">
-                <span className="text-sm underline underline-offset-2">
-                    Relationship: {selectedEdge.data?.relationship}
+                <span className="">
+                    Relationship:{" "}
+                    <span className=" underline underline-offset-2">
+                        {selectedEdge.data?.relationship}
+                    </span>
                 </span>
             </div>
             <Separator />

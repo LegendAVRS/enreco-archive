@@ -1,9 +1,15 @@
 import { useChartStore } from "@/store/chartStore";
 
-const useEdgeStyle = (type: string | undefined) => {
+import { CSSProperties } from "react";
+
+const useEdgeStyle = (
+    type: string | undefined
+): { edgeStyle: CSSProperties } => {
     const { data } = useChartStore();
     if (!type) {
-        return {};
+        return {
+            edgeStyle: {},
+        };
     }
     return {
         edgeStyle: data.relationships[type],
