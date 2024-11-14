@@ -1,5 +1,6 @@
 // @ts-nocheck
 // No check because EditorApp isn't going in the final build, it's just for development, and I'm too lazy to fix the types
+"use client";
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
 import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
 import EditorGeneralCard from "@/components/editor/EditorGeneralCard";

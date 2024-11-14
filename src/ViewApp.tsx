@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
@@ -221,6 +221,51 @@ const ViewApp = () => {
         };
     };
 
+    const getTopLeftNode = useCallback(() => {
+        let topLeftNode = nodes[0];
+        for (const node of nodes) {
+            if (node.position.y < topLeftNode.position.y) {
+                topLeftNode = node;
+            }
+        }
+        for (const node of nodes) {
+            if (
+                node.position.y <= topLeftNode.position.y &&
+                node.position.x < topLeftNode.position.x
+            ) {
+                topLeftNode = node;
+            }
+        }
+        return topLeftNode;
+    }, [nodes]);
+
+    const getBottomRightNode = useCallback(() => {
+        let bottomRightNode = nodes[0];
+        for (const node of nodes) {
+            if (node.position.y > bottomRightNode.position.y) {
+                bottomRightNode = node;
+            }
+        }
+        for (const node of nodes) {
+            if (
+                node.position.y >= bottomRightNode.position.y &&
+                node.position.x > bottomRightNode.position.x
+            ) {
+                bottomRightNode = node;
+            }
+        }
+        return bottomRightNode;
+    }, [nodes]);
+
+    // To limit the area where the user can pan
+    const areaOffset = 1000;
+    const topLeftNode = useMemo(() => getTopLeftNode(), [getTopLeftNode]);
+    const bottomRightNode = useMemo(
+        () => getBottomRightNode(),
+        [getBottomRightNode]
+    );
+    console.log(topLeftNode, bottomRightNode);
+
     return (
         <>
             <div className="w-screen h-screen overflow-hidden ">
@@ -264,6 +309,19 @@ const ViewApp = () => {
                     proOptions={{
                         hideAttribution: true,
                     }}
+                    translateExtent={
+                        topLeftNode &&
+                        bottomRightNode && [
+                            [
+                                topLeftNode.position.x - areaOffset,
+                                topLeftNode.position.y - areaOffset,
+                            ],
+                            [
+                                bottomRightNode.position.x + areaOffset,
+                                bottomRightNode.position.y + areaOffset,
+                            ],
+                        ]
+                    }
                 ></ReactFlow>
                 <ViewSettingIcon className="absolute top-5 right-5 z-10" />
                 {currentCard === "setting" && <ViewSettingCard />}

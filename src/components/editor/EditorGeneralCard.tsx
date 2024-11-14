@@ -68,11 +68,7 @@ const EditorGeneralCard = () => {
                 onValueChange={(val) => setChapter(parseInt(val))}
             >
                 <SelectTrigger className="grow">
-                    <SelectValue
-                        placeholder={
-                            chapter ? `Chapter ${chapter}` : "Chapter..."
-                        }
-                    />
+                    <SelectValue placeholder={"Chapter..."} />
                 </SelectTrigger>
                 {/* 4 chapters */}
                 <SelectContent>
