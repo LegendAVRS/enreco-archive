@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
@@ -133,7 +134,7 @@ const ViewApp = () => {
 
             window.history.replaceState({}, "", `#${chapter}/${day}`);
         }
-    }, [chapter, day])
+    }, [chapter, day]);
 
     // Update the chapter and day if the URL hash changes too
     useEffect(() => {
@@ -176,29 +177,29 @@ const ViewApp = () => {
 
     // Update react flow renderer width when setting card is open, so the flow is not covered by the card
     useEffect(() => {
-        if (currentCard === "setting") {
-            const reactFlowRenderer = document.querySelector<HTMLDivElement>(
-                ".react-flow__renderer"
-            );
-            if (reactFlowRenderer && !isMobile) {
-                reactFlowRenderer.style.width = `calc(100% - ${300}px)`;
-            }
-            fitView({ padding: 0.5, duration: 1000 });
-        } else {
-            const reactFlowRenderer = document.querySelector<HTMLDivElement>(
-                ".react-flow__renderer"
-            );
-            if (reactFlowRenderer && !isMobile) {
-                reactFlowRenderer.style.width = `100%`;
-            }
-            // Fit view when no card is open
-            console.log(panFromSetting);
-            if (currentCard === null && (isMobile || panFromSetting.current)) {
-                fitView({ padding: 0.5, duration: 1000 });
-                // panFromSetting.current = false;
-            }
+        const reactFlowRenderer = document.querySelector<HTMLDivElement>(
+            ".react-flow__renderer"
+        );
+        if (reactFlowRenderer && !isMobile) {
+            reactFlowRenderer.style.width = `calc(100% - ${settingCardWidth}px)`;
         }
-    }, [settingCardWidth, fitView, nodes, edges, currentCard, panFromSetting]);
+
+        // Need a slight delay to make sure the width is updated before fitting the view
+        if (currentCard === "setting") {
+            setTimeout(() => {
+                fitView({ padding: 0.5, duration: 1000 });
+            }, 50);
+            return;
+        }
+
+        // Fit view when no card is open (only on mobile or when closing from setting)
+        if (currentCard === null && (isMobile || panFromSetting.current)) {
+            setTimeout(() => {
+                fitView({ padding: 0.5, duration: 1000 });
+            }, 50);
+            panFromSetting.current = false;
+        }
+    }, [fitView, currentCard, nodes, edges, panFromSetting, settingCardWidth]);
 
     // Get center of edge, based of the center of the two nodes (needs to be improved)
     const getCenter = (nodeAID: string, nodeBID: string) => {
