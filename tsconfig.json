@@ -1,34 +1,48 @@
 {
-    "compilerOptions": {
-        "target": "ES2020",
-        "lib": ["DOM", "DOM.Iterable", "ESNext"],
-        "module": "ESNext",
-        "skipLibCheck": true,
-        "moduleResolution": "node",
-        "allowJs": true,
-        "esModuleInterop": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "strict": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["./src/*"]
-        },
-        "noEmit": true,
-        "resolveJsonModule": true,
-        "incremental": true,
-        "plugins": [
-            {
-                "name": "next"
-            }
-        ]
-    },
-    "include": [
-        "src",
-        "next-env.d.ts",
-        ".next/types/**/*.ts",
-        "**/*.ts",
-        "**/*.tsx"
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
     ],
-    "exclude": ["node_modules", "src/components/editor/**/*", ""]
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "./dist/types/**/*.ts",
+    "./next-env.d.ts",
+    "./src",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./src/components/editor"
+  ]
 }
