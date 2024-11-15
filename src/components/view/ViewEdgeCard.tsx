@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 
 import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const ViewEdgeCard = () => {
     const { selectedEdge } = useFlowStore();
@@ -31,7 +32,12 @@ const ViewEdgeCard = () => {
     return (
         <>
             <BrowserView>
-                <ViewCard className="absolute">
+                <ViewCard
+                    className={cn("transition-all absolute", {
+                        "opacity-0 z-0 invisible": currentCard !== "edge",
+                        "opacity-1 z-10 visible": currentCard === "edge",
+                    })}
+                >
                     <X
                         className="absolute top-5 right-5 cursor-pointer "
                         onClick={() => setCurrentCard(null)}

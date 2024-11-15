@@ -3,6 +3,7 @@ import VaulDrawer from "@/components/view/VaulDrawer";
 import ViewCard from "@/components/view/ViewCard";
 import ViewGeneralCard from "@/components/view/ViewGeneralCard";
 import ViewVisibilityCard from "@/components/view/ViewVisibilityCard";
+import { cn } from "@/lib/utils";
 import { useViewStore } from "@/store/viewStore";
 import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -10,6 +11,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 const ViewSettingCard = () => {
     const [open, setOpen] = useState(true);
     const { currentCard, setCurrentCard } = useViewStore();
+    // For mobile drawer
     useEffect(() => {
         if (currentCard === "setting") {
             setOpen(true);
@@ -18,7 +20,12 @@ const ViewSettingCard = () => {
     return (
         <>
             <BrowserView>
-                <ViewCard className="absolute p-0">
+                <ViewCard
+                    className={cn("transition-all absolute p-0", {
+                        "opacity-0 z-0 invisible": currentCard !== "setting",
+                        "opacity-1 z-10 visible": currentCard === "setting",
+                    })}
+                >
                     <Tabs defaultValue="general" className="w-full">
                         <TabsList className="grid w-full grid-cols-2">
                             <TabsTrigger value="general">General</TabsTrigger>

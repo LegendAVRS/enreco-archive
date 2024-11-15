@@ -163,7 +163,6 @@ const ViewApp = () => {
     useEffect(() => {
         loadFlow();
     }, [loadFlow, data]);
-
     useEffect(() => {
         if (currentCard === "setting") {
             // Same width as the ViewCard
@@ -265,7 +264,10 @@ const ViewApp = () => {
         () => getBottomRightNode(),
         [getBottomRightNode]
     );
-    console.log(topLeftNode, bottomRightNode);
+
+    if (!data) {
+        return;
+    }
 
     return (
         <>
@@ -325,9 +327,9 @@ const ViewApp = () => {
                     }
                 ></ReactFlow>
                 <ViewSettingIcon className="absolute top-5 right-5 z-10" />
-                {currentCard === "setting" && <ViewSettingCard />}
-                {currentCard === "node" && <ViewNodeCard />}
-                {currentCard === "edge" && <ViewEdgeCard />}
+                <ViewSettingCard />
+                <ViewNodeCard />
+                <ViewEdgeCard />
             </div>
             <ViewInfoModal open={modalOpen} onOpenChange={setModalOpen} />
         </>
