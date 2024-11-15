@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import {
     Select,
     SelectContent,
@@ -18,7 +17,7 @@ const ViewGeneralCard = () => {
     const { siteData, setModalOpen, chapter, day, setDay } = useViewStore();
     const currentChapter = siteData.chapter;
     return (
-        <Card className="flex flex-col gap-4 p-4 h-full">
+        <div className="flex flex-col gap-4 p-4 ">
             <Button variant={"outline"} onClick={() => setModalOpen(true)}>
                 Info
             </Button>
@@ -57,7 +56,7 @@ const ViewGeneralCard = () => {
             <Markdown className={"overflow-auto"} rehypePlugins={[rehypeRaw]}>
                 {data.dayRecap}
             </Markdown>
-        </Card>
+        </div>
     );
 };
 

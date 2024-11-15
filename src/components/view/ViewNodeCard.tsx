@@ -23,7 +23,7 @@ const ViewNodeCard = () => {
     return (
         <>
             <BrowserView>
-                <ViewCard className="flex flex-col items-center">
+                <ViewCard className="absolute flex flex-col items-center">
                     <X
                         className="absolute top-5 right-5 cursor-pointer "
                         onClick={() => setCurrentCard(null)}

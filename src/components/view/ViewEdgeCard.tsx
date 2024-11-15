@@ -31,7 +31,7 @@ const ViewEdgeCard = () => {
     return (
         <>
             <BrowserView>
-                <ViewCard>
+                <ViewCard className="absolute">
                     <X
                         className="absolute top-5 right-5 cursor-pointer "
                         onClick={() => setCurrentCard(null)}

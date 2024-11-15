@@ -166,7 +166,8 @@ const ViewApp = () => {
 
     useEffect(() => {
         if (currentCard === "setting") {
-            setSettingCardWidth(300);
+            // Same width as the ViewCard
+            setSettingCardWidth(500);
             panFromSetting.current = true;
         } else {
             if (currentCard !== null) {

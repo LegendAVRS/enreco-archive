@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import VaulDrawer from "@/components/view/VaulDrawer";
+import ViewCard from "@/components/view/ViewCard";
 import ViewGeneralCard from "@/components/view/ViewGeneralCard";
 import ViewVisibilityCard from "@/components/view/ViewVisibilityCard";
 import { useViewStore } from "@/store/viewStore";
@@ -17,21 +18,20 @@ const ViewSettingCard = () => {
     return (
         <>
             <BrowserView>
-                <Tabs
-                    className="w-[400px] absolute right-10 top-1/2 -translate-y-1/2"
-                    defaultValue="general"
-                >
-                    <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="general">General</TabsTrigger>
-                        <TabsTrigger value="visibility">Edge</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="general" className="h-[500px]">
-                        <ViewGeneralCard />
-                    </TabsContent>
-                    <TabsContent value="visibility" className="h-[500px]">
-                        <ViewVisibilityCard />
-                    </TabsContent>
-                </Tabs>
+                <ViewCard className="absolute p-0">
+                    <Tabs defaultValue="general" className="w-full">
+                        <TabsList className="grid w-full grid-cols-2">
+                            <TabsTrigger value="general">General</TabsTrigger>
+                            <TabsTrigger value="visibility">Edge</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="general">
+                            <ViewGeneralCard />
+                        </TabsContent>
+                        <TabsContent value="visibility">
+                            <ViewVisibilityCard />
+                        </TabsContent>
+                    </Tabs>
+                </ViewCard>
             </BrowserView>
             <MobileView>
                 <VaulDrawer

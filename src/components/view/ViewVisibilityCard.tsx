@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { extractImageSrcFromNodes, getLineSvg } from "@/lib/utils";
@@ -24,7 +23,7 @@ const ViewVisibilityCard = () => {
     }, [data.nodes]);
 
     return (
-        <Card className="flex flex-col gap-4 p-4 max-h-full overflow-y-auto">
+        <div className="flex flex-col gap-4 p-4 ">
             <div className="flex flex-row justify-between items-center">
                 <Label htmlFor="edge-new">Show new edges only</Label>
                 <Checkbox
@@ -172,7 +171,7 @@ const ViewVisibilityCard = () => {
                     />
                 </div>
             ))}
-        </Card>
+        </div>
     );
 };
 

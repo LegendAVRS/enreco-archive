@@ -1,4 +1,5 @@
 import { Separator } from "@/components/ui/separator";
+import NodeCardDeco from "@/components/view/NodeCardDeco";
 import { ChartData, ImageNodeType } from "@/lib/type";
 import { getLighterOrDarkerColor } from "@/lib/utils";
 import { useChartStore } from "@/store/chartStore";
@@ -25,22 +26,13 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
                 const dominantColor = colors.reduce((prev, current) =>
                     prev.area > current.area ? prev : current
                 );
-                setColor(getLighterOrDarkerColor(dominantColor.hex, 40));
+                setColor(getLighterOrDarkerColor(dominantColor.hex, 50));
             });
         }
     }, [selectedNode]);
 
     return (
         <>
-            <div
-                className="absolute top-0 w-full h-[100px] z-0"
-                style={{ backgroundColor: color || "" }}
-            />
-            <div
-                className="absolute top-[110px]  w-full h-[5px] z-0 "
-                style={{ backgroundColor: color || "" }}
-            />
-
             <img
                 src={
                     selectedNode?.data.team &&
@@ -54,6 +46,9 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
                 className="aspect-square w-[150px] z-10"
                 ref={characterImageRef}
             />
+
+            <NodeCardDeco color={color} />
+
             <div className="font-semibold">{selectedNode?.data.title}</div>
             <Separator />
             <div className="flex flex-row justify-around w-full">
