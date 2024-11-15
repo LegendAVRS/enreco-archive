@@ -8,13 +8,12 @@ import VaulDrawer from "@/components/view/VaulDrawer";
 import ViewNodeContent from "@/components/view/ViewNodeContent";
 import { BrowserView, MobileView } from "react-device-detect";
 
-import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ViewNodeCard = () => {
     const { selectedNode } = useFlowStore();
     const { data } = useChartStore();
-    const { setCurrentCard, currentCard } = useViewStore();
+    const { currentCard } = useViewStore();
     const [open, setOpen] = useState(true);
 
     useEffect(() => {
@@ -38,10 +37,6 @@ const ViewNodeCard = () => {
                         }
                     )}
                 >
-                    <X
-                        className="absolute top-5 right-5 cursor-pointer "
-                        onClick={() => setCurrentCard(null)}
-                    />
                     <ViewNodeContent selectedNode={selectedNode} data={data} />
                 </ViewCard>
             </BrowserView>

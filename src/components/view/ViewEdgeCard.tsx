@@ -8,7 +8,6 @@ import { useReactFlow } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 
-import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ViewEdgeCard = () => {
@@ -38,10 +37,6 @@ const ViewEdgeCard = () => {
                         "opacity-1 z-10 visible": currentCard === "edge",
                     })}
                 >
-                    <X
-                        className="absolute top-5 right-5 cursor-pointer "
-                        onClick={() => setCurrentCard(null)}
-                    />
                     <ViewEdgeContent
                         selectedEdge={selectedEdge}
                         nodeA={nodeA}
