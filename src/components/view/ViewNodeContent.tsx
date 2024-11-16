@@ -4,6 +4,7 @@ import { ChartData, ImageNodeType } from "@/lib/type";
 import { getLighterOrDarkerColor } from "@/lib/utils";
 import { useChartStore } from "@/store/chartStore";
 import { extractColors } from "extract-colors";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -33,19 +34,24 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
 
     return (
         <>
-            <img
+            {/* <Image
                 src={
                     selectedNode?.data.team &&
                     chartData.teams[selectedNode.data.team].imageSrc
                 }
                 className="aspect-square w-[50px] top-5 left-5 z-10 absolute"
-            />
+            /> */}
 
-            <img
-                src={selectedNode?.data.imageSrc}
-                className="aspect-square w-[150px] z-10"
-                ref={characterImageRef}
-            />
+            {selectedNode?.data.imageSrc && (
+                <Image
+                    alt="character image"
+                    src={selectedNode?.data.imageSrc}
+                    className="aspect-square w-[150px] z-10"
+                    ref={characterImageRef}
+                    width={150}
+                    height={150}
+                />
+            )}
 
             <NodeCardDeco color={color} />
 

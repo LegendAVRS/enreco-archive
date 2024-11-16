@@ -8,6 +8,7 @@ import {
     useUpdateNodeInternals,
 } from "@xyflow/react";
 import { ImageNodeProps } from "../../lib/type";
+import Image from "next/image";
 
 const NUM_OF_HANDLES = 5;
 
@@ -127,10 +128,13 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
         <>
             {handleElements}
             <div className="relative overflow-hidden w-[100px] h-[100px] rounded">
-                <img
+                <Image
                     className="cursor-pointer aspect-square object-cover rounded-lg transition-transform duration-300 ease-in-out transform scale-100 hover:scale-110"
                     src={data.imageSrc}
                     style={nodeVisibilityStyle}
+                    width={100}
+                    height={100}
+                    alt="character node"
                 />
             </div>
         </>
