@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import NodeCardDeco from "@/components/view/NodeCardDeco";
 import { ChartData, ImageNodeType } from "@/lib/type";
 import { getLighterOrDarkerColor } from "@/lib/utils";
-import { useChartStore } from "@/store/chartStore";
+// import { useChartStore } from "@/store/chartStore";
 import { extractColors } from "extract-colors";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -17,7 +17,7 @@ interface ViewNodeContentProps {
 const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
     const characterImageRef = useRef<HTMLImageElement>(null);
     const [color, setColor] = useState<string | null>(null);
-    const { data: chartData } = useChartStore();
+    // const { data: chartData } = useChartStore();
 
     // Extract the dominant color from the character image and set it as the background color
     // (Might not do this cause it's a bit slow)
