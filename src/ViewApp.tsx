@@ -3,6 +3,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
+    Background,
+    BackgroundVariant,
     ConnectionMode,
     ReactFlow,
     useEdgesState,
@@ -325,11 +327,13 @@ const ViewApp = () => {
                             ],
                         ]
                     }
-                ></ReactFlow>
-                <ViewSettingIcon className="absolute top-5 right-5 z-10" />
+                >
+                    <Background variant={BackgroundVariant.Dots} />
+                </ReactFlow>
                 <ViewSettingCard />
                 <ViewNodeCard />
                 <ViewEdgeCard />
+                <ViewSettingIcon className="absolute top-5 right-5 z-10" />
             </div>
             <ViewInfoModal open={modalOpen} onOpenChange={setModalOpen} />
         </>
