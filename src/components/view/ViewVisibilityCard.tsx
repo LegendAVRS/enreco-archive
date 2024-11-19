@@ -23,20 +23,8 @@ const ViewVisibilityCard = () => {
     }, [data.nodes]);
 
     return (
-        <div className="flex flex-col gap-4 p-4 ">
-            <div className="flex flex-row justify-between items-center">
-                <Label htmlFor="edge-new">Show new edges only</Label>
-                <Checkbox
-                    id="edge-new"
-                    checked={edgeVisibility.new}
-                    onCheckedChange={(checked) =>
-                        setEdgeVisibility({
-                            ...edgeVisibility,
-                            new: checked as boolean,
-                        })
-                    }
-                />
-            </div>
+        <div className="flex flex-col gap-4 p-4 overflow-y-auto h-full">
+            <span className="font-bold text-xl">Visibility toggles</span>
             <div className="flex flex-row justify-between items-center">
                 <span className="font-bold">Edge visibility</span>
                 <Checkbox
@@ -51,6 +39,19 @@ const ViewVisibilityCard = () => {
                         }, {} as Record<string, boolean>);
                         setEdgeVisibility(newEdgeVisibility);
                     }}
+                />
+            </div>
+            <div className="flex flex-row justify-between items-center">
+                <Label htmlFor="edge-new">Show new edges only</Label>
+                <Checkbox
+                    id="edge-new"
+                    checked={edgeVisibility.new}
+                    onCheckedChange={(checked) =>
+                        setEdgeVisibility({
+                            ...edgeVisibility,
+                            new: checked as boolean,
+                        })
+                    }
                 />
             </div>
             {Object.keys(data.relationships).map((key) => (
@@ -79,7 +80,7 @@ const ViewVisibilityCard = () => {
                     />
                 </div>
             ))}
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between items-center">
                 <span>Team toggles</span>
                 <Checkbox
                     id="team-all"
@@ -125,7 +126,7 @@ const ViewVisibilityCard = () => {
                     />
                 </div>
             ))}
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between items-center">
                 <span>Character toggles</span>
                 <Checkbox
                     id="character-all"

@@ -26,15 +26,18 @@ const ViewSettingCard = () => {
                         "opacity-1 z-10 visible": currentCard === "setting",
                     })}
                 >
-                    <Tabs defaultValue="general" className="w-full">
+                    <Tabs
+                        defaultValue="general"
+                        className="w-full h-[calc(100%-3.5rem)]"
+                    >
                         <TabsList className="grid w-full grid-cols-2">
                             <TabsTrigger value="general">General</TabsTrigger>
                             <TabsTrigger value="visibility">Edge</TabsTrigger>
                         </TabsList>
-                        <TabsContent value="general">
+                        <TabsContent value="general" className="h-full">
                             <ViewGeneralCard />
                         </TabsContent>
-                        <TabsContent value="visibility">
+                        <TabsContent value="visibility" className="h-full">
                             <ViewVisibilityCard />
                         </TabsContent>
                     </Tabs>

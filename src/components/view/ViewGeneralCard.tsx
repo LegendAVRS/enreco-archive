@@ -17,7 +17,7 @@ const ViewGeneralCard = () => {
     const { siteData, setModalOpen, chapter, day, setDay } = useViewStore();
     const currentChapter = siteData.chapter;
     return (
-        <div className="flex flex-col gap-4 p-4 ">
+        <div className="flex flex-col gap-4 p-4 h-full">
             <Button variant={"outline"} onClick={() => setModalOpen(true)}>
                 Info
             </Button>
@@ -54,7 +54,7 @@ const ViewGeneralCard = () => {
             </div>
             <Separator />
             <Markdown className={"overflow-auto"} rehypePlugins={[rehypeRaw]}>
-                {data.dayRecap}
+                {data.dayRecap + data.dayRecap}
             </Markdown>
         </div>
     );

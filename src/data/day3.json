@@ -6,14 +6,14 @@
             "id": "node-1",
             "type": "image",
             "position": {
-                "x": 450,
-                "y": 250
+                "x": 400,
+                "y": 200
             },
             "data": {
                 "imageSrc": "https://cdn.holoen.fans/hefw/media/Fuwawa-Abyssgard_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Jade Sword"
             },
             "measured": {
                 "width": 100,
@@ -24,14 +24,14 @@
             "id": "node-2",
             "type": "image",
             "position": {
-                "x": 700,
-                "y": 250
+                "x": 650,
+                "y": 200
             },
             "data": {
                 "imageSrc": "https://cdn.holoen.fans/hefw/media/Mococo-Abyssgard_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Jade Sword"
             },
             "measured": {
                 "width": 100,
@@ -42,14 +42,14 @@
             "id": "node-3",
             "type": "image",
             "position": {
-                "x": 950,
-                "y": 250
+                "x": 400,
+                "y": 450
             },
             "data": {
                 "imageSrc": "https://cdn.holoen.fans/hefw/media/Elizabeth-Rose-Bloodflame_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Jade Sword"
             },
             "measured": {
                 "width": 100,
@@ -60,14 +60,14 @@
             "id": "node-4",
             "type": "image",
             "position": {
-                "x": 1450,
-                "y": 250
+                "x": 150,
+                "y": 325
             },
             "data": {
                 "imageSrc": "https://cdn.holoen.fans/hefw/media/calli.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Jade Sword"
             },
             "measured": {
                 "width": 100,
@@ -78,14 +78,14 @@
             "id": "node-5",
             "type": "image",
             "position": {
-                "x": 1200,
-                "y": 250
+                "x": 650,
+                "y": 450
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Takanashi-Kiara_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/ame.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Jade Sword"
             },
             "measured": {
                 "width": 100,
@@ -96,14 +96,14 @@
             "id": "node-6",
             "type": "image",
             "position": {
-                "x": 1700,
-                "y": 250
+                "x": 650,
+                "y": 700
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Gawr-Gura_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Shiori-Novella_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Scarlet Wand"
             },
             "measured": {
                 "width": 100,
@@ -114,14 +114,14 @@
             "id": "node-7",
             "type": "image",
             "position": {
-                "x": 700,
-                "y": 500
+                "x": 150,
+                "y": 825
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Cecilia-Immergreen_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Gawr-Gura_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Scarlet Wand"
             },
             "measured": {
                 "width": 100,
@@ -132,14 +132,14 @@
             "id": "node-8",
             "type": "image",
             "position": {
-                "x": 450,
-                "y": 500
+                "x": 400,
+                "y": 950
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Hakos-Baelz_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Cecilia-Immergreen_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Scarlet Wand"
             },
             "measured": {
                 "width": 100,
@@ -150,14 +150,14 @@
             "id": "node-9",
             "type": "image",
             "position": {
-                "x": 1200,
-                "y": 500
+                "x": 650,
+                "y": 950
             },
             "data": {
                 "imageSrc": "https://cdn.holoen.fans/hefw/media/Nerissa-Ravencroft_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Scarlet Wand"
             },
             "measured": {
                 "width": 100,
@@ -168,14 +168,14 @@
             "id": "node-10",
             "type": "image",
             "position": {
-                "x": 950,
-                "y": 500
+                "x": 400,
+                "y": 700
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Shiori-Novella_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Ceres-Fauna_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Scarlet Wand"
             },
             "measured": {
                 "width": 100,
@@ -186,14 +186,14 @@
             "id": "node-11",
             "type": "image",
             "position": {
-                "x": 1700,
-                "y": 500
+                "x": 950,
+                "y": 450
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Gigi-Murin_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Raora-Panthera_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Amber Coin"
             },
             "measured": {
                 "width": 100,
@@ -204,14 +204,14 @@
             "id": "node-12",
             "type": "image",
             "position": {
-                "x": 1450,
-                "y": 500
+                "x": 950,
+                "y": 200
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/ame.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Takanashi-Kiara_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Amber Coin"
             },
             "measured": {
                 "width": 100,
@@ -222,14 +222,14 @@
             "id": "node-13",
             "type": "image",
             "position": {
-                "x": 950,
-                "y": 750
+                "x": 1200,
+                "y": 200
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Koseki-Bijou_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Hakos-Baelz_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Amber Coin"
             },
             "measured": {
                 "width": 100,
@@ -240,14 +240,14 @@
             "id": "node-14",
             "type": "image",
             "position": {
-                "x": 700,
-                "y": 750
+                "x": 1200,
+                "y": 450
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Ceres-Fauna_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Nanashi-Mumei_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Amber Coin"
             },
             "measured": {
                 "width": 100,
@@ -259,85 +259,89 @@
             "type": "image",
             "position": {
                 "x": 1200,
-                "y": 750
+                "y": 700
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/IRyS_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Gigi-Murin_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
                 "height": 100
             }
         },
+
         {
             "id": "node-16",
             "type": "image",
             "position": {
-                "x": 700,
-                "y": 1000
+                "x": 950,
+                "y": 700
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Raora-Panthera_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Koseki-Bijou_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
                 "height": 100
             }
         },
+
         {
             "id": "node-17",
             "type": "image",
             "position": {
                 "x": 950,
-                "y": 1000
+                "y": 950
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/ina.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/IRyS_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
                 "height": 100
             }
         },
+
         {
             "id": "node-18",
             "type": "image",
             "position": {
                 "x": 1200,
-                "y": 1000
+                "y": 950
             },
             "data": {
-                "imageSrc": "https://cdn.holoen.fans/hefw/media/Nanashi-Mumei_list_thumb.png",
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/ina.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
                 "height": 100
             }
         },
+
         {
             "id": "node-19",
             "type": "image",
             "position": {
-                "x": 1575,
-                "y": 750
+                "x": 1475,
+                "y": 825
             },
             "data": {
                 "imageSrc": "https://cdn.holoen.fans/hefw/media/Ouro-Kronii_list_thumb.png",
                 "title": "",
                 "content": "",
-                "team": ""
+                "team": "Cerulean Cup"
             },
             "measured": {
                 "width": 100,
@@ -348,8 +352,8 @@
             "id": "node-20",
             "type": "image",
             "position": {
-                "x": 1575,
-                "y": 1000
+                "x": 1475,
+                "y": 575
             },
             "data": {
                 "imageSrc": "https://cdn.holoen.fans/hefw/media/king.png",
@@ -363,344 +367,7 @@
             }
         }
     ],
-    "edges": [
-        {
-            "source": "node-3",
-            "sourceHandle": "top-1",
-            "target": "node-1",
-            "targetHandle": "top-2",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M980,247 V214.7896291580434 H980 H500 V247",
-                "relationship": "Protector",
-                "new": true
-            },
-            "id": "node-3-node-1-top-1-top-2"
-        },
-        {
-            "source": "node-1",
-            "sourceHandle": "right-2",
-            "target": "node-2",
-            "targetHandle": "left-2",
-            "type": "fixed",
-            "data": {
-                "relationship": "Familial Relationship",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M553 300L573 300L625 300L625 300L677 300L697 300",
-                "new": true
-            },
-            "id": "node-1-node-2-right-2-left-2"
-        },
-        {
-            "source": "node-2",
-            "sourceHandle": "right-2",
-            "target": "node-3",
-            "targetHandle": "left-2",
-            "type": "fixed",
-            "data": {
-                "relationship": "Protector",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M803 300L823 300L875 300L875 300L927 300L947 300",
-                "new": true
-            },
-            "id": "node-2-node-3-right-2-left-2"
-        },
-        {
-            "source": "node-3",
-            "sourceHandle": "bottom-2",
-            "target": "node-13",
-            "targetHandle": "left-2",
-            "type": "fixed",
-            "data": {
-                "relationship": "Child",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M890.8684072112513,386.34576446322876 V576.5 H890.8684072112513 H890.9184870391152 V800M1000,353 V386.34576446322876 H890.8684072112513M947,800 V800 H890.9184870391152 ",
-                "new": true
-            },
-            "id": "node-3-node-13-bottom-2-left-2"
-        },
-        {
-            "source": "node-3",
-            "sourceHandle": "right-3",
-            "target": "node-9",
-            "targetHandle": "left-1",
-            "type": "fixed",
-            "data": {
-                "relationship": "Unrequited Love",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1053 320L1073 320L 1125,320Q 1125,320 1125,320L 1125,530Q 1125,530 1125,530L1177 530L1197 530",
-                "new": true
-            },
-            "id": "node-3-node-9-right-3-left-1"
-        },
-        {
-            "source": "node-3",
-            "sourceHandle": "left-3",
-            "target": "node-14",
-            "targetHandle": "right-2",
-            "type": "fixed",
-            "data": {
-                "relationship": "Enemies/Rivals",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M849.9941397433346,320 V560 H849.9941397433346 H849.9872135618223 V800M947,320 V320 H849.9941397433346M803,800 V800 H849.9872135618223 ",
-                "new": true
-            },
-            "id": "node-3-node-14-left-3-right-2"
-        },
-        {
-            "source": "node-5",
-            "sourceHandle": "right-2",
-            "target": "node-4",
-            "targetHandle": "left-2",
-            "type": "fixed",
-            "data": {
-                "relationship": "Romantic",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1303 300L1323 300L1375 300L1375 300L1427 300L1447 300",
-                "new": true
-            },
-            "id": "node-5-node-4-right-2-left-2"
-        },
-        {
-            "source": "node-5",
-            "sourceHandle": "bottom-2",
-            "target": "node-9",
-            "targetHandle": "top-2",
-            "type": "fixed",
-            "data": {
-                "relationship": "Romantic",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1250 353L1250 373L1250 425L1250 425L1250 477L1250 497",
-                "new": true
-            },
-            "id": "node-5-node-9-bottom-2-top-2"
-        },
-        {
-            "source": "node-5",
-            "sourceHandle": "right-3",
-            "target": "node-16",
-            "targetHandle": "bottom-2",
-            "type": "fixed",
-            "data": {
-                "relationship": "Big Pink Cat",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1372.6753183390213,320 V1125.2906226573384 H1372.6753183390213 H750 V1103M1303,320 V320 H1372.6753183390213",
-                "new": true
-            },
-            "id": "node-5-node-16-right-3-bottom-2"
-        },
-        {
-            "source": "node-4",
-            "sourceHandle": "bottom-2",
-            "target": "node-12",
-            "targetHandle": "top-2",
-            "type": "fixed",
-            "data": {
-                "relationship": "Child",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1500 353L1500 373L1500 425L1500 425L1500 477L1500 497",
-                "new": true
-            },
-            "id": "node-4-node-12-bottom-2-top-2"
-        },
-        {
-            "source": "node-12",
-            "sourceHandle": "right-2",
-            "target": "node-11",
-            "targetHandle": "left-2",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1553 550L1573 550L1625 550L1625 550L1677 550L1697 550",
-                "relationship": "Marriage",
-                "new": true
-            },
-            "id": "node-12-node-11-right-2-left-2"
-        },
-        {
-            "source": "node-19",
-            "sourceHandle": "right-2",
-            "target": "node-3",
-            "targetHandle": "top-3",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1833.0742779245995,800 V189.2287786958629 H1833.0742779245995 H1020 V247M1678,800 V800 H1833.0742779245995",
-                "relationship": "Enemies/Rivals",
-                "new": true
-            },
-            "id": "node-19-node-3-right-2-top-3"
-        },
-        {
-            "source": "node-10",
-            "sourceHandle": "right-2",
-            "target": "node-9",
-            "targetHandle": "left-2",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M 1053,550L 1197,550",
-                "relationship": "Marriage",
-                "new": true
-            },
-            "id": "node-10-node-9-right-2-left-2"
-        },
-        {
-            "source": "node-10",
-            "sourceHandle": "bottom-2",
-            "target": "node-13",
-            "targetHandle": "top-2",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M 1000,603L 1000,747",
-                "relationship": "Marriage",
-                "new": true
-            },
-            "id": "node-10-node-13-bottom-2-top-2"
-        },
-        {
-            "source": "node-12",
-            "sourceHandle": "bottom-1",
-            "target": "node-15",
-            "targetHandle": "right-1",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1480 603L1480 623L 1480,780Q 1480,780 1480,780L1323 780L1303 780",
-                "relationship": "Misc. Romantic Relationship",
-                "new": true
-            },
-            "id": "node-12-node-15-bottom-1-right-1"
-        },
-        {
-            "source": "node-19",
-            "sourceHandle": "left-2",
-            "target": "node-15",
-            "targetHandle": "right-2",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1572 800L1552 800L1437.5 800L1437.5 800L1323 800L1303 800",
-                "relationship": "Romantic",
-                "new": true
-            },
-            "id": "node-19-node-15-left-2-right-2"
-        },
-        {
-            "source": "node-12",
-            "sourceHandle": "bottom-3",
-            "target": "node-19",
-            "targetHandle": "left-1",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1520 603L1520 623L 1520,780Q 1520,780 1520,780L1552 780L1572 780",
-                "relationship": "Misc. Romantic Relationship",
-                "new": true
-            },
-            "id": "node-12-node-19-bottom-3-left-1"
-        },
-        {
-            "source": "node-19",
-            "sourceHandle": "bottom-2",
-            "target": "node-20",
-            "targetHandle": "top-2",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1625 853L1625 873L1625 925L1625 925L1625 977L1625 997",
-                "relationship": "Marriage",
-                "new": true
-            },
-            "id": "node-19-node-20-bottom-2-top-2"
-        },
-        {
-            "source": "node-13",
-            "sourceHandle": "bottom-2",
-            "target": "node-17",
-            "targetHandle": "top-2",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M1000 853L1000 873L1000 925L1000 925L1000 977L1000 997",
-                "relationship": "Familial Relationship",
-                "new": true
-            },
-            "id": "node-13-node-17-bottom-2-top-2"
-        },
-        {
-            "source": "node-15",
-            "sourceHandle": "bottom-0",
-            "target": "node-17",
-            "targetHandle": "top-4",
-            "type": "fixed",
-            "data": {
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "path": "M 1210,853L 1040,997",
-                "relationship": "Marriage",
-                "new": true
-            },
-            "id": "node-15-node-17-bottom-0-top-4"
-        },
-        {
-            "source": "node-2",
-            "sourceHandle": "bottom-3",
-            "target": "node-9",
-            "targetHandle": "top-1",
-            "type": "fixed",
-            "data": {
-                "relationship": "Enemies/Rivals",
-                "title": "",
-                "content": "",
-                "timestampUrl": "",
-                "new": true,
-                "path": "M770,353 V435.5532047877122 H770 H1230 V497"
-            },
-            "id": "node-2-node-9-bottom-3-top-1"
-        }
-    ],
+    "edges": [],
     "relationships": {
         "Marriage": {
             "stroke": "#FE65C5"
@@ -733,7 +400,12 @@
             "stroke": "#5C18E9"
         }
     },
-    "teams": {},
+    "teams": {
+        "Cerulean Cup": "https://cdn.holoen.fans/hefw/media/ceruleancup.webp",
+        "Jade Sword": "https://cdn.holoen.fans/hefw/media/jadesword.webp",
+        "Scarlet Wand": "https://cdn.holoen.fans/hefw/media/scarletwand.webp",
+        "Amber Coin": "https://cdn.holoen.fans/hefw/media/ambercoin.webp"
+    },
     "dayRecap": "",
     "title": ""
 }

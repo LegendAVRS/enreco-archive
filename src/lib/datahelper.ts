@@ -78,18 +78,6 @@ export const copyChartData = (oldChart: ChartData, newChart: ChartData) => {
 };
 
 // Check if chart has missing properties
-/**
- * 
- *  chapter: number;
-    day: number;
-    nodes: ImageNodeType[];
-    edges: CustomEdgeType[];
-    relationships: RelationshipStyle;
-    teams: Teams;
-    dayRecap: string;
-    title: string;
- *  
- */
 export const checkChartMissingData = (chartData: ChartData) => {
     if (!chartData.teams || Object.keys(chartData.teams).length === 0) {
         console.log("Teams data is missing");

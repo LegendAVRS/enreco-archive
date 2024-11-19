@@ -30,7 +30,7 @@ const ViewCard = React.forwardRef<
             <div
                 ref={ref}
                 className={cn(
-                    "md:right-10 md:translate-x-0 right-1/2 translate-x-1/2 rounded-xl border-2 bg-card text-card-foreground flex flex-col shadow-2xl h-[90%] bg-white items-center gap-4  px-4 py-4 top-1/2 -translate-y-1/2 w-[500px] max-h-[700px] z-50",
+                    "md:right-10 md:translate-x-0 right-1/2 translate-x-1/2 rounded-xl border-2 bg-card text-card-foreground flex flex-col shadow-2xl h-[90%] bg-white items-center gap-4  px-4 py-4 top-1/2 -translate-y-1/2 w-[500px] z-50",
                     className
                 )}
                 {...props}
