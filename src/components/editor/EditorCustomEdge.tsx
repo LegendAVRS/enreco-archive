@@ -303,7 +303,6 @@ const EditorCustomEdge = ({
             }
         }
     };
-    const strokeColor = edgeStyle?.stroke || "#000";
     useEffect(() => {
         setEdgePaths({ ...edgePaths, [id]: path });
     }, [path]);
