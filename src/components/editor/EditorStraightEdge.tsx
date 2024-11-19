@@ -1,4 +1,5 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
+import { EDGE_WIDTH } from "@/lib/constants";
 import { CustomEdgeProps } from "@/lib/type";
 import { useEditorStore } from "@/store/editorStore";
 import { BaseEdge, getStraightPath } from "@xyflow/react";
@@ -49,7 +50,7 @@ const EditorStraightEdge = ({
             <BaseEdge
                 path={path}
                 style={{
-                    strokeWidth: 4,
+                    strokeWidth: EDGE_WIDTH,
                     ...edgeStyle,
                     opacity: isNew ? 1 : 0.3,
                 }}

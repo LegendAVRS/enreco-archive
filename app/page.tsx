@@ -1,4 +1,3 @@
-import EditorApp from "@/components/editor/EditorApp";
 import ViewApp from "@/ViewApp";
 import { ReactFlowProvider } from "@xyflow/react";
 

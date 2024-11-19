@@ -1,5 +1,5 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
-import { OLD_EDGE_OPACITY } from "@/lib/constants";
+import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { CustomEdgeProps, ImageNodeType } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { useViewStore } from "@/store/viewStore";
@@ -78,7 +78,7 @@ const ViewCustomEdge = ({ source, target, data, id }: CustomEdgeProps) => {
             path={data?.path || ""}
             className={cn("transition-all", {})}
             style={{
-                strokeWidth: id === hoveredEdgeId ? 6 : 4,
+                strokeWidth: id === hoveredEdgeId ? EDGE_WIDTH + 2 : EDGE_WIDTH,
                 ...edgeStyle,
                 ...edgeVisibilityStyle,
             }}

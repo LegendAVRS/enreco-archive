@@ -35,7 +35,7 @@ import {
     mergeChartsIntoOneBigFile,
 } from "@/lib/datahelper";
 
-import chartData from "@/data/day3.json";
+import chartData from "@/data/day6.json";
 
 const nodeTypes = {
     image: EditorImageNode,

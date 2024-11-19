@@ -1,5 +1,5 @@
 import useEdgeStyle from "@/hooks/useEdgeStyle";
-import { OLD_EDGE_OPACITY } from "@/lib/constants";
+import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { CustomEdgeProps } from "@/lib/type";
 import { useEditorStore } from "@/store/editorStore";
 import { BaseEdge, getSmoothStepPath } from "@xyflow/react";
@@ -55,7 +55,7 @@ const EditorSmoothEdge = ({
             <BaseEdge
                 path={path}
                 style={{
-                    strokeWidth: 4,
+                    strokeWidth: EDGE_WIDTH,
                     ...edgeStyle,
                     opacity: isNew ? 1 : OLD_EDGE_OPACITY,
                 }}
