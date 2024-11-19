@@ -29,12 +29,18 @@ const ViewVisibilityCard = () => {
                 <span className="font-bold">Edge visibility</span>
                 <Checkbox
                     id="edge-all"
-                    checked={Object.values(edgeVisibility).every((v) => v)}
+                    checked={Object.keys(edgeVisibility).every((key) => {
+                        return key === "new" ? true : edgeVisibility[key];
+                    })}
                     onCheckedChange={(checked) => {
                         const newEdgeVisibility = Object.keys(
                             edgeVisibility
                         ).reduce((acc, key) => {
-                            acc[key] = checked as boolean;
+                            if (key === "new") {
+                                acc[key] = true;
+                            } else {
+                                acc[key] = checked as boolean;
+                            }
                             return acc;
                         }, {} as Record<string, boolean>);
                         setEdgeVisibility(newEdgeVisibility);

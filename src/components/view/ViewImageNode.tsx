@@ -129,7 +129,7 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
             {handleElements}
             <div className="relative cursor-pointer  overflow-hidden w-[100px] h-[100px] rounded">
                 <Image
-                    className="absolute top-2 right-2"
+                    className="absolute top-2 left-2"
                     width={20}
                     height={20}
                     src={data.team || ""}
