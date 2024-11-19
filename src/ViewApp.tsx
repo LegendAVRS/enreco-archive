@@ -226,14 +226,14 @@ const ViewApp = () => {
     const getTopLeftNode = useCallback(() => {
         let topLeftNode = nodes[0];
         for (const node of nodes) {
-            if (node.position.y < topLeftNode.position.y) {
+            if (node.position.x < topLeftNode.position.x) {
                 topLeftNode = node;
             }
         }
         for (const node of nodes) {
             if (
-                node.position.y <= topLeftNode.position.y &&
-                node.position.x < topLeftNode.position.x
+                node.position.x <= topLeftNode.position.x &&
+                node.position.y < topLeftNode.position.y
             ) {
                 topLeftNode = node;
             }
@@ -244,14 +244,14 @@ const ViewApp = () => {
     const getBottomRightNode = useCallback(() => {
         let bottomRightNode = nodes[0];
         for (const node of nodes) {
-            if (node.position.y > bottomRightNode.position.y) {
+            if (node.position.x > bottomRightNode.position.x) {
                 bottomRightNode = node;
             }
         }
         for (const node of nodes) {
             if (
-                node.position.y >= bottomRightNode.position.y &&
-                node.position.x > bottomRightNode.position.x
+                node.position.x >= bottomRightNode.position.x &&
+                node.position.y > bottomRightNode.position.y
             ) {
                 bottomRightNode = node;
             }
@@ -266,7 +266,7 @@ const ViewApp = () => {
         () => getBottomRightNode(),
         [getBottomRightNode]
     );
-
+    console.log(topLeftNode, bottomRightNode);
     if (!data) {
         return;
     }

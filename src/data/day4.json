@@ -374,7 +374,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M503 250L523 250L575 250L575 250L627 250L647 250",
         "relationship": "Familial Relationship"
       },
@@ -390,7 +390,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M450 303L450 323L450 375L450 375L450 427L450 447",
         "relationship": "Protector"
       },
@@ -406,7 +406,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M450 553L450 573L450 625L450 625L450 677L450 697",
         "relationship": "Enemies/Rivals"
       },
@@ -470,7 +470,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M337,500 V1118 H337 H1525 V928M397,500 V500 H337",
         "relationship": "Enemies/Rivals"
       },
@@ -486,7 +486,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M1000,197 V161.5 H1000 H200 V322",
         "relationship": "Romantic"
       },
@@ -502,7 +502,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M1000 303L1000 323L1000 375L1000 375L1000 427L1000 447",
         "relationship": "Big Pink Cat"
       },
@@ -550,7 +550,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M906.9546740883783,250 V615 H906.9546740883783 H906.2168991401177 V980M947,250 V250 H906.9546740883783M753,980 V980 H906.2168991401177 ",
         "relationship": "Romantic"
       },
@@ -566,7 +566,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M200,428 V657.6457081528558 H200 H700 V553",
         "relationship": "Child"
       },
@@ -630,7 +630,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M1374.3851461902823,730 V398.7199772014449 H1374.3851461902823 H700 V447M1303,730 V730 H1374.3851461902823",
         "relationship": "Marriage"
       },
@@ -646,11 +646,27 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M1303 770L1323 770L 1505,770Q 1505,770 1505,770L1505 802L1505 822",
         "relationship": "Protector"
       },
       "id": "node-15-node-19-right-3-top-1"
+    },
+    {
+      "source": "node-6",
+      "sourceHandle": "top-2",
+      "target": "node-15",
+      "targetHandle": "top-2",
+      "type": "fixed",
+      "data": {
+        "title": "",
+        "content": "",
+        "timestampUrl": "",
+        "new": true,
+        "path": "M700 697L700 696L 700,677Q 700,677 700,677L 1250,677Q 1250,677 1250,677L1250 697",
+        "relationship": "Lick"
+      },
+      "id": "node-6-node-15-top-2-top-2"
     },
     {
       "source": "node-11",
@@ -662,7 +678,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M1020 447L 1020,427Q 1020,427 1020,427L 1598,427Q 1598,427 1598,427L 1598,875Q 1598,875 1598,875L1578 875",
         "relationship": "Enemies/Rivals"
       },
@@ -678,7 +694,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M720,447 V377.647123125017 H720 H1626.750831544583 V855M1578,855 V855 H1626.750831544583 ",
         "relationship": "Misc. Romantic Relationship"
       },
@@ -710,7 +726,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M700,803 V875 H700 H700 V947",
         "relationship": "Marriage"
       },
@@ -726,7 +742,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M 740,947L 947,790",
         "relationship": "Enemies/Rivals"
       },
@@ -742,27 +758,11 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M 753,750L 947,750",
         "relationship": "Marriage"
       },
       "id": "node-6-node-16-right-2-left-2"
-    },
-    {
-      "source": "node-9",
-      "sourceHandle": "right-2",
-      "target": "node-17",
-      "targetHandle": "left-2",
-      "type": "fixed",
-      "data": {
-        "title": "",
-        "content": "",
-        "timestampUrl": "",
-        "new": true,
-        "path": "M 753,1000L 947,1000",
-        "relationship": "Marriage"
-      },
-      "id": "node-9-node-17-right-2-left-2"
     },
     {
       "source": "node-2",
@@ -790,7 +790,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M549.498336910834,500 V1079.4515960270512 H549.498336910834 H1000 V1053M647,500 V500 H549.498336910834",
         "relationship": "Misc. Romantic Relationship"
       },
@@ -811,22 +811,6 @@
         "relationship": "Marriage"
       },
       "id": "node-17-node-18-right-2-left-2"
-    },
-    {
-      "source": "node-10",
-      "sourceHandle": "bottom-2",
-      "target": "node-8",
-      "targetHandle": "top-2",
-      "type": "fixed",
-      "data": {
-        "title": "",
-        "content": "",
-        "timestampUrl": "",
-        "new": true,
-        "path": "M450 803L450 823L450 875L450 875L450 927L450 947",
-        "relationship": "Business"
-      },
-      "id": "node-10-node-8-bottom-2-top-2"
     },
     {
       "source": "node-16",
@@ -870,27 +854,11 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M470,553 V625 H470 H980 V697",
         "relationship": "Child"
       },
       "id": "node-3-node-16-bottom-3-top-1"
-    },
-    {
-      "source": "node-11",
-      "sourceHandle": "left-1",
-      "target": "node-18",
-      "targetHandle": "bottom-2",
-      "type": "fixed",
-      "data": {
-        "title": "",
-        "content": "",
-        "timestampUrl": "",
-        "new": true,
-        "path": "M885,480 V1213.8609841784541 H885 H1250 V1053M947,480 V480 H885",
-        "relationship": "Child"
-      },
-      "id": "node-11-node-18-left-1-bottom-2"
     },
     {
       "source": "node-18",
@@ -934,7 +902,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M1525 678L1525 698L1525 750L1525 750L1525 802L1525 822",
         "relationship": "Marriage"
       },
@@ -950,7 +918,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M361,480 V30 H361 H1525 V572M397,480 V480 H361",
         "relationship": "Protector"
       },
@@ -967,7 +935,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": true,
+        "new": false,
         "path": "M680,303 V358.3271177683856 H680 H470 V447"
       },
       "id": "node-2-node-3-bottom-1-top-3"
@@ -1051,22 +1019,6 @@
         "path": "M1472 915L1452 915L 1020,915Q 1020,915 1020,915L1020 927L1020 947"
       },
       "id": "node-19-node-17-left-4-top-3"
-    },
-    {
-      "source": "node-15",
-      "sourceHandle": "left-1",
-      "target": "node-2",
-      "targetHandle": "top-2",
-      "type": "fixed",
-      "data": {
-        "relationship": "Enemies/Rivals",
-        "title": "",
-        "content": "",
-        "timestampUrl": "",
-        "new": true,
-        "path": "M1119.4206852791879,730 V91.51713197969536 H1119.4206852791879 H700 V197M1197,730 V730 H1119.4206852791879"
-      },
-      "id": "node-15-node-2-left-1-top-2"
     }
   ],
   "relationships": {
@@ -1119,10 +1071,18 @@
     }
   },
   "teams": {
-    "Cerulean Cup": "https://cdn.holoen.fans/hefw/media/ceruleancup.webp",
-    "Jade Sword": "https://cdn.holoen.fans/hefw/media/jadesword.webp",
-    "Scarlet Wand": "https://cdn.holoen.fans/hefw/media/scarletwand.webp",
-    "Amber Coin": "https://cdn.holoen.fans/hefw/media/ambercoin.webp"
+    "Cerulean Cup": {
+      "imageSrc": "https://cdn.holoen.fans/hefw/media/ceruleancup.webp"
+    },
+    "Jade Sword": {
+      "imageSrc": "https://cdn.holoen.fans/hefw/media/jadesword.webp"
+    },
+    "Scarlet Wand": {
+      "imageSrc": "https://cdn.holoen.fans/hefw/media/scarletwand.webp"
+    },
+    "Amber Coin": {
+      "imageSrc": "https://cdn.holoen.fans/hefw/media/ambercoin.webp"
+    }
   },
   "dayRecap": "",
   "title": ""

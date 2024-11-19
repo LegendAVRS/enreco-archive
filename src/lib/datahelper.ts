@@ -42,6 +42,10 @@ export const copyEdgeData = (oldChart: ChartData, newChart: ChartData) => {
             if (tempPath) {
                 edge.data.path = tempPath;
             }
+        } else {
+            if (edge.data) {
+                edge.data.new = true;
+            }
         }
     });
     return newChartLocal;
@@ -64,6 +68,8 @@ export const copyNodeData = (oldChart: ChartData, newChart: ChartData) => {
 };
 
 export const copyChartData = (oldChart: ChartData, newChart: ChartData) => {
+    oldChart = oldChart || day5;
+    newChart = newChart || day6;
     const newChartLocal = copyNodeData(oldChart, newChart);
     if (!newChartLocal.teams || Object.keys(newChartLocal.teams).length === 0) {
         newChartLocal.teams = oldChart.teams;
