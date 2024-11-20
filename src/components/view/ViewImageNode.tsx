@@ -9,6 +9,7 @@ import {
 } from "@xyflow/react";
 import { ImageNodeProps } from "../../lib/type";
 import Image from "next/image";
+import { OLD_NODE_OPACITY } from "@/lib/constants";
 
 const NUM_OF_HANDLES = 5;
 
@@ -44,13 +45,25 @@ const generateHandles = (numOfHandles: number) => [
     ...generateHandlesOnSide(Position.Left, "top", numOfHandles),
 ];
 
-const getImageVisibilityStyle = (visible: boolean) => ({
-    opacity: visible ? 1 : 0.2,
-});
+const getVisibilityStyle = (visible: boolean, isNew: boolean) => {
+    if (!visible) {
+        return {
+            opacity: 0,
+            strokeWidth: 0,
+        };
+    }
+    if (!isNew) {
+        return {
+            opacity: OLD_NODE_OPACITY,
+        };
+    }
+    return {
+        opacity: 1,
+    };
+};
 
 const ViewImageNode = ({ data, id }: ImageNodeProps) => {
-    const { edgeVisibility, teamVisibility, characterVisibility } =
-        useViewStore();
+    const { teamVisibility, characterVisibility } = useViewStore();
     const { data: chartData } = useChartStore();
 
     // Generate handles only on mount since they’re static
@@ -70,27 +83,16 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
 
     // Compute node visibility based on related edge and viewstore settings
     const nodeVisibility = useMemo(() => {
-        let isVisible = edges.some((edge) =>
-            edge.data?.relationship
-                ? edgeVisibility[edge.data.relationship]
-                : true
-        );
+        let isVisible = true;
         if (data.team) isVisible = isVisible && teamVisibility[data.team];
         if (data.title)
             isVisible = isVisible && characterVisibility[data.title];
         return isVisible;
-    }, [
-        edges,
-        edgeVisibility,
-        teamVisibility,
-        characterVisibility,
-        data.team,
-        data.title,
-    ]);
+    }, [teamVisibility, characterVisibility, data.team, data.title]);
 
     const nodeVisibilityStyle = useMemo(
-        () => getImageVisibilityStyle(nodeVisibility),
-        [nodeVisibility]
+        () => getVisibilityStyle(nodeVisibility, data.new ? data.new : true),
+        [nodeVisibility, data.new]
     );
 
     // Filter handles based on used edges
@@ -127,11 +129,13 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
     return (
         <>
             {handleElements}
-            <div className="relative cursor-pointer  overflow-hidden w-[100px] h-[100px] rounded">
+            <div
+                style={nodeVisibilityStyle}
+                className="transition-all relative cursor-pointer overflow-hidden w-[100px] h-[100px] rounded"
+            >
                 <Image
                     className="aspect-square object-cover rounded-lg transition-transform duration-300 ease-in-out transform scale-100 hover:scale-110"
                     src={data.imageSrc || ""}
-                    style={nodeVisibilityStyle}
                     width={100}
                     height={100}
                     alt="character node"

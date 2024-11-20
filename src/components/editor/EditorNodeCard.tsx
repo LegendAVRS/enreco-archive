@@ -1,6 +1,8 @@
 import EditorCard from "@/components/editor/EditorCard";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
     Select,
     SelectContent,
@@ -31,6 +33,7 @@ export default function EditorNodeCard({
     const [localContent, setLocalContent] = useState("");
     const [localTeam, setLocalTeam] = useState("");
     const [localStatus, setLocalStatus] = useState("");
+    const [localNew, setLocalNew] = useState(true);
 
     useEffect(() => {
         if (selectedNode) {
@@ -38,7 +41,8 @@ export default function EditorNodeCard({
             setLocalTitle(selectedNode.data?.title || "");
             setLocalContent(selectedNode.data?.content || "");
             setLocalTeam(selectedNode.data?.team || "");
-            setLocalStatus(selectedNode.data?.status || "");
+            setLocalStatus(selectedNode.data?.status || "Alive");
+            setLocalNew(selectedNode.data?.new || true);
         }
     }, [selectedNode]);
 
@@ -52,6 +56,8 @@ export default function EditorNodeCard({
                 title: localTitle,
                 content: localContent,
                 team: localTeam,
+                status: localStatus,
+                new: localNew,
             },
         };
         updateNode(newNode);
@@ -61,6 +67,14 @@ export default function EditorNodeCard({
         <EditorCard>
             <h1 className="text-xl font-bold">Node editor</h1>
             <div>Id: {selectedNode?.id}</div>
+            <div className="flex flex-row gap-2 items-center">
+                <Checkbox
+                    id="marker"
+                    checked={localNew}
+                    onCheckedChange={() => setLocalNew((prev) => !prev)}
+                />
+                <Label htmlFor="marker">New</Label>
+            </div>
             <Select value={localTeam} onValueChange={setLocalTeam}>
                 <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder={localTeam || "Select a team"} />

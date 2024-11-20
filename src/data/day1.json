@@ -1,0 +1,432 @@
+{
+    "chapter": 0,
+    "day": 0,
+    "nodes": [
+        {
+            "id": "node-1",
+            "type": "image",
+            "position": {
+                "x": 400,
+                "y": 200
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Fuwawa-Abyssgard_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Jade Sword"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-2",
+            "type": "image",
+            "position": {
+                "x": 650,
+                "y": 200
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Mococo-Abyssgard_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Jade Sword"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-3",
+            "type": "image",
+            "position": {
+                "x": 400,
+                "y": 450
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Elizabeth-Rose-Bloodflame_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Jade Sword"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-4",
+            "type": "image",
+            "position": {
+                "x": 150,
+                "y": 325
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/calli.png",
+                "title": "",
+                "content": "",
+                "team": "Jade Sword"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-5",
+            "type": "image",
+            "position": {
+                "x": 650,
+                "y": 450
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/ame.png",
+                "title": "",
+                "content": "",
+                "team": "Jade Sword"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-6",
+            "type": "image",
+            "position": {
+                "x": 650,
+                "y": 700
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Shiori-Novella_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Scarlet Wand"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-7",
+            "type": "image",
+            "position": {
+                "x": 150,
+                "y": 825
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Gawr-Gura_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Scarlet Wand"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-8",
+            "type": "image",
+            "position": {
+                "x": 400,
+                "y": 950
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Cecilia-Immergreen_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Scarlet Wand"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-9",
+            "type": "image",
+            "position": {
+                "x": 650,
+                "y": 950
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Nerissa-Ravencroft_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Scarlet Wand"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-10",
+            "type": "image",
+            "position": {
+                "x": 400,
+                "y": 700
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Ceres-Fauna_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Scarlet Wand"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-11",
+            "type": "image",
+            "position": {
+                "x": 950,
+                "y": 450
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Raora-Panthera_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Amber Coin"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-12",
+            "type": "image",
+            "position": {
+                "x": 950,
+                "y": 200
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Takanashi-Kiara_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Amber Coin"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-13",
+            "type": "image",
+            "position": {
+                "x": 1200,
+                "y": 200
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Hakos-Baelz_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Amber Coin"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-14",
+            "type": "image",
+            "position": {
+                "x": 1200,
+                "y": 450
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Nanashi-Mumei_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Amber Coin"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-15",
+            "type": "image",
+            "position": {
+                "x": 1200,
+                "y": 700
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Gigi-Murin_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Cerulean Cup"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-16",
+            "type": "image",
+            "position": {
+                "x": 950,
+                "y": 700
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Koseki-Bijou_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Cerulean Cup"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-17",
+            "type": "image",
+            "position": {
+                "x": 950,
+                "y": 950
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/IRyS_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Cerulean Cup"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-18",
+            "type": "image",
+            "position": {
+                "x": 1200,
+                "y": 950
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/ina.png",
+                "title": "",
+                "content": "",
+                "team": "Cerulean Cup"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-19",
+            "type": "image",
+            "position": {
+                "x": 1475,
+                "y": 825
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/Ouro-Kronii_list_thumb.png",
+                "title": "",
+                "content": "",
+                "team": "Cerulean Cup"
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        },
+        {
+            "id": "node-20",
+            "type": "image",
+            "position": {
+                "x": 1475,
+                "y": 575
+            },
+            "data": {
+                "imageSrc": "https://cdn.holoen.fans/hefw/media/king.png",
+                "title": "",
+                "content": "",
+                "team": ""
+            },
+            "measured": {
+                "width": 100,
+                "height": 100
+            }
+        }
+    ],
+
+    "relationships": {
+        "Marriage": {
+            "stroke": "#FE65C5"
+        },
+        "Romantic": {
+            "stroke": "#FE65C5",
+            "strokeDasharray": "5,5"
+        },
+        "Unrequited Love": {
+            "stroke": "#496CED",
+            "strokeDasharray": "5,5"
+        },
+        "Child": {
+            "stroke": "#00BF62"
+        },
+        "Familial Relationship": {
+            "stroke": "#00BF62",
+            "strokeDasharray": "5,5"
+        },
+        "Protector": {
+            "stroke": "#83AF78"
+        },
+        "Misc. Romantic Relationship": {
+            "stroke": "#FD914E"
+        },
+        "Enemies/Rivals": {
+            "stroke": "#E8181D"
+        },
+        "Big Pink Cat": {
+            "stroke": "#5C18E9"
+        },
+        "Lick": {
+            "stroke": "#5C18E9",
+            "strokeDasharray": "5,5"
+        },
+        "Business": {
+            "stroke": "#A7A7A7"
+        },
+        "Side Chick": {
+            "stroke": "#FEDE5A"
+        },
+        "Alies": {
+            "stroke": "#A7A7A7",
+            "strokeDasharray": "5,5"
+        },
+        "No Longer Together": {
+            "stroke": "#000000"
+        }
+    },
+    "teams": {
+        "Cerulean Cup": {
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/ceruleancup.webp"
+        },
+        "Jade Sword": {
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/jadesword.webp"
+        },
+        "Scarlet Wand": {
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/scarletwand.webp"
+        },
+        "Amber Coin": {
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/ambercoin.webp"
+        }
+    },
+    "dayRecap": "",
+    "title": ""
+}
