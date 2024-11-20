@@ -54,7 +54,7 @@ const ViewGeneralCard = () => {
             </div>
             <Separator />
             <Markdown className={"overflow-auto"} rehypePlugins={[rehypeRaw]}>
-                {data.dayRecap + data.dayRecap}
+                {data.dayRecap}
             </Markdown>
         </div>
     );

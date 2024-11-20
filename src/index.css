@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+    color: rgb(63, 63, 70);
+}
+
 @layer base {
     :root {
         --background: 0 0% 100%;
@@ -100,7 +104,15 @@ h3 {
 }
 
 a {
-    @apply text-primary underline;
+    color: #073471;
+}
+
+ul {
+    @apply list-disc list-inside;
+}
+
+li {
+    @apply mb-2;
 }
 
 .deco {
