@@ -70,26 +70,7 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
             <Separator />
             <div className="overflow-auto">
                 <Markdown rehypePlugins={[rehypeRaw]}>
-                    {/* {selectedNode?.data.content} */}
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Deleniti inventore fugiat necessitatibus repudiandae
-                    reprehenderit. Quos libero porro cum odit aperiam similique,
-                    neque illo cupiditate ea aliquid aut voluptatibus debitis.
-                    Quos! Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit. Deleniti inventore fugiat necessitatibus repudiandae
-                    reprehenderit. Quos libero porro cum odit aperiam similique,
-                    neque illo cupiditate ea aliquid aut voluptatibus debitis.
-                    Quos! Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit. Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit. Deleniti inventore fugiat necessitatibus repudiandae
-                    reprehenderit. Quos libero porro cum odit aperiam similique,
-                    neque illo cupiditate ea aliquid aut voluptatibus debitis.
-                    Quos! Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit. Deleniti inventore fugiat necessitatibus repudiandae
-                    reprehenderit. Quos libero porro cum odit aperiam similique,
-                    neque illo cupiditate ea aliquid aut voluptatibus debitis.
-                    Quos! Lorem ipsum dolor sit amet, consectetur adipisicing
-                    elit.
+                    {selectedNode?.data.content}
                 </Markdown>
             </div>
         </>
