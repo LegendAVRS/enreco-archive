@@ -4,7 +4,7 @@ import { CustomEdgeProps, ImageNodeType } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { useViewStore } from "@/store/viewStore";
 import { BaseEdge, useReactFlow } from "@xyflow/react";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 
 const getVisibilityStyle = (visible: boolean, isNew: boolean) => {
     if (!visible) {
@@ -86,4 +86,4 @@ const ViewCustomEdge = ({ source, target, data, id }: CustomEdgeProps) => {
     );
 };
 
-export default ViewCustomEdge;
+export default memo(ViewCustomEdge);

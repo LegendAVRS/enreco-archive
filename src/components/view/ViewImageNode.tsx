@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { useChartStore } from "@/store/chartStore";
 import { useViewStore } from "@/store/viewStore";
 import {
@@ -154,4 +154,4 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
     );
 };
 
-export default ViewImageNode;
+export default memo(ViewImageNode);
