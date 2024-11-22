@@ -4,6 +4,7 @@ import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
 import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 interface ViewEdgeContentProps {
     selectedEdge: CustomEdgeType;
@@ -38,7 +39,9 @@ const ViewEdgeContent = ({
             <EdgeCardDeco color={backgroundColor} />
 
             {selectedEdge.data?.title && (
-                <span className="font-semibold">{selectedEdge.data.title}</span>
+                <span className="font-semibold text-lg">
+                    {selectedEdge.data.title}
+                </span>
             )}
             <Separator />
 
@@ -52,21 +55,10 @@ const ViewEdgeContent = ({
             </div>
             <Separator />
 
-            <div className="overflow-y-auto">
-                <Markdown>
-                    {selectedEdge.data && selectedEdge.data.content}
+            <div className="overflow-auto">
+                <Markdown rehypePlugins={[rehypeRaw]}>
+                    {selectedEdge.data?.content}
                 </Markdown>
-                <Separator />
-
-                <figure>
-                    <iframe
-                        src={selectedEdge.data?.timestampUrl}
-                        width={"100%"}
-                    />
-                    <figcaption className="text-center italic">
-                        Timestamp for event
-                    </figcaption>
-                </figure>
             </div>
         </>
     );

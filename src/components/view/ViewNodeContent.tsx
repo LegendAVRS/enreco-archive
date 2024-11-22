@@ -55,7 +55,9 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
 
             <NodeCardDeco color={color} />
 
-            <div className="font-semibold">{selectedNode?.data.title}</div>
+            <div className="font-semibold text-lg">
+                {selectedNode?.data.title}
+            </div>
             <Separator />
             <div className="flex flex-row justify-around w-full">
                 <div className="flex flex-col items-center">
