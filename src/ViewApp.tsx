@@ -196,7 +196,7 @@ const ViewApp = () => {
         }
 
         // Fit view when no card is open (only on mobile or when closing from setting)
-        if (currentCard === null && (isMobile || panFromSetting.current)) {
+        if (currentCard === null) {
             setTimeout(() => {
                 fitView({ padding: 0.5, duration: 1000 });
             }, 50);
