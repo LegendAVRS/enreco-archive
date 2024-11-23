@@ -98,7 +98,7 @@ const ViewGeneralCard = () => {
             {/* Scrollable Content */}
             <div
                 ref={contentRef} // Ref for scrollable container
-                className="overflow-auto flex-1"
+                className="overflow-auto "
                 onScroll={handleScroll} // Track scroll position
             >
                 <Markdown className="overflow-auto" rehypePlugins={[rehypeRaw]}>
