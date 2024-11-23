@@ -22,7 +22,7 @@ const ViewSettingCard = () => {
             <BrowserView>
                 <ViewCard
                     className={cn("transition-all absolute p-0", {
-                        "opacity-0 z-0 invisible": currentCard !== "setting",
+                        "opacity-0 -z-10 invisible": currentCard !== "setting",
                         "opacity-1 z-10 visible": currentCard === "setting",
                     })}
                 >

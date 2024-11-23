@@ -46,7 +46,7 @@ const ViewGeneralCard = () => {
                 className="flex flex-col gap-4 transition-all duration-300"
                 style={{
                     opacity: isHeaderVisible ? 1 : 0,
-                    transform: isHeaderVisible ? "scaleY(1)" : "scaleY(0)",
+                    transform: isHeaderVisible ? "scale(1)" : "scaleY(0)",
                     height: isHeaderVisible ? "113px" : 0,
                 }}
             >

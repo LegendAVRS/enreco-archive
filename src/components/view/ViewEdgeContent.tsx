@@ -54,7 +54,7 @@ const ViewEdgeContent = ({
                     opacity: isHeaderVisible ? 1 : 0,
                     height: isHeaderVisible ? "244px" : 0,
                     visibility: isHeaderVisible ? "visible" : "hidden",
-                    transform: isHeaderVisible ? "scaleY(1)" : "scale(0)",
+                    transform: isHeaderVisible ? "scale(1)" : "scale(0)",
                 }}
             >
                 <div className="z-10 flex flex-row gap-4 items-center justify-between">

@@ -32,7 +32,7 @@ const ViewNodeCard = () => {
                     className={cn(
                         "transition-all absolute flex flex-col items-center",
                         {
-                            "opacity-0 z-0 invisible": currentCard !== "node",
+                            "opacity-0 -z-10 invisible": currentCard !== "node",
                             "opacity-1 z-10 visible": currentCard === "node",
                         }
                     )}

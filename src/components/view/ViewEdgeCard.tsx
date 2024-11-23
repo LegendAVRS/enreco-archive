@@ -33,7 +33,7 @@ const ViewEdgeCard = () => {
             <BrowserView>
                 <ViewCard
                     className={cn("transition-all absolute", {
-                        "opacity-0 z-0 invisible": currentCard !== "edge",
+                        "opacity-0 -z-10 invisible": currentCard !== "edge",
                         "opacity-1 z-10 visible": currentCard === "edge",
                     })}
                 >
