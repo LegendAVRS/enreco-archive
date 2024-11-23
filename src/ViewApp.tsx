@@ -3,8 +3,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import {
-    Background,
-    BackgroundVariant,
     ConnectionMode,
     ReactFlow,
     useEdgesState,
@@ -328,8 +326,19 @@ const ViewApp = () => {
                         ]
                     }
                 >
-                    <Background variant={BackgroundVariant.Dots} />
+                    {/* <Background */}
+
+                    {/* /> */}
                 </ReactFlow>
+                <div
+                    className="absolute top-0 left-0 w-screen h-screen -z-10"
+                    style={{
+                        backgroundImage: "url('bg.webp')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                    }}
+                />
                 <ViewSettingCard />
                 <ViewNodeCard />
                 <ViewEdgeCard />
