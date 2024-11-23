@@ -31,7 +31,7 @@ const ViewEdgeContent = ({
     // Handle scroll event to toggle header visibility
     const handleScroll = () => {
         if (contentRef.current) {
-            const threshold = contentRef.current.scrollHeight * 0.001; // 5% of scrollable height
+            const threshold = contentRef.current.scrollHeight * 0.0001; // 5% of scrollable height
             setIsHeaderVisible(contentRef.current.scrollTop <= threshold);
         }
     };
