@@ -96,7 +96,7 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
             {/* Content */}
             <div
                 ref={contentRef} // Add ref to the scrollable container
-                className="overflow-auto mt-2"
+                className="overflow-auto mt-2 pb-20"
                 onScroll={handleScroll} // Track scroll position
             >
                 <Markdown rehypePlugins={[rehypeRaw]}>

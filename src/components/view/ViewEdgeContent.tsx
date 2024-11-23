@@ -52,7 +52,7 @@ const ViewEdgeContent = ({
                 className="flex flex-col items-center transition-all duration-300 gap-2"
                 style={{
                     opacity: isHeaderVisible ? 1 : 0,
-                    height: isHeaderVisible ? "244px" : 0,
+                    height: isHeaderVisible ? "236px" : 0,
                     visibility: isHeaderVisible ? "visible" : "hidden",
                     transform: isHeaderVisible ? "scale(1)" : "scale(0)",
                 }}
@@ -93,7 +93,7 @@ const ViewEdgeContent = ({
             {/* Content */}
             <div
                 ref={contentRef} // Add ref to the scrollable container
-                className="overflow-auto mt-2"
+                className="overflow-auto mt-2 pb-20"
                 onScroll={handleScroll} // Track scroll position
             >
                 <Markdown rehypePlugins={[rehypeRaw]}>
