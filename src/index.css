@@ -17,6 +17,10 @@ h1::after {
     margin-top: 0.5rem;
 }
 
+img {
+    @apply rounded-lg;
+}
+
 @layer base {
     :root {
         --background: 0 0% 100%;
@@ -131,6 +135,7 @@ li {
     background-repeat: no-repeat; /* Prevents repetition */
     background-size: cover; /* Scales to fill the parent */
     background-position: center; /* Centers the image */
+    @apply rounded-t-lg;
 }
 
 .deco-node {
@@ -138,4 +143,5 @@ li {
     background-repeat: no-repeat; /* Prevents repetition */
     background-size: cover; /* Scales to fill the parent */
     background-position: center; /* Centers the image */
+    @apply rounded-t-lg;
 }
