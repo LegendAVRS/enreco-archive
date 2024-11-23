@@ -264,7 +264,6 @@ const ViewApp = () => {
         () => getBottomRightNode(),
         [getBottomRightNode]
     );
-    console.log(topLeftNode, bottomRightNode);
     if (!data) {
         return;
     }
