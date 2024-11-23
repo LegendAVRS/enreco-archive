@@ -10,7 +10,10 @@ const ViewSettingIcon = ({ className }: ViewSettingIconProps) => {
     const { currentCard, setCurrentCard } = useViewStore();
     return (
         <div
-            className={cn("p-4 cursor-pointer hover:opacity-80", className)}
+            className={cn(
+                "p-4 transition-all cursor-pointer hover:opacity-80 hover:scale-110",
+                className
+            )}
             onClick={() =>
                 setCurrentCard(currentCard === "setting" ? null : "setting")
             }
