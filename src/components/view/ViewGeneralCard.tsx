@@ -12,6 +12,7 @@ import { useViewStore } from "@/store/viewStore";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { useEffect, useRef, useState } from "react";
+import { SCROLL_THRESHOLD } from "@/lib/constants";
 
 const ViewGeneralCard = () => {
     const { data } = useChartStore();
@@ -33,7 +34,8 @@ const ViewGeneralCard = () => {
     // Handle scroll event to toggle header visibility
     const handleScroll = () => {
         if (contentRef.current) {
-            const threshold = contentRef.current.scrollHeight * 0.001; // 5% of scrollable height
+            const threshold =
+                contentRef.current.scrollHeight * SCROLL_THRESHOLD; // 5% of scrollable height
             setIsHeaderVisible(contentRef.current.scrollTop <= threshold);
         }
     };

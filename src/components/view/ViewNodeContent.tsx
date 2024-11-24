@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import NodeCardDeco from "@/components/view/NodeCardDeco";
+import { SCROLL_THRESHOLD } from "@/lib/constants";
 import { ChartData, ImageNodeType } from "@/lib/type";
 import { cn, getLighterOrDarkerColor } from "@/lib/utils";
 import { extractColors } from "extract-colors";
@@ -43,7 +44,8 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
     // Handle scroll event to toggle header visibility
     const handleScroll = () => {
         if (contentRef.current) {
-            const threshold = contentRef.current.scrollHeight * 0.0001; // 5% of scrollable height
+            const threshold =
+                contentRef.current.scrollHeight * SCROLL_THRESHOLD; // 5% of scrollable height
             setIsHeaderVisible(contentRef.current.scrollTop <= threshold);
         }
     };

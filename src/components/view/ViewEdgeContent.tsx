@@ -6,6 +6,7 @@ import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { useRef, useState, useEffect } from "react";
+import { SCROLL_THRESHOLD } from "@/lib/constants";
 
 interface ViewEdgeContentProps {
     selectedEdge: CustomEdgeType;
@@ -31,7 +32,8 @@ const ViewEdgeContent = ({
     // Handle scroll event to toggle header visibility
     const handleScroll = () => {
         if (contentRef.current) {
-            const threshold = contentRef.current.scrollHeight * 0.0001; // 5% of scrollable height
+            const threshold =
+                contentRef.current.scrollHeight * SCROLL_THRESHOLD;
             setIsHeaderVisible(contentRef.current.scrollTop <= threshold);
         }
     };
