@@ -76,12 +76,21 @@ const ViewCustomEdge = ({ source, target, data, id }: CustomEdgeProps) => {
     return (
         <BaseEdge
             path={data?.path || ""}
-            className={cn("transition-all", {})}
+            className={cn("transition-all", {
+                "pointer-events-none":
+                    data?.new === false && edgeVisibility.new,
+            })}
             style={{
-                strokeWidth: id === hoveredEdgeId ? EDGE_WIDTH + 2 : EDGE_WIDTH,
+                strokeWidth:
+                    id === hoveredEdgeId &&
+                    edgeVisibility["new"] &&
+                    data?.new !== false
+                        ? EDGE_WIDTH + 2
+                        : EDGE_WIDTH,
                 ...edgeStyle,
                 ...edgeVisibilityStyle,
             }}
+            interactionWidth={0}
         />
     );
 };

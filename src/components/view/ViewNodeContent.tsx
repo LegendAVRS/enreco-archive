@@ -56,7 +56,7 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
             <div
                 ref={headerRef}
                 className={cn(
-                    "flex flex-col items-center transition-all duration-300"
+                    "flex flex-col items-center transition-all duration-300 "
                 )}
                 style={{
                     opacity: isHeaderVisible ? 1 : 0,
@@ -82,7 +82,7 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
                     {selectedNode?.data.title}
                 </div>
                 <Separator />
-                <div className="flex flex-row justify-around w-full mt-2">
+                <div className="flex flex-row justify-around w-full">
                     <div className="flex flex-col items-center">
                         <div className="font-semibold">Team</div>
                         <div>{selectedNode?.data.team}</div>

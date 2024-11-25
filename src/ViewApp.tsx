@@ -38,6 +38,7 @@ const ViewApp = () => {
     const [nodes, setNodes] = useNodesState<ImageNodeType>([]);
     const [edges, setEdges] = useEdgesState<CustomEdgeType>([]);
     const { setSelectedEdge, setSelectedNode } = useFlowStore();
+    const { edgeVisibility } = useViewStore();
     const {
         currentCard,
         setCurrentCard,
@@ -253,7 +254,7 @@ const ViewApp = () => {
 
         // Map the zoom factor to a value between minZoom and maxZoom
         let minZoom = 0.5;
-        let maxZoom = 0.7;
+        let maxZoom = 1;
 
         if (isMobile) {
             minZoom = 0.3;
@@ -341,6 +342,11 @@ const ViewApp = () => {
                         setCurrentCard("node");
                     }}
                     onEdgeClick={(_, edge) => {
+                        // Disable edge selection on if is old edge and only show new is true
+                        if (edge.data?.new === false && edgeVisibility["new"]) {
+                            return;
+                        }
+
                         setSelectedEdge(edge);
                         fitEdge(edge.source, edge.target, edge);
 
