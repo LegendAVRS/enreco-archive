@@ -4,7 +4,7 @@
 
 /* For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom */
 body {
-    touch-action: pan-y, pan-x;
+    touch-action: pan-y pan-x;
 }
 
 p,
