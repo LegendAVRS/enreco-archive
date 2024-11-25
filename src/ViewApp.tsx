@@ -137,6 +137,34 @@ const ViewApp = () => {
         }
     }, [chapter, day]);
 
+    // For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom
+    // Also when pinch zoom when one of the cards are open, upon closing the zoom will stay that way permanently
+    useEffect(() => {
+        document.addEventListener(
+            "gesturestart",
+            (e) => {
+                e.preventDefault();
+            },
+            { passive: false }
+        );
+
+        document.addEventListener(
+            "gesturechange",
+            (e) => {
+                e.preventDefault();
+            },
+            { passive: false }
+        );
+
+        document.addEventListener(
+            "gestureend",
+            (e) => {
+                e.preventDefault();
+            },
+            { passive: false }
+        );
+    }, []);
+
     // Update the chapter and day if the URL hash changes too
     useEffect(() => {
         const handleHashChange = () => {

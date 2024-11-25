@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom */
-body {
-    touch-action: pan-y pan-x;
-}
-
 p,
 h1,
 h2,
