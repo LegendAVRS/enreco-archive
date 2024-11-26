@@ -135,7 +135,7 @@
         "content": "",
         "team": "Scarlet Wand",
         "status": "Alive",
-        "new": false
+        "new": true
       },
       "measured": {
         "width": 100,
@@ -235,7 +235,7 @@
         "content": "",
         "team": "Amber Coin",
         "status": "Alive",
-        "new": false
+        "new": true
       },
       "measured": {
         "width": 100,
@@ -275,7 +275,7 @@
         "content": "",
         "team": "Amber Coin",
         "status": "Alive",
-        "new": false
+        "new": true
       },
       "measured": {
         "width": 100,
@@ -335,7 +335,7 @@
         "content": "",
         "team": "Cerulean Cup",
         "status": "Alive",
-        "new": false
+        "new": true
       },
       "measured": {
         "width": 100,
@@ -355,7 +355,7 @@
         "content": "",
         "team": "Cerulean Cup",
         "status": "Alive",
-        "new": false
+        "new": true
       },
       "measured": {
         "width": 100,
@@ -446,7 +446,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M450 553L450 573L450 625L450 625L450 677L450 697",
         "relationship": "Enemies/Rivals"
       },
@@ -462,7 +462,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M528.7671816306768,500 V740 H528.7671816306768 H528.774107812189 V980M503,500 V500 H528.7671816306768M647,980 V980 H528.774107812189 ",
         "relationship": "Unrequited Love"
       },
@@ -558,7 +558,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M1374.3851461902823,730 V398.7199772014449 H1374.3851461902823 H700 V447M1303,730 V730 H1374.3851461902823",
         "relationship": "Marriage"
       },
@@ -590,7 +590,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M1020 447L 1020,427Q 1020,427 1020,427L 1598,427Q 1598,427 1598,427L 1598,875Q 1598,875 1598,875L1578 875",
         "relationship": "Enemies/Rivals"
       },
@@ -606,7 +606,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M720,447 V377.647123125017 H720 H1626.750831544583 V855M1578,855 V855 H1626.750831544583 ",
         "relationship": "Misc. Romantic Relationship"
       },
@@ -622,27 +622,11 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M700,803 V875 H700 H700 V947",
         "relationship": "Marriage"
       },
       "id": "node-6-node-9-bottom-2-top-2"
-    },
-    {
-      "source": "node-9",
-      "sourceHandle": "top-4",
-      "target": "node-16",
-      "targetHandle": "left-4",
-      "type": "fixed",
-      "data": {
-        "title": "",
-        "content": "",
-        "timestampUrl": "",
-        "new": true,
-        "path": "M 740,947L 947,790",
-        "relationship": "Enemies/Rivals"
-      },
-      "id": "node-9-node-16-top-4-left-4"
     },
     {
       "source": "node-6",
@@ -654,7 +638,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M 753,750L 947,750",
         "relationship": "Marriage"
       },
@@ -670,43 +654,11 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M549.498336910834,500 V1079.4515960270512 H549.498336910834 H1000 V1053M647,500 V500 H549.498336910834",
         "relationship": "Misc. Romantic Relationship"
       },
       "id": "node-5-node-17-left-2-bottom-2"
-    },
-    {
-      "source": "node-3",
-      "sourceHandle": "bottom-3",
-      "target": "node-16",
-      "targetHandle": "top-1",
-      "type": "fixed",
-      "data": {
-        "title": "",
-        "content": "",
-        "timestampUrl": "",
-        "new": true,
-        "path": "M470,553 V625 H470 H980 V697",
-        "relationship": "Child"
-      },
-      "id": "node-3-node-16-bottom-3-top-1"
-    },
-    {
-      "source": "node-11",
-      "sourceHandle": "left-1",
-      "target": "node-18",
-      "targetHandle": "bottom-2",
-      "type": "fixed",
-      "data": {
-        "title": "",
-        "content": "",
-        "timestampUrl": "",
-        "new": true,
-        "path": "M885,480 V1213.8609841784541 H885 H1250 V1053M947,480 V480 H885",
-        "relationship": "Child"
-      },
-      "id": "node-11-node-18-left-1-bottom-2"
     },
     {
       "source": "node-20",
@@ -767,7 +719,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M1472 915L1452 915L 1020,915Q 1020,915 1020,915L1020 927L1020 947"
       },
       "id": "node-19-node-17-left-4-top-3"
@@ -783,7 +735,7 @@
         "title": "",
         "content": "",
         "timestampUrl": "",
-        "new": false,
+        "new": true,
         "path": "M1053,1000 V1000 H1053 H1197 V1000"
       },
       "id": "node-17-node-18-right-2-left-2"
@@ -853,5 +805,5 @@
     }
   },
   "dayRecap": "",
-  "title": "Day 3"
+  "title": "Day 2"
 }

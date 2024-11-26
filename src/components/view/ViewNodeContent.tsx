@@ -102,7 +102,7 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
                 onScroll={handleScroll} // Track scroll position
             >
                 <Markdown rehypePlugins={[rehypeRaw]}>
-                    {selectedNode?.data.content}
+                    {selectedNode?.data.content || "No content available"}
                 </Markdown>
             </div>
         </div>

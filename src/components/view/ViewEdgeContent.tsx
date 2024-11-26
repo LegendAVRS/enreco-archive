@@ -99,7 +99,7 @@ const ViewEdgeContent = ({
                 onScroll={handleScroll} // Track scroll position
             >
                 <Markdown rehypePlugins={[rehypeRaw]}>
-                    {selectedEdge.data?.content}
+                    {selectedEdge.data?.content || "No content available"}
                 </Markdown>
             </div>
         </div>

@@ -35,7 +35,16 @@ import {
     mergeChartsIntoOneBigFile,
 } from "@/lib/datahelper";
 
-import chartData from "@/data/day1.json";
+import chartData from "@/data/day8.json";
+
+import day1 from "@/data/day1.json";
+import day2 from "@/data/day2.json";
+import day3 from "@/data/day3.json";
+import day4 from "@/data/day4.json";
+import day5 from "@/data/day5.json";
+import day6 from "@/data/day6.json";
+import day7 from "@/data/day7.json";
+import day8 from "@/data/day8.json";
 
 const nodeTypes = {
     image: EditorImageNode,
@@ -117,6 +126,7 @@ const EditorApp = () => {
     };
 
     const updateNode = (params) => {
+        console.log(params);
         setNodes((nds) =>
             nds.map((node) =>
                 node.id === params.id ? { ...node, ...params } : node
@@ -176,7 +186,10 @@ const EditorApp = () => {
         const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(
             dataStr
         )}`;
-        const exportFileDefaultName = "flow.json";
+        console.log(exportData);
+        const exportFileDefaultName = exportData.title
+            ? `${exportData.title}.json`
+            : "flow.json";
         const linkElement = document.createElement("a");
         linkElement.setAttribute("href", dataUri);
         linkElement.setAttribute("download", exportFileDefaultName);
@@ -186,8 +199,13 @@ const EditorApp = () => {
     const copyAndExportOldToNewChart = () => {
         // const newChartLocal = copyChartData(oldChart, newChart);
         // exportChart(newChartLocal);
-        const newChart = copyChartData();
-        exportJson(newChart);
+        const charts = [day1, day2, day3, day4, day5, day6, day7, day8];
+
+        // Select two pair at a time (example: day 1 + 2, 2 + 3,etc)
+        for (let i = 0; i < charts.length - 1; i++) {
+            const newChart = copyChartData(charts[i], charts[i + 1]);
+            exportJson(newChart);
+        }
     };
 
     const combineAndExportChartsToSiteData = async () => {

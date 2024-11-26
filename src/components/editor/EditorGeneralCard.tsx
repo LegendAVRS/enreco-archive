@@ -3,13 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import { ChartData } from "@/lib/type";
 import { useChartStore } from "@/store/chartStore";
 import { useEditorStore } from "@/store/editorStore";
@@ -21,24 +14,19 @@ const EditorGeneralCard = () => {
 
     // local states
     const [localRecap, setLocalRecap] = useState("");
-    const [chapter, setChapter] = useState<number>(0);
-    const [day, setDay] = useState<number>(0);
     const [title, setTitle] = useState("");
 
     useEffect(() => {
         setLocalRecap(data.dayRecap || "");
-        setChapter(data.chapter);
-        setDay(data.day);
         setTitle(data.title || "");
-    }, [data.dayRecap, data.chapter, data.day, data.title]);
+    }, [data.dayRecap, data.title]);
 
     const handleSave = () => {
         // Save the description
         const newData: ChartData = {
             ...data,
             dayRecap: localRecap,
-            chapter,
-            day,
+            title,
         };
 
         setData(newData);
@@ -63,38 +51,6 @@ const EditorGeneralCard = () => {
                 onChange={(e) => setTitle(e.target.value)}
                 id="title"
             />
-            <Select
-                value={chapter.toString()}
-                onValueChange={(val) => setChapter(parseInt(val))}
-            >
-                <SelectTrigger className="grow">
-                    <SelectValue placeholder={"Chapter..."} />
-                </SelectTrigger>
-                {/* 4 chapters */}
-                <SelectContent>
-                    {Array.from({ length: 4 }, (_, i) => (
-                        <SelectItem key={i} value={`${i + 1}`}>{`Chapter ${
-                            i + 1
-                        }`}</SelectItem>
-                    ))}
-                </SelectContent>
-            </Select>
-
-            <Select
-                value={day.toString()}
-                onValueChange={(val) => setDay(parseInt(val))}
-            >
-                <SelectTrigger className="grow">
-                    <SelectValue placeholder={day ? `Day ${day}` : "Day..."} />
-                </SelectTrigger>
-                <SelectContent>
-                    {Array.from({ length: 7 }, (_, i) => (
-                        <SelectItem key={i} value={`${i + 1}`}>{`Day ${
-                            i + 1
-                        }`}</SelectItem>
-                    ))}
-                </SelectContent>
-            </Select>
 
             <div>Day Recap</div>
             <MDEditor

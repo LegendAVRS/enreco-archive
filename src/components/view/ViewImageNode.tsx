@@ -91,7 +91,7 @@ const ViewImageNode = ({ data, id }: ImageNodeProps) => {
     }, [teamVisibility, characterVisibility, data.team, data.title]);
 
     const nodeVisibilityStyle = useMemo(
-        () => getVisibilityStyle(nodeVisibility, data.new ? data.new : true),
+        () => getVisibilityStyle(nodeVisibility, data.new || false),
         [nodeVisibility, data.new]
     );
 

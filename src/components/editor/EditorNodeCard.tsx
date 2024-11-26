@@ -42,12 +42,13 @@ export default function EditorNodeCard({
             setLocalContent(selectedNode.data?.content || "");
             setLocalTeam(selectedNode.data?.team || "");
             setLocalStatus(selectedNode.data?.status || "Alive");
-            setLocalNew(selectedNode.data?.new || true);
+            setLocalNew(selectedNode.data?.new as boolean);
         }
     }, [selectedNode]);
 
     const handleSave = () => {
         if (!selectedNode) return; // Ensure selectedNode exists
+        console.log(localNew);
         const newNode = {
             ...selectedNode,
             data: {

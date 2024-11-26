@@ -1,5 +1,7 @@
+// @ts-nocheck
 import { ChartData, SiteData } from "@/lib/type";
-
+import day1 from "@/data/day1.json";
+import day2 from "@/data/day2.json";
 import day3 from "@/data/day3.json";
 import day4 from "@/data/day4.json";
 import day5 from "@/data/day5.json";
@@ -8,12 +10,15 @@ import day7 from "@/data/day7.json";
 import day8 from "@/data/day8.json";
 
 // export chart
-export const exportJson = (data: object) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const exportJson = (data: any) => {
     const dataStr = JSON.stringify(data, null, 2);
     const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(
         dataStr
     )}`;
-    const exportFileDefaultName = "flow.json";
+    const exportFileDefaultName = data.title
+        ? `${data.title}.json`
+        : "data.json";
     const linkElement = document.createElement("a");
     linkElement.setAttribute("href", dataUri);
     linkElement.setAttribute("download", exportFileDefaultName);
@@ -61,15 +66,19 @@ export const copyNodeData = (oldChart: ChartData, newChart: ChartData) => {
         );
         if (oldNode) {
             // clone data except for data.content
-            node.data = { ...oldNode.data, content: node.data.content };
+            node.data = {
+                ...oldNode.data,
+                content: node.data.content,
+                new: node.data.new,
+            };
         }
     });
     return newChartLocal;
 };
 
 export const copyChartData = (oldChart: ChartData, newChart: ChartData) => {
-    oldChart = oldChart || day5;
-    newChart = newChart || day6;
+    // oldChart = oldChart || day1;
+    // newChart = newChart || day2;
     const newChartLocal = copyNodeData(oldChart, newChart);
     if (!newChartLocal.teams || Object.keys(newChartLocal.teams).length === 0) {
         newChartLocal.teams = oldChart.teams;
@@ -100,12 +109,7 @@ export const checkChartMissingData = (chartData: ChartData) => {
     if (!chartData.title) {
         console.log("Title data is missing");
     }
-    if (!chartData.chapter) {
-        console.log("Chapter data is missing");
-    }
-    if (!chartData.day) {
-        console.log("Day data is missing");
-    }
+
     if (!chartData.nodes || chartData.nodes.length === 0) {
         console.log("Nodes data is missing");
     }
@@ -121,17 +125,25 @@ export const mergeChartsIntoOneBigFile = async () => {
         chapter: {
             title: "ENigmatic Recollection Chapter 1",
             charts: [],
-            numberOfDays: 6,
+            numberOfDays: 8,
         },
     };
 
-    // @ts-expect-error idk
-    const charts: ChartData[] = [day3, day4, day5, day6, day7, day8];
+    const charts: ChartData[] = [
+        day1,
+        day2,
+        day3,
+        day4,
+        day5,
+        day6,
+        day7,
+        day8,
+    ];
 
     siteData.chapter = {
         title: "ENigmatic Recollection Chapter 1",
         charts: charts,
-        numberOfDays: 6,
+        numberOfDays: 68,
     };
     return siteData;
 };

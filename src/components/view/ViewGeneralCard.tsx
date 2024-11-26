@@ -83,12 +83,12 @@ const ViewGeneralCard = () => {
                         </SelectTrigger>
                         <SelectContent>
                             {currentChapter &&
-                                currentChapter.charts.map((_, index) => (
+                                currentChapter.charts.map((chart, index) => (
                                     <SelectItem
                                         key={index}
                                         value={index.toString()}
                                     >
-                                        {`Day ${index + 1}`}
+                                        {chart.title}
                                     </SelectItem>
                                 ))}
                         </SelectContent>
