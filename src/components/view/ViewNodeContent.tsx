@@ -78,7 +78,7 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
 
                 <NodeCardDeco color={color} />
 
-                <div className="font-semibold text-lg">
+                <div className="font-semibold text-center">
                     {selectedNode?.data.title}
                 </div>
                 <Separator />
