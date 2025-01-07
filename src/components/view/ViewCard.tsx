@@ -7,27 +7,12 @@ const ViewCard = React.forwardRef<
     React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
     // State to track if the screen is below the 'md' breakpoint
-    const [isSmallScreen, setIsSmallScreen] = useState(false);
     const viewStore = useViewStore();
-
-    useEffect(() => {
-        // Function to check screen size
-        const checkScreenSize = () => {
-            setIsSmallScreen(window.innerWidth < 768); // 'md' in Tailwind is 768px
-        };
-
-        // Initial check and event listener for resizing
-        checkScreenSize();
-        window.addEventListener("resize", checkScreenSize);
-
-        // Cleanup listener on component unmount
-        return () => window.removeEventListener("resize", checkScreenSize);
-    }, []);
 
     return (
         <>
-            {isSmallScreen && viewStore.currentCard !== null && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-0 w-screen h-screen" />
+            {viewStore.currentCard !== null && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-0 w-screen h-screen md:hidden" />
             )}
             <div
                 ref={ref}
