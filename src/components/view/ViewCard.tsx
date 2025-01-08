@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useViewStore } from "@/store/viewStore";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const ViewCard = React.forwardRef<
     HTMLDivElement,

@@ -24,6 +24,7 @@ import { parseChapterAndDay, useViewStore } from "@/store/viewStore";
 import { isMobile } from "react-device-detect";
 
 import siteDataIn from "@/data/site.json";
+import Progress from "@/components/view/Progress";
 
 const nodeTypes = {
     image: ImageNodeView,
@@ -423,6 +424,8 @@ const ViewApp = () => {
                 <ViewSettingIcon className="absolute top-2 right-2 z-10" />
             </div>
             <ViewInfoModal open={modalOpen} onOpenChange={setModalOpen} />
+
+            <Progress />
         </>
     );
 };
