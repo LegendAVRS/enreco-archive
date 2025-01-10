@@ -58,7 +58,7 @@
                         "data": {
                             "imageSrc": "https://cdn.holoen.fans/hefw/media/Elizabeth-Rose-Bloodflame_list_thumb.png",
                             "title": "Elizabeth Rose Bloodflame",
-                            "content": "",
+                            "content": "<span data-to='Liz-Kronii' class='edge-span link-span'>This should open Liz-Kronii edge</span> <br> <span data-to='Hot Pink One' class='node-span link-span'>This should open Hot Pink One node</span> <br> <span data-href='https://www.youtube.com/embed/Rk7nZ91vme4?si=CpErxTeWCT4JUhgN&start=308' class='embed-span link-span'>This should open a youtube embed modal</span>",
                             "team": "Jade Sword",
                             "status": "Alive",
                             "new": true
@@ -449,7 +449,7 @@
                         "targetHandle": "bottom-2",
                         "type": "fixed",
                         "data": {
-                            "title": "",
+                            "title": "Liz-Kronii",
                             "content": "",
                             "timestampUrl": "",
                             "new": true,
@@ -8829,6 +8829,6 @@
                 "title": "Day 8"
             }
         ],
-        "numberOfDays": 68
+        "numberOfDays": 8
     }
 }
