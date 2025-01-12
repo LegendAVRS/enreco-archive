@@ -3,10 +3,9 @@ import EdgeCardDeco from "@/components/view/EdgeCardDeco";
 import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import { useRef, useState, useEffect } from "react";
 import { SCROLL_THRESHOLD } from "@/lib/constants";
+import { ViewMarkdown } from "./ViewMarkdown";
 
 interface ViewEdgeContentProps {
     selectedEdge: CustomEdgeType;
@@ -98,9 +97,9 @@ const ViewEdgeContent = ({
                 className="overflow-auto mt-2 pb-20"
                 onScroll={handleScroll} // Track scroll position
             >
-                <Markdown rehypePlugins={[rehypeRaw]}>
+                <ViewMarkdown>
                     {selectedEdge.data?.content || "No content available"}
-                </Markdown>
+                </ViewMarkdown>
             </div>
         </div>
     );

@@ -20,6 +20,7 @@ import ViewSettingCard from "@/components/view/ViewSettingCard";
 import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
+import { findCenterViewOfEdge } from "./lib/centerViewOnEdge";
 import { parseChapterAndDay, useViewStore } from "@/store/viewStore";
 import { isMobile } from "react-device-detect";
 
@@ -58,7 +59,7 @@ const ViewApp = () => {
         validateChapterAndDay,
     } = useViewStore();
 
-    const { fitView, setCenter, getNode } = useReactFlow();
+    const { fitView, setCenter, getNode } = useReactFlow<ImageNodeType, CustomEdgeType>();
     const [minZoom, setMinZoom] = useState(0.5);
     const [settingCardWidth, setSettingCardWidth] = useState(0);
     const panFromSetting = useRef(false);
@@ -232,18 +233,6 @@ const ViewApp = () => {
         }
     }, [fitView, currentCard, nodes, edges, panFromSetting, settingCardWidth]);
 
-    // Get center point of svg path
-    const getCenterPoint = (path: string) => {
-        const pathElement = document.createElementNS(
-            "http://www.w3.org/2000/svg",
-            "path"
-        );
-        pathElement.setAttribute("d", path);
-        const length = pathElement.getTotalLength();
-        const center = pathElement.getPointAtLength(length / 2);
-        return center;
-    };
-
     // Function to fit edge to view
     const fitEdge = (
         nodeAID: string,
@@ -252,54 +241,16 @@ const ViewApp = () => {
     ) => {
         const nodeA = getNode(nodeAID);
         const nodeB = getNode(nodeBID);
-        const nodeAPosition = nodeA!.position;
-        const nodeBPosition = nodeB!.position;
-        const centerEdge = getCenterPoint(edge.data?.path || "");
-
-        // Offset for desktop, since there's a card on the right
-        let offsetX = 0;
-        if (!isMobile) {
-            offsetX = Math.min(
-                500,
-                Math.abs(nodeA!.position.x - nodeB!.position.x) / 2
-            );
+        if(!nodeA || !nodeB) {
+            return;
         }
-
-        // Center point is the center of the two nodes + centerEdge
-        const centerPoint = {
-            x: (nodeAPosition.x + nodeBPosition.x + centerEdge.x) / 3 + offsetX,
-            y: (nodeAPosition.y + nodeBPosition.y + centerEdge.y) / 3,
-        };
-
-        // Calculate zoom factor based on how far the nodes are from each other, in terms of euclidean distance
-        // Further means less zoom, closer means more zoom
-        let zoomFactor = Math.sqrt(
-            Math.pow(nodeAPosition.x - nodeBPosition.x, 2) +
-                Math.pow(nodeAPosition.y - nodeBPosition.y, 2)
-        );
-
-        // Normalize the zoom factor
-        zoomFactor = zoomFactor / 1000;
-
-        // Map the zoom factor to a value between minZoom and maxZoom
-        let minZoom = 0.5;
-        let maxZoom = 1;
-
-        if (isMobile) {
-            minZoom = 0.3;
-            maxZoom = 0.5;
-        }
-
-        let zoomFactorMapped = minZoom + (maxZoom - minZoom) * (1 / zoomFactor);
-
-        // Clamp the zoom factor
-        zoomFactorMapped = Math.min(maxZoom, zoomFactorMapped);
-        zoomFactorMapped = Math.max(minZoom, zoomFactorMapped);
+        
+        const {centerPointX, centerPointY, duration, zoom} = findCenterViewOfEdge(nodeA, nodeB, edge, isMobile);
 
         // Pan to calculated center point
-        setCenter(centerPoint.x, centerPoint.y, {
-            duration: 1000,
-            zoom: zoomFactorMapped,
+        setCenter(centerPointX, centerPointY, {
+            duration: duration,
+            zoom: zoom,
         });
     };
 
