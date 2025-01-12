@@ -6,8 +6,7 @@ import { cn, getLighterOrDarkerColor } from "@/lib/utils";
 import { extractColors } from "extract-colors";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
+import { ViewMarkdown } from "./ViewMarkdown";
 
 interface ViewNodeContentProps {
     selectedNode: ImageNodeType | null;
@@ -50,6 +49,7 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
         }
     };
 
+    
     return (
         <div className="h-full flex flex-col w-full">
             {/* Header */}
@@ -101,9 +101,9 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
                 className="overflow-auto mt-2 pb-20"
                 onScroll={handleScroll} // Track scroll position
             >
-                <Markdown rehypePlugins={[rehypeRaw]}>
+                <ViewMarkdown>
                     {selectedNode?.data.content || "No content available"}
-                </Markdown>
+                </ViewMarkdown>
             </div>
         </div>
     );

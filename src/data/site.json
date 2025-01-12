@@ -58,7 +58,7 @@
                         "data": {
                             "imageSrc": "https://cdn.holoen.fans/hefw/media/Elizabeth-Rose-Bloodflame_list_thumb.png",
                             "title": "Elizabeth Rose Bloodflame",
-                            "content": "<span data-to='Liz-Kronii' class='edge-span link-span'>This should open Liz-Kronii edge</span> <br> <span data-to='Hot Pink One' class='node-span link-span'>This should open Hot Pink One node</span> <br> <span data-href='https://www.youtube.com/embed/Rk7nZ91vme4?si=CpErxTeWCT4JUhgN&start=308' class='embed-span link-span'>This should open a youtube embed modal</span>",
+                            "content": "[This should open Liz-Kronii edge](#edge:node-3-node-19-left-2-bottom-2) <br> [This should open Hot Pink One node](#node:node-17) <br> [This should open a youtube embed modal](https://www.youtube.com/watch?v=Rk7nZ91vme4&start=308)",
                             "team": "Jade Sword",
                             "status": "Alive",
                             "new": true
