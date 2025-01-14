@@ -35,6 +35,11 @@ const edgeTypes = {
     fixed: ViewCustomEdge,
 };
 
+// On mobile it's harder to zoom out, so we set a lower min zoom
+const minZoom = isMobile ? 0.3 : 0.5;
+// To limit the area where the user can pan
+const areaOffset = 1000;
+
 const ViewApp = () => {
     const { setData, data } = useChartStore();
     const [nodes, setNodes] = useNodesState<ImageNodeType>([]);
@@ -60,16 +65,10 @@ const ViewApp = () => {
     } = useViewStore();
 
     const { fitView, setCenter, getNode } = useReactFlow<ImageNodeType, CustomEdgeType>();
-    const [minZoom, setMinZoom] = useState(0.5);
     const [settingCardWidth, setSettingCardWidth] = useState(0);
     const panFromSetting = useRef(false);
 
     useEffect(() => {
-        // On mobile it's harader to zoom out, so we set a lower min zoom
-        if (isMobile) {
-            setMinZoom(0.3);
-        }
-
         // Set site data, temporary until we have a proper way to load data
         // @ts-expect-error json data might be wrong
         setSiteData(siteDataIn);
@@ -290,8 +289,6 @@ const ViewApp = () => {
         return bottomRightNode;
     }, [nodes]);
 
-    // To limit the area where the user can pan
-    const areaOffset = 1000;
     const topLeftNode = useMemo(() => getTopLeftNode(), [getTopLeftNode]);
     const bottomRightNode = useMemo(
         () => getBottomRightNode(),
