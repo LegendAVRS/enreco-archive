@@ -21,7 +21,7 @@ const ViewGeneralCard = () => {
     const contentRef = useRef<HTMLDivElement>(null); // Ref for scrollable content
     const headerRef = useRef<HTMLDivElement>(null); // Ref for header
 
-    const currentChapter = siteData?.chapter;
+    const currentChapter = siteData?.chapters[chapter];
 
     // Reset scroll position and header visibility when chapter or day changes
     useEffect(() => {

@@ -44,7 +44,7 @@ export type Chapter = {
 export type SiteData = {
     numberOfChapters: number;
     event: string;
-    chapter: Chapter;
+    chapters: Chapter[];
 };
 
 export type RelationshipStyle = { [key: string]: React.CSSProperties };

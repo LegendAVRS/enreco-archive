@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { CustomEdgeType, ImageNodeType, SiteData } from "@/lib/type";
 import {
     ConnectionMode,
     ReactFlow,
@@ -40,7 +40,11 @@ const minZoom = isMobile ? 0.3 : 0.5;
 // To limit the area where the user can pan
 const areaOffset = 1000;
 
-const ViewApp = () => {
+interface Props {
+    siteData: SiteData
+}
+
+const ViewApp = ({ siteData }: Props) => {
     const { setData, data } = useChartStore();
     const [nodes, setNodes] = useNodesState<ImageNodeType>([]);
     const [edges, setEdges] = useEdgesState<CustomEdgeType>([]);
@@ -59,7 +63,6 @@ const ViewApp = () => {
         setChapter,
         day,
         setDay,
-        siteData,
         setHoveredEdgeId,
         validateChapterAndDay,
     } = useViewStore();
@@ -123,8 +126,8 @@ const ViewApp = () => {
 
     // Update data when chapter or day changes
     useEffect(() => {
-        if (chapter !== undefined && day !== undefined && siteData.chapter) {
-            setData(siteData.chapter.charts[day]);
+        if (chapter !== undefined && day !== undefined && siteData.chapters) {
+            setData(siteData.chapters[chapter].charts[day]);
         }
     }, [chapter, day, setData, siteData]);
 

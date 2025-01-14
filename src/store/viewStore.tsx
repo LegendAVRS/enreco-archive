@@ -77,7 +77,7 @@ export const useViewStore = create<ViewState>((set, get) => {
         siteData: {
             numberOfChapters: 0,
             event: "",
-            chapter: { title: "", charts: [], numberOfDays: 0 },
+            chapters: [],
         },
         setSiteData: (siteData: SiteData) => {
             set(() => ({ siteData }));
@@ -92,7 +92,7 @@ export const useViewStore = create<ViewState>((set, get) => {
         validateChapterAndDay: (chapter: number, day: number): [number, number] => {
             const { siteData } = get();
             const numberOfChapters = siteData.numberOfChapters;
-            const numberOfDays = siteData.chapter.numberOfDays;
+            const numberOfDays = siteData.chapters[chapter].numberOfDays;
 
             const validChapter = (chapter >= 0 && chapter < numberOfChapters) ? chapter : 0;
             const validDay = (day >= 0 && day < numberOfDays) ? day : 0;

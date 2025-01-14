@@ -3,7 +3,7 @@ import React from "react";
 
 const Progress = () => {
     const viewStore = useViewStore();
-    const currentChapter = viewStore.siteData.chapter;
+    const currentChapter = viewStore.siteData.chapters[viewStore.chapter];
     const currentDay = viewStore.day;
     const currentNumberOfDaysOffseted =
         currentChapter.numberOfDays > 1 ? currentChapter.numberOfDays - 1 : 1;
