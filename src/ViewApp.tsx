@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { CustomEdgeType, ImageNodeType, SiteData } from "@/lib/type";
 import {
@@ -21,11 +21,13 @@ import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { findCenterViewOfEdge } from "./lib/centerViewOnEdge";
-import { parseChapterAndDay, useViewStore } from "@/store/viewStore";
+import { CardType, useViewStore } from "@/store/viewStore";
 import { isMobile } from "react-device-detect";
 
-import siteDataIn from "@/data/site.json";
 import Progress from "@/components/view/Progress";
+import { useDisabledMobilePinchZoom } from "./hooks/useDisabledMobilePinchZoom";
+import { useBrowserHash } from "./hooks/useBrowserHash";
+import { useFlowViewShrinker } from "./hooks/useFlowViewShrinker";
 
 const nodeTypes = {
     image: ImageNodeView,
@@ -64,18 +66,20 @@ const ViewApp = ({ siteData }: Props) => {
         day,
         setDay,
         setHoveredEdgeId,
-        validateChapterAndDay,
     } = useViewStore();
 
     const { fitView, setCenter, getNode } = useReactFlow<ImageNodeType, CustomEdgeType>();
-    const [settingCardWidth, setSettingCardWidth] = useState(0);
-    const panFromSetting = useRef(false);
+    const { shrinkFlowView, resetFlowView } = useFlowViewShrinker();
+
+    // For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom
+    // Also when pinch zoom when one of the cards are open, upon closing the zoom will stay that way permanently
+    useDisabledMobilePinchZoom();
 
     useEffect(() => {
         // Set site data, temporary until we have a proper way to load data
         // @ts-expect-error json data might be wrong
-        setSiteData(siteDataIn);
-    }, [setSiteData]);
+        setSiteData(siteData);
+    }, [setSiteData, siteData]);
 
     // Load the flow from current chart data
     const loadFlow = useCallback(() => {
@@ -131,109 +135,51 @@ const ViewApp = ({ siteData }: Props) => {
         }
     }, [chapter, day, setData, siteData]);
 
-    // Update the URL when the chapter or day changes
-    useEffect(() => {
-        if (chapter !== undefined && day !== undefined) {
-            // This works but it also modifies history.
-            // document.location.hash = `${chapter}/${day}`
-
-            window.history.replaceState({}, "", `#${chapter}/${day}`);
+    function updateData(newChapter: number, newDay: number) {
+        if(newChapter < 0 || newChapter > siteData.numberOfChapters || 
+            newDay < 0 || newDay > siteData.chapters[chapter].numberOfDays
+        ) {
+            return;
         }
-    }, [chapter, day]);
+        setChapter(newChapter);
+        setDay(newDay);
+        setBrowserHash(`${newChapter}/${newDay}`);
+    }
 
-    // For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom
-    // Also when pinch zoom when one of the cards are open, upon closing the zoom will stay that way permanently
-    useEffect(() => {
-        document.addEventListener(
-            "gesturestart",
-            (e) => {
-                e.preventDefault();
-            },
-            { passive: false }
-        );
-
-        document.addEventListener(
-            "gesturechange",
-            (e) => {
-                e.preventDefault();
-            },
-            { passive: false }
-        );
-
-        document.addEventListener(
-            "gestureend",
-            (e) => {
-                e.preventDefault();
-            },
-            { passive: false }
-        );
-    }, []);
-
-    // Update the chapter and day if the URL hash changes too
-    useEffect(() => {
-        const handleHashChange = () => {
-            const [possibleNewChapter, possibleNewDay] = parseChapterAndDay();
-            const [newChapter, newDay] = validateChapterAndDay(
-                possibleNewChapter,
-                possibleNewDay
-            );
-
-            setChapter(newChapter);
-            setDay(newDay);
-
-            // If they set something dumb, should this also "reset" the URL to whatever we're actually
-            // internally using?
-            window.history.replaceState({}, "", `#${newChapter}/${newDay}`);
+    function onBrowserHashChange(hash: string) {
+        const parseOrZero = (value: string): number => {
+            const parsed = parseInt(value, 10);
+            return Number.isNaN(parsed) ? 0 : parsed;
         };
+    
+        const parts = hash.split("/");
 
-        window.addEventListener("hashchange", handleHashChange);
-        return () => {
-            window.removeEventListener("hashchange", handleHashChange);
-        };
-    }, [setChapter, setDay, validateChapterAndDay]);
+        if (parts.length === 2) {
+            const chapter = parseOrZero(parts[0])
+            const day = parseOrZero(parts[1])
+            updateData(chapter, day);
+        }
+    }
+
+    // Update react flow renderer width when setting card is open, so the flow is not covered by the card
+    function onCurrentCardChange(newCurrentCard: CardType) {
+        if(newCurrentCard === "setting") {
+            // Same width as the ViewCard
+            shrinkFlowView(500);
+        }
+        else {
+            resetFlowView();
+        }
+
+        setCurrentCard(newCurrentCard);
+    }
+
+    const { setBrowserHash } = useBrowserHash(onBrowserHashChange);
 
     // Load the flow when data changes
     useEffect(() => {
         loadFlow();
     }, [loadFlow, data]);
-    useEffect(() => {
-        if (currentCard === "setting") {
-            // Same width as the ViewCard
-            setSettingCardWidth(500);
-            panFromSetting.current = true;
-        } else {
-            if (currentCard !== null) {
-                panFromSetting.current = false;
-            }
-            setSettingCardWidth(0);
-        }
-    }, [currentCard, setSettingCardWidth, panFromSetting]);
-
-    // Update react flow renderer width when setting card is open, so the flow is not covered by the card
-    useEffect(() => {
-        const reactFlowRenderer = document.querySelector<HTMLDivElement>(
-            ".react-flow__renderer"
-        );
-        if (reactFlowRenderer && !isMobile) {
-            reactFlowRenderer.style.width = `calc(100% - ${settingCardWidth}px)`;
-        }
-
-        // Need a slight delay to make sure the width is updated before fitting the view
-        if (currentCard === "setting") {
-            setTimeout(() => {
-                fitView({ padding: 0.5, duration: 1000 });
-            }, 50);
-            return;
-        }
-
-        // Fit view when no card is open (only on mobile or when closing from setting)
-        if (currentCard === null) {
-            setTimeout(() => {
-                fitView({ padding: 0.5, duration: 1000 });
-            }, 50);
-            panFromSetting.current = false;
-        }
-    }, [fitView, currentCard, nodes, edges, panFromSetting, settingCardWidth]);
 
     // Function to fit edge to view
     const fitEdge = (
@@ -319,7 +265,7 @@ const ViewApp = ({ siteData }: Props) => {
                             duration: 1000,
                             maxZoom: 1.5,
                         });
-                        setCurrentCard("node");
+                        onCurrentCardChange("node");
                     }}
                     onEdgeClick={(_, edge) => {
                         // Disable edge selection on if is old edge and only show new is true
@@ -330,12 +276,12 @@ const ViewApp = ({ siteData }: Props) => {
                         setSelectedEdge(edge);
                         fitEdge(edge.source, edge.target, edge);
 
-                        setCurrentCard("edge");
+                        onCurrentCardChange("edge");
                     }}
                     minZoom={minZoom}
                     zoomOnDoubleClick={false}
                     onPaneClick={() => {
-                        setCurrentCard(null);
+                        onCurrentCardChange(null);
                     }}
                     onEdgeMouseEnter={(_, edge) => {
                         setHoveredEdgeId(edge.id);
@@ -372,11 +318,18 @@ const ViewApp = ({ siteData }: Props) => {
                 <ViewSettingCard />
                 <ViewNodeCard />
                 <ViewEdgeCard />
-                <ViewSettingIcon className="absolute top-2 right-2 z-10" />
+                <ViewSettingIcon 
+                    onIconClick={() => onCurrentCardChange(currentCard === "setting" ? null : "setting")}
+                    className="absolute top-2 right-2 z-10" 
+                />
             </div>
             <ViewInfoModal open={modalOpen} onOpenChange={setModalOpen} />
 
-            <Progress />
+            <Progress 
+                chapterData={siteData.chapters[chapter]} 
+                day={day} 
+                onDayChange={ (newDay: number) => updateData(chapter, newDay) } 
+            />
         </>
     );
 };

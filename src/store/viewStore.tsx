@@ -2,25 +2,6 @@ import { SiteData } from "@/lib/type";
 import { create } from "zustand";
 export type CardType = "node" | "edge" | "setting" | null;
 
-export function parseChapterAndDay(): [number, number] {
-    const isBrowserWindowReady = (): boolean => typeof window !== "undefined";
-    const parseOrZero = (value: string): number => {
-        const parsed = parseInt(value, 10);
-        return Number.isNaN(parsed) ? 0 : parsed;
-    };
-
-    if (isBrowserWindowReady()) {
-        const { hash } = window.location;
-        const parts = hash.replace("#", "").split("/");
-
-        if (parts.length === 2) {
-            const chapter = parseOrZero(parts[0])
-            const day = parseOrZero(parts[1])
-            return [chapter, day];
-        }
-    }
-    return [0, 0];
-}
 interface ViewState {
     chapter: number;
     setChapter: (chapter: number) => void;
@@ -50,7 +31,7 @@ interface ViewState {
     validateChapterAndDay: (chapter: number, day: number) => [number, number];
 }
 export const useViewStore = create<ViewState>((set, get) => {
-    const [initialChapter, initialDay] = parseChapterAndDay();
+    const [initialChapter, initialDay] = [0, 0];
 
     return {
         chapter: initialChapter,
