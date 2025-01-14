@@ -25,4 +25,5 @@ dist-ssr
 
 # other
 todo.txt
-.next
+.next/*
+tsconfig.tsbuildinfo
