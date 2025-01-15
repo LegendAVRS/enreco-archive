@@ -20,7 +20,6 @@ import ViewSettingCard from "@/components/view/ViewSettingCard";
 import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
-import { findCenterViewOfEdge } from "./lib/centerViewOnEdge";
 import { CardType, useViewStore } from "@/store/viewStore";
 import { isMobile } from "react-device-detect";
 
@@ -28,6 +27,7 @@ import Progress from "@/components/view/Progress";
 import { useDisabledMobilePinchZoom } from "./hooks/useDisabledMobilePinchZoom";
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import { useFlowViewShrinker } from "./hooks/useFlowViewShrinker";
+import { useReactFlowFitViewToEdge } from "./hooks/useReactFlowFitViewToEdge";
 
 function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     const parseOrZero = (value: string): number => {
@@ -86,7 +86,8 @@ const ViewApp = ({ siteData }: Props) => {
         setHoveredEdgeId,
     } = useViewStore();
 
-    const { fitView, setCenter, getNode } = useReactFlow<ImageNodeType, CustomEdgeType>();
+    const { fitView } = useReactFlow<ImageNodeType, CustomEdgeType>();
+    const { fitViewToEdge } = useReactFlowFitViewToEdge();
     const { shrinkFlowView, resetFlowView } = useFlowViewShrinker();
 
     // For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom
@@ -193,27 +194,6 @@ const ViewApp = ({ siteData }: Props) => {
         loadFlow();
     }, [loadFlow, data]);
 
-    // Function to fit edge to view
-    const fitEdge = (
-        nodeAID: string,
-        nodeBID: string,
-        edge: CustomEdgeType
-    ) => {
-        const nodeA = getNode(nodeAID);
-        const nodeB = getNode(nodeBID);
-        if(!nodeA || !nodeB) {
-            return;
-        }
-        
-        const {centerPointX, centerPointY, duration, zoom} = findCenterViewOfEdge(nodeA, nodeB, edge, isMobile);
-
-        // Pan to calculated center point
-        setCenter(centerPointX, centerPointY, {
-            duration: duration,
-            zoom: zoom,
-        });
-    };
-
     const getTopLeftNode = useCallback(() => {
         let topLeftNode = nodes[0];
         for (const node of nodes) {
@@ -296,7 +276,7 @@ const ViewApp = ({ siteData }: Props) => {
                         }
 
                         setSelectedEdge(edge);
-                        fitEdge(edge.source, edge.target, edge);
+                        fitViewToEdge(edge.source, edge.target, edge);
 
                         onCurrentCardChange("edge");
                     }}
