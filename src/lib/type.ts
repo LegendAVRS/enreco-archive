@@ -12,7 +12,7 @@ export type ImageNodeData = {
 
     // The following properties are used during the rendering of this node,
     // and should not be filled by the data source.
-    renderTeamImageSrc: string;
+    renderTeamImageSrc?: string;
 };
 
 export type CustomEdgeData = {
@@ -26,8 +26,8 @@ export type CustomEdgeData = {
 
     // The following properties are used during the rendering of this edge,
     // and should not be filled by the data source.
-    renderEdgeStyle: CSSProperties;
-    renderIsHoveredEdge: boolean;
+    renderEdgeStyle?: CSSProperties;
+    renderIsHoveredEdge?: boolean;
 };
 
 export type ImageNodeType = Node<ImageNodeData, "image">;
