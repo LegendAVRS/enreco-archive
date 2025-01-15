@@ -1,3 +1,4 @@
+'use client';
 import { useReactFlow } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
