@@ -29,6 +29,23 @@ import { useDisabledMobilePinchZoom } from "./hooks/useDisabledMobilePinchZoom";
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import { useFlowViewShrinker } from "./hooks/useFlowViewShrinker";
 
+function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
+    const parseOrZero = (value: string): number => {
+        const parsed = parseInt(value, 10);
+        return Number.isNaN(parsed) ? 0 : parsed;
+    };
+
+    const parts = hash.split("/");
+
+    if (parts.length === 2) {
+        const chapter = parseOrZero(parts[0])
+        const day = parseOrZero(parts[1])
+        return [chapter, day];
+    }
+
+    return null;
+}
+
 const nodeTypes = {
     image: ImageNodeView,
 };
@@ -46,6 +63,7 @@ interface Props {
     siteData: SiteData
 }
 
+let didInit = false;
 const ViewApp = ({ siteData }: Props) => {
     const { setData, data } = useChartStore();
     const [nodes, setNodes] = useNodesState<ImageNodeType>([]);
@@ -147,16 +165,10 @@ const ViewApp = ({ siteData }: Props) => {
     }
 
     function onBrowserHashChange(hash: string) {
-        const parseOrZero = (value: string): number => {
-            const parsed = parseInt(value, 10);
-            return Number.isNaN(parsed) ? 0 : parsed;
-        };
-    
-        const parts = hash.split("/");
+        const parsedValues = parseChapterAndDayFromBrowserHash(hash);
 
-        if (parts.length === 2) {
-            const chapter = parseOrZero(parts[0])
-            const day = parseOrZero(parts[1])
+        if(parsedValues) {
+            const [chapter, day] = parsedValues;
             updateData(chapter, day);
         }
     }
@@ -174,7 +186,7 @@ const ViewApp = ({ siteData }: Props) => {
         setCurrentCard(newCurrentCard);
     }
 
-    const { setBrowserHash } = useBrowserHash(onBrowserHashChange);
+    const { browserHash, setBrowserHash } = useBrowserHash(onBrowserHashChange);
 
     // Load the flow when data changes
     useEffect(() => {
@@ -245,6 +257,16 @@ const ViewApp = ({ siteData }: Props) => {
     );
     if (!data) {
         return;
+    }
+
+    if(!didInit) {
+        didInit = true;
+        
+        const initialChapterDay = parseChapterAndDayFromBrowserHash(browserHash);
+        if(initialChapterDay) {
+            const [chapter, day] = initialChapterDay;
+            updateData(chapter, day);
+        }
     }
 
     return (

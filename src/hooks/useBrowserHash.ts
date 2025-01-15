@@ -1,7 +1,16 @@
+'use client';
 import { useEffect, useState } from "react";
 
+function getInitialHash() {
+    if(global?.window && window.location.hash) {
+        return window.location.hash.substring(1);
+    }
+
+    return "";
+}
+
 export function useBrowserHash(onBrowserHashChange: (hashValue: string) => void) {
-    const [browserHash, setBrowserHash] = useState("");
+    const [browserHash, setBrowserHash] = useState(getInitialHash());
 
     useEffect(() => {
         const hashChangeListener = () => {
