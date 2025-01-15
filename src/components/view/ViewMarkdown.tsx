@@ -1,15 +1,16 @@
-import { findCenterViewOfEdge } from "@/lib/centerViewOnEdge";
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
-import { useFlowStore } from "@/store/flowStore";
-import { useViewStore } from "@/store/viewStore";
 import { useReactFlow } from "@xyflow/react";
 import { MouseEventHandler } from "react";
-import { isMobile } from "react-device-detect";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
+export type NodeLinkClickHandler = (targetNode: ImageNodeType) => void;
+export type EdgeLinkClickHandler = (targetEdge: CustomEdgeType) => void;
+
 interface Props {
-    children: string | null | undefined
+    onNodeLinkClicked: NodeLinkClickHandler;
+    onEdgeLinkClicked: EdgeLinkClickHandler;
+    children: string | null | undefined;
 }
 
 /*
@@ -20,10 +21,8 @@ You can generate these special links by using the following markdown:
 For a link to jump to a specific node: [node link](#node:<node id>)
 For a link to jump to a specific edge: [edge link](#edge:<edge id>)
 */
-export function ViewMarkdown({ children }: Props) {
-    const { setSelectedEdge, setSelectedNode } = useFlowStore();
-    const { setCurrentCard } = useViewStore();
-    const { getNode, getEdge, fitView, setCenter } = useReactFlow<ImageNodeType, CustomEdgeType>();
+export function ViewMarkdown({ onNodeLinkClicked, onEdgeLinkClicked, children }: Props) {
+    const { getNode, getEdge } = useReactFlow<ImageNodeType, CustomEdgeType>();
 
     const nodeLinkHandler: MouseEventHandler<HTMLAnchorElement> = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
@@ -34,13 +33,7 @@ export function ViewMarkdown({ children }: Props) {
             return;
         }
 
-        setSelectedNode(targetNode);
-        fitView({
-            nodes: [targetNode],
-            duration: 1000,
-            maxZoom: 1.5,
-        });
-        setCurrentCard("node");
+        onNodeLinkClicked(targetNode);
     }
 
     const edgeLinkHandler: MouseEventHandler<HTMLAnchorElement> = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -52,21 +45,7 @@ export function ViewMarkdown({ children }: Props) {
             return;
         }
 
-        setSelectedEdge(targetEdge);
-        const nodeA = getNode(targetEdge.source);
-        const nodeB = getNode(targetEdge.target);
-        if(!nodeA || !nodeB) {
-            return;
-        }
-        
-        const {centerPointX, centerPointY, duration, zoom} = findCenterViewOfEdge(nodeA, nodeB, targetEdge, isMobile);
-
-        // Pan to calculated center point
-        setCenter(centerPointX, centerPointY, {
-            duration: duration,
-            zoom: zoom,
-        });
-        setCurrentCard("edge");
+        onEdgeLinkClicked(targetEdge);
     }
 
     return (

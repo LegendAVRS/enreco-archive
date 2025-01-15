@@ -1,12 +1,10 @@
 "use client";
-import { useCallback, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 import { CustomEdgeType, ImageNodeType, SiteData } from "@/lib/type";
 import {
     ConnectionMode,
     ReactFlow,
-    useEdgesState,
-    useNodesState,
     useReactFlow,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
@@ -18,7 +16,6 @@ import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
 import ViewSettingIcon from "@/components/view/ViewSettingIcon";
-import { useChartStore } from "@/store/chartStore";
 import { useFlowStore } from "@/store/flowStore";
 import { CardType, useViewStore } from "@/store/viewStore";
 import { isMobile } from "react-device-detect";
@@ -46,6 +43,32 @@ function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     return null;
 }
 
+function findTopLeftNode(nodes: ImageNodeType[]) {
+    let topLeftNode = nodes[0];
+    for (const node of nodes) {
+        if (
+            node.position.x < topLeftNode.position.x || 
+            (node.position.x === topLeftNode.position.x && node.position.y < topLeftNode.position.y)
+        ) {
+            topLeftNode = node;
+        }
+    }
+    return topLeftNode;
+}
+
+function findBottomRightNode(nodes: ImageNodeType[]) {
+    let bottomRightNode = nodes[0];
+    for (const node of nodes) {
+        if (
+            node.position.x > bottomRightNode.position.x || 
+            (node.position.x === bottomRightNode.position.x && node.position.y > bottomRightNode.position.y)
+        ) {
+            bottomRightNode = node;
+        }
+    }
+    return bottomRightNode;
+}
+
 const nodeTypes = {
     image: ImageNodeView,
 };
@@ -65,106 +88,160 @@ interface Props {
 
 let didInit = false;
 const ViewApp = ({ siteData }: Props) => {
-    const { setData, data } = useChartStore();
-    const [nodes, setNodes] = useNodesState<ImageNodeType>([]);
-    const [edges, setEdges] = useEdgesState<CustomEdgeType>([]);
-    const { setSelectedEdge, setSelectedNode } = useFlowStore();
-    const { edgeVisibility } = useViewStore();
+    /* State variables */
+    const { selectedEdge, selectedNode, setSelectedEdge, setSelectedNode } = useFlowStore();
     const {
         currentCard,
         setCurrentCard,
+        edgeVisibility,
         setEdgeVisibility,
+        teamVisibility,
         setTeamVisibility,
+        characterVisibility,
         setCharacterVisibility,
         modalOpen,
         setModalOpen,
-        setSiteData,
         chapter,
         setChapter,
         day,
         setDay,
+        hoveredEdgeId,
         setHoveredEdgeId,
     } = useViewStore();
 
     const { fitView } = useReactFlow<ImageNodeType, CustomEdgeType>();
     const { fitViewToEdge } = useReactFlowFitViewToEdge();
     const { shrinkFlowView, resetFlowView } = useFlowViewShrinker();
+    const { browserHash, setBrowserHash } = useBrowserHash(onBrowserHashChange);
 
     // For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom
     // Also when pinch zoom when one of the cards are open, upon closing the zoom will stay that way permanently
     useDisabledMobilePinchZoom();
 
-    useEffect(() => {
-        // Set site data, temporary until we have a proper way to load data
-        // @ts-expect-error json data might be wrong
-        setSiteData(siteData);
-    }, [setSiteData, siteData]);
+    /* Data variables */
+    const chapterData = siteData.chapters[chapter];
+    const dayData = chapterData.charts[day];
+    const nodes = dayData.nodes;
+    const edges = dayData.edges;
 
-    // Load the flow from current chart data
-    const loadFlow = useCallback(() => {
-        const flow = data;
+    /* Hooks that depend on main data variables. */
+    const topLeftNode = useMemo(() => findTopLeftNode(nodes), [nodes]);
+    const bottomRightNode = useMemo(() => findBottomRightNode(nodes), [nodes]);
 
-        if (flow) {
-            // Setting the nodes, edges and data
-            setNodes((flow.nodes as ImageNodeType[]) || []);
-            setEdges((flow.edges as CustomEdgeType[]) || []);
+    // Filter and fill in render properties for nodes/edges before passing them to ReactFlow.
+    const renderableNodes = nodes.filter(node => {
+        // Compute node visibility based on related edge and viewstore settings
+        let isVisible = true;
 
-            // Setting the visibility of edges, teams and characters
-            const edgeVisibilityLoaded: { [key: string]: boolean } = {};
-            const teamVisibilityLoaded: { [key: string]: boolean } = {};
-            const characterVisibilityLoaded: { [key: string]: boolean } = {};
-
-            // To avoid overwriting current visibility for "new"
-            edgeVisibilityLoaded["new"] = edgeVisibilityLoaded["new"] || true;
-
-            Object.keys(flow.relationships).forEach((key) => {
-                edgeVisibilityLoaded[key] = true;
-            });
-
-            Object.keys(flow.teams).forEach((key) => {
-                teamVisibilityLoaded[key] = true;
-            });
-
-            for (const node of flow.nodes) {
-                if (node.data.team) {
-                    teamVisibilityLoaded[node.data.team] = true;
-                }
-                if (node.data.title) {
-                    characterVisibilityLoaded[node.data.title] = true;
-                }
-            }
-
-            setEdgeVisibility(edgeVisibilityLoaded);
-            setTeamVisibility(teamVisibilityLoaded);
-            setCharacterVisibility(characterVisibilityLoaded);
+        if (node.data.team) {
+            isVisible = isVisible && teamVisibility[node.data.team];
+        } 
+        if (node.data.title) {
+            isVisible = isVisible && characterVisibility[node.data.title];
         }
-    }, [
-        setNodes,
-        setEdges,
-        setEdgeVisibility,
-        setTeamVisibility,
-        setCharacterVisibility,
-        data,
-    ]);
-
-    // Update data when chapter or day changes
-    useEffect(() => {
-        if (chapter !== undefined && day !== undefined && siteData.chapters) {
-            setData(siteData.chapters[chapter].charts[day]);
+        return isVisible;
+    }).map(node => {
+        // Set team icon image, if available.
+        if(node.data.team) {
+            node.data.renderTeamImageSrc = dayData.teams[node.data.team]?.imageSrc || "";
         }
-    }, [chapter, day, setData, siteData]);
+        else {
+            node.data.renderTeamImageSrc = "";
+        }
+        
+        return node;
+    });
 
+    const renderableEdges = edges.filter(edge => {
+        const nodeSrc = nodes.filter(node => node.id == edge.source)[0] as ImageNodeType;
+        const nodeTarget = nodes.filter(node => node.id == edge.target)[0] as ImageNodeType;
+        if(!nodeSrc || !nodeTarget) {
+            return false;
+        }
+
+        let visibility = true;
+        if (edge.data?.relationship) {
+            visibility = visibility && edgeVisibility[edge.data.relationship];
+        }
+        /*
+        if (edge.data?.new) {
+            visibility = visibility && edgeVisibility["new"];
+        }
+        */
+        if (nodeSrc?.data.team) {
+            visibility = visibility && teamVisibility[nodeSrc.data.team];
+        }
+        if (nodeTarget?.data.team) {
+            visibility = visibility && teamVisibility[nodeTarget.data.team];
+        }
+        if (nodeSrc?.data.title) {
+            visibility = visibility && characterVisibility[nodeSrc.data.title];
+        }
+        if (nodeTarget?.data.title) {
+            visibility = visibility && characterVisibility[nodeTarget.data.title];
+        }
+        
+        return visibility;
+    }).map(edge => {
+        if(!edge.data) {
+            return edge;
+        }
+
+        if(edge.data.relationship) {
+            edge.data.renderEdgeStyle = dayData.relationships[edge.data.relationship] || {};
+        }
+
+        edge.data.renderIsHoveredEdge = edge.id === hoveredEdgeId; 
+
+        return edge;
+    });
+
+    /* Helper function to coordinate state updates when data changes. */
     function updateData(newChapter: number, newDay: number) {
         if(newChapter < 0 || newChapter > siteData.numberOfChapters || 
             newDay < 0 || newDay > siteData.chapters[chapter].numberOfDays
         ) {
             return;
         }
+
+        const newChapterData = siteData.chapters[newChapter];
+        const newDayData = newChapterData.charts[newDay];
+
+        // Rest edge/team/character visibility on data change.
+        // Setting the visibility of edges, teams and characters
+        const edgeVisibilityLoaded: { [key: string]: boolean } = {};
+        const teamVisibilityLoaded: { [key: string]: boolean } = {};
+        const characterVisibilityLoaded: { [key: string]: boolean } = {};
+
+        // To avoid overwriting current visibility for "new"
+        edgeVisibilityLoaded["new"] = edgeVisibilityLoaded["new"] || true;
+
+        Object.keys(newDayData.relationships).forEach((key) => {
+            edgeVisibilityLoaded[key] = true;
+        });
+
+        Object.keys(newDayData.teams).forEach((key) => {
+            teamVisibilityLoaded[key] = true;
+        });
+
+        for (const node of newDayData.nodes) {
+            if (node.data.team) {
+                teamVisibilityLoaded[node.data.team] = true;
+            }
+            if (node.data.title) {
+                characterVisibilityLoaded[node.data.title] = true;
+            }
+        }
+
+        setEdgeVisibility(edgeVisibilityLoaded);
+        setTeamVisibility(teamVisibilityLoaded);
+        setCharacterVisibility(characterVisibilityLoaded);
         setChapter(newChapter);
         setDay(newDay);
         setBrowserHash(`${newChapter}/${newDay}`);
     }
 
+    /* Event handler functions */
     function onBrowserHashChange(hash: string) {
         const parsedValues = parseChapterAndDayFromBrowserHash(hash);
 
@@ -187,58 +264,23 @@ const ViewApp = ({ siteData }: Props) => {
         setCurrentCard(newCurrentCard);
     }
 
-    const { browserHash, setBrowserHash } = useBrowserHash(onBrowserHashChange);
-
-    // Load the flow when data changes
-    useEffect(() => {
-        loadFlow();
-    }, [loadFlow, data]);
-
-    const getTopLeftNode = useCallback(() => {
-        let topLeftNode = nodes[0];
-        for (const node of nodes) {
-            if (node.position.x < topLeftNode.position.x) {
-                topLeftNode = node;
-            }
-        }
-        for (const node of nodes) {
-            if (
-                node.position.x <= topLeftNode.position.x &&
-                node.position.y < topLeftNode.position.y
-            ) {
-                topLeftNode = node;
-            }
-        }
-        return topLeftNode;
-    }, [nodes]);
-
-    const getBottomRightNode = useCallback(() => {
-        let bottomRightNode = nodes[0];
-        for (const node of nodes) {
-            if (node.position.x > bottomRightNode.position.x) {
-                bottomRightNode = node;
-            }
-        }
-        for (const node of nodes) {
-            if (
-                node.position.x >= bottomRightNode.position.x &&
-                node.position.y > bottomRightNode.position.y
-            ) {
-                bottomRightNode = node;
-            }
-        }
-        return bottomRightNode;
-    }, [nodes]);
-
-    const topLeftNode = useMemo(() => getTopLeftNode(), [getTopLeftNode]);
-    const bottomRightNode = useMemo(
-        () => getBottomRightNode(),
-        [getBottomRightNode]
-    );
-    if (!data) {
-        return;
+    function onNodeLinkClicked(targetNode: ImageNodeType) {
+        setCurrentCard("node");
+        setSelectedNode(targetNode);
+        fitView({
+            nodes: [targetNode],
+            duration: 1000,
+            maxZoom: 1.5,
+        });
     }
 
+    function onEdgeLinkClicked(targetEdge: CustomEdgeType) {
+        setCurrentCard("edge");
+        setSelectedEdge(targetEdge);
+        fitViewToEdge(targetEdge.source, targetEdge.target, targetEdge);
+    }
+
+    /* Init block, runs only on first render/load. */
     if(!didInit) {
         didInit = true;
         
@@ -254,8 +296,8 @@ const ViewApp = ({ siteData }: Props) => {
             <div className="w-screen h-screen overflow-hidden ">
                 <ReactFlow
                     connectionMode={ConnectionMode.Loose}
-                    nodes={nodes}
-                    edges={edges}
+                    nodes={renderableNodes}
+                    edges={renderableEdges}
                     nodeTypes={nodeTypes}
                     edgeTypes={edgeTypes}
                     fitView
@@ -317,9 +359,37 @@ const ViewApp = ({ siteData }: Props) => {
                         backgroundRepeat: "no-repeat",
                     }}
                 />
-                <ViewSettingCard />
-                <ViewNodeCard />
-                <ViewEdgeCard />
+                <ViewSettingCard 
+                    isCardOpen={currentCard === "setting"}  
+                    onCardClose={ () => setCurrentCard(null) }
+                    chapter={chapter}
+                    chapterData={chapterData}
+                    day={day}
+                    dayData={dayData} 
+                    onDayChange={(newDay: number) => updateData(chapter, newDay) }
+                    onModalOpen={() => setModalOpen(true)}
+                    edgeVisibility={edgeVisibility}
+                    onEdgeVisibilityChange={setEdgeVisibility}
+                    teamVisibility={teamVisibility}
+                    onTeamVisibilityChange={setTeamVisibility}
+                    characterVisibility={characterVisibility}
+                    onCharacterVisibilityChange={setCharacterVisibility}
+                />
+                <ViewNodeCard 
+                    isCardOpen={currentCard === "node"}
+                    selectedNode={selectedNode}
+                    onCardClose={ () => setCurrentCard(null) }
+                    dayData={dayData}
+                    onNodeLinkClicked={onNodeLinkClicked}
+                    onEdgeLinkClicked={onEdgeLinkClicked}
+                />
+                <ViewEdgeCard 
+                    isCardOpen={ currentCard === "edge" } 
+                    selectedEdge={ selectedEdge }
+                    onCardClose={ () => setCurrentCard(null) }
+                    onNodeLinkClicked={onNodeLinkClicked}
+                    onEdgeLinkClicked={onEdgeLinkClicked}
+                />
                 <ViewSettingIcon 
                     onIconClick={() => onCurrentCardChange(currentCard === "setting" ? null : "setting")}
                     className="absolute top-2 right-2 z-10" 

@@ -1,24 +1,27 @@
 import { Separator } from "@/components/ui/separator";
 import EdgeCardDeco from "@/components/view/EdgeCardDeco";
-import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
 import { useRef, useState, useEffect } from "react";
 import { SCROLL_THRESHOLD } from "@/lib/constants";
-import { ViewMarkdown } from "./ViewMarkdown";
+import { EdgeLinkClickHandler, NodeLinkClickHandler, ViewMarkdown } from "./ViewMarkdown";
 
 interface ViewEdgeContentProps {
     selectedEdge: CustomEdgeType;
     nodeA: ImageNodeType;
     nodeB: ImageNodeType;
+    onNodeLinkClicked: NodeLinkClickHandler;
+    onEdgeLinkClicked: EdgeLinkClickHandler;
 }
 
 const ViewEdgeContent = ({
     selectedEdge,
     nodeA,
     nodeB,
+    onNodeLinkClicked,
+    onEdgeLinkClicked
 }: ViewEdgeContentProps) => {
-    const { edgeStyle } = useEdgeStyle(selectedEdge?.data?.relationship);
+    const edgeStyle = selectedEdge.data?.renderEdgeStyle || {};
     const backgroundColor = getLighterOrDarkerColor(
         edgeStyle?.stroke || "",
         30
@@ -97,7 +100,7 @@ const ViewEdgeContent = ({
                 className="overflow-auto mt-2 pb-20"
                 onScroll={handleScroll} // Track scroll position
             >
-                <ViewMarkdown>
+                <ViewMarkdown onEdgeLinkClicked={onEdgeLinkClicked} onNodeLinkClicked={onNodeLinkClicked}>
                     {selectedEdge.data?.content || "No content available"}
                 </ViewMarkdown>
             </div>

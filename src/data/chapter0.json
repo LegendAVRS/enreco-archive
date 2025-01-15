@@ -6464,7 +6464,7 @@
                         "content": "",
                         "team": "Cerulean Cup",
                         "status": "Alive",
-                        "new": false
+                        "new": true
                     },
                     "measured": {
                         "width": 100,

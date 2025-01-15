@@ -1,4 +1,3 @@
-import { SiteData } from "@/lib/type";
 import { create } from "zustand";
 export type CardType = "node" | "edge" | "setting" | null;
 
@@ -13,8 +12,10 @@ interface ViewState {
 
     edgeVisibility: { [key: string]: boolean };
     setEdgeVisibility: (edgeVisibility: { [key: string]: boolean }) => void;
+
     teamVisibility: { [key: string]: boolean };
     setTeamVisibility: (teamVisibility: { [key: string]: boolean }) => void;
+
     characterVisibility: { [key: string]: boolean };
     setCharacterVisibility: (characterVisibility: {
         [key: string]: boolean;
@@ -22,20 +23,17 @@ interface ViewState {
 
     modalOpen: boolean;
     setModalOpen: (isModalOpen: boolean) => void;
-    siteData: SiteData;
-    setSiteData: (data: SiteData) => void;
 
     hoveredEdgeId: string | null;
     setHoveredEdgeId: (hoveredEdgeId: string) => void;
-
-    validateChapterAndDay: (chapter: number, day: number) => [number, number];
 }
-export const useViewStore = create<ViewState>((set, get) => {
+export const useViewStore = create<ViewState>((set) => {
     const [initialChapter, initialDay] = [0, 0];
 
     return {
         chapter: initialChapter,
         setChapter: (chapter: number) => set(() => ({ chapter })),
+
         day: initialDay,
         setDay: (day: number) => set(() => ({ day })),
 
@@ -45,9 +43,11 @@ export const useViewStore = create<ViewState>((set, get) => {
         edgeVisibility: {},
         setEdgeVisibility: (edgeVisibility: { [key: string]: boolean }) =>
             set(() => ({ edgeVisibility })),
+
         teamVisibility: {},
         setTeamVisibility: (teamVisibility: { [key: string]: boolean }) =>
             set(() => ({ teamVisibility })),
+
         characterVisibility: {},
         setCharacterVisibility: (characterVisibility: {
             [key: string]: boolean;
@@ -55,30 +55,9 @@ export const useViewStore = create<ViewState>((set, get) => {
 
         modalOpen: false,
         setModalOpen: (modalOpen: boolean) => set(() => ({ modalOpen })),
-        siteData: {
-            numberOfChapters: 0,
-            event: "",
-            chapters: [],
-        },
-        setSiteData: (siteData: SiteData) => {
-            set(() => ({ siteData }));
-            const [chapter, day] = get().validateChapterAndDay(get().chapter, get().day);
-            set(() => ({ chapter, day }));
-        },
 
         hoveredEdgeId: null,
         setHoveredEdgeId: (hoveredEdgeId: string) =>
             set(() => ({ hoveredEdgeId })),
-
-        validateChapterAndDay: (chapter: number, day: number): [number, number] => {
-            const { siteData } = get();
-            const numberOfChapters = siteData.numberOfChapters;
-            const numberOfDays = siteData.chapters[chapter].numberOfDays;
-
-            const validChapter = (chapter >= 0 && chapter < numberOfChapters) ? chapter : 0;
-            const validDay = (day >= 0 && day < numberOfDays) ? day : 0;
-
-            return [validChapter, validDay];
-        }
     };
 });

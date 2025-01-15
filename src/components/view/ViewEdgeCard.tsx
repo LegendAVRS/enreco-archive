@@ -1,28 +1,39 @@
 import VaulDrawer from "@/components/view/VaulDrawer";
 import ViewCard from "@/components/view/ViewCard";
 import ViewEdgeContent from "@/components/view/ViewEdgeContent";
-import { ImageNodeType } from "@/lib/type";
-import { useFlowStore } from "@/store/flowStore";
-import { useViewStore } from "@/store/viewStore";
+import { CustomEdgeType, ImageNodeType } from "@/lib/type";
 import { useReactFlow } from "@xyflow/react";
-import { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
 
 import { cn } from "@/lib/utils";
+import { EdgeLinkClickHandler, NodeLinkClickHandler } from "./ViewMarkdown";
 
-const ViewEdgeCard = () => {
-    const { selectedEdge } = useFlowStore();
+interface Props {
+    isCardOpen: boolean;
+    selectedEdge: CustomEdgeType | null;
+    onCardClose: () => void;
+    onNodeLinkClicked: NodeLinkClickHandler;
+    onEdgeLinkClicked: EdgeLinkClickHandler;
+};
+
+const ViewEdgeCard = ({ isCardOpen, selectedEdge, onCardClose, onEdgeLinkClicked, onNodeLinkClicked }: Props) => {
     const { getNode } = useReactFlow();
-    const { setCurrentCard, currentCard } = useViewStore();
-    const [open, setOpen] = useState(true);
 
-    useEffect(() => {
-        if (currentCard === "edge") {
-            setOpen(true);
+    function onDrawerOpenChange(newOpenState: boolean): void {
+        if(!newOpenState) {
+            onCardClose();
         }
-    }, [selectedEdge, currentCard]);
+    }
 
-    if (!selectedEdge) return null;
+    // If this card is not meant to be open, return nothing.
+    if(!isCardOpen) {
+        return;
+    }
+
+    // If selectedEdge is null but the card is meant to be visible, throw Error.
+    if(!selectedEdge) {
+        throw new Error("selectedEdge is null but the card is being shown!");
+    }
 
     // An edge always has a source and target node, which explains the !
     const nodeA: ImageNodeType = getNode(selectedEdge.source)! as ImageNodeType;
@@ -32,29 +43,34 @@ const ViewEdgeCard = () => {
         <>
             <BrowserView>
                 <ViewCard
+                    isCardOpen={isCardOpen}
                     className={cn("transition-all absolute", {
-                        "opacity-0 -z-10 invisible": currentCard !== "edge",
-                        "opacity-1 z-10 visible": currentCard === "edge",
+                        "opacity-0 -z-10 invisible": !isCardOpen,
+                        "opacity-1 z-10 visible": isCardOpen,
                     })}
                 >
                     <ViewEdgeContent
                         selectedEdge={selectedEdge}
                         nodeA={nodeA}
                         nodeB={nodeB}
+                        onEdgeLinkClicked={onEdgeLinkClicked}
+                        onNodeLinkClicked={onNodeLinkClicked}
                     />
                 </ViewCard>
             </BrowserView>
             <MobileView>
                 <VaulDrawer
-                    open={open}
-                    setOpen={setOpen}
-                    onClose={() => setCurrentCard(null)}
+                    open={true}
+                    onOpenChange={onDrawerOpenChange}
+                    disableScrollablity={false}
                 >
                     <div className="h-full flex flex-col gap-4 items-center">
                         <ViewEdgeContent
                             selectedEdge={selectedEdge}
                             nodeA={nodeA}
                             nodeB={nodeB}
+                            onEdgeLinkClicked={onEdgeLinkClicked}
+                            onNodeLinkClicked={onNodeLinkClicked}
                         />
                     </div>
                 </VaulDrawer>
