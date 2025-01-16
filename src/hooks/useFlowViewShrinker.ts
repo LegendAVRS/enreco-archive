@@ -22,11 +22,15 @@ export function useFlowViewShrinker() {
     }, [fitView, widthToShrink]);
 
     const shrinkFlowView = (newWidthToShrink: number) => {
-        setWidthToShrink(newWidthToShrink);
+        if(widthToShrink !== newWidthToShrink) {
+            setWidthToShrink(newWidthToShrink);
+        }
     };
 
     const resetFlowView = () => {
-        setWidthToShrink(0);
+        if(widthToShrink !== 0) {
+            setWidthToShrink(0);
+        }
     };
 
     return { shrinkFlowView, resetFlowView };

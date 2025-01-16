@@ -1,30 +1,19 @@
 "use client";
-import { useMemo } from "react";
+import { useState } from "react";
 
 import { CustomEdgeType, ImageNodeType, SiteData } from "@/lib/type";
-import {
-    ConnectionMode,
-    ReactFlow,
-    useReactFlow,
-} from "@xyflow/react";
-import "@xyflow/react/dist/style.css";
-
-import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ViewEdgeCard from "@/components/view/ViewEdgeCard";
-import ImageNodeView from "@/components/view/ViewImageNode";
 import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
 import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 import { useFlowStore } from "@/store/flowStore";
 import { CardType, useViewStore } from "@/store/viewStore";
-import { isMobile } from "react-device-detect";
 
 import Progress from "@/components/view/Progress";
 import { useDisabledMobilePinchZoom } from "./hooks/useDisabledMobilePinchZoom";
 import { useBrowserHash } from "./hooks/useBrowserHash";
-import { useFlowViewShrinker } from "./hooks/useFlowViewShrinker";
-import { useReactFlowFitViewToEdge } from "./hooks/useReactFlowFitViewToEdge";
+import ViewChart from "./components/view/ViewChart";
 
 function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     const parseOrZero = (value: string): number => {
@@ -42,45 +31,6 @@ function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
 
     return null;
 }
-
-function findTopLeftNode(nodes: ImageNodeType[]) {
-    let topLeftNode = nodes[0];
-    for (const node of nodes) {
-        if (
-            node.position.x < topLeftNode.position.x || 
-            (node.position.x === topLeftNode.position.x && node.position.y < topLeftNode.position.y)
-        ) {
-            topLeftNode = node;
-        }
-    }
-    return topLeftNode;
-}
-
-function findBottomRightNode(nodes: ImageNodeType[]) {
-    let bottomRightNode = nodes[0];
-    for (const node of nodes) {
-        if (
-            node.position.x > bottomRightNode.position.x || 
-            (node.position.x === bottomRightNode.position.x && node.position.y > bottomRightNode.position.y)
-        ) {
-            bottomRightNode = node;
-        }
-    }
-    return bottomRightNode;
-}
-
-const nodeTypes = {
-    image: ImageNodeView,
-};
-
-const edgeTypes = {
-    fixed: ViewCustomEdge,
-};
-
-// On mobile it's harder to zoom out, so we set a lower min zoom
-const minZoom = isMobile ? 0.3 : 0.5;
-// To limit the area where the user can pan
-const areaOffset = 1000;
 
 interface Props {
     siteData: SiteData
@@ -105,13 +55,9 @@ const ViewApp = ({ siteData }: Props) => {
         setChapter,
         day,
         setDay,
-        hoveredEdgeId,
-        setHoveredEdgeId,
     } = useViewStore();
 
-    const { fitView } = useReactFlow<ImageNodeType, CustomEdgeType>();
-    const { fitViewToEdge } = useReactFlowFitViewToEdge();
-    const { shrinkFlowView, resetFlowView } = useFlowViewShrinker();
+    const [ chartShrink, setChartShrink ] = useState(0);
     const { browserHash, setBrowserHash } = useBrowserHash(onBrowserHashChange);
 
     // For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom
@@ -123,78 +69,6 @@ const ViewApp = ({ siteData }: Props) => {
     const dayData = chapterData.charts[day];
     const nodes = dayData.nodes;
     const edges = dayData.edges;
-
-    /* Hooks that depend on main data variables. */
-    const topLeftNode = useMemo(() => findTopLeftNode(nodes), [nodes]);
-    const bottomRightNode = useMemo(() => findBottomRightNode(nodes), [nodes]);
-
-    // Filter and fill in render properties for nodes/edges before passing them to ReactFlow.
-    const renderableNodes = nodes.filter(node => {
-        // Compute node visibility based on related edge and viewstore settings
-        let isVisible = true;
-
-        if (node.data.team) {
-            isVisible = isVisible && teamVisibility[node.data.team];
-        } 
-        if (node.data.title) {
-            isVisible = isVisible && characterVisibility[node.data.title];
-        }
-        return isVisible;
-    }).map(node => {
-        // Set team icon image, if available.
-        if(node.data.team) {
-            node.data.renderTeamImageSrc = dayData.teams[node.data.team]?.imageSrc || "";
-        }
-        else {
-            node.data.renderTeamImageSrc = "";
-        }
-        
-        return node;
-    });
-
-    const renderableEdges = edges.filter(edge => {
-        const nodeSrc = nodes.filter(node => node.id == edge.source)[0] as ImageNodeType;
-        const nodeTarget = nodes.filter(node => node.id == edge.target)[0] as ImageNodeType;
-        if(!nodeSrc || !nodeTarget) {
-            return false;
-        }
-
-        let visibility = true;
-        if (edge.data?.relationship) {
-            visibility = visibility && edgeVisibility[edge.data.relationship];
-        }
-        /*
-        if (edge.data?.new) {
-            visibility = visibility && edgeVisibility["new"];
-        }
-        */
-        if (nodeSrc?.data.team) {
-            visibility = visibility && teamVisibility[nodeSrc.data.team];
-        }
-        if (nodeTarget?.data.team) {
-            visibility = visibility && teamVisibility[nodeTarget.data.team];
-        }
-        if (nodeSrc?.data.title) {
-            visibility = visibility && characterVisibility[nodeSrc.data.title];
-        }
-        if (nodeTarget?.data.title) {
-            visibility = visibility && characterVisibility[nodeTarget.data.title];
-        }
-        
-        return visibility;
-    }).map(edge => {
-        if(!edge.data) {
-            return edge;
-        }
-
-        if(edge.data.relationship) {
-            edge.data.renderEdgeStyle = dayData.relationships[edge.data.relationship] || {};
-        }
-
-        edge.data.renderIsHoveredEdge = edge.id === hoveredEdgeId; 
-
-        return edge;
-    });
 
     /* Helper function to coordinate state updates when data changes. */
     function updateData(newChapter: number, newDay: number) {
@@ -255,32 +129,39 @@ const ViewApp = ({ siteData }: Props) => {
     function onCurrentCardChange(newCurrentCard: CardType) {
         if(newCurrentCard === "setting") {
             // Same width as the ViewCard
-            shrinkFlowView(500);
+            setChartShrink(500);
         }
         else if(currentCard === "setting" && newCurrentCard === null) {
-            resetFlowView();
-        }
-        else if(currentCard !== "setting" && newCurrentCard === null) {
-            fitView({ padding: 0.5, duration: 1000 });
+            setChartShrink(0);
         }
 
         setCurrentCard(newCurrentCard);
     }
 
+    function onNodeClick(node: ImageNodeType) {
+        onCurrentCardChange("node");
+        setSelectedNode(node);
+    }
+
+    function onEdgeClick(edge: CustomEdgeType) {
+        onCurrentCardChange("edge");
+        setSelectedEdge(edge);
+    }
+
+    function onPaneClick() {
+        onCurrentCardChange(null);
+        setSelectedNode(null);
+        setSelectedEdge(null);
+    }
+
     function onNodeLinkClicked(targetNode: ImageNodeType) {
         setCurrentCard("node");
         setSelectedNode(targetNode);
-        fitView({
-            nodes: [targetNode],
-            duration: 1000,
-            maxZoom: 1.5,
-        });
     }
 
     function onEdgeLinkClicked(targetEdge: CustomEdgeType) {
         setCurrentCard("edge");
         setSelectedEdge(targetEdge);
-        fitViewToEdge(targetEdge.source, targetEdge.target, targetEdge);
     }
 
     /* Init block, runs only on first render/load. */
@@ -301,62 +182,20 @@ const ViewApp = ({ siteData }: Props) => {
     return (
         <>
             <div className="w-screen h-screen overflow-hidden ">
-                <ReactFlow
-                    connectionMode={ConnectionMode.Loose}
-                    nodes={renderableNodes}
-                    edges={renderableEdges}
-                    nodeTypes={nodeTypes}
-                    edgeTypes={edgeTypes}
-                    fitView
-                    fitViewOptions={{ padding: 0.5, duration: 1000 }}
-                    onNodeClick={(_, node) => {
-                        setSelectedNode(node);
-                        fitView({
-                            nodes: [node],
-                            duration: 1000,
-                            maxZoom: 1.5,
-                        });
-                        onCurrentCardChange("node");
-                    }}
-                    onEdgeClick={(_, edge) => {
-                        // Disable edge selection on if is old edge and only show new is true
-                        if (edge.data?.new === false && edgeVisibility["new"]) {
-                            return;
-                        }
-
-                        setSelectedEdge(edge);
-                        fitViewToEdge(edge.source, edge.target, edge);
-
-                        onCurrentCardChange("edge");
-                    }}
-                    minZoom={minZoom}
-                    zoomOnDoubleClick={false}
-                    onPaneClick={() => {
-                        onCurrentCardChange(null);
-                    }}
-                    onEdgeMouseEnter={(_, edge) => {
-                        setHoveredEdgeId(edge.id);
-                    }}
-                    onEdgeMouseLeave={() => {
-                        setHoveredEdgeId("");
-                    }}
-                    proOptions={{
-                        hideAttribution: true,
-                    }}
-                    translateExtent={
-                        topLeftNode &&
-                        bottomRightNode && [
-                            [
-                                topLeftNode.position.x - areaOffset,
-                                topLeftNode.position.y - areaOffset,
-                            ],
-                            [
-                                bottomRightNode.position.x + areaOffset,
-                                bottomRightNode.position.y + areaOffset,
-                            ],
-                        ]
-                    }
-                ></ReactFlow>
+                <ViewChart
+                    nodes={nodes}
+                    edges={edges}
+                    edgeVisibility={edgeVisibility}
+                    teamVisibility={teamVisibility}
+                    characterVisibility={characterVisibility}
+                    dayData={dayData}
+                    selectedNode={selectedNode}
+                    selectedEdge={selectedEdge}
+                    widthToShrink={chartShrink}
+                    onNodeClick={onNodeClick}
+                    onEdgeClick={onEdgeClick}
+                    onPaneClick={onPaneClick}
+                />
                 <div
                     className="absolute top-0 left-0 w-screen h-screen -z-10"
                     style={{
