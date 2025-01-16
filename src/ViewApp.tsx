@@ -192,6 +192,7 @@ const ViewApp = ({ siteData }: Props) => {
                     selectedNode={selectedNode}
                     selectedEdge={selectedEdge}
                     widthToShrink={chartShrink}
+                    isCardOpen={currentCard !== null}
                     onNodeClick={onNodeClick}
                     onEdgeClick={onEdgeClick}
                     onPaneClick={onPaneClick}

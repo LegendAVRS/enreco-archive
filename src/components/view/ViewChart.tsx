@@ -62,7 +62,7 @@ interface Props {
     focusOnSelectedEdge?: boolean;
     focusOnSelectedNode?: boolean;
     widthToShrink?: number;
-    fitViewOnPaneClick? : boolean;
+    isCardOpen: boolean;
     onNodeClick: (node: ImageNodeType) => void;
     onEdgeClick: (edge: CustomEdgeType) => void;
     onPaneClick: () => void;
@@ -82,7 +82,7 @@ function ViewChart({
     focusOnSelectedEdge = true,
     focusOnSelectedNode = true,
     widthToShrink,
-    fitViewOnPaneClick = true,
+    isCardOpen,
     onNodeClick,
     onEdgeClick,
     onPaneClick
@@ -170,20 +170,19 @@ function ViewChart({
         resetFlowView();
     }
 
-    if(selectedNode && focusOnSelectedNode) {
+    if(isCardOpen && selectedNode && focusOnSelectedNode) {
         fitView({
             nodes: [selectedNode],
             duration: 1000,
             maxZoom: 1.5,
         });
     }
-    else if(selectedEdge && focusOnSelectedEdge) {
+    else if(isCardOpen && selectedEdge && focusOnSelectedEdge) {
         fitViewToEdge(selectedEdge.source, selectedEdge.target, selectedEdge);
     }
-
-    const doFitView = (selectedNode === null && selectedEdge === null) || 
-        (!focusOnSelectedNode && selectedNode !== null) ||
-        (!focusOnSelectedEdge && selectedEdge !== null);
+    else if(!isCardOpen) {
+        fitView({ padding: 0.5, duration: 1000 });
+    }
 
     return (
         <ReactFlow
@@ -192,7 +191,7 @@ function ViewChart({
         edges={renderableEdges}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        fitView={doFitView}
+        fitView
         fitViewOptions={{ padding: 0.5, duration: 1000 }}
         onNodeClick={(_, node) => {
             if(focusOnClickedNode) {
@@ -225,7 +224,7 @@ function ViewChart({
                 await fitView({ padding: 0.5, duration: 1000 });
             }
 
-            if(fitViewOnPaneClick) {
+            if(isCardOpen) {
                 fitViewAsync();
             }
             onPaneClick();
