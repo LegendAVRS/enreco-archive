@@ -257,8 +257,11 @@ const ViewApp = ({ siteData }: Props) => {
             // Same width as the ViewCard
             shrinkFlowView(500);
         }
-        else {
+        else if(currentCard === "setting" && newCurrentCard === null) {
             resetFlowView();
+        }
+        else if(currentCard !== "setting" && newCurrentCard === null) {
+            fitView({ padding: 0.5, duration: 1000 });
         }
 
         setCurrentCard(newCurrentCard);
@@ -286,8 +289,12 @@ const ViewApp = ({ siteData }: Props) => {
         
         const initialChapterDay = parseChapterAndDayFromBrowserHash(browserHash);
         if(initialChapterDay) {
+            console.log(initialChapterDay);
             const [chapter, day] = initialChapterDay;
             updateData(chapter, day);
+        }
+        else {
+            updateData(0, 0);
         }
     }
 
@@ -361,7 +368,7 @@ const ViewApp = ({ siteData }: Props) => {
                 />
                 <ViewSettingCard 
                     isCardOpen={currentCard === "setting"}  
-                    onCardClose={ () => setCurrentCard(null) }
+                    onCardClose={ () => onCurrentCardChange(null) }
                     chapter={chapter}
                     chapterData={chapterData}
                     day={day}
@@ -378,7 +385,7 @@ const ViewApp = ({ siteData }: Props) => {
                 <ViewNodeCard 
                     isCardOpen={currentCard === "node"}
                     selectedNode={selectedNode}
-                    onCardClose={ () => setCurrentCard(null) }
+                    onCardClose={ () => onCurrentCardChange(null) }
                     dayData={dayData}
                     onNodeLinkClicked={onNodeLinkClicked}
                     onEdgeLinkClicked={onEdgeLinkClicked}
@@ -386,7 +393,7 @@ const ViewApp = ({ siteData }: Props) => {
                 <ViewEdgeCard 
                     isCardOpen={ currentCard === "edge" } 
                     selectedEdge={ selectedEdge }
-                    onCardClose={ () => setCurrentCard(null) }
+                    onCardClose={ () => onCurrentCardChange(null) }
                     onNodeLinkClicked={onNodeLinkClicked}
                     onEdgeLinkClicked={onEdgeLinkClicked}
                 />
