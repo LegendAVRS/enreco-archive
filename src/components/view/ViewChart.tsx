@@ -62,6 +62,7 @@ interface Props {
     focusOnSelectedEdge?: boolean;
     focusOnSelectedNode?: boolean;
     widthToShrink?: number;
+    fitViewOnPaneClick? : boolean;
     onNodeClick: (node: ImageNodeType) => void;
     onEdgeClick: (edge: CustomEdgeType) => void;
     onPaneClick: () => void;
@@ -81,6 +82,7 @@ function ViewChart({
     focusOnSelectedEdge = true,
     focusOnSelectedNode = true,
     widthToShrink,
+    fitViewOnPaneClick = true,
     onNodeClick,
     onEdgeClick,
     onPaneClick
@@ -217,7 +219,17 @@ function ViewChart({
         }}
         minZoom={minZoom}
         zoomOnDoubleClick={false}
-        onPaneClick={onPaneClick}
+        onPaneClick={() => {
+            // If we dont await it doesnt zoom out fully
+            const fitViewAsync = async () => {
+                await fitView({ padding: 0.5, duration: 1000 });
+            }
+
+            if(fitViewOnPaneClick) {
+                fitViewAsync();
+            }
+            onPaneClick();
+        }}
         onEdgeMouseEnter={(_, edge) => {
             setHoveredEdgeId(edge.id);
         }}
