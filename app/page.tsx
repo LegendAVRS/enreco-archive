@@ -1,11 +1,11 @@
-import ViewApp from "@/ViewApp";
+import { ViewAppWrapper } from "@/ViewAppWrapper";
 import { ReactFlowProvider } from "@xyflow/react";
 
 const Page = () => {
     return (
         <ReactFlowProvider>
             {/* <EditorApp /> */}
-            <ViewApp />
+            <ViewAppWrapper />
         </ReactFlowProvider>
     );
 };

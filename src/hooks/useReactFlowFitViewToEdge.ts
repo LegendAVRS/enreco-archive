@@ -1,7 +1,11 @@
-import { CustomEdgeType, ImageNodeType } from "./type";
+'use client';
+
+import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { useReactFlow } from "@xyflow/react";
+import { isMobile } from "react-device-detect";
 
 // Get center point of svg path
-const getCenterPoint = (path: string) => {
+function getCenterPoint(path: string): DOMPoint {
     const pathElement = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "path"
@@ -77,3 +81,26 @@ export function findCenterViewOfEdge (
         zoom: zoomFactorMapped
     }
 };
+
+export function useReactFlowFitViewToEdge() {
+    const { getNode, setCenter } = useReactFlow<ImageNodeType, CustomEdgeType>();
+
+    // Function to fit edge to view
+    const fitViewToEdge = (nodeAID: string, nodeBID: string, edge: CustomEdgeType) => {
+        const nodeA = getNode(nodeAID);
+        const nodeB = getNode(nodeBID);
+        if(!nodeA || !nodeB) {
+            return;
+        }
+        
+        const {centerPointX, centerPointY, duration, zoom} = findCenterViewOfEdge(nodeA, nodeB, edge, isMobile);
+
+        // Pan to calculated center point
+        setCenter(centerPointX, centerPointY, {
+            duration: duration,
+            zoom: zoom,
+        });
+    };
+
+    return { fitViewToEdge }; 
+} 

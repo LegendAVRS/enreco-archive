@@ -1,26 +1,33 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { ChartData, StringToBooleanObjectMap } from "@/lib/type";
 import { extractImageSrcFromNodes, getLineSvg } from "@/lib/utils";
-import { useChartStore } from "@/store/chartStore";
-import { useViewStore } from "@/store/viewStore";
 import { useMemo } from "react";
 
-const ViewVisibilityCard = () => {
-    const {
-        edgeVisibility,
-        setEdgeVisibility,
-        teamVisibility,
-        setTeamVisibility,
-        characterVisibility,
-        setCharacterVisibility,
-    } = useViewStore();
-    const { data } = useChartStore();
+interface Props {
+    edgeVisibility: StringToBooleanObjectMap;
+    onEdgeVisibilityChange: (newEdgeVisibility: StringToBooleanObjectMap) => void;
+    teamVisibility: StringToBooleanObjectMap;
+    onTeamVisibilityChange: (newTeamVisibility: StringToBooleanObjectMap) => void; 
+    characterVisibility: { [key: string]: boolean };
+    onCharacterVisibilityChange: (newCharacterVisibility: StringToBooleanObjectMap) => void;
+    dayData: ChartData
+}
 
+const ViewVisibilityCard = ({ 
+    edgeVisibility, 
+    onEdgeVisibilityChange,
+    teamVisibility,
+    onTeamVisibilityChange,
+    characterVisibility,
+    onCharacterVisibilityChange,
+    dayData 
+}: Props) => {
     // Extract image src from nodes
     const characterImagesMap = useMemo(() => {
-        const charImgMap = extractImageSrcFromNodes(data.nodes);
+        const charImgMap = extractImageSrcFromNodes(dayData.nodes);
         return charImgMap;
-    }, [data.nodes]);
+    }, [dayData.nodes]);
 
     return (
         <div className="flex flex-col gap-4 p-4 overflow-y-auto h-full">
@@ -43,7 +50,7 @@ const ViewVisibilityCard = () => {
                             }
                             return acc;
                         }, {} as Record<string, boolean>);
-                        setEdgeVisibility(newEdgeVisibility);
+                        onEdgeVisibilityChange(newEdgeVisibility);
                     }}
                 />
             </div>
@@ -53,20 +60,20 @@ const ViewVisibilityCard = () => {
                     id="edge-new"
                     checked={edgeVisibility.new}
                     onCheckedChange={(checked) =>
-                        setEdgeVisibility({
+                        onEdgeVisibilityChange({
                             ...edgeVisibility,
                             new: checked as boolean,
                         })
                     }
                 />
             </div>
-            {Object.keys(data.relationships).map((key) => (
+            {Object.keys(dayData.relationships).map((key) => (
                 <div
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
                     <div className="flex flex-row gap-2 items-center">
-                        {getLineSvg(data.relationships[key])}
+                        {getLineSvg(dayData.relationships[key])}
                         <Label
                             htmlFor={`edge-${key.toLowerCase()}`}
                             className="capitalize"
@@ -78,7 +85,7 @@ const ViewVisibilityCard = () => {
                         id={`edge-${key.toLowerCase()}`}
                         checked={edgeVisibility[key]}
                         onCheckedChange={(checked) =>
-                            setEdgeVisibility({
+                            onEdgeVisibilityChange({
                                 ...edgeVisibility,
                                 [key]: checked as boolean,
                             })
@@ -98,18 +105,18 @@ const ViewVisibilityCard = () => {
                             acc[key] = checked as boolean;
                             return acc;
                         }, {} as Record<string, boolean>);
-                        setTeamVisibility(newTeamVisibility);
+                        onTeamVisibilityChange(newTeamVisibility);
                     }}
                 />
             </div>
-            {Object.keys(data.teams).map((key) => (
+            {Object.keys(dayData.teams).map((key) => (
                 <div
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
                     <div className="flex flex-row gap-2 items-center">
                         <img
-                            src={data.teams[key].imageSrc}
+                            src={dayData.teams[key].imageSrc}
                             className="w-8 h-8"
                             alt={`${key} logo`}
                         />
@@ -124,7 +131,7 @@ const ViewVisibilityCard = () => {
                         id={`team-${key.toLowerCase()}`}
                         checked={teamVisibility[key]}
                         onCheckedChange={(checked) =>
-                            setTeamVisibility({
+                            onTeamVisibilityChange({
                                 ...teamVisibility,
                                 [key]: checked as boolean,
                             })
@@ -144,7 +151,7 @@ const ViewVisibilityCard = () => {
                             acc[key] = checked as boolean;
                             return acc;
                         }, {} as Record<string, boolean>);
-                        setCharacterVisibility(newCharacterVisibility);
+                        onCharacterVisibilityChange(newCharacterVisibility);
                     }}
                 />
             </div>
@@ -170,7 +177,7 @@ const ViewVisibilityCard = () => {
                         id={`character-${key.toLowerCase()}`}
                         checked={characterVisibility[key]}
                         onCheckedChange={(checked) =>
-                            setCharacterVisibility({
+                            onCharacterVisibilityChange({
                                 ...characterVisibility,
                                 [key]: checked as boolean,
                             })

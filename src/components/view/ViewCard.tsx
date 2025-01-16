@@ -1,17 +1,17 @@
 import { cn } from "@/lib/utils";
-import { useViewStore } from "@/store/viewStore";
 import React from "react";
+
+interface Props {
+    isCardOpen: boolean;
+}
 
 const ViewCard = React.forwardRef<
     HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => {
-    // State to track if the screen is below the 'md' breakpoint
-    const viewStore = useViewStore();
-
+    React.HTMLAttributes<HTMLDivElement> & Props
+>(({ className, isCardOpen, ...props }, ref) => {
     return (
         <>
-            {viewStore.currentCard !== null && (
+            {isCardOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 z-0 w-screen h-screen md:hidden" />
             )}
             <div

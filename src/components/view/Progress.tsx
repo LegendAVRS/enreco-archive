@@ -1,12 +1,14 @@
-import { useViewStore } from "@/store/viewStore";
+import { Chapter } from "@/lib/type";
 import React from "react";
 
-const Progress = () => {
-    const viewStore = useViewStore();
-    const currentChapter = viewStore.siteData.chapter;
-    const currentDay = viewStore.day;
-    const currentNumberOfDaysOffseted =
-        currentChapter.numberOfDays > 1 ? currentChapter.numberOfDays - 1 : 1;
+interface Props {
+    chapterData: Chapter,
+    day: number,
+    onDayChange: (newDay: number) => void
+}
+
+const Progress = ({ chapterData, day, onDayChange }: Props) => {
+    const currentNumberOfDaysOffseted = chapterData.numberOfDays > 1 ? chapterData.numberOfDays - 1 : 1;
     return (
         <div className="fixed bottom-10 w-[500px] left-1/2 -translate-x-1/2">
             <div className="relative w-full transition-all bg-white opacity-50 cursor-pointer rounded-lg hover:opacity-100 h-[4px]">
@@ -14,11 +16,11 @@ const Progress = () => {
                     className="absolute left-0 transition-all h-full rounded-lg bg-green-300"
                     style={{
                         width: `${
-                            (currentDay / currentNumberOfDaysOffseted) * 100
+                            (day / currentNumberOfDaysOffseted) * 100
                         }%`,
                     }}
                 ></div>
-                {Array.from({ length: currentChapter.numberOfDays }).map(
+                {Array.from({ length: chapterData.numberOfDays }).map(
                     (_, index) => (
                         <div
                             key={index}
@@ -28,7 +30,7 @@ const Progress = () => {
                                     index * (100 / currentNumberOfDaysOffseted)
                                 }%`,
                             }}
-                            onClick={() => viewStore.setDay(index)}
+                            onClick={() => onDayChange(index)}
                         ></div>
                     )
                 )}

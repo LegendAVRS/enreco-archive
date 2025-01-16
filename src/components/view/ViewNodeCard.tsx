@@ -1,51 +1,68 @@
 import ViewCard from "@/components/view/ViewCard";
-import { useChartStore } from "@/store/chartStore";
-import { useFlowStore } from "@/store/flowStore";
-import { useViewStore } from "@/store/viewStore";
-import { useEffect, useState } from "react";
 
 import VaulDrawer from "@/components/view/VaulDrawer";
 import ViewNodeContent from "@/components/view/ViewNodeContent";
 import { BrowserView, MobileView } from "react-device-detect";
 
 import { cn } from "@/lib/utils";
+import { ChartData, ImageNodeType } from "@/lib/type";
+import { EdgeLinkClickHandler, NodeLinkClickHandler } from "./ViewMarkdown";
 
-const ViewNodeCard = () => {
-    const { selectedNode } = useFlowStore();
-    const { data } = useChartStore();
-    const { currentCard } = useViewStore();
-    const [open, setOpen] = useState(true);
+interface Props {
+    isCardOpen: boolean;
+    selectedNode: ImageNodeType | null;
+    onCardClose: () => void;
+    dayData: ChartData;
+    onNodeLinkClicked: NodeLinkClickHandler;
+    onEdgeLinkClicked: EdgeLinkClickHandler;
+};
 
-    useEffect(() => {
-        if (currentCard === "node") {
-            setOpen(true);
+const ViewNodeCard = ({ isCardOpen, selectedNode, onCardClose, dayData, onNodeLinkClicked, onEdgeLinkClicked }: Props) => {
+    function onDrawerOpenChange(newOpenState: boolean): void {
+        if(!newOpenState) {
+            onCardClose();
         }
-    }, [currentCard]);
-
-    if (!selectedNode) {
-        return null;
     }
+
+    // If this card is not meant to be open, return nothing.
+    if(!isCardOpen) {
+        return;
+    }
+
+    // If selectedNode is null but the card is meant to be visible, throw Error.
+    if(!selectedNode) {
+        throw new Error("selectedNode is null but the card is being shown!");
+    }
+
     return (
         <>
             <BrowserView>
                 <ViewCard
+                    isCardOpen={isCardOpen}
                     className={cn(
                         "transition-all absolute flex flex-col items-center",
                         {
-                            "opacity-0 -z-10 invisible": currentCard !== "node",
-                            "opacity-1 z-10 visible": currentCard === "node",
+                            "opacity-0 -z-10 invisible": !isCardOpen,
+                            "opacity-1 z-10 visible": isCardOpen,
                         }
                     )}
                 >
-                    <ViewNodeContent selectedNode={selectedNode} data={data} />
+                    <ViewNodeContent
+                        onNodeLinkClicked={onNodeLinkClicked}
+                        onEdgeLinkClicked={onEdgeLinkClicked} 
+                        selectedNode={selectedNode} 
+                        data={dayData} 
+                    />
                 </ViewCard>
             </BrowserView>
             <MobileView>
-                <VaulDrawer open={open} setOpen={setOpen}>
+                <VaulDrawer open={true} onOpenChange={onDrawerOpenChange} disableScrollablity={false} >
                     <div className="flex-col flex items-center gap-4 max-h-full">
                         <ViewNodeContent
-                            selectedNode={selectedNode}
-                            data={data}
+                            onNodeLinkClicked={onNodeLinkClicked}
+                            onEdgeLinkClicked={onEdgeLinkClicked} 
+                            selectedNode={selectedNode} 
+                            data={dayData} 
                         />
                     </div>
                 </VaulDrawer>

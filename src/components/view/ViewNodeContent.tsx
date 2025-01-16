@@ -6,38 +6,35 @@ import { cn, getLighterOrDarkerColor } from "@/lib/utils";
 import { extractColors } from "extract-colors";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ViewMarkdown } from "./ViewMarkdown";
+import { EdgeLinkClickHandler, NodeLinkClickHandler, ViewMarkdown } from "./ViewMarkdown";
 
 interface ViewNodeContentProps {
     selectedNode: ImageNodeType | null;
     data: ChartData;
+    onNodeLinkClicked: NodeLinkClickHandler;
+    onEdgeLinkClicked: EdgeLinkClickHandler;
 }
 
-const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
-    const characterImageRef = useRef<HTMLImageElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
+const ViewNodeContent = ({ selectedNode, onNodeLinkClicked, onEdgeLinkClicked }: ViewNodeContentProps) => {
     const [color, setColor] = useState<string | null>(null);
     const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility
-    const headerRef = useRef<HTMLDivElement>(null);
+
+    const characterImageRef = useRef<HTMLImageElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
 
     // Extract the dominant color from the character image and set it as the background color
     useEffect(() => {
-        if (characterImageRef.current) {
-            extractColors(characterImageRef.current).then((colors) => {
-                const dominantColor = colors.reduce((prev, current) =>
-                    prev.area > current.area ? prev : current
+        const extractAndSetColor = async () => {
+            if (characterImageRef.current) {
+                const extractedColors = await extractColors(characterImageRef.current);
+                const dominantColor = extractedColors.reduce(
+                    (prev, current) => prev.area > current.area ? prev : current
                 );
                 setColor(getLighterOrDarkerColor(dominantColor.hex, 50));
-            });
-        }
-    }, [selectedNode]);
+            }
+        };
 
-    // Reset scroll position and header visibility when selectedNode changes
-    useEffect(() => {
-        if (contentRef.current) {
-            contentRef.current.scrollTop = 0; // Reset scroll position to top
-        }
-        setIsHeaderVisible(true); // Show header when new node is selected
+        extractAndSetColor();
     }, [selectedNode]);
 
     // Handle scroll event to toggle header visibility
@@ -49,12 +46,14 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
         }
     };
 
-    
+    if(!selectedNode) {
+        return;
+    }
+
     return (
         <div className="h-full flex flex-col w-full">
             {/* Header */}
             <div
-                ref={headerRef}
                 className={cn(
                     "flex flex-col items-center transition-all duration-300 "
                 )}
@@ -101,7 +100,7 @@ const ViewNodeContent = ({ selectedNode }: ViewNodeContentProps) => {
                 className="overflow-auto mt-2 pb-20"
                 onScroll={handleScroll} // Track scroll position
             >
-                <ViewMarkdown>
+                <ViewMarkdown onEdgeLinkClicked={onEdgeLinkClicked} onNodeLinkClicked={onNodeLinkClicked} >
                     {selectedNode?.data.content || "No content available"}
                 </ViewMarkdown>
             </div>

@@ -7,21 +7,24 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { useChartStore } from "@/store/chartStore";
-import { useViewStore } from "@/store/viewStore";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { useEffect, useRef, useState } from "react";
 import { SCROLL_THRESHOLD } from "@/lib/constants";
+import { Chapter, ChartData } from "@/lib/type";
 
-const ViewGeneralCard = () => {
-    const { data } = useChartStore();
-    const { siteData, setModalOpen, chapter, day, setDay } = useViewStore();
+interface Props {
+    chapter: number;
+    chapterData: Chapter;
+    day: number;
+    dayData: ChartData;
+    onDayChange: (newDay: number) => void;
+    onModalOpen: () => void;
+}
+
+const ViewGeneralCard = ({ chapter, chapterData, day, dayData, onDayChange, onModalOpen }: Props) => {
     const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility
     const contentRef = useRef<HTMLDivElement>(null); // Ref for scrollable content
-    const headerRef = useRef<HTMLDivElement>(null); // Ref for header
-
-    const currentChapter = siteData?.chapter;
 
     // Reset scroll position and header visibility when chapter or day changes
     useEffect(() => {
@@ -44,7 +47,6 @@ const ViewGeneralCard = () => {
         <div className="flex flex-col gap-4 p-4 h-full">
             {/* Header */}
             <div
-                ref={headerRef}
                 className="flex flex-col gap-4 transition-all duration-300"
                 style={{
                     opacity: isHeaderVisible ? 1 : 0,
@@ -53,7 +55,7 @@ const ViewGeneralCard = () => {
                 }}
             >
                 {/* Info Button */}
-                <Button variant="outline" onClick={() => setModalOpen(true)}>
+                <Button variant="outline" onClick={() => onModalOpen()}>
                     Info
                 </Button>
 
@@ -77,13 +79,12 @@ const ViewGeneralCard = () => {
                     </Select>
 
                     {/* Day Selector */}
-                    <Select onValueChange={(e) => setDay(parseInt(e))}>
+                    <Select onValueChange={(e) => onDayChange(parseInt(e))}>
                         <SelectTrigger className="grow">
                             <SelectValue placeholder={`Day ${day + 1}`} />
                         </SelectTrigger>
                         <SelectContent>
-                            {currentChapter &&
-                                currentChapter.charts.map((chart, index) => (
+                            {chapterData.charts.map((chart, index) => (
                                     <SelectItem
                                         key={index}
                                         value={index.toString()}
@@ -104,7 +105,7 @@ const ViewGeneralCard = () => {
                 onScroll={handleScroll} // Track scroll position
             >
                 <Markdown className="overflow-auto" rehypePlugins={[rehypeRaw]}>
-                    {data?.dayRecap || "No content available."}
+                    {dayData.dayRecap || "No content available."}
                 </Markdown>
             </div>
         </div>

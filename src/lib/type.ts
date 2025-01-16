@@ -1,4 +1,5 @@
 import { Edge, EdgeProps, Node, NodeProps } from "@xyflow/react";
+import { CSSProperties } from "react";
 export type ImageNodeData = {
     title?: string;
     content?: string;
@@ -8,6 +9,10 @@ export type ImageNodeData = {
     team?: string;
     status?: string;
     new?: boolean;
+
+    // The following properties are used during the rendering of this node,
+    // and should not be filled by the data source.
+    renderTeamImageSrc?: string;
 };
 
 export type CustomEdgeData = {
@@ -18,6 +23,11 @@ export type CustomEdgeData = {
     path?: string;
     marker?: boolean;
     new?: boolean;
+
+    // The following properties are used during the rendering of this edge,
+    // and should not be filled by the data source.
+    renderEdgeStyle?: CSSProperties;
+    renderIsHoveredEdge?: boolean;
 };
 
 export type ImageNodeType = Node<ImageNodeData, "image">;
@@ -44,8 +54,9 @@ export type Chapter = {
 export type SiteData = {
     numberOfChapters: number;
     event: string;
-    chapter: Chapter;
+    chapters: Chapter[];
 };
 
 export type RelationshipStyle = { [key: string]: React.CSSProperties };
 export type Teams = { [key: string]: { imageSrc: string } };
+export type StringToBooleanObjectMap = { [key: string]: boolean };

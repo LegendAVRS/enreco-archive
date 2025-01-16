@@ -1,27 +1,25 @@
 import { cn } from "@/lib/utils";
-import { useViewStore } from "@/store/viewStore";
 import { useState } from "react";
 import { Drawer } from "vaul";
 
 interface VaulDrawerProps {
     open: boolean;
-    setOpen: (open: boolean) => void;
+    onOpenChange: (open: boolean) => void;
+    disableScrollablity: boolean;
     children: React.ReactNode;
-    onClose?: () => void;
 }
 
 export default function VaulDrawer({
     open,
-    setOpen,
-    onClose,
+    onOpenChange,
+    disableScrollablity,
     children,
 }: VaulDrawerProps) {
-    const { currentCard, setCurrentCard } = useViewStore();
     const [isScrollable, setIsScrollable] = useState(false);
     return (
         <Drawer.Root
             open={open}
-            onOpenChange={setOpen}
+            onOpenChange={onOpenChange}
             snapPoints={[0.5, 1]}
             setActiveSnapPoint={(index) => {
                 if (index === 1) {
@@ -33,12 +31,6 @@ export default function VaulDrawer({
                 }
             }}
             snapToSequentialPoint
-            onAnimationEnd={(isOpen) => {
-                if (!isOpen) {
-                    onClose?.();
-                }
-                setCurrentCard(null);
-            }}
             fadeFromIndex={0}
         >
             <Drawer.Portal>
@@ -48,7 +40,7 @@ export default function VaulDrawer({
                     <div
                         className={cn("p-4 bg-white h-[80vh] max-h-full", {
                             "overflow-auto":
-                                isScrollable && currentCard !== "setting",
+                                isScrollable && !disableScrollablity,
                         })}
                     >
                         {children}
