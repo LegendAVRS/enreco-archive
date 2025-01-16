@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from "react";
 
-export function useDisabledMobilePinchZoom() {
+export function useDisabledDefaultMobilePinchZoom() {
     useEffect(() => {
         document.addEventListener(
             "gesturestart",

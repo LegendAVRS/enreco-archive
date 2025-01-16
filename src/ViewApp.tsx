@@ -11,7 +11,7 @@ import { useFlowStore } from "@/store/flowStore";
 import { CardType, useViewStore } from "@/store/viewStore";
 
 import Progress from "@/components/view/Progress";
-import { useDisabledMobilePinchZoom } from "./hooks/useDisabledMobilePinchZoom";
+import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMobilePinchZoom";
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import ViewChart from "./components/view/ViewChart";
 
@@ -62,7 +62,7 @@ const ViewApp = ({ siteData }: Props) => {
 
     // For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom
     // Also when pinch zoom when one of the cards are open, upon closing the zoom will stay that way permanently
-    useDisabledMobilePinchZoom();
+    useDisabledDefaultMobilePinchZoom();
 
     /* Data variables */
     const chapterData = siteData.chapters[chapter];
