@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import {
     Handle,
     HandleType,
@@ -85,4 +85,4 @@ const ViewImageNode = ({ data }: ImageNodeProps) => {
     );
 };
 
-export default ViewImageNode;
+export default memo(ViewImageNode);
