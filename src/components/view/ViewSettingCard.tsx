@@ -1,21 +1,17 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import VaulDrawer from "@/components/view/VaulDrawer";
 import ViewCard from "@/components/view/ViewCard";
-import ViewGeneralCard from "@/components/view/ViewGeneralCard";
+import ViewRecapCard from "@/components/view/ViewGeneralCard";
 import ViewVisibilityCard from "@/components/view/ViewVisibilityCard";
-import { Chapter, ChartData, StringToBooleanObjectMap } from "@/lib/type";
+import { ChartData, StringToBooleanObjectMap } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { BrowserView, MobileView } from "react-device-detect";
 
 interface Props {
     isCardOpen: boolean;
     onCardClose: () => void;
-    chapter: number;
-    chapterData: Chapter;
     day: number;
     dayData: ChartData;
-    onDayChange: (newDay: number) => void;
-    onModalOpen: () => void;
     edgeVisibility: StringToBooleanObjectMap;
     onEdgeVisibilityChange: (newEdgeVisibility: StringToBooleanObjectMap) => void;
     teamVisibility: StringToBooleanObjectMap;
@@ -27,12 +23,8 @@ interface Props {
 const ViewSettingCard = ({ 
     isCardOpen, 
     onCardClose, 
-    chapter, 
-    chapterData, 
     day, 
     dayData, 
-    onDayChange, 
-    onModalOpen,
     edgeVisibility, 
     onEdgeVisibilityChange,
     teamVisibility,
@@ -65,17 +57,13 @@ const ViewSettingCard = ({
                         className="w-full h-[calc(100%-3.5rem)]"
                     >
                         <TabsList className="grid w-full grid-cols-2">
-                            <TabsTrigger value="general">General</TabsTrigger>
-                            <TabsTrigger value="visibility">Edge</TabsTrigger>
+                            <TabsTrigger value="general">Day Recap</TabsTrigger>
+                            <TabsTrigger value="visibility">Chart Visibility</TabsTrigger>
                         </TabsList>
                         <TabsContent value="general" className="h-full">
-                            <ViewGeneralCard 
-                                chapter={chapter}
-                                chapterData={chapterData}
+                            <ViewRecapCard 
                                 day={day}
                                 dayData={dayData}
-                                onDayChange={onDayChange}
-                                onModalOpen={onModalOpen}
                             />
                         </TabsContent>
                         <TabsContent value="visibility" className="h-full">
@@ -107,13 +95,9 @@ const ViewSettingCard = ({
                             value="general"
                             className="h-[80vh] pb-[10vh]"
                         >
-                            <ViewGeneralCard 
-                                chapter={chapter}
-                                chapterData={chapterData}
+                            <ViewRecapCard 
                                 day={day}
                                 dayData={dayData}
-                                onDayChange={onDayChange}
-                                onModalOpen={onModalOpen}
                             />
                         </TabsContent>
                         <TabsContent

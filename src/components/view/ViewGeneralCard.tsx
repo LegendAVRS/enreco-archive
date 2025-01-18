@@ -1,109 +1,21 @@
-import { Button } from "@/components/ui/button";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import { useEffect, useRef, useState } from "react";
-import { SCROLL_THRESHOLD } from "@/lib/constants";
-import { Chapter, ChartData } from "@/lib/type";
+
+import { ChartData } from "@/lib/type";
 
 interface Props {
-    chapter: number;
-    chapterData: Chapter;
     day: number;
     dayData: ChartData;
-    onDayChange: (newDay: number) => void;
-    onModalOpen: () => void;
 }
 
-const ViewGeneralCard = ({ chapter, chapterData, day, dayData, onDayChange, onModalOpen }: Props) => {
-    const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility
-    const contentRef = useRef<HTMLDivElement>(null); // Ref for scrollable content
-
-    // Reset scroll position and header visibility when chapter or day changes
-    useEffect(() => {
-        if (contentRef.current) {
-            contentRef.current.scrollTop = 0;
-        }
-        setIsHeaderVisible(true); // Reset header visibility
-    }, [chapter, day]);
-
-    // Handle scroll event to toggle header visibility
-    const handleScroll = () => {
-        if (contentRef.current) {
-            const threshold =
-                contentRef.current.scrollHeight * SCROLL_THRESHOLD; // 5% of scrollable height
-            setIsHeaderVisible(contentRef.current.scrollTop <= threshold);
-        }
-    };
-
+const ViewRecapCard = ({ day, dayData }: Props) => {
     return (
-        <div className="flex flex-col gap-4 p-4 h-full">
-            {/* Header */}
-            <div
-                className="flex flex-col gap-4 transition-all duration-300"
-                style={{
-                    opacity: isHeaderVisible ? 1 : 0,
-                    transform: isHeaderVisible ? "scale(1)" : "scaleY(0)",
-                    height: isHeaderVisible ? "113px" : 0,
-                }}
-            >
-                {/* Info Button */}
-                <Button variant="outline" onClick={() => onModalOpen()}>
-                    Info
-                </Button>
-
-                {/* Selectors for Chapter and Day */}
-                <div className="flex flex-row gap-4">
-                    {/* Chapter Selector */}
-                    <Select>
-                        <SelectTrigger className="grow">
-                            <SelectValue
-                                placeholder={`Chapter ${chapter + 1}`}
-                            />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {/* Populate with chapter titles if available */}
-                            {/* {siteData?.chapters?.map((chapter, index) => (
-                                <SelectItem key={index} value={chapter.title}>
-                                    {chapter.title}
-                                </SelectItem>
-                            ))} */}
-                        </SelectContent>
-                    </Select>
-
-                    {/* Day Selector */}
-                    <Select onValueChange={(e) => onDayChange(parseInt(e))}>
-                        <SelectTrigger className="grow">
-                            <SelectValue placeholder={`Day ${day + 1}`} />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {chapterData.charts.map((chart, index) => (
-                                    <SelectItem
-                                        key={index}
-                                        value={index.toString()}
-                                    >
-                                        {chart.title}
-                                    </SelectItem>
-                                ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-                <Separator />
-            </div>
-
+        <div className="flex flex-col gap-4 m-4 h-full">
             {/* Scrollable Content */}
-            <div
-                ref={contentRef} // Ref for scrollable container
-                className="overflow-auto pb-20"
-                onScroll={handleScroll} // Track scroll position
-            >
+            <div className="overflow-auto">
+                <h2 className="mb-2">
+                    {`Day ${day + 1} Recap`}
+                </h2>
                 <Markdown className="overflow-auto" rehypePlugins={[rehypeRaw]}>
                     {dayData.dayRecap || "No content available."}
                 </Markdown>
@@ -112,4 +24,4 @@ const ViewGeneralCard = ({ chapter, chapterData, day, dayData, onDayChange, onMo
     );
 };
 
-export default ViewGeneralCard;
+export default ViewRecapCard;

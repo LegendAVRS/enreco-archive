@@ -10,10 +10,11 @@ import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 import { useFlowStore } from "@/store/flowStore";
 import { CardType, useViewStore } from "@/store/viewStore";
 
-import Progress from "@/components/view/Progress";
 import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMobilePinchZoom";
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import ViewChart from "./components/view/ViewChart";
+import { ViewTransportControls } from "./components/view/ViewTransportControls";
+import { ViewSideButtons } from "./components/view/ViewSideButtons";
 
 function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     const parseOrZero = (value: string): number => {
@@ -211,12 +212,8 @@ const ViewApp = ({ siteData }: Props) => {
                 <ViewSettingCard 
                     isCardOpen={currentCard === "setting"}  
                     onCardClose={ () => onCurrentCardChange(null) }
-                    chapter={chapter}
-                    chapterData={chapterData}
                     day={day}
                     dayData={dayData} 
-                    onDayChange={(newDay: number) => updateData(chapter, newDay) }
-                    onModalOpen={() => setModalOpen(true)}
                     edgeVisibility={edgeVisibility}
                     onEdgeVisibilityChange={setEdgeVisibility}
                     teamVisibility={teamVisibility}
@@ -246,10 +243,19 @@ const ViewApp = ({ siteData }: Props) => {
             </div>
             <ViewInfoModal open={modalOpen} onOpenChange={setModalOpen} />
 
-            <Progress 
-                chapterData={siteData.chapters[chapter]} 
-                day={day} 
-                onDayChange={ (newDay: number) => updateData(chapter, newDay) } 
+            <ViewTransportControls 
+                chapter={chapter}
+                chapterData={chapterData}
+                day={day}
+                numberOfChapters={siteData.numberOfChapters}
+                numberOfDays={chapterData.numberOfDays}
+                onChapterChange={(newChapter: number) => updateData(newChapter, day)}
+                onDayChange={(newDay: number) => updateData(chapter, newDay)}
+            />
+
+            <ViewSideButtons
+                onInfoClick={() => setModalOpen(true)}
+                onSettingsClick={() => console.log("settings click")}
             />
         </>
     );
