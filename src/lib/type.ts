@@ -60,3 +60,4 @@ export type SiteData = {
 export type RelationshipStyle = { [key: string]: React.CSSProperties };
 export type Teams = { [key: string]: { imageSrc: string } };
 export type StringToBooleanObjectMap = { [key: string]: boolean };
+export type FitViewOperation = "fit-to-node" | "fit-to-edge" | "fit-to-all" | "none";

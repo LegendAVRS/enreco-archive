@@ -96,10 +96,12 @@ export function useReactFlowFitViewToEdge() {
         const {centerPointX, centerPointY, duration, zoom} = findCenterViewOfEdge(nodeA, nodeB, edge, isMobile);
 
         // Pan to calculated center point
-        setCenter(centerPointX, centerPointY, {
-            duration: duration,
-            zoom: zoom,
-        });
+        (async () => (
+            await setCenter(centerPointX, centerPointY, {
+                duration: duration,
+                zoom: zoom,
+            })
+        ))();
     };
 
     return { fitViewToEdge }; 
