@@ -166,16 +166,6 @@ const ViewApp = ({ siteData }: Props) => {
         setSelectedEdge(null);
     }
 
-    function onNodeLinkClicked(targetNode: ImageNodeType) {
-        setCurrentCard("node");
-        setSelectedNode(targetNode);
-    }
-
-    function onEdgeLinkClicked(targetEdge: CustomEdgeType) {
-        setCurrentCard("edge");
-        setSelectedEdge(targetEdge);
-    }
-
     /* Init block, runs only on first render/load. */
     if(!didInit) {
         didInit = true;
@@ -239,15 +229,15 @@ const ViewApp = ({ siteData }: Props) => {
                     selectedNode={selectedNode}
                     onCardClose={ () => onCurrentCardChange(null) }
                     dayData={dayData}
-                    onNodeLinkClicked={onNodeLinkClicked}
-                    onEdgeLinkClicked={onEdgeLinkClicked}
+                    onNodeLinkClicked={onNodeClick}
+                    onEdgeLinkClicked={onEdgeClick}
                 />
                 <ViewEdgeCard 
                     isCardOpen={ currentCard === "edge" } 
                     selectedEdge={ selectedEdge }
                     onCardClose={ () => onCurrentCardChange(null) }
-                    onNodeLinkClicked={onNodeLinkClicked}
-                    onEdgeLinkClicked={onEdgeLinkClicked}
+                    onNodeLinkClicked={onNodeClick}
+                    onEdgeLinkClicked={onEdgeClick}
                 />
                 <ViewSettingIcon 
                     onIconClick={() => onCurrentCardChange(currentCard === "setting" ? null : "setting")}
