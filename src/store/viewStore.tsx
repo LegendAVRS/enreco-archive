@@ -4,6 +4,7 @@ export type CardType = "node" | "edge" | "setting" | null;
 interface ViewState {
     chapter: number;
     setChapter: (chapter: number) => void;
+
     day: number;
     setDay: (day: number) => void;
 
@@ -21,8 +22,11 @@ interface ViewState {
         [key: string]: boolean;
     }) => void;
 
-    modalOpen: boolean;
-    setModalOpen: (isModalOpen: boolean) => void;
+    infoModalOpen: boolean;
+    setInfoModalOpen: (isInfoModalOpen: boolean) => void;
+
+    settingsModalOpen: boolean;
+    setSettingsModalOpen: (isSettingsModalOpen: boolean) => void;
 
     hoveredEdgeId: string | null;
     setHoveredEdgeId: (hoveredEdgeId: string) => void;
@@ -53,8 +57,11 @@ export const useViewStore = create<ViewState>((set) => {
             [key: string]: boolean;
         }) => set(() => ({ characterVisibility })),
 
-        modalOpen: false,
-        setModalOpen: (modalOpen: boolean) => set(() => ({ modalOpen })),
+        infoModalOpen: false,
+        setInfoModalOpen: (isInfoModalOpen: boolean) => set(() => ({ infoModalOpen: isInfoModalOpen })),
+
+        settingsModalOpen: false,
+        setSettingsModalOpen: (isSettingsModalOpen: boolean) => set(() => ({settingsModalOpen: isSettingsModalOpen})),
 
         hoveredEdgeId: null,
         setHoveredEdgeId: (hoveredEdgeId: string) =>

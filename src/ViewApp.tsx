@@ -15,6 +15,7 @@ import { useBrowserHash } from "./hooks/useBrowserHash";
 import ViewChart from "./components/view/ViewChart";
 import { ViewTransportControls } from "./components/view/ViewTransportControls";
 import { ViewSideButtons } from "./components/view/ViewSideButtons";
+import ViewSettingsModal from "./components/view/ViewSettingsModal";
 
 function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     const parseOrZero = (value: string): number => {
@@ -50,14 +51,18 @@ const ViewApp = ({ siteData }: Props) => {
         setTeamVisibility,
         characterVisibility,
         setCharacterVisibility,
-        modalOpen,
-        setModalOpen,
+        infoModalOpen,
+        setInfoModalOpen,
+        settingsModalOpen,
+        setSettingsModalOpen,
         chapter,
         setChapter,
         day,
         setDay,
     } = useViewStore();
 
+    // TODO: might need to convert this to state once bgm is implemented
+    const [ isBgmEnabled, setIsBgmEnabled] = useState(false); 
     const [ chartShrink, setChartShrink ] = useState(0);
     const [ fitViewOperation, setFitViewOperation ] = useState<FitViewOperation>("none");
     const { browserHash, setBrowserHash } = useBrowserHash(onBrowserHashChange);
@@ -241,7 +246,16 @@ const ViewApp = ({ siteData }: Props) => {
                     className="absolute top-2 right-2 z-10" 
                 />
             </div>
-            <ViewInfoModal open={modalOpen} onOpenChange={setModalOpen} />
+            <ViewInfoModal 
+                open={infoModalOpen} 
+                onOpenChange={setInfoModalOpen} 
+            />
+            <ViewSettingsModal 
+                open={settingsModalOpen} 
+                onOpenChange={setSettingsModalOpen}
+                bgmEnabled={isBgmEnabled}
+                onBgmEnabledChange={(newValue: boolean) => setIsBgmEnabled(newValue) }
+            />
 
             <ViewTransportControls 
                 chapter={chapter}
@@ -254,8 +268,8 @@ const ViewApp = ({ siteData }: Props) => {
             />
 
             <ViewSideButtons
-                onInfoClick={() => setModalOpen(true)}
-                onSettingsClick={() => console.log("settings click")}
+                onInfoClick={() => setInfoModalOpen(true)}
+                onSettingsClick={() => setSettingsModalOpen(true)}
             />
         </>
     );
