@@ -182,7 +182,6 @@ const ViewApp = ({ siteData }: Props) => {
         
         const initialChapterDay = parseChapterAndDayFromBrowserHash(browserHash);
         if(initialChapterDay) {
-            console.log(initialChapterDay);
             const [chapter, day] = initialChapterDay;
             updateData(chapter, day);
         }

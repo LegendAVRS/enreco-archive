@@ -198,7 +198,6 @@ function ViewChart({
         fitViewFunc();
     }
 
-    console.log(widthToShrink);
     const widthStyle: React.CSSProperties = useMemo(() => (
         isMobile ? { width: "100%" } : { width: `calc(100% - ${widthToShrink}px)`}
     ), [widthToShrink]);
