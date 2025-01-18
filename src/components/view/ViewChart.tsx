@@ -1,13 +1,13 @@
-import { ChartData, CustomEdgeType, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
-import { ConnectionMode, ReactFlow, useReactFlow } from "@xyflow/react";
+import { ChartData, CustomEdgeType, FitViewOperation, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
+import { ConnectionMode, FitViewOptions, ReactFlow, useReactFlow } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { isMobile } from "react-device-detect";
 
 import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ImageNodeView from "@/components/view/ViewImageNode";
-import { memo, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useReactFlowFitViewToEdge } from "@/hooks/useReactFlowFitViewToEdge";
-import { useFlowViewShrinker } from "@/hooks/useFlowViewShrinker";
+import { usePreviousValue } from "@/hooks/usePreviousValue";
 
 function findTopLeftNode(nodes: ImageNodeType[]) {
     let topLeftNode = nodes[0];
@@ -63,6 +63,7 @@ interface Props {
     focusOnSelectedNode?: boolean;
     widthToShrink?: number;
     isCardOpen: boolean;
+    fitViewOperation: FitViewOperation;
     onNodeClick: (node: ImageNodeType) => void;
     onEdgeClick: (edge: CustomEdgeType) => void;
     onPaneClick: () => void;
@@ -75,14 +76,11 @@ function ViewChart({
     teamVisibility,
     characterVisibility,
     dayData,
-    focusOnClickedEdge = true,
-    focusOnClickedNode = true,
     selectedNode,
     selectedEdge,
-    focusOnSelectedEdge = true,
-    focusOnSelectedNode = true,
     widthToShrink,
     isCardOpen,
+    fitViewOperation,
     onNodeClick,
     onEdgeClick,
     onPaneClick
@@ -93,7 +91,37 @@ function ViewChart({
 
     const { fitView } = useReactFlow<ImageNodeType, CustomEdgeType>();
     const { fitViewToEdge } = useReactFlowFitViewToEdge();
-    const { shrinkFlowView, resetFlowView } = useFlowViewShrinker();
+    const prevFitViewOperation = usePreviousValue(fitViewOperation);
+    const prevSelectedNode = usePreviousValue<ImageNodeType | null>(selectedNode);
+    const prevSelectedEdge = usePreviousValue<CustomEdgeType | null>(selectedEdge);
+    const prevWidthToShrink = usePreviousValue(widthToShrink);
+
+    const fitViewAsync = useCallback(async (fitViewOptions?: FitViewOptions) => {
+        await fitView(fitViewOptions);
+    }, [fitView]);
+
+    const fitViewFunc = useCallback(() => {
+        if(selectedNode && fitViewOperation === "fit-to-node") {
+            fitViewAsync({
+                nodes: [selectedNode],
+                duration: 1000,
+                maxZoom: 1.5,
+            });
+        }
+        else if(selectedEdge && fitViewOperation === "fit-to-edge") {
+            fitViewToEdge(selectedEdge.source, selectedEdge.target, selectedEdge);
+        }
+        else if(fitViewOperation === "fit-to-all") {
+            fitViewAsync({ padding: 0.5, duration: 1000 });
+        }
+    }, [fitViewAsync, fitViewOperation, fitViewToEdge, selectedEdge, selectedNode]);
+
+    useEffect(() => {
+        if(widthToShrink !== prevWidthToShrink) {
+            // Need a slight delay to make sure the width is updated before fitting the view
+            setTimeout(fitViewFunc, 50);
+        }
+    }, [widthToShrink, prevWidthToShrink, fitViewFunc])
 
     // Filter and fill in render properties for nodes/edges before passing them to ReactFlow.
     const renderableNodes = nodes.filter(node => {
@@ -163,95 +191,70 @@ function ViewChart({
         return edge;
     });
 
-    if(widthToShrink) {
-        shrinkFlowView(widthToShrink);
-    }
-    else {
-        resetFlowView();
+    if(prevFitViewOperation !== fitViewOperation || 
+        selectedNode !== prevSelectedNode || 
+        selectedEdge !== prevSelectedEdge
+    ) {
+        fitViewFunc();
     }
 
-    if(isCardOpen && selectedNode && focusOnSelectedNode) {
-        fitView({
-            nodes: [selectedNode],
-            duration: 1000,
-            maxZoom: 1.5,
-        });
-    }
-    else if(isCardOpen && selectedEdge && focusOnSelectedEdge) {
-        fitViewToEdge(selectedEdge.source, selectedEdge.target, selectedEdge);
-    }
-    else if(!isCardOpen) {
-        fitView({ padding: 0.5, duration: 1000 });
-    }
+    const widthStyle: React.CSSProperties = useMemo(() => (
+        isMobile ? { width: "100%" } : { width: `calc(100% - ${widthToShrink}px)`}
+    ), [widthToShrink]);
 
     return (
-        <ReactFlow
-        connectionMode={ConnectionMode.Loose}
-        nodes={renderableNodes}
-        edges={renderableEdges}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        fitView
-        fitViewOptions={{ padding: 0.5, duration: 1000 }}
-        onNodeClick={(_, node) => {
-            if(focusOnClickedNode) {
-                fitView({
-                    nodes: [node],
-                    duration: 1000,
-                    maxZoom: 1.5,
-                });
-            }
+        <div style={widthStyle} className="w-screen h-screen">
+            <ReactFlow 
+                connectionMode={ConnectionMode.Loose}
+                nodes={renderableNodes}
+                edges={renderableEdges}
+                nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
+                fitView
+                fitViewOptions={{ padding: 0.5, duration: 1000 }}
+                onNodeClick={(_, node) => {
+                    onNodeClick(node);
+                }}
+                onEdgeClick={(_, edge) => {
+                    // Disable edge selection on if is old edge and only show new is true
+                    if (edge.data?.new === false && edgeVisibility["new"]) {
+                        return;
+                    }
 
-            onNodeClick(node);
-        }}
-        onEdgeClick={(_, edge) => {
-            // Disable edge selection on if is old edge and only show new is true
-            if (edge.data?.new === false && edgeVisibility["new"]) {
-                return;
-            }
-
-            if(focusOnClickedEdge) {
-                fitViewToEdge(edge.source, edge.target, edge);
-            }
-
-            onEdgeClick(edge);
-        }}
-        minZoom={minZoom}
-        zoomOnDoubleClick={false}
-        onPaneClick={() => {
-            // If we dont await it doesnt zoom out fully
-            const fitViewAsync = async () => {
-                await fitView({ padding: 0.5, duration: 1000 });
-            }
-
-            if(isCardOpen) {
-                fitViewAsync();
-            }
-            onPaneClick();
-        }}
-        onEdgeMouseEnter={(_, edge) => {
-            setHoveredEdgeId(edge.id);
-        }}
-        onEdgeMouseLeave={() => {
-            setHoveredEdgeId("");
-        }}
-        proOptions={{
-            hideAttribution: true,
-        }}
-        translateExtent={
-            topLeftNode &&
-            bottomRightNode && [
-                [
-                    topLeftNode.position.x - areaOffset,
-                    topLeftNode.position.y - areaOffset,
-                ],
-                [
-                    bottomRightNode.position.x + areaOffset,
-                    bottomRightNode.position.y + areaOffset,
-                ],
-            ]
-        }
-    ></ReactFlow>
+                    onEdgeClick(edge);
+                }}
+                minZoom={minZoom}
+                zoomOnDoubleClick={false}
+                onPaneClick={() => {
+                    if(isCardOpen) {
+                        fitViewAsync({ padding: 0.5, duration: 1000 });
+                    }
+                    onPaneClick();
+                }}
+                onEdgeMouseEnter={(_, edge) => {
+                    setHoveredEdgeId(edge.id);
+                }}
+                onEdgeMouseLeave={() => {
+                    setHoveredEdgeId("");
+                }}
+                proOptions={{
+                    hideAttribution: true,
+                }}
+                translateExtent={
+                    topLeftNode &&
+                    bottomRightNode && [
+                        [
+                            topLeftNode.position.x - areaOffset,
+                            topLeftNode.position.y - areaOffset,
+                        ],
+                        [
+                            bottomRightNode.position.x + areaOffset,
+                            bottomRightNode.position.y + areaOffset,
+                        ],
+                    ]
+                }
+            />
+        </div>
     );
 }
 

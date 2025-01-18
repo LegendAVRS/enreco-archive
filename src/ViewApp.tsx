@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-import { CustomEdgeType, ImageNodeType, SiteData } from "@/lib/type";
+import { CustomEdgeType, FitViewOperation, ImageNodeType, SiteData } from "@/lib/type";
 import ViewEdgeCard from "@/components/view/ViewEdgeCard";
 import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
@@ -58,6 +58,7 @@ const ViewApp = ({ siteData }: Props) => {
     } = useViewStore();
 
     const [ chartShrink, setChartShrink ] = useState(0);
+    const [ fitViewOperation, setFitViewOperation ] = useState<FitViewOperation>("none");
     const { browserHash, setBrowserHash } = useBrowserHash(onBrowserHashChange);
 
     // For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom
@@ -107,6 +108,7 @@ const ViewApp = ({ siteData }: Props) => {
             }
         }
 
+        onCurrentCardChange(null);
         setEdgeVisibility(edgeVisibilityLoaded);
         setTeamVisibility(teamVisibilityLoaded);
         setCharacterVisibility(characterVisibilityLoaded);
@@ -131,8 +133,18 @@ const ViewApp = ({ siteData }: Props) => {
             // Same width as the ViewCard
             setChartShrink(500);
         }
-        else if(currentCard === "setting" && newCurrentCard === null) {
+        else {
             setChartShrink(0);
+        }
+
+        if(newCurrentCard === "setting" || newCurrentCard === null) {
+            setFitViewOperation("fit-to-all");
+        }
+        else if(newCurrentCard === "node") {
+            setFitViewOperation("fit-to-node");
+        }
+        else if(newCurrentCard === "edge") {
+            setFitViewOperation("fit-to-edge");
         }
 
         setCurrentCard(newCurrentCard);
@@ -154,23 +166,12 @@ const ViewApp = ({ siteData }: Props) => {
         setSelectedEdge(null);
     }
 
-    function onNodeLinkClicked(targetNode: ImageNodeType) {
-        setCurrentCard("node");
-        setSelectedNode(targetNode);
-    }
-
-    function onEdgeLinkClicked(targetEdge: CustomEdgeType) {
-        setCurrentCard("edge");
-        setSelectedEdge(targetEdge);
-    }
-
     /* Init block, runs only on first render/load. */
     if(!didInit) {
         didInit = true;
         
         const initialChapterDay = parseChapterAndDayFromBrowserHash(browserHash);
         if(initialChapterDay) {
-            console.log(initialChapterDay);
             const [chapter, day] = initialChapterDay;
             updateData(chapter, day);
         }
@@ -193,6 +194,7 @@ const ViewApp = ({ siteData }: Props) => {
                     selectedEdge={selectedEdge}
                     widthToShrink={chartShrink}
                     isCardOpen={currentCard !== null}
+                    fitViewOperation={fitViewOperation}
                     onNodeClick={onNodeClick}
                     onEdgeClick={onEdgeClick}
                     onPaneClick={onPaneClick}
@@ -227,15 +229,15 @@ const ViewApp = ({ siteData }: Props) => {
                     selectedNode={selectedNode}
                     onCardClose={ () => onCurrentCardChange(null) }
                     dayData={dayData}
-                    onNodeLinkClicked={onNodeLinkClicked}
-                    onEdgeLinkClicked={onEdgeLinkClicked}
+                    onNodeLinkClicked={onNodeClick}
+                    onEdgeLinkClicked={onEdgeClick}
                 />
                 <ViewEdgeCard 
                     isCardOpen={ currentCard === "edge" } 
                     selectedEdge={ selectedEdge }
                     onCardClose={ () => onCurrentCardChange(null) }
-                    onNodeLinkClicked={onNodeLinkClicked}
-                    onEdgeLinkClicked={onEdgeLinkClicked}
+                    onNodeLinkClicked={onNodeClick}
+                    onEdgeLinkClicked={onEdgeClick}
                 />
                 <ViewSettingIcon 
                     onIconClick={() => onCurrentCardChange(currentCard === "setting" ? null : "setting")}
