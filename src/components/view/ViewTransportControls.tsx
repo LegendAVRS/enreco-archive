@@ -29,7 +29,7 @@ export function ViewTransportControls({
     onDayChange
 }: ViewTransportControlsProps) {
     return(
-        <div className="flex flex-row fixed inset-x-0 bottom-0 left-2/4 -translate-x-2/4 h-16 bg-transparent justify-stretch w-2/5 items-center rounded-t-lg opacity-50 hover:opacity-100">
+        <div className="flex flex-row fixed inset-x-0 bottom-0 left-2/4 -translate-x-2/4 bg-transparent justify-stretch mb-4 w-2/5 items-center rounded-t-lg opacity-50 hover:opacity-100">
             <div className="flex-1 flex flex-row gap-2 mx-2">
                 <IconButton 
                     tooltipText={"Previous Chapter"}
