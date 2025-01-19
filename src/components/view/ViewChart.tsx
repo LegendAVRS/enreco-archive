@@ -1,3 +1,5 @@
+"use client";
+
 import { ChartData, CustomEdgeType, FitViewOperation, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
 import { ConnectionMode, FitViewOptions, ReactFlow, useReactFlow } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
@@ -5,7 +7,7 @@ import { isMobile } from "react-device-detect";
 
 import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ImageNodeView from "@/components/view/ViewImageNode";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useReactFlowFitViewToEdge } from "@/hooks/useReactFlowFitViewToEdge";
 import { usePreviousValue } from "@/hooks/usePreviousValue";
 
@@ -95,6 +97,7 @@ function ViewChart({
     const prevSelectedNode = usePreviousValue<ImageNodeType | null>(selectedNode);
     const prevSelectedEdge = usePreviousValue<CustomEdgeType | null>(selectedEdge);
     const prevWidthToShrink = usePreviousValue(widthToShrink);
+    const flowRenderer = useRef(null);
 
     const fitViewAsync = useCallback(async (fitViewOptions?: FitViewOptions) => {
         await fitView(fitViewOptions);
@@ -198,13 +201,12 @@ function ViewChart({
         fitViewFunc();
     }
 
-    const widthStyle: React.CSSProperties = useMemo(() => (
-        isMobile ? { width: "100%" } : { width: `calc(100% - ${widthToShrink}px)`}
-    ), [widthToShrink]);
+    const widthStyle: React.CSSProperties = isMobile ? { width: "100%" } : { width: `calc(100% - ${widthToShrink}px)`};
 
     return (
         <div style={widthStyle} className="w-screen h-screen">
             <ReactFlow 
+                ref={flowRenderer}
                 connectionMode={ConnectionMode.Loose}
                 nodes={renderableNodes}
                 edges={renderableEdges}
