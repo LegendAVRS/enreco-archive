@@ -13,9 +13,8 @@ import { CardType, useViewStore } from "@/store/viewStore";
 import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMobilePinchZoom";
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import ViewChart from "./components/view/ViewChart";
-import { ViewTransportControls } from "./components/view/ViewTransportControls";
-import { ViewSideButtons } from "./components/view/ViewSideButtons";
 import ViewSettingsModal from "./components/view/ViewSettingsModal";
+import { ViewBottomControls } from "./components/view/ViewBottomControls";
 
 function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     const parseOrZero = (value: string): number => {
@@ -188,7 +187,7 @@ const ViewApp = ({ siteData }: Props) => {
 
     return (
         <>
-            <div className="w-screen h-screen overflow-hidden ">
+            <div className="w-screen h-screen top-0 inset-x-0 overflow-hidden">
                 <ViewChart
                     nodes={nodes}
                     edges={edges}
@@ -243,13 +242,17 @@ const ViewApp = ({ siteData }: Props) => {
                 />
                 <ViewSettingIcon 
                     onIconClick={() => onCurrentCardChange(currentCard === "setting" ? null : "setting")}
-                    className="absolute top-2 right-2 z-10" 
+                    className="fixed top-2 right-2 z-10" 
                 />
+
+                
             </div>
+            
             <ViewInfoModal 
                 open={infoModalOpen} 
                 onOpenChange={setInfoModalOpen} 
             />
+
             <ViewSettingsModal 
                 open={settingsModalOpen} 
                 onOpenChange={setSettingsModalOpen}
@@ -257,7 +260,7 @@ const ViewApp = ({ siteData }: Props) => {
                 onBgmEnabledChange={(newValue: boolean) => setIsBgmEnabled(newValue) }
             />
 
-            <ViewTransportControls 
+            <ViewBottomControls 
                 chapter={chapter}
                 chapterData={chapterData}
                 day={day}
@@ -265,9 +268,6 @@ const ViewApp = ({ siteData }: Props) => {
                 numberOfDays={chapterData.numberOfDays}
                 onChapterChange={(newChapter: number) => updateData(newChapter, day)}
                 onDayChange={(newDay: number) => updateData(chapter, newDay)}
-            />
-
-            <ViewSideButtons
                 onInfoClick={() => setInfoModalOpen(true)}
                 onSettingsClick={() => setSettingsModalOpen(true)}
             />

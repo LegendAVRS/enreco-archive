@@ -1,20 +1,23 @@
 import { IconButton } from "../ui/IconButton";
 
-interface ViewSideButtonsProps {
+interface ViewOtherControlButtonsProps {
     onSettingsClick: () => void;
     onInfoClick: () => void;
 }
 
-export function ViewSideButtons({onInfoClick, onSettingsClick}: ViewSideButtonsProps) {
+export function ViewOtherControlButtons({onInfoClick, onSettingsClick}: ViewOtherControlButtonsProps) {
     return (
-        <div className="fixed bottom-0 right-0 m-4 flex flex-col gap-2 bg-transparent opacity-50 hover:opacity-100">
-            <IconButton 
+        <div className="flex flex-row gap-2 bg-transparent">
+            <IconButton
+                className="flex-1"
                 tooltipText={"Info"}
                 imageSrc={"/ui/circle-info-solid.svg"}
                 enabled={true}
                 onClick={onInfoClick}
             />
-            <IconButton 
+
+            <IconButton
+                className="flex-1"
                 tooltipText={"Settings"}
                 imageSrc={"/ui/gear-solid.svg"}
                 enabled={true}

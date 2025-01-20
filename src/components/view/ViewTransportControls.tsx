@@ -29,9 +29,10 @@ export function ViewTransportControls({
     onDayChange
 }: ViewTransportControlsProps) {
     return(
-        <div className="flex flex-row fixed inset-x-0 bottom-0 left-2/4 -translate-x-2/4 bg-transparent justify-stretch mb-4 w-2/5 items-center rounded-t-lg opacity-50 hover:opacity-100">
-            <div className="flex-1 flex flex-row gap-2 mx-2">
+        <div className="bg-transparent flex flex-col md:flex-row justify-start items-stretch md:items-center gap-2">
+            <div className="flex-1 flex flex-row gap-2">
                 <IconButton 
+                    imageClassName="h-8 w-8"
                     tooltipText={"Previous Chapter"}
                     imageSrc={"/ui/caret-left-solid.svg"}
                     enabled={chapter !== 0}
@@ -43,7 +44,7 @@ export function ViewTransportControls({
                     <SelectTrigger className="grow" useUpChevron={true}>
                         <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent side={"top"}>
                         {
                             [...Array(numberOfChapters).keys()].map((index) => (
                                     <SelectItem key={index} value={index.toString()}>
@@ -56,14 +57,16 @@ export function ViewTransportControls({
                 </Select>
 
                 <IconButton 
+                    imageClassName="h-8 w-8"
                     tooltipText={"Next Chapter"}
                     imageSrc={"/ui/caret-right-solid.svg"}
                     enabled={chapter !== numberOfChapters - 1}
                     onClick={() => onChapterChange(chapter + 1)}
                 />
             </div>
-            <div className="flex-1 flex flex-row gap-2 mx-2">
+            <div className="flex-1 flex flex-row gap-2">
                 <IconButton 
+                    imageClassName="h-8 w-8"
                     tooltipText={"Previous Day"}
                     imageSrc={"/ui/caret-left-solid.svg"}
                     enabled={day !== 0}
@@ -75,7 +78,7 @@ export function ViewTransportControls({
                     <SelectTrigger className="grow" useUpChevron={true}>
                         <SelectValue />    
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent side={"top"}>
                         {
                             [...Array(numberOfDays).keys()].map((index) => (
                                     <SelectItem key={index} value={index.toString()}>
@@ -88,6 +91,7 @@ export function ViewTransportControls({
                 </Select>
 
                 <IconButton 
+                    imageClassName="h-8 w-8"
                     tooltipText={"Next Day"}
                     imageSrc={"/ui/caret-right-solid.svg"}
                     enabled={day !== numberOfDays - 1}

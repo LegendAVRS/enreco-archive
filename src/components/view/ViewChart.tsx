@@ -37,6 +37,10 @@ function findBottomRightNode(nodes: ImageNodeType[]) {
     return bottomRightNode;
 }
 
+function getFlowRendererWidth(widthToShrink: number) {
+    return isMobile ? '100%' : `calc(100% - ${widthToShrink}px)`;
+}
+
 const nodeTypes = {
     image: ImageNodeView,
 };
@@ -63,7 +67,7 @@ interface Props {
     selectedEdge: CustomEdgeType | null;
     focusOnSelectedEdge?: boolean;
     focusOnSelectedNode?: boolean;
-    widthToShrink?: number;
+    widthToShrink: number;
     isCardOpen: boolean;
     fitViewOperation: FitViewOperation;
     onNodeClick: (node: ImageNodeType) => void;
@@ -97,7 +101,7 @@ function ViewChart({
     const prevSelectedNode = usePreviousValue<ImageNodeType | null>(selectedNode);
     const prevSelectedEdge = usePreviousValue<CustomEdgeType | null>(selectedEdge);
     const prevWidthToShrink = usePreviousValue(widthToShrink);
-    const flowRenderer = useRef(null);
+    const flowRendererSizer = useRef<HTMLDivElement>(null);
 
     const fitViewAsync = useCallback(async (fitViewOptions?: FitViewOptions) => {
         await fitView(fitViewOptions);
@@ -121,6 +125,10 @@ function ViewChart({
 
     useEffect(() => {
         if(widthToShrink !== prevWidthToShrink) {
+            if(flowRendererSizer.current) {
+                flowRendererSizer.current.style.width = getFlowRendererWidth(widthToShrink);
+            }
+
             // Need a slight delay to make sure the width is updated before fitting the view
             setTimeout(fitViewFunc, 50);
         }
@@ -201,12 +209,9 @@ function ViewChart({
         fitViewFunc();
     }
 
-    const widthStyle: React.CSSProperties = isMobile ? { width: "100%" } : { width: `calc(100% - ${widthToShrink}px)`};
-
     return (
-        <div style={widthStyle} className="w-screen h-screen">
+        <div ref={flowRendererSizer} className="w-full h-full">
             <ReactFlow 
-                ref={flowRenderer}
                 connectionMode={ConnectionMode.Loose}
                 nodes={renderableNodes}
                 edges={renderableEdges}

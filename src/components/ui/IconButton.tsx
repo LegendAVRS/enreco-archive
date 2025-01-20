@@ -1,11 +1,14 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 
 import { Button } from "@/components/ui/button"
+import { twMerge } from "tailwind-merge";
 
 interface IconButtonProps {
     tooltipText: string;
     imageSrc: string;
     enabled: boolean;
+    className?: string;
+    imageClassName?: string;
     onClick: () => void;
 }
 
@@ -13,14 +16,16 @@ export function IconButton({
     tooltipText,
     imageSrc,
     enabled,
+    className,
+    imageClassName,
     onClick
 }: IconButtonProps) {
     return (
         <Tooltip.Provider delayDuration={500}>
             <Tooltip.Root>
                 <Tooltip.Trigger asChild>
-                    <Button className="rounded-full" variant="outline" disabled={!enabled} onClick={() => onClick()}>
-                        <img className="min-w-4 min-h-4" src={imageSrc} />
+                    <Button className={twMerge("w-fit rounded-full", className || "")} variant="outline" disabled={!enabled} onClick={() => onClick()}>
+                        <img className={twMerge("min-w-4 min-h-4 w-4 h-4", imageClassName)} src={imageSrc} />
                     </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Portal>
