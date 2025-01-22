@@ -21,20 +21,20 @@ const ViewInfoModal = ({ open, onOpenChange }: ViewInfoModalProps) => {
             <VisuallyHidden.Root>
                 <DialogTitle>Info Modal</DialogTitle>
             </VisuallyHidden.Root>
-            <DialogContent className="rounded-lg h-[80vh] max-w-none md:w-[50vw]">
-                <Tabs defaultValue="general" className="relative top-0 h-[85%]">
-                    <TabsList className="relative top-0 h-[20%] w-full grid grid-cols-2">
+            <DialogContent className="rounded-lg h-[80vh] max-w-none md:w-[50vw] flex flex-col justify-end">
+                <Tabs defaultValue="general" className="h-[80%] max-h-[100%] flex-1 flex flex-col">
+                    <TabsList className="flex-none w-full grid grid-cols-2">
                         <TabsTrigger value="guide">Guide</TabsTrigger>
                         <TabsTrigger value="credit">Credits</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="guide" className="relative bottom-0 h-[80%] overflow-auto">
+                    <TabsContent value="guide" className="flex-1 min-h-0 overflow-auto">
                         <ViewInfoGuide />
                     </TabsContent>
-                    <TabsContent value="credit" className="relative bottom-0 h-[80%] overflow-auto">
+                    <TabsContent value="credit" className="flex-1 min-h-0 overflow-auto">
                         <ViewInfoCredit />
                     </TabsContent>
                 </Tabs>
-                <DialogClose asChild className="relative bottom-0 h-[15%] w-full p-2 mt-2">
+                <DialogClose asChild className="flex-none w-full p-2 mt-2">
                     <Button className="self-end">
                         Close
                     </Button>
