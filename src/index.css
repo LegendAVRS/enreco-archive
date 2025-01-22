@@ -155,3 +155,37 @@ li {
         stroke-dashoffset: 0;
     }
 }
+
+/* Minigame stuff */
+.box {
+    @apply w-[50px] h-[50px] shadow-lg cursor-pointer;
+}
+
+.box-fixed-size {
+    width: 100px;
+    height: 100px;
+}
+
+.box-selected {
+    @apply border-4 p-4;
+}
+
+.box-empty {
+    @apply box bg-gray-200;
+}
+
+.box-blue {
+    @apply box bg-blue-500;
+}
+
+.box-red {
+    @apply box bg-red-500;
+}
+
+.box-green {
+    @apply box bg-green-500;
+}
+
+.box-yellow {
+    @apply box bg-yellow-500;
+}
