@@ -284,6 +284,16 @@ const ViewApp = ({ siteData }: Props) => {
                     tooltipSide="left"
                     onClick={() => setSettingsModalOpen(true)}
                 />
+
+                <IconButton
+                    id="minigames-btn"
+                    className="h-10 w-10 p-1"
+                    tooltipText="Minigames"
+                    imageSrc="/ui/dice-six-solid.svg"
+                    enabled={true}
+                    tooltipSide="left"
+                    onClick={() => console.log("minigame button clicked")}
+                />
             </div>
 
             <div className="fixed inset-x-0 bottom-0 w-full md:w-4/5 2xl:w-2/5 mb-2 px-2 md:p-0 md:mx-auto">
