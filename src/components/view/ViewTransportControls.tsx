@@ -3,11 +3,14 @@ import {
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue
+    SelectValue,
 } from "@/components/ui/select";
 import { Chapter } from "@/lib/type";
 
-import { IconButton } from "@/components/ui/IconButton"
+import { IconButton } from "@/components/ui/IconButton";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useViewStore } from "@/store/viewStore";
+import clsx from "clsx";
 
 interface ViewTransportControlsProps {
     chapter: number;
@@ -26,74 +29,88 @@ export function ViewTransportControls({
     numberOfChapters,
     numberOfDays,
     onChapterChange,
-    onDayChange
+    onDayChange,
 }: ViewTransportControlsProps) {
-    return(
-        <div className="bg-transparent flex flex-row justify-start items-stretch md:items-center gap-2">
-            <div className="flex-1 flex flex-row gap-2 h-10">
-                <IconButton 
+    const viewStore = useViewStore();
+    return (
+        <div
+            className={clsx(
+                "flex justify-start items-stretch md:items-center gap-2 transition-all",
+                {
+                    // Hide when a card is selected
+                    "opacity-0 invisible": viewStore.currentCard !== null,
+                    "opacity-100 visible": viewStore.currentCard === null,
+                }
+            )}
+        >
+            <div className="flex-1 flex gap-2">
+                <IconButton
                     className="h-10 hidden md:block"
                     tooltipText={"Previous Chapter"}
-                    imageSrc={"/ui/caret-left-solid.svg"}
+                    icon={<ChevronLeft />}
                     enabled={chapter !== 0}
                     onClick={() => onChapterChange(chapter - 1)}
                 />
 
                 {/* Chapter Selector */}
-                <Select value={chapter.toString()} onValueChange={(value: string) => onChapterChange(parseInt(value))}>
+                <Select
+                    value={chapter.toString()}
+                    onValueChange={(value: string) =>
+                        onChapterChange(parseInt(value))
+                    }
+                >
                     <SelectTrigger className="grow" useUpChevron={true}>
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent side={"top"}>
-                        {
-                            [...Array(numberOfChapters).keys()].map((index) => (
-                                    <SelectItem key={index} value={index.toString()}>
-                                        { chapterData.title || `Chapter ${index + 1}` }
-                                    </SelectItem>
-                                )
-                            )
-                        }
+                        {[...Array(numberOfChapters).keys()].map((index) => (
+                            <SelectItem key={index} value={index.toString()}>
+                                {chapterData.title || `Chapter ${index + 1}`}
+                            </SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
 
-                <IconButton 
+                <IconButton
                     className="h-10 hidden md:block"
                     tooltipText={"Next Chapter"}
-                    imageSrc={"/ui/caret-right-solid.svg"}
+                    icon={<ChevronRight />}
                     enabled={chapter !== numberOfChapters - 1}
                     onClick={() => onChapterChange(chapter + 1)}
                 />
             </div>
-            <div className="flex-1 flex flex-row gap-2 h-10">
-                <IconButton 
+            <div className="flex-1 flex gap-2 h-10">
+                <IconButton
                     className="h-10 hidden md:block"
                     tooltipText={"Previous Day"}
-                    imageSrc={"/ui/caret-left-solid.svg"}
+                    icon={<ChevronLeft />}
                     enabled={day !== 0}
                     onClick={() => onDayChange(day - 1)}
                 />
 
                 {/* Day Selector */}
-                <Select value={day.toString()} onValueChange={(value: string) => onDayChange(parseInt(value))}>
+                <Select
+                    value={day.toString()}
+                    onValueChange={(value: string) =>
+                        onDayChange(parseInt(value))
+                    }
+                >
                     <SelectTrigger className="grow" useUpChevron={true}>
-                        <SelectValue />    
+                        <SelectValue />
                     </SelectTrigger>
                     <SelectContent side={"top"}>
-                        {
-                            [...Array(numberOfDays).keys()].map((index) => (
-                                    <SelectItem key={index} value={index.toString()}>
-                                        { `Day ${index + 1}` }
-                                    </SelectItem>
-                                )
-                            )
-                        }
+                        {[...Array(numberOfDays).keys()].map((index) => (
+                            <SelectItem key={index} value={index.toString()}>
+                                {`Day ${index + 1}`}
+                            </SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
 
-                <IconButton 
+                <IconButton
                     className="h-10 hidden md:block"
                     tooltipText={"Next Day"}
-                    imageSrc={"/ui/caret-right-solid.svg"}
+                    icon={<ChevronRight />}
                     enabled={day !== numberOfDays - 1}
                     onClick={() => onDayChange(day + 1)}
                 />
