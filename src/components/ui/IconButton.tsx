@@ -29,7 +29,7 @@ export function IconButton({
             <Tooltip.Root>
                 <Tooltip.Trigger asChild>
                     <Button id={id} className={twMerge("w-auto h-8 rounded-full aspect-square p-0", className || "")} variant="outline" disabled={!enabled} onClick={() => onClick()}>
-                        <img className={twMerge("w-[90%] h-[90%]", imageClassName)} src={imageSrc} />
+                        <img className={twMerge("w-[90%] h-[90%] m-auto", imageClassName)} src={imageSrc} />
                     </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Portal>
