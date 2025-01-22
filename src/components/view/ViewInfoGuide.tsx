@@ -1,6 +1,6 @@
 const ViewInfoGuide = () => {
     return (
-        <div>
+        <>
             <span className="font-bold text-3xl">Guide</span>
             <div className="mt-4">
                 <div className="mb-2">
@@ -25,7 +25,7 @@ const ViewInfoGuide = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
