@@ -33,7 +33,7 @@ export function IconButton({
                     </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Portal>
-                    <Tooltip.Content className="bg-black rounded-md" side={tooltipSide} sideOffset={5}>
+                    <Tooltip.Content className="bg-black rounded-md z-20" side={tooltipSide} sideOffset={5}>
                         <span className="mx-2 text-white">{ tooltipText }</span>
                         <Tooltip.Arrow className="fill-black" />
                     </Tooltip.Content>
