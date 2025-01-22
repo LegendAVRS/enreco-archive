@@ -7,21 +7,21 @@ import clsx from "clsx";
 interface IconButtonProps {
     id?: string;
     tooltipText: string;
-    icon: ReactNode;
     enabled: boolean;
     className?: string;
     tooltipSide?: "top" | "right" | "bottom" | "left";
     onClick: () => void;
+    children?: ReactNode;
 }
 
 export function IconButton({
     id,
     tooltipText,
-    icon,
     enabled,
     className,
     tooltipSide = "top",
     onClick,
+    children
 }: IconButtonProps) {
     return (
         <Tooltip.Provider delayDuration={500}>
@@ -29,12 +29,14 @@ export function IconButton({
                 <Tooltip.Trigger asChild>
                     <Button
                         id={id}
-                        className={clsx("h-8 rounded-full p-2", className)}
+                        className={clsx("h-8 w-8 aspect-square rounded-full p-2", className)}
                         variant="outline"
                         disabled={!enabled}
                         onClick={() => onClick()}
                     >
-                        {icon}
+                        <div className="h-fit w-fit m-auto">
+                            {children}
+                        </div>
                     </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Portal>

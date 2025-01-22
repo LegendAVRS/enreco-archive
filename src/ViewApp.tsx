@@ -267,14 +267,8 @@ const ViewApp = ({ siteData }: Props) => {
             <div className="fixed top-0 right-0 m-2 z-10 flex flex-col gap-2">
                 <IconButton
                     id="chart-info-btn"
-                    className="h-10 w-10 bg-transparent outline-none border-0 transition-all cursor-pointer hover:opacity-80 hover:scale-110"
+                    className="h-10 w-10 p-0 bg-transparent outline-none border-0 transition-all cursor-pointer hover:opacity-80 hover:scale-110"
                     tooltipText="Chart Info / Visibility"
-                    icon={
-                        <img
-                            src="https://cdn.holoen.fans/hefw/media/emblem.webp"
-                            className="w-[90%] h-[90%]"
-                        />
-                    }
                     enabled={true}
                     tooltipSide="left"
                     onClick={() =>
@@ -282,37 +276,45 @@ const ViewApp = ({ siteData }: Props) => {
                             currentCard === "setting" ? null : "setting"
                         )
                     }
-                />
+                >
+                    <img
+                        src="https://cdn.holoen.fans/hefw/media/emblem.webp"
+                        className="w-full h-full"
+                    />
+                </IconButton>
 
                 <IconButton
                     id="info-btn"
                     className="h-10 w-10 p-1"
                     tooltipText="Info"
-                    icon={<Info />}
                     enabled={true}
                     tooltipSide="left"
                     onClick={() => setInfoModalOpen(true)}
-                />
+                >
+                    <Info />
+                </IconButton>
 
                 <IconButton
                     id="settings-btn"
                     className="h-10 w-10 p-1"
                     tooltipText="Settings"
-                    icon={<Settings />}
                     enabled={true}
                     tooltipSide="left"
                     onClick={() => setSettingsModalOpen(true)}
-                />
+                >
+                    <Settings />
+                </IconButton>
 
                 <IconButton
                     id="minigames-btn"
                     className="h-10 w-10 p-1"
                     tooltipText="Minigames"
-                    icon={<Dice6 />}
                     enabled={true}
                     tooltipSide="left"
                     onClick={() => console.log("minigame button clicked")}
-                />
+                >
+                    <Dice6 />
+                </IconButton>
             </div>
 
             <div className="fixed inset-x-0 bottom-0 w-full md:w-4/5 2xl:w-2/5 mb-2 px-2 md:p-0 md:mx-auto">
@@ -322,6 +324,7 @@ const ViewApp = ({ siteData }: Props) => {
                     day={day}
                     numberOfChapters={siteData.numberOfChapters}
                     numberOfDays={chapterData.numberOfDays}
+                    isCardOpen={currentCard !== null}
                     onChapterChange={(newChapter) =>
                         updateData(newChapter, day)
                     }

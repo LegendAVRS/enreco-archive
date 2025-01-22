@@ -9,7 +9,6 @@ import { Chapter } from "@/lib/type";
 
 import { IconButton } from "@/components/ui/IconButton";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useViewStore } from "@/store/viewStore";
 import clsx from "clsx";
 
 interface ViewTransportControlsProps {
@@ -18,6 +17,7 @@ interface ViewTransportControlsProps {
     day: number;
     numberOfChapters: number;
     numberOfDays: number;
+    isCardOpen: boolean;
     onChapterChange: (newChapter: number) => void;
     onDayChange: (newDay: number) => void;
 }
@@ -28,29 +28,30 @@ export function ViewTransportControls({
     day,
     numberOfChapters,
     numberOfDays,
+    isCardOpen,
     onChapterChange,
     onDayChange,
 }: ViewTransportControlsProps) {
-    const viewStore = useViewStore();
     return (
         <div
             className={clsx(
                 "flex justify-start items-stretch md:items-center gap-2 transition-all",
                 {
                     // Hide when a card is selected
-                    "opacity-0 invisible": viewStore.currentCard !== null,
-                    "opacity-100 visible": viewStore.currentCard === null,
+                    "opacity-0 invisible": isCardOpen,
+                    "opacity-100 visible": !isCardOpen,
                 }
             )}
         >
             <div className="flex-1 flex gap-2">
                 <IconButton
-                    className="h-10 hidden md:block"
+                    className="h-10 w-10 p-0 hidden md:block"
                     tooltipText={"Previous Chapter"}
-                    icon={<ChevronLeft />}
                     enabled={chapter !== 0}
                     onClick={() => onChapterChange(chapter - 1)}
-                />
+                >
+                    <ChevronLeft />
+                </IconButton>
 
                 {/* Chapter Selector */}
                 <Select
@@ -72,21 +73,23 @@ export function ViewTransportControls({
                 </Select>
 
                 <IconButton
-                    className="h-10 hidden md:block"
+                    className="h-10 w-10 p-0 hidden md:block"
                     tooltipText={"Next Chapter"}
-                    icon={<ChevronRight />}
                     enabled={chapter !== numberOfChapters - 1}
                     onClick={() => onChapterChange(chapter + 1)}
-                />
+                >
+                    <ChevronRight />
+                </IconButton>
             </div>
             <div className="flex-1 flex gap-2 h-10">
                 <IconButton
-                    className="h-10 hidden md:block"
+                    className="h-10 w-10 p-0 hidden md:block"
                     tooltipText={"Previous Day"}
-                    icon={<ChevronLeft />}
                     enabled={day !== 0}
                     onClick={() => onDayChange(day - 1)}
-                />
+                >
+                    <ChevronLeft />
+                </IconButton>
 
                 {/* Day Selector */}
                 <Select
@@ -108,12 +111,13 @@ export function ViewTransportControls({
                 </Select>
 
                 <IconButton
-                    className="h-10 hidden md:block"
+                    className="h-10 w-10 p-0 hidden md:block"
                     tooltipText={"Next Day"}
-                    icon={<ChevronRight />}
                     enabled={day !== numberOfDays - 1}
                     onClick={() => onDayChange(day + 1)}
-                />
+                >
+                    <ChevronRight />
+                </IconButton>
             </div>
         </div>
     );
