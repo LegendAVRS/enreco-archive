@@ -6,7 +6,6 @@ import ViewEdgeCard from "@/components/view/ViewEdgeCard";
 import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
-import ViewSettingIcon from "@/components/view/ViewSettingIcon";
 import { useFlowStore } from "@/store/flowStore";
 import { CardType, useViewStore } from "@/store/viewStore";
 
@@ -14,7 +13,8 @@ import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMob
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import ViewChart from "./components/view/ViewChart";
 import ViewSettingsModal from "./components/view/ViewSettingsModal";
-import { ViewBottomControls } from "./components/view/ViewBottomControls";
+import { ViewTransportControls } from "./components/view/ViewTransportControls";
+import { IconButton } from "./components/ui/IconButton";
 
 function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     const parseOrZero = (value: string): number => {
@@ -240,12 +240,6 @@ const ViewApp = ({ siteData }: Props) => {
                     onNodeLinkClicked={onNodeClick}
                     onEdgeLinkClicked={onEdgeClick}
                 />
-                <ViewSettingIcon 
-                    onIconClick={() => onCurrentCardChange(currentCard === "setting" ? null : "setting")}
-                    className="fixed top-2 right-2 z-10" 
-                />
-
-                
             </div>
             
             <ViewInfoModal 
@@ -260,17 +254,49 @@ const ViewApp = ({ siteData }: Props) => {
                 onBgmEnabledChange={(newValue: boolean) => setIsBgmEnabled(newValue) }
             />
 
-            <ViewBottomControls 
-                chapter={chapter}
-                chapterData={chapterData}
-                day={day}
-                numberOfChapters={siteData.numberOfChapters}
-                numberOfDays={chapterData.numberOfDays}
-                onChapterChange={(newChapter: number) => updateData(newChapter, day)}
-                onDayChange={(newDay: number) => updateData(chapter, newDay)}
-                onInfoClick={() => setInfoModalOpen(true)}
-                onSettingsClick={() => setSettingsModalOpen(true)}
-            />
+            <div className="fixed top-0 right-0 m-2 z-10 flex flex-col gap-2">
+                <IconButton
+                    id="chart-info-btn"
+                    className="h-10 w-10 bg-transparent outline-none border-0 transition-all cursor-pointer hover:opacity-80 hover:scale-110"
+                    tooltipText="Chart Info / Visibility"
+                    imageSrc="https://cdn.holoen.fans/hefw/media/emblem.webp"
+                    enabled={true}
+                    tooltipSide="left"
+                    onClick={() => onCurrentCardChange(currentCard === "setting" ? null : "setting")}
+                />
+
+                <IconButton
+                    id="info-btn"
+                    className="h-10 w-10 p-1"
+                    tooltipText="Info"
+                    imageSrc="/ui/circle-info-solid.svg"
+                    enabled={true}
+                    tooltipSide="left"
+                    onClick={() => setInfoModalOpen(true)}
+                />
+    
+                <IconButton
+                    id="settings-btn"
+                    className="h-10 w-10 p-1"
+                    tooltipText="Settings"
+                    imageSrc="/ui/gear-solid.svg"
+                    enabled={true}
+                    tooltipSide="left"
+                    onClick={() => setSettingsModalOpen(true)}
+                />
+            </div>
+
+            <div className="fixed inset-x-0 bottom-0 w-full md:w-4/5 2xl:w-2/5 mb-2 px-2 md:p-0 md:mx-auto">
+                <ViewTransportControls 
+                    chapter={chapter}
+                    chapterData={chapterData}
+                    day={day}
+                    numberOfChapters={siteData.numberOfChapters}
+                    numberOfDays={chapterData.numberOfDays}
+                    onChapterChange={(newChapter) => updateData(newChapter, day)}
+                    onDayChange={(newDay) => updateData(chapter, newDay)}
+                />
+            </div>
         </>
     );
 };
