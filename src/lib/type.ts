@@ -1,5 +1,6 @@
 import { Edge, EdgeProps, Node, NodeProps } from "@xyflow/react";
 import { CSSProperties } from "react";
+
 export type ImageNodeData = {
     title?: string;
     content?: string;
