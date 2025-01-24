@@ -2,8 +2,8 @@
 import { useState } from "react";
 
 import {
-    CustomEdgeType,
     FitViewOperation,
+    FixedEdgeType,
     ImageNodeType,
     SiteData,
 } from "@/lib/type";
@@ -11,7 +11,6 @@ import ViewEdgeCard from "@/components/view/ViewEdgeCard";
 import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
-import { useFlowStore } from "@/store/flowStore";
 import { CardType, useViewStore } from "@/store/viewStore";
 
 import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMobilePinchZoom";
@@ -46,8 +45,6 @@ interface Props {
 let didInit = false;
 const ViewApp = ({ siteData }: Props) => {
     /* State variables */
-    const { selectedEdge, selectedNode, setSelectedEdge, setSelectedNode } =
-        useFlowStore();
     const {
         currentCard,
         setCurrentCard,
@@ -65,6 +62,10 @@ const ViewApp = ({ siteData }: Props) => {
         setChapter,
         day,
         setDay,
+        selectedEdge, 
+        setSelectedEdge, 
+        selectedNode, 
+        setSelectedNode
     } = useViewStore();
 
     // TODO: might need to convert this to state once bgm is implemented
@@ -107,22 +108,15 @@ const ViewApp = ({ siteData }: Props) => {
         // To avoid overwriting current visibility for "new"
         edgeVisibilityLoaded["new"] = edgeVisibilityLoaded["new"] || true;
 
-        Object.keys(newDayData.relationships).forEach((key) => {
+        Object.keys(newChapterData.relationships).forEach((key) => {
             edgeVisibilityLoaded[key] = true;
         });
 
-        Object.keys(newDayData.teams).forEach((key) => {
+        Object.keys(newChapterData.teams).forEach((key) => {
             teamVisibilityLoaded[key] = true;
         });
 
-        for (const node of newDayData.nodes) {
-            if (node.data.team) {
-                teamVisibilityLoaded[node.data.team] = true;
-            }
-            if (node.data.title) {
-                characterVisibilityLoaded[node.data.title] = true;
-            }
-        }
+        newDayData.nodes.forEach((node) => characterVisibilityLoaded[node.id] = true);
 
         onCurrentCardChange(null);
         setEdgeVisibility(edgeVisibilityLoaded);
@@ -168,7 +162,7 @@ const ViewApp = ({ siteData }: Props) => {
         setSelectedNode(node);
     }
 
-    function onEdgeClick(edge: CustomEdgeType) {
+    function onEdgeClick(edge: FixedEdgeType) {
         onCurrentCardChange("edge");
         setSelectedEdge(edge);
     }
@@ -193,6 +187,11 @@ const ViewApp = ({ siteData }: Props) => {
         }
     }
 
+    const selectedNodeTeam = selectedNode && selectedNode.data.teamId ? 
+        chapterData.teams[selectedNode.data.teamId] : null;
+    const selectedEdgeRelationship = selectedEdge && selectedEdge.data?.relationshipId ? 
+        chapterData.relationships[selectedEdge.data?.relationshipId] : null;
+
     return (
         <>
             <div className="w-screen h-screen top-0 inset-x-0 overflow-hidden">
@@ -202,7 +201,7 @@ const ViewApp = ({ siteData }: Props) => {
                     edgeVisibility={edgeVisibility}
                     teamVisibility={teamVisibility}
                     characterVisibility={characterVisibility}
-                    dayData={dayData}
+                    chapterData={chapterData}
                     selectedNode={selectedNode}
                     selectedEdge={selectedEdge}
                     widthToShrink={chartShrink}
@@ -224,6 +223,7 @@ const ViewApp = ({ siteData }: Props) => {
                 <ViewSettingCard
                     isCardOpen={currentCard === "setting"}
                     onCardClose={() => onCurrentCardChange(null)}
+                    chapterData={chapterData}
                     day={day}
                     dayData={dayData}
                     edgeVisibility={edgeVisibility}
@@ -236,14 +236,15 @@ const ViewApp = ({ siteData }: Props) => {
                 <ViewNodeCard
                     isCardOpen={currentCard === "node"}
                     selectedNode={selectedNode}
+                    nodeTeam={selectedNodeTeam}
                     onCardClose={() => onCurrentCardChange(null)}
-                    dayData={dayData}
                     onNodeLinkClicked={onNodeClick}
                     onEdgeLinkClicked={onEdgeClick}
                 />
                 <ViewEdgeCard
                     isCardOpen={currentCard === "edge"}
                     selectedEdge={selectedEdge}
+                    edgeRelationship={selectedEdgeRelationship}
                     onCardClose={() => onCurrentCardChange(null)}
                     onNodeLinkClicked={onNodeClick}
                     onEdgeLinkClicked={onEdgeClick}

@@ -1,10 +1,10 @@
 import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
-import { CustomEdgeProps } from "@/lib/type";
+import { FixedEdgeProps } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { BaseEdge } from "@xyflow/react";
 import { memo } from "react";
 
-const ViewCustomEdge = ({ data }: CustomEdgeProps) => {
+const ViewCustomEdge = ({ data }: FixedEdgeProps) => {
     const isNew = data?.new || false;
 
     return (

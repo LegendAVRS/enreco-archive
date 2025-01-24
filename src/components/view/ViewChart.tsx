@@ -1,6 +1,6 @@
 "use client";
 
-import { ChartData, CustomEdgeType, FitViewOperation, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
+import { Chapter, CustomEdgeType, FitViewOperation, FixedEdgeType, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
 import { ConnectionMode, FitViewOptions, ReactFlow, useReactFlow } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { isMobile } from "react-device-detect";
@@ -56,22 +56,22 @@ const areaOffset = 1000;
 
 interface Props {
     nodes: ImageNodeType[];
-    edges: CustomEdgeType[];
+    edges: FixedEdgeType[];
     edgeVisibility: StringToBooleanObjectMap;
     teamVisibility: StringToBooleanObjectMap;
     characterVisibility: StringToBooleanObjectMap;
-    dayData: ChartData;
+    chapterData: Chapter;
     focusOnClickedEdge?: boolean;
     focusOnClickedNode?: boolean;
     selectedNode: ImageNodeType | null;
-    selectedEdge: CustomEdgeType | null;
+    selectedEdge: FixedEdgeType | null;
     focusOnSelectedEdge?: boolean;
     focusOnSelectedNode?: boolean;
     widthToShrink: number;
     isCardOpen: boolean;
     fitViewOperation: FitViewOperation;
     onNodeClick: (node: ImageNodeType) => void;
-    onEdgeClick: (edge: CustomEdgeType) => void;
+    onEdgeClick: (edge: FixedEdgeType) => void;
     onPaneClick: () => void;
 }
 
@@ -81,7 +81,7 @@ function ViewChart({
     edgeVisibility,
     teamVisibility,
     characterVisibility,
-    dayData,
+    chapterData,
     selectedNode,
     selectedEdge,
     widthToShrink,
@@ -99,7 +99,7 @@ function ViewChart({
     const { fitViewToEdge } = useReactFlowFitViewToEdge();
     const prevFitViewOperation = usePreviousValue(fitViewOperation);
     const prevSelectedNode = usePreviousValue<ImageNodeType | null>(selectedNode);
-    const prevSelectedEdge = usePreviousValue<CustomEdgeType | null>(selectedEdge);
+    const prevSelectedEdge = usePreviousValue<FixedEdgeType | null>(selectedEdge);
     const prevWidthToShrink = usePreviousValue(widthToShrink);
     const flowRendererSizer = useRef<HTMLDivElement>(null);
 
@@ -135,21 +135,14 @@ function ViewChart({
     }, [widthToShrink, prevWidthToShrink, fitViewFunc])
 
     // Filter and fill in render properties for nodes/edges before passing them to ReactFlow.
-    const renderableNodes = nodes.filter(node => {
+    
+    const renderableNodes = nodes.filter(node => (
         // Compute node visibility based on related edge and viewstore settings
-        let isVisible = true;
-
-        if (node.data.team) {
-            isVisible = isVisible && teamVisibility[node.data.team];
-        } 
-        if (node.data.title) {
-            isVisible = isVisible && characterVisibility[node.data.title];
-        }
-        return isVisible;
-    }).map(node => {
+        teamVisibility[node.data.teamId || "null"] && characterVisibility[node.id]
+    )).map(node => {
         // Set team icon image, if available.
-        if(node.data.team) {
-            node.data.renderTeamImageSrc = dayData.teams[node.data.team]?.imageSrc || "";
+        if(node.data.teamId) {
+            node.data.renderTeamImageSrc = chapterData.teams[node.data.teamId].teamIconSrc || "";
         }
         else {
             node.data.renderTeamImageSrc = "";
@@ -165,39 +158,22 @@ function ViewChart({
             return false;
         }
 
-        let visibility = true;
-        if (edge.data?.relationship) {
-            visibility = visibility && edgeVisibility[edge.data.relationship];
-        }
-        /*
-        if (edge.data?.new) {
-            visibility = visibility && edgeVisibility["new"];
-        }
-        */
-        if (nodeSrc?.data.team) {
-            visibility = visibility && teamVisibility[nodeSrc.data.team];
-        }
-        if (nodeTarget?.data.team) {
-            visibility = visibility && teamVisibility[nodeTarget.data.team];
-        }
-        if (nodeSrc?.data.title) {
-            visibility = visibility && characterVisibility[nodeSrc.data.title];
-        }
-        if (nodeTarget?.data.title) {
-            visibility = visibility && characterVisibility[nodeTarget.data.title];
-        }
-        
-        return visibility;
+        const edgeData = edge.data;
+        if(!edgeData) { return false; }
+
+        return edgeVisibility[edgeData.relationshipId] &&
+            teamVisibility[nodeSrc.data.teamId || "null"] &&
+            teamVisibility[nodeTarget.data.teamId || "null"] &&
+            characterVisibility[nodeSrc.id] && 
+            characterVisibility[nodeTarget.id];
     }).map(edge => {
-        if(!edge.data) {
+        const edgeData = edge.data;
+        if(!edgeData) {
             return edge;
         }
-
-        if(edge.data.relationship) {
-            edge.data.renderEdgeStyle = dayData.relationships[edge.data.relationship] || {};
-        }
-
-        edge.data.renderIsHoveredEdge = edge.id === hoveredEdgeId; 
+        
+        edgeData.renderEdgeStyle = chapterData.relationships[edgeData.relationshipId].style || {};
+        edgeData.renderIsHoveredEdge = edge.id === hoveredEdgeId;
 
         return edge;
     });

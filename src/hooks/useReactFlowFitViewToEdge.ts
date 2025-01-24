@@ -1,6 +1,6 @@
 'use client';
 
-import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { FixedEdgeType, ImageNodeType } from "@/lib/type";
 import { useReactFlow } from "@xyflow/react";
 import { isMobile } from "react-device-detect";
 
@@ -27,7 +27,7 @@ export interface EdgeViewCenterArgs {
 export function findCenterViewOfEdge (
     nodeA: ImageNodeType,
     nodeB: ImageNodeType,
-    edge: CustomEdgeType,
+    edge: FixedEdgeType,
     isMobile: boolean
 ) : EdgeViewCenterArgs {
     const nodeAPosition = nodeA!.position;
@@ -83,10 +83,10 @@ export function findCenterViewOfEdge (
 };
 
 export function useReactFlowFitViewToEdge() {
-    const { getNode, setCenter } = useReactFlow<ImageNodeType, CustomEdgeType>();
+    const { getNode, setCenter } = useReactFlow<ImageNodeType, FixedEdgeType>();
 
     // Function to fit edge to view
-    const fitViewToEdge = (nodeAID: string, nodeBID: string, edge: CustomEdgeType) => {
+    const fitViewToEdge = (nodeAID: string, nodeBID: string, edge: FixedEdgeType) => {
         const nodeA = getNode(nodeAID);
         const nodeB = getNode(nodeBID);
         if(!nodeA || !nodeB) {

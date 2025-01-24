@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { ChartData, StringToBooleanObjectMap } from "@/lib/type";
+import { Chapter, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
 import { extractImageSrcFromNodes, getLineSvg } from "@/lib/utils";
 import { useMemo } from "react";
 
@@ -11,7 +11,8 @@ interface Props {
     onTeamVisibilityChange: (newTeamVisibility: StringToBooleanObjectMap) => void; 
     characterVisibility: { [key: string]: boolean };
     onCharacterVisibilityChange: (newCharacterVisibility: StringToBooleanObjectMap) => void;
-    dayData: ChartData
+    chapterData: Chapter,
+    nodes: ImageNodeType[]
 }
 
 const ViewVisibilityCard = ({ 
@@ -21,13 +22,14 @@ const ViewVisibilityCard = ({
     onTeamVisibilityChange,
     characterVisibility,
     onCharacterVisibilityChange,
-    dayData 
+    chapterData,
+    nodes
 }: Props) => {
     // Extract image src from nodes
     const characterImagesMap = useMemo(() => {
-        const charImgMap = extractImageSrcFromNodes(dayData.nodes);
+        const charImgMap = extractImageSrcFromNodes(nodes);
         return charImgMap;
-    }, [dayData.nodes]);
+    }, [nodes]);
 
     return (
         <div className="flex flex-col gap-4 p-4 overflow-y-auto h-full">
@@ -67,13 +69,13 @@ const ViewVisibilityCard = ({
                     }
                 />
             </div>
-            {Object.keys(dayData.relationships).map((key) => (
+            {Object.keys(chapterData.relationships).map((key) => (
                 <div
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
                     <div className="flex flex-row gap-2 items-center">
-                        {getLineSvg(dayData.relationships[key])}
+                        {getLineSvg(chapterData.relationships[key].style)}
                         <Label
                             htmlFor={`edge-${key.toLowerCase()}`}
                             className="capitalize"
@@ -109,14 +111,14 @@ const ViewVisibilityCard = ({
                     }}
                 />
             </div>
-            {Object.keys(dayData.teams).map((key) => (
+            {Object.keys(chapterData.teams).map((key) => (
                 <div
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
                     <div className="flex flex-row gap-2 items-center">
                         <img
-                            src={dayData.teams[key].imageSrc}
+                            src={chapterData.teams[key].teamIconSrc}
                             className="w-8 h-8"
                             alt={`${key} logo`}
                         />

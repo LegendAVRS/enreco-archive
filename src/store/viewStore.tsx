@@ -1,3 +1,4 @@
+import { FixedEdgeType, ImageNodeType } from "@/lib/type";
 import { create } from "zustand";
 export type CardType = "node" | "edge" | "setting" | null;
 
@@ -30,6 +31,12 @@ interface ViewState {
 
     hoveredEdgeId: string | null;
     setHoveredEdgeId: (hoveredEdgeId: string) => void;
+
+    selectedNode: ImageNodeType | null;
+    setSelectedNode: (node: ImageNodeType | null) => void;
+
+    selectedEdge: FixedEdgeType | null;
+    setSelectedEdge: (edge: FixedEdgeType | null) => void;
 }
 export const useViewStore = create<ViewState>((set) => {
     const [initialChapter, initialDay] = [0, 0];
@@ -66,5 +73,13 @@ export const useViewStore = create<ViewState>((set) => {
         hoveredEdgeId: null,
         setHoveredEdgeId: (hoveredEdgeId: string) =>
             set(() => ({ hoveredEdgeId })),
+
+        selectedNode: null,
+        setSelectedNode: (node: ImageNodeType | null) =>
+            set(() => ({ selectedNode: node })),
+
+        selectedEdge: null,
+        setSelectedEdge: (edge: FixedEdgeType | null) =>
+            set(() => ({ selectedEdge: edge })),
     };
 });

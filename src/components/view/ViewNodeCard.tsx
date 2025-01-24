@@ -5,19 +5,19 @@ import ViewNodeContent from "@/components/view/ViewNodeContent";
 import { BrowserView, MobileView } from "react-device-detect";
 
 import { cn } from "@/lib/utils";
-import { ChartData, ImageNodeType } from "@/lib/type";
+import { ImageNodeType, Team } from "@/lib/type";
 import { EdgeLinkClickHandler, NodeLinkClickHandler } from "./ViewMarkdown";
 
 interface Props {
     isCardOpen: boolean;
     selectedNode: ImageNodeType | null;
+    nodeTeam: Team | null;
     onCardClose: () => void;
-    dayData: ChartData;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
 };
 
-const ViewNodeCard = ({ isCardOpen, selectedNode, onCardClose, dayData, onNodeLinkClicked, onEdgeLinkClicked }: Props) => {
+const ViewNodeCard = ({ isCardOpen, selectedNode, nodeTeam, onCardClose, onNodeLinkClicked, onEdgeLinkClicked }: Props) => {
     function onDrawerOpenChange(newOpenState: boolean): void {
         if(!newOpenState) {
             onCardClose();
@@ -30,8 +30,8 @@ const ViewNodeCard = ({ isCardOpen, selectedNode, onCardClose, dayData, onNodeLi
     }
 
     // If selectedNode is null but the card is meant to be visible, throw Error.
-    if(!selectedNode) {
-        throw new Error("selectedNode is null but the card is being shown!");
+    if(!selectedNode || !nodeTeam) {
+        throw new Error("selectedNode or nodeTeam is null but the card is being shown!");
     }
 
     return (
@@ -51,7 +51,7 @@ const ViewNodeCard = ({ isCardOpen, selectedNode, onCardClose, dayData, onNodeLi
                         onNodeLinkClicked={onNodeLinkClicked}
                         onEdgeLinkClicked={onEdgeLinkClicked} 
                         selectedNode={selectedNode} 
-                        data={dayData} 
+                        team={nodeTeam}
                     />
                 </ViewCard>
             </BrowserView>
@@ -62,7 +62,7 @@ const ViewNodeCard = ({ isCardOpen, selectedNode, onCardClose, dayData, onNodeLi
                             onNodeLinkClicked={onNodeLinkClicked}
                             onEdgeLinkClicked={onEdgeLinkClicked} 
                             selectedNode={selectedNode} 
-                            data={dayData} 
+                            team={nodeTeam}
                         />
                     </div>
                 </VaulDrawer>

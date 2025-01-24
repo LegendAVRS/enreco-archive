@@ -1,11 +1,11 @@
-import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { FixedEdgeType, ImageNodeType } from "@/lib/type";
 import { useReactFlow } from "@xyflow/react";
 import { MouseEventHandler } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 
 export type NodeLinkClickHandler = (targetNode: ImageNodeType) => void;
-export type EdgeLinkClickHandler = (targetEdge: CustomEdgeType) => void;
+export type EdgeLinkClickHandler = (targetEdge: FixedEdgeType) => void;
 
 interface Props {
     onNodeLinkClicked: NodeLinkClickHandler;
@@ -22,7 +22,7 @@ For a link to jump to a specific node: [node link](#node:<node id>)
 For a link to jump to a specific edge: [edge link](#edge:<edge id>)
 */
 export function ViewMarkdown({ onNodeLinkClicked, onEdgeLinkClicked, children }: Props) {
-    const { getNode, getEdge } = useReactFlow<ImageNodeType, CustomEdgeType>();
+    const { getNode, getEdge } = useReactFlow<ImageNodeType, FixedEdgeType>();
 
     const nodeLinkHandler: MouseEventHandler<HTMLAnchorElement> = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
@@ -40,7 +40,7 @@ export function ViewMarkdown({ onNodeLinkClicked, onEdgeLinkClicked, children }:
         event.preventDefault()
 
         const edgeId = (event.target as Element).getAttribute('data-edge-id') || '';
-        const targetEdge: CustomEdgeType | undefined = getEdge(edgeId);
+        const targetEdge: FixedEdgeType | undefined = getEdge(edgeId);
         if(!targetEdge) {
             return;
         }

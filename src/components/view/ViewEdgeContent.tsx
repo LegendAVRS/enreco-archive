@@ -1,13 +1,14 @@
 import { Separator } from "@/components/ui/separator";
 import EdgeCardDeco from "@/components/view/EdgeCardDeco";
-import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { FixedEdgeType, ImageNodeType, Relationship } from "@/lib/type";
 import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
 import { useRef, useState, useEffect } from "react";
 import { SCROLL_THRESHOLD } from "@/lib/constants";
 import { EdgeLinkClickHandler, NodeLinkClickHandler, ViewMarkdown } from "./ViewMarkdown";
 
 interface ViewEdgeContentProps {
-    selectedEdge: CustomEdgeType;
+    selectedEdge: FixedEdgeType;
+    edgeRelationship: Relationship;
     nodeA: ImageNodeType;
     nodeB: ImageNodeType;
     onNodeLinkClicked: NodeLinkClickHandler;
@@ -16,12 +17,13 @@ interface ViewEdgeContentProps {
 
 const ViewEdgeContent = ({
     selectedEdge,
+    edgeRelationship,
     nodeA,
     nodeB,
     onNodeLinkClicked,
     onEdgeLinkClicked
 }: ViewEdgeContentProps) => {
-    const edgeStyle = selectedEdge.data?.renderEdgeStyle || {};
+    const edgeStyle = edgeRelationship.style;
     const backgroundColor = getLighterOrDarkerColor(
         edgeStyle?.stroke || "",
         30
@@ -87,7 +89,7 @@ const ViewEdgeContent = ({
                     <span className="">
                         Relationship:{" "}
                         <span className="underline underline-offset-2">
-                            {selectedEdge.data?.relationship}
+                            { edgeRelationship.name }
                         </span>
                     </span>
                 </div>

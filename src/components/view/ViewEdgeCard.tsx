@@ -1,7 +1,7 @@
 import VaulDrawer from "@/components/view/VaulDrawer";
 import ViewCard from "@/components/view/ViewCard";
 import ViewEdgeContent from "@/components/view/ViewEdgeContent";
-import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { FixedEdgeType, ImageNodeType, Relationship } from "@/lib/type";
 import { useReactFlow } from "@xyflow/react";
 import { BrowserView, MobileView } from "react-device-detect";
 
@@ -10,13 +10,14 @@ import { EdgeLinkClickHandler, NodeLinkClickHandler } from "./ViewMarkdown";
 
 interface Props {
     isCardOpen: boolean;
-    selectedEdge: CustomEdgeType | null;
+    selectedEdge: FixedEdgeType | null;
+    edgeRelationship: Relationship | null; 
     onCardClose: () => void;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
 };
 
-const ViewEdgeCard = ({ isCardOpen, selectedEdge, onCardClose, onEdgeLinkClicked, onNodeLinkClicked }: Props) => {
+const ViewEdgeCard = ({ isCardOpen, selectedEdge, edgeRelationship, onCardClose, onEdgeLinkClicked, onNodeLinkClicked }: Props) => {
     const { getNode } = useReactFlow();
 
     function onDrawerOpenChange(newOpenState: boolean): void {
@@ -31,8 +32,8 @@ const ViewEdgeCard = ({ isCardOpen, selectedEdge, onCardClose, onEdgeLinkClicked
     }
 
     // If selectedEdge is null but the card is meant to be visible, throw Error.
-    if(!selectedEdge) {
-        throw new Error("selectedEdge is null but the card is being shown!");
+    if(!selectedEdge || !edgeRelationship) {
+        throw new Error("selectedEdge or edgeRelationship is null but the card is being shown!");
     }
 
     // An edge always has a source and target node, which explains the !
@@ -51,6 +52,7 @@ const ViewEdgeCard = ({ isCardOpen, selectedEdge, onCardClose, onEdgeLinkClicked
                 >
                     <ViewEdgeContent
                         selectedEdge={selectedEdge}
+                        edgeRelationship={edgeRelationship}
                         nodeA={nodeA}
                         nodeB={nodeB}
                         onEdgeLinkClicked={onEdgeLinkClicked}
@@ -67,6 +69,7 @@ const ViewEdgeCard = ({ isCardOpen, selectedEdge, onCardClose, onEdgeLinkClicked
                     <div className="h-full flex flex-col gap-4 items-center">
                         <ViewEdgeContent
                             selectedEdge={selectedEdge}
+                            edgeRelationship={edgeRelationship}
                             nodeA={nodeA}
                             nodeB={nodeB}
                             onEdgeLinkClicked={onEdgeLinkClicked}
