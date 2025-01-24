@@ -1,4 +1,4 @@
-import { Chapter, ChartData, CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { CustomEdgeType, CustomEdgeTypeNames, EditorChapter, EditorChartData, ImageNodeType } from "@/lib/type";
 import { applyNodeChanges, applyEdgeChanges, EdgeChange, NodeChange } from "@xyflow/react";
 import { create, StateCreator } from "zustand";
 import { immer } from 'zustand/middleware/immer';
@@ -6,20 +6,21 @@ import { immer } from 'zustand/middleware/immer';
 export type EditorMode = "edit" | "view" | "place" | "delete";
 export type CardType = "node" | "edge" | "general" | null;
 
-function createBlankChapter(): Chapter {
+
+function createBlankChapter(): EditorChapter {
     return {
         numberOfDays: 0,
         title: "",
-        charts: []
+        charts: [],
+        relationships: {},
+        teams: {}
     };
 }
 
-function createBlankDay(): ChartData {
+function createBlankDay(): EditorChartData {
     return {
         nodes: [],
         edges: [],
-        relationships: {},
-        teams: {},
         dayRecap: "",
         title: ""
     };
@@ -40,12 +41,12 @@ interface EditorSlice {
     edgePaths: { [key: string]: string };
     setEdgePaths: (edgePaths: { [key: string]: string }) => void;
 
-    edgeType: string;
-    setEdgeType: (edgeType: string) => void;
+    edgeType: CustomEdgeTypeNames;
+    setEdgeType: (edgeType: CustomEdgeTypeNames) => void;
 }
 
 interface EditorDataSlice {
-    data: Chapter[];
+    data: EditorChapter[];
     addChapter: () => void;
     insertChapter: (chapter: number) => void;
     deleteChapter: (chapter: number) => void;
@@ -81,7 +82,7 @@ const createEditorSlice: StateCreator<EditorState, [["zustand/immer", never]], [
         setEdgePaths: (edgePaths: { [key: string]: string }) => set({ edgePaths: edgePaths }),
 
         edgeType: "custom",
-        setEdgeType: (edgeType: string) => set({ edgeType: edgeType }),
+        setEdgeType: (edgeType: CustomEdgeTypeNames) => set({ edgeType: edgeType }),
     });
 
 const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]], [["zustand/immer", never]], EditorDataSlice> = 

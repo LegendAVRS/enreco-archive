@@ -11,20 +11,17 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { CustomEdgeType } from "@/lib/type";
-import { useChartStore } from "@/store/chartStore";
-import { useFlowStore } from "@/store/flowStore";
+import { CustomEdgeType, RelationshipMap } from "@/lib/type";
 import { useEffect, useState } from "react";
 
 interface EditorEdgeCard {
-    updateEdge: (edge: CustomEdgeType) => void;
+    selectedEdge: CustomEdgeType | null;
+    relationships: RelationshipMap;
+    updateEdge: (oldEdge: CustomEdgeType, newEdge: CustomEdgeType) => void;
     deleteEdge: () => void;
 }
 
-const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
-    const { selectedEdge } = useFlowStore();
-    const { data } = useChartStore();
-
+const EdgeEditorCard = ({ selectedEdge, relationships, updateEdge, deleteEdge }: EditorEdgeCard) => {
     const [localRelationship, setLocalRelationship] = useState("");
     const [localTitle, setLocalTitle] = useState("");
     const [localContent, setLocalContent] = useState("");
@@ -34,7 +31,7 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
     // Sync local state with selectedEdge whenever selectedEdge changes
     useEffect(() => {
         if (selectedEdge) {
-            setLocalRelationship(selectedEdge.data?.relationship || "");
+            setLocalRelationship(selectedEdge.data?.relationshipId || "");
             setLocalTitle(selectedEdge.data?.title || "");
             setLocalContent(selectedEdge.data?.content || "");
             setLocalStream(selectedEdge.data?.timestampUrl || "");
@@ -47,13 +44,13 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
         if (!newEdge.data) {
             return;
         }
-        newEdge.data.relationship = localRelationship;
+        newEdge.data.relationshipId = localRelationship;
         newEdge.data.title = localTitle;
         newEdge.data.content = localContent;
         newEdge.data.timestampUrl = localStream;
         newEdge.data.new = localNew;
         // @ts-expect-error - undefined data should be fine, i think
-        updateEdge(newEdge);
+        updateEdge(selectedEdge, newEdge);
     };
 
     return (
@@ -72,9 +69,9 @@ const EdgeEditorCard = ({ updateEdge, deleteEdge }: EditorEdgeCard) => {
                         />
                     </SelectTrigger>
                     <SelectContent>
-                        {Object.keys(data.relationships).map((key) => (
+                        {Object.keys(relationships).map((key) => (
                             <SelectItem key={key} value={key}>
-                                {key}
+                                { relationships[key].name }
                             </SelectItem>
                         ))}
                     </SelectContent>

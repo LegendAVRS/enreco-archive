@@ -4,6 +4,8 @@ import { CSSProperties } from "react";
 /* App Types */
 export type StringToBooleanObjectMap = { [key: string]: boolean };
 export type FitViewOperation = "fit-to-node" | "fit-to-edge" | "fit-to-all" | "none";
+export type TeamMap = { [key: string]: Team };
+export type RelationshipMap = { [key: string]: Relationship };
 
 /* Data Types */
 export type SiteData = {
@@ -17,8 +19,16 @@ export type Chapter = {
     numberOfDays: number;
     title: string;
     charts: ChartData[];
-    teams: { [key: string]: Team };
-    relationships: { [key: string]: Relationship };
+    teams: TeamMap;
+    relationships: RelationshipMap;
+}
+
+export type EditorChapter = {
+    numberOfDays: number;
+    title: string;
+    charts: EditorChartData[];
+    teams: TeamMap;
+    relationships: RelationshipMap;
 }
 
 export type Team = {
@@ -40,23 +50,30 @@ export type ChartData = {
     edges: FixedEdgeType[];
 }
 
+export type EditorChartData = {
+    title: string;
+    dayRecap: string;
+    nodes: ImageNodeType[];
+    edges: CustomEdgeType[];
+}
+
 /* Chart Types */
 type CommonNodeData = {
     title: string;
     content: string;
     imageSrc: string;
-    width: number;
-    height: number;
     teamId: string;
     status: string;
     new: boolean;
     bgCardColor: string;
-}
 
-export type ImageNodeData = CommonNodeData & {
     // The following properties are used during the rendering of this node,
     // and should not be filled by the data source.
     renderTeamImageSrc?: string;
+}
+
+export type ImageNodeData = CommonNodeData & {
+
 };
 
 type CommonEdgeData = {

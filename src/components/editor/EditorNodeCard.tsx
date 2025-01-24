@@ -9,25 +9,24 @@ import {
     SelectItem,
     SelectValue,
 } from "@/components/ui/select";
-import { ImageNodeType } from "@/lib/type";
-import { useChartStore } from "@/store/chartStore";
-import { useFlowStore } from "@/store/flowStore";
+import { ImageNodeType, TeamMap } from "@/lib/type";
 import { SelectTrigger } from "@radix-ui/react-select";
 import MDEditor from "@uiw/react-md-editor";
 import { useEffect, useState } from "react";
 
 interface EditorNodeCardProps {
-    updateNode: (node: ImageNodeType) => void;
+    teams: TeamMap;
+    selectedNode: ImageNodeType | null;
+    updateNode: (oldNode: ImageNodeType, newNode: ImageNodeType) => void;
     deleteNode: () => void;
 }
 
 export default function EditorNodeCard({
+    teams,
+    selectedNode,
     updateNode,
     deleteNode,
 }: EditorNodeCardProps) {
-    const { selectedNode } = useFlowStore();
-    const { data } = useChartStore();
-
     const [localImageSrc, setLocalImageSrc] = useState("");
     const [localTitle, setLocalTitle] = useState("");
     const [localContent, setLocalContent] = useState("");
@@ -40,7 +39,7 @@ export default function EditorNodeCard({
             setLocalImageSrc(selectedNode.data?.imageSrc || "");
             setLocalTitle(selectedNode.data?.title || "");
             setLocalContent(selectedNode.data?.content || "");
-            setLocalTeam(selectedNode.data?.team || "");
+            setLocalTeam(selectedNode.data?.teamId || "");
             setLocalStatus(selectedNode.data?.status || "Alive");
             setLocalNew(selectedNode.data?.new as boolean);
         }
@@ -61,7 +60,7 @@ export default function EditorNodeCard({
                 new: localNew,
             },
         };
-        updateNode(newNode);
+        updateNode(selectedNode, newNode);
     };
 
     return (
@@ -81,9 +80,9 @@ export default function EditorNodeCard({
                     <SelectValue placeholder={localTeam || "Select a team"} />
                 </SelectTrigger>
                 <SelectContent>
-                    {Object.keys(data.teams).map((key) => (
+                    {Object.keys(teams).map((key) => (
                         <SelectItem key={key} value={key}>
-                            {key}
+                            { teams[key].name }
                         </SelectItem>
                     ))}
                 </SelectContent>
