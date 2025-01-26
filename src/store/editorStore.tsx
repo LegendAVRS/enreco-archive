@@ -1,11 +1,9 @@
 import { CustomEdgeType, CustomEdgeTypeNames, EditorChapter, EditorChartData, ImageNodeType } from "@/lib/type";
-import { applyNodeChanges, applyEdgeChanges, EdgeChange, NodeChange } from "@xyflow/react";
 import { create, StateCreator } from "zustand";
 import { immer } from 'zustand/middleware/immer';
 
 export type EditorMode = "edit" | "view" | "place" | "delete";
 export type CardType = "node" | "edge" | "general" | null;
-
 
 function createBlankChapter(): EditorChapter {
     return {
@@ -53,18 +51,17 @@ interface EditorDataSlice {
     addDay: () => void;
     insertDay: (day: number) => void;
     deleteDay: (day: number) => void;
+    cloneDay: (day: number) => void;
+    moveDay: (dayToMove: number, newPos: number) => void;
     
     chapter: number | null;
-    setChapter: (newChapter: number) => void;
+    setChapter: (newChapter: number | null) => void;
 
     day: number | null;
-    setDay: (newDay: number) => void;
+    setDay: (newDay: number | null) => void;
 
     setNodes: (newNodes: ImageNodeType[]) => void;
-    onNodesChange: (changes: NodeChange<ImageNodeType>[]) => void;
-
     setEdges: (newEdges: CustomEdgeType[]) => void;
-    onEdgesChange: (changes: EdgeChange<CustomEdgeType>[]) => void;
 }
 
 const createEditorSlice: StateCreator<EditorState, [["zustand/immer", never]], [["zustand/immer", never]], EditorSlice> = 
@@ -99,13 +96,15 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
             }
 
             set((state) => {
-                state.data.splice(chapter, 0, createBlankChapter());
+                state.data.splice(chapter + 1, 0, createBlankChapter());
             });
         },
         deleteChapter: (chapter: number) => {
             if(get().chapter === null || chapter < 0) {
                 return;
             }
+
+            console.log("hi");
 
             set((state) => {
                 state.data.splice(chapter, 1);
@@ -118,34 +117,63 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
 
             set((state) => {
                 state.data[get().chapter!].charts.push(createBlankDay());
+                state.data[get().chapter!].numberOfDays++;
             });
         },
         insertDay: (day: number) => {
-            if(get().chapter === null || day < 0 || day > get().data.length) {
+            const ch = get().chapter;
+            if(ch === null || day < 0 || day > get().data[ch].charts.length) {
                 return;
             }
 
             set((state) => {
-                state.data[get().chapter!].charts.splice(day, 0, createBlankDay());
+                state.data[ch].charts.splice(day + 1, 0, createBlankDay());
+                state.data[ch].numberOfDays++;
             });
         },
         deleteDay: (day: number) => {
-            if(get().chapter === null || day < 0 || day > get().data.length) {
+            const ch = get().chapter;
+            if(ch === null || day < 0 || day > get().data[ch].charts.length) {
                 return;
             }
 
             set((state) => {
-                state.data[get().chapter!].charts.splice(day, 1);
+                state.data[ch].charts.splice(day, 1);
+                state.data[ch].numberOfDays--;
+            });
+        },
+        cloneDay: (day: number) => {
+            const ch = get().chapter;
+            if(ch === null || day < 0 || day > get().data[ch].charts.length) {
+                return;
+            }
+
+            set((state) => {
+                state.data[ch].charts.splice(day, 0, get().data[ch].charts[day]);
+                state.data[ch].numberOfDays++;
+            });
+        },
+        moveDay: (dayToMove: number, newPos: number) => {
+            const ch = get().chapter;
+            if(ch === null || dayToMove < 0 || dayToMove > get().data[ch].charts.length ||
+                newPos < 0 || newPos > get().data[ch].charts.length) {
+                return;
+            }
+
+            set((state) => {
+                const elem = get().data[ch].charts[dayToMove];
+                state.data[ch].charts.splice(dayToMove, 1);
+                state.data[ch].charts.splice(newPos, 1, elem);
             });
         },
 
         chapter: null,
-        setChapter: (newChapter: number) => {
+        setChapter: (newChapter: number | null) => {
             set({ chapter: newChapter });
         },
 
         day: null,
-        setDay: (newDay: number) => {
+        setDay: (newDay: number | null) => {
             set({ day: newDay });
         },
 
@@ -157,15 +185,6 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
                 state.data[chapter].charts[day].nodes = newNodes;
             })
         },
-        onNodesChange: (changes) => {
-            const chapter = get().chapter!;
-            const day = get().day!;
-            const nodes = get().data[chapter].charts[day].nodes;
-
-            set((state) => {
-                state.data[chapter].charts[day].nodes = applyNodeChanges(changes, nodes);
-            })
-        },
 
         setEdges: (newEdges) => {
             const chapter = get().chapter!;
@@ -173,15 +192,6 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
 
             set((state) => {
                 state.data[chapter].charts[day].edges = newEdges;
-            })
-        },
-        onEdgesChange: (changes) => {
-            const chapter = get().chapter!;
-            const day = get().day!;
-            const edges = get().data[chapter].charts[day].edges;
-
-            set((state) => {
-                state.data[chapter].charts[day].edges = applyEdgeChanges(changes, edges);
             })
         },
     });

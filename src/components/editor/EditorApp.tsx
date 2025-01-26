@@ -1,30 +1,24 @@
 "use client";
+
+import * as Toggle from "@radix-ui/react-toggle";
+import * as Toolbar from "@radix-ui/react-toolbar";
+import { useReactFlow } from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
+
+import { EditorChart } from "@/components/editor/EditorChart";
 import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
 import EditorGeneralCard from "@/components/editor/EditorGeneralCard";
 import EditorNodeCard from "@/components/editor/EditorNodeCard";
-
+import { EditorTransportControls } from "@/components/editor/EditorTransportControls";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useKeyboard from "@/hooks/useKeyboard";
-
+import { CustomEdgeType, CustomEdgeTypeNames, ImageNodeType } from "@/lib/type";
 import { EditorMode, useEditorStore } from "@/store/editorStore";
 import { useFlowStore } from "@/store/flowStore";
-import {
-    useReactFlow,
-} from "@xyflow/react";
-import "@xyflow/react/dist/style.css";
-import { MouseEventHandler } from "react";
-
-import { EditorChart } from "./EditorChart";
-import { CustomEdgeType, CustomEdgeTypeNames, ImageNodeType } from "@/lib/type";
-
-import * as Toolbar from "@radix-ui/react-toolbar";
-import * as Toggle from "@radix-ui/react-toggle";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Checkbox } from "../ui/checkbox";
-import { EditorTransportControls } from "./EditorTransportControls";
-
 
 const EditorApp = () => {
-    const { screenToFlowPosition, deleteElements } = useReactFlow();
+    const { deleteElements } = useReactFlow();
     const {
         mode,
         setMode,
@@ -38,40 +32,28 @@ const EditorApp = () => {
         edgeType,
         setEdgeType,
         setNodes,
-        onNodesChange,
         setEdges,
-        onEdgesChange,
         showHandles,
-        setShowHandles
+        setShowHandles,
+        addChapter,
+        insertChapter,
+        deleteChapter,
+        addDay,
+        insertDay,
+        deleteDay,
+        cloneDay,
+        moveDay
     } = useEditorStore();
     const { selectedEdge, selectedNode, setSelectedEdge, setSelectedNode } =
         useFlowStore();
     useKeyboard();
     
-
-    const nodes = chapter && chapter !== -1 && day && day !== -1 && data ? data[chapter].charts[day].nodes : [];
-    const edges = chapter && chapter !== -1 && day && day !== -1 && data ? data[chapter].charts[day].edges : [];
-    const teams = chapter && chapter !== -1 && data ? data[chapter].teams : {};
+    const numChapters = data.length;
+    const numDays = chapter !== null && data ? data[chapter].numberOfDays : 0;
+    const nodes = chapter !== null && day !== null && data ? data[chapter].charts[day]?.nodes : [];
+    const edges = chapter !== null && day !== null && data ? data[chapter].charts[day]?.edges : [];
+    const teams = chapter !== null && data ? data[chapter].teams : {};
     const relationships = chapter && chapter !== -1 && data ? data[chapter].relationships : {};
-
-    const addNode = (x: number, y: number) => {
-        const newNode: ImageNodeType = {
-            id: `node-${nodes.length + 1}`,
-            type: "image",
-            position: screenToFlowPosition({ x, y }),
-            data: {
-                title: "",
-                content: "",
-                imageSrc: "",
-                teamId: "",
-                status: "",
-                new: true,
-                bgCardColor: ""
-            },
-        };
-
-        setNodes([...nodes, newNode]);
-    };
 
     const updateEdge = (oldEdge: CustomEdgeType, newEdge: CustomEdgeType) => {
         const newEdgeArray = edges.filter(e => e.id !== oldEdge.id);
@@ -105,23 +87,69 @@ const EditorApp = () => {
         setCurrentCard(null);
     };
 
-    const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
-        if (mode === "place") {
-            addNode(event.clientX, event.clientY);
+    const addChapterEH = () => {
+        if(chapter === null) {
+            setChapter(0);
+            addChapter();
+        }
+        else {
+            insertChapter(chapter);
+            setChapter(chapter + 1);
         }
     };
+
+    const deleteChapterEH = () => {
+        if(chapter === 0) {
+            deleteChapter(0);
+            setChapter(numChapters === 1 ? null : 0); 
+        }
+        else if(chapter === numChapters - 1) {
+            deleteChapter(chapter);
+            setChapter(chapter - 1);
+        }
+        else if(chapter !== null) {
+            deleteChapter(chapter);
+        }
+    };
+
+    const addDayEH = () => {
+        if(day === null) {
+            setDay(0);
+            addDay();
+        }
+        else {
+            insertDay(day);
+            setDay(day + 1);
+        }
+    };
+
+    const deleteDayEH = () => {
+        if(day === 0) {
+            deleteDay(0);
+            setDay(numDays === 1 ? null : 0);
+        }
+        else if(day === numDays - 1) {
+            deleteDay(day);
+            setDay(day - 1);
+        }
+        else if(day !== null) {
+            deleteDay(day);
+        }
+    };
+
+    console.log(data);
 
     return (
         <>
             <div className="w-screen h-screen">
                 <EditorChart
                     nodes={nodes}
+                    setNodes={setNodes}
                     edges={edges}
+                    setEdges={setEdges}
                     edgeType={edgeType}
                     areNodesDraggable={mode === "edit"}
-                    onNodesChange={onNodesChange}
-                    onEdgesChange={onEdgesChange}
-                    onClick={handleClick}
+                    canPlaceNewNode={mode === "place"}
                     onNodeClick={(node: ImageNodeType) => {
                         setCurrentCard("node");
                         setSelectedNode(node);
@@ -182,12 +210,17 @@ const EditorApp = () => {
                     chapter={chapter}
                     chapters={data}
                     day={day}
-                    onChapterChange={(newChapter: number) => setChapter(newChapter)}
+                    onChapterChange={(newChapter: number) => { 
+                        setChapter(newChapter);
+                        setDay(data[newChapter].numberOfDays === 0 ? null : 0);
+                    }}
                     onDayChange={(newDay: number) => setDay(newDay)}
-                    onChapterAdd={() => console.log("add chapter")}
-                    onChapterDelete={() => console.log("delete chapter")}
-                    onDayAdd={() => console.log("add day")}
-                    onDayDelete={() => console.log("delete day")}
+                    onChapterAdd={addChapterEH}
+                    onChapterDelete={deleteChapterEH}
+                    onDayAdd={addDayEH}
+                    onDayDelete={deleteDayEH}
+                    onDayClone={cloneDay}
+                    onDayMove={moveDay}
                 />
                 <Toolbar.Separator className="mx-2.5 w-px bg-black" />
                 <div className="w-1/12 flex flex-col gap-y-2">

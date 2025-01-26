@@ -1,4 +1,15 @@
-import { addEdge, Connection, ConnectionLineType, ConnectionMode, OnEdgesChange, OnNodesChange, ReactFlow, useReactFlow } from "@xyflow/react";
+import { 
+    addEdge, 
+    applyEdgeChanges, 
+    applyNodeChanges, 
+    Connection, 
+    ConnectionLineType, 
+    ConnectionMode, 
+    OnEdgesChange, 
+    OnNodesChange, 
+    ReactFlow,
+    useReactFlow,
+} from "@xyflow/react";
 
 import EditorImageNode from "@/components/editor/EditorImageNode";
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
@@ -23,26 +34,45 @@ interface EditorChartProps {
     nodes: ImageNodeType[];
     edges: CustomEdgeType[];
     areNodesDraggable: boolean;
+    canPlaceNewNode: boolean;
     edgeType: CustomEdgeTypeNames;
-    onNodesChange: OnNodesChange<ImageNodeType>;
-    onEdgesChange: OnEdgesChange<CustomEdgeType>;
     onNodeClick: (node: ImageNodeType) => void;
     onEdgeClick: (edge: CustomEdgeType) => void;
-    onClick: MouseEventHandler<HTMLDivElement>;
+    setNodes: (nodes: ImageNodeType[]) => void;
+    setEdges: (edges: CustomEdgeType[]) => void;
 }
 
 export function EditorChart({
     nodes,
     edges,
     areNodesDraggable,
+    canPlaceNewNode,
     edgeType,
-    onNodesChange,
-    onEdgesChange,
+    setNodes,
+    setEdges,
     onNodeClick,
     onEdgeClick,
-    onClick
 }: EditorChartProps) {
-    const { setEdges } = useReactFlow<ImageNodeType, CustomEdgeType>();
+    const { screenToFlowPosition } = useReactFlow();
+
+    const addNode = useCallback((x: number, y: number) => {
+        const newNode: ImageNodeType = {
+            id: `node-${nodes.length + 1}`,
+            type: "image",
+            position: screenToFlowPosition({ x, y }),
+            data: {
+                title: "",
+                content: "",
+                imageSrc: "/default-node-image.png",
+                teamId: "",
+                status: "",
+                new: true,
+                bgCardColor: ""
+            },
+        };
+        console.log(x, y, newNode);
+        setNodes([...nodes, newNode]);
+    }, [nodes, screenToFlowPosition, setNodes]);
 
     const connectEdge = useCallback((params: Connection) => {
         const newEdge: CustomEdgeType = {
@@ -63,8 +93,24 @@ export function EditorChart({
             }
         };
         
-        setEdges((oldEdges) => addEdge(newEdge, oldEdges));
-    }, [edgeType, setEdges]);
+        setEdges(addEdge(newEdge, edges));
+    }, [edgeType, edges, setEdges]);
+
+    const onNodesChange: OnNodesChange<ImageNodeType> = useCallback((changes) => {
+        const newNodes = applyNodeChanges(changes, nodes);
+        setNodes(newNodes);
+    }, [nodes, setNodes]);
+
+    const onEdgesChange: OnEdgesChange<CustomEdgeType> = useCallback((changes) => {
+        const newEdges = applyEdgeChanges(changes, edges);
+        setEdges(newEdges);
+    }, [edges, setEdges]);
+
+    const handleClick: MouseEventHandler<HTMLDivElement> = useCallback((event) => {
+        if (canPlaceNewNode) {
+            addNode(event.clientX, event.clientY);
+        }
+    }, [addNode, canPlaceNewNode]);
 
     return (
         <ReactFlow
@@ -76,7 +122,7 @@ export function EditorChart({
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             nodesDraggable={areNodesDraggable}
-            onClick={onClick}
+            onClick={handleClick}
             onNodeClick={(_, node) => {
                 onNodeClick(node);
             }}
