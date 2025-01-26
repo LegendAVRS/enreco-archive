@@ -149,7 +149,14 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
             }
 
             set((state) => {
-                state.data[ch].charts.splice(day, 0, get().data[ch].charts[day]);
+                const dayClone = structuredClone(get().data[ch].charts[day]);
+                dayClone.nodes.forEach((value: ImageNodeType) => value.data.new = false);
+                dayClone.edges.forEach((value: CustomEdgeType) => { 
+                    if(value.data) {
+                        value.data!.new = false;
+                    }
+                });
+                state.data[ch].charts.splice(day + 1, 0, dayClone);
                 state.data[ch].numberOfDays++;
             });
         },

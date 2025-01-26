@@ -199,7 +199,7 @@ export function EditorTransportControls({
                         className="w-full p-0 aspect-auto"
                         tooltipText={"Clone Day"}
                         enabled={numberOfDays !== 0}
-                            onClick={() => { if(day) {onDayClone(day);} }}
+                            onClick={() => { if(day !== null) {onDayClone(day);} }}
                     >
                         <Copy />
                     </IconButton>
