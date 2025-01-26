@@ -3,7 +3,7 @@ import { create, StateCreator } from "zustand";
 import { immer } from 'zustand/middleware/immer';
 
 export type EditorMode = "edit" | "view" | "place" | "delete";
-export type CardType = "node" | "edge" | "general" | null;
+export type CardType = "node" | "edge" | "general" | "relationships" | "teams" | null;
 
 function createBlankChapter(): EditorChapter {
     return {
@@ -185,8 +185,11 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
         },
 
         setNodes: (newNodes: ImageNodeType[]) => {
-            const chapter = get().chapter!;
-            const day = get().day!;
+            const chapter = get().chapter;
+            const day = get().day;
+            if(chapter === null || day === null) {
+                return;
+            }
 
             set((state) => {
                 state.data[chapter].charts[day].nodes = newNodes;
@@ -194,8 +197,11 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
         },
 
         setEdges: (newEdges) => {
-            const chapter = get().chapter!;
-            const day = get().day!;
+            const chapter = get().chapter;
+            const day = get().day;
+            if(chapter === null || day === null) {
+                return;
+            }
 
             set((state) => {
                 state.data[chapter].charts[day].edges = newEdges;

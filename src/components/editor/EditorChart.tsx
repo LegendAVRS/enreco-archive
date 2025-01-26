@@ -10,6 +10,7 @@ import {
     ReactFlow,
     useReactFlow,
 } from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
 
 import EditorImageNode from "@/components/editor/EditorImageNode";
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";

@@ -3,7 +3,6 @@
 import * as Toggle from "@radix-ui/react-toggle";
 import * as Toolbar from "@radix-ui/react-toolbar";
 import { useReactFlow } from "@xyflow/react";
-import "@xyflow/react/dist/style.css";
 
 import { EditorChart } from "@/components/editor/EditorChart";
 import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
@@ -223,10 +222,10 @@ const EditorApp = () => {
                     onDayMove={moveDay}
                 />
                 <Toolbar.Separator className="mx-2.5 w-px bg-black" />
-                <div className="w-1/12 flex flex-col gap-y-2">
+                <div className="w-2/12 flex flex-col gap-y-2">
                     <Toggle.Root 
                         disabled={chapter === null}
-                        pressed={currentCard !== null} 
+                        pressed={currentCard === "general"} 
                         onPressedChange={
                             (pressed: boolean) => {
                                 if(pressed) {
@@ -239,9 +238,25 @@ const EditorApp = () => {
                                 }
                             }
                         }
-                        className="disabled:opacity-50 outline-none disabled:outline-none hover:outline hover:outline-black hover:outline-2 p-2 bg-white rounded-lg data-[state=on]:bg-neutral-300"
+                        className="h-8 disabled:opacity-50 outline-none disabled:outline-none hover:outline hover:outline-black hover:outline-2 bg-white rounded-lg data-[state=on]:bg-neutral-300"
                     >
-                        <span className="text-lg">Show Chapter Info Card</span>
+                        <span className="text-md">Chapter Info</span>
+                    </Toggle.Root>
+                    <Toggle.Root 
+                        disabled={chapter === null}
+                        pressed={currentCard === "teams"} 
+                        onPressedChange={() => console.log("toggle teams")}
+                        className="h-8 disabled:opacity-50 outline-none disabled:outline-none hover:outline hover:outline-black hover:outline-2 bg-white rounded-lg data-[state=on]:bg-neutral-300"
+                    >
+                        <span className="text-md">Chapter Teams</span>
+                    </Toggle.Root>
+                    <Toggle.Root 
+                        disabled={chapter === null}
+                        pressed={currentCard === "relationships"}
+                        onPressedChange={() => console.log("toggle relationships")}
+                        className="h-8 disabled:opacity-50 outline-none disabled:outline-none hover:outline hover:outline-black hover:outline-2 bg-white rounded-lg data-[state=on]:bg-neutral-300"
+                    >
+                        <span className="text-md">Chapter Relationships</span>
                     </Toggle.Root>
                 </div>
                 <Toolbar.Separator className="mx-2.5 w-px bg-black" />
