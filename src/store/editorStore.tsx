@@ -1,4 +1,4 @@
-import { CustomEdgeType, CustomEdgeTypeNames, EditorChapter, EditorChartData, ImageNodeType } from "@/lib/type";
+import { CustomEdgeType, CustomEdgeTypeNames, EditorChapter, EditorChartData, ImageNodeType, RelationshipMap, TeamMap } from "@/lib/type";
 import { create, StateCreator } from "zustand";
 import { immer } from 'zustand/middleware/immer';
 
@@ -48,6 +48,7 @@ interface EditorDataSlice {
     addChapter: () => void;
     insertChapter: (chapter: number) => void;
     deleteChapter: (chapter: number) => void;
+
     addDay: () => void;
     insertDay: (day: number) => void;
     deleteDay: (day: number) => void;
@@ -62,6 +63,12 @@ interface EditorDataSlice {
 
     setNodes: (newNodes: ImageNodeType[]) => void;
     setEdges: (newEdges: CustomEdgeType[]) => void;
+
+    setChapterTitle: (title: string) => void;
+    setChapterTeams: (teams: TeamMap) => void;
+    setChapterRelationships: (relationships: RelationshipMap) => void;
+
+    setDayRecap: (recap: string) => void;
 }
 
 const createEditorSlice: StateCreator<EditorState, [["zustand/immer", never]], [["zustand/immer", never]], EditorSlice> = 
@@ -82,6 +89,33 @@ const createEditorSlice: StateCreator<EditorState, [["zustand/immer", never]], [
         setEdgeType: (edgeType: CustomEdgeTypeNames) => set({ edgeType: edgeType }),
     });
 
+function validateChapter(chapter: number, state: EditorState) {
+    stateChapterNotNull(state);
+    if(chapter < 0) {
+        throw new Error(`failed to validate chapter, chapter value is ${chapter} and state.chapter is ${state.chapter}`);
+    }
+}
+
+function validateDay(day: number, state: EditorState) {
+    stateChapterNotNull(state);
+    stateDayNotNull(state);
+    if(day < 0 || day > state.data[state.chapter!].numberOfDays) {
+        throw new Error(`failed to validate day, day value is ${day}, state.chapter is ${state.chapter}, number of days is ${state.chapter !== null ? state.data[state.chapter!].numberOfDays : 0}`);
+    }
+}
+
+function stateChapterNotNull(state: EditorState) {
+    if(state.chapter === null) {
+        throw new Error("state.chapter is null");
+    }
+}
+
+function stateDayNotNull(state: EditorState) {
+    if(state.chapter === null) {
+        throw new Error("state.day is null");
+    }
+}
+
 const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]], [["zustand/immer", never]], EditorDataSlice> = 
     (set, get) => ({
         data: [],
@@ -91,29 +125,22 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
             })
         ,
         insertChapter: (chapter: number) => {
-            if(get().chapter === null || chapter < 0) {
-                return;
-            }
+            validateChapter(chapter, get());
 
             set((state) => {
                 state.data.splice(chapter + 1, 0, createBlankChapter());
             });
         },
         deleteChapter: (chapter: number) => {
-            if(get().chapter === null || chapter < 0) {
-                return;
-            }
-
-            console.log("hi");
+            validateChapter(chapter, get());
 
             set((state) => {
                 state.data.splice(chapter, 1);
             });
         },
+
         addDay: () => {
-            if(get().chapter === null) {
-                return;
-            }
+            stateChapterNotNull(get());
 
             set((state) => {
                 state.data[get().chapter!].charts.push(createBlankDay());
@@ -121,10 +148,9 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
             });
         },
         insertDay: (day: number) => {
-            const ch = get().chapter;
-            if(ch === null || day < 0 || day > get().data[ch].charts.length) {
-                return;
-            }
+            validateDay(day, get());
+
+            const ch = get().chapter!;
 
             set((state) => {
                 state.data[ch].charts.splice(day + 1, 0, createBlankDay());
@@ -132,10 +158,9 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
             });
         },
         deleteDay: (day: number) => {
-            const ch = get().chapter;
-            if(ch === null || day < 0 || day > get().data[ch].charts.length) {
-                return;
-            }
+            validateDay(day, get());
+
+            const ch = get().chapter!;
 
             set((state) => {
                 state.data[ch].charts.splice(day, 1);
@@ -143,10 +168,9 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
             });
         },
         cloneDay: (day: number) => {
-            const ch = get().chapter;
-            if(ch === null || day < 0 || day > get().data[ch].charts.length) {
-                return;
-            }
+            validateDay(day, get());
+
+            const ch = get().chapter!;
 
             set((state) => {
                 const dayClone = structuredClone(get().data[ch].charts[day]);
@@ -161,11 +185,10 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
             });
         },
         moveDay: (dayToMove: number, newPos: number) => {
-            const ch = get().chapter;
-            if(ch === null || dayToMove < 0 || dayToMove > get().data[ch].charts.length ||
-                newPos < 0 || newPos > get().data[ch].charts.length) {
-                return;
-            }
+            validateDay(dayToMove, get()); 
+            validateDay(newPos, get());
+
+            const ch = get().chapter!;
 
             set((state) => {
                 const elem = get().data[ch].charts[dayToMove];
@@ -185,28 +208,53 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
         },
 
         setNodes: (newNodes: ImageNodeType[]) => {
-            const chapter = get().chapter;
-            const day = get().day;
-            if(chapter === null || day === null) {
-                return;
-            }
+            stateChapterNotNull(get());
+            stateDayNotNull(get())
 
             set((state) => {
-                state.data[chapter].charts[day].nodes = newNodes;
+                state.data[get().chapter!].charts[get().day!].nodes = newNodes;
             })
         },
 
         setEdges: (newEdges) => {
-            const chapter = get().chapter;
-            const day = get().day;
-            if(chapter === null || day === null) {
-                return;
-            }
+            stateChapterNotNull(get());
+            stateDayNotNull(get())
 
             set((state) => {
-                state.data[chapter].charts[day].edges = newEdges;
+                state.data[get().chapter!].charts[get().day!].edges = newEdges;
             })
         },
+
+        setChapterTitle: (title) => {
+            stateChapterNotNull(get());
+
+            set((state) => {
+                state.data[get().chapter!].title = title;
+            });
+        },
+        setChapterTeams: (teams) => {
+            stateChapterNotNull(get());
+
+            set((state) => {
+                state.data[get().chapter!].teams = teams;
+            });
+        },
+        setChapterRelationships: (relationships) => {
+            stateChapterNotNull(get());
+
+            set((state) => {
+                state.data[get().chapter!].relationships = relationships;
+            });
+        },
+
+        setDayRecap: (recap) => {
+            stateChapterNotNull(get());
+            stateDayNotNull(get());
+
+            set((state) => {
+                state.data[get().chapter!].charts[get().day!].dayRecap = recap;
+            });
+        }
     });
 
 export const useEditorStore = create<EditorState>()(immer((...a) => ({
