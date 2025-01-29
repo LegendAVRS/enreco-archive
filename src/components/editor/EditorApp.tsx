@@ -12,9 +12,10 @@ import { EditorTransportControls } from "@/components/editor/EditorTransportCont
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useKeyboard from "@/hooks/useKeyboard";
-import { CustomEdgeType, CustomEdgeTypeNames, ImageNodeType } from "@/lib/type";
+import { CustomEdgeType, CustomEdgeTypeNames, ImageNodeType, TeamMap } from "@/lib/type";
 import { EditorMode, useEditorStore } from "@/store/editorStore";
 import { useFlowStore } from "@/store/flowStore";
+import EditorTeamsCard from "./EditorTeamsCard";
 
 const EditorApp = () => {
     const { deleteElements } = useReactFlow();
@@ -250,7 +251,16 @@ const EditorApp = () => {
                     <Toggle.Root 
                         disabled={chapter === null}
                         pressed={currentCard === "teams"} 
-                        onPressedChange={() => console.log("toggle teams")}
+                        onPressedChange={
+                            (pressed: boolean) => {
+                                if(pressed) {
+                                    setCurrentCard("teams");
+                                }
+                                else {
+                                    setCurrentCard(null);
+                                }
+                            }
+                        }
                         className="h-8 disabled:opacity-50 outline-none disabled:outline-none hover:outline hover:outline-black hover:outline-2 bg-white rounded-lg data-[state=on]:bg-neutral-300"
                     >
                         <span className="text-md">Chapter Teams</span>
@@ -304,6 +314,14 @@ const EditorApp = () => {
                 dayData={chapter !== null && day !== null ? data[chapter].charts[day] : null}
                 onChapterTitleChange={setChapterTitle}
                 onDayRecapChange={setDayRecap}
+                onCardClose={() => setCurrentCard(null)}
+            />
+
+            <EditorTeamsCard
+                key={`${chapter}`}
+                isVisible={currentCard === "teams"}
+                teamData={chapter !== null ? data[chapter].teams : {}}
+                onTeamsChange={(teams: TeamMap) => { setChapterTeams(teams); }}
                 onCardClose={() => setCurrentCard(null)}
             />
         </>
