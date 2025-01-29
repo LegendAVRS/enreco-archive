@@ -169,7 +169,7 @@ const EditorApp = () => {
             </div>
             
             <Toolbar.Root id="main-toolbar" className="flex flex-row fixed top-5 left-[2.5%] right-[2.5%] w-[95%] mx-auto p-2 px-5 bg-neutral-100 rounded-lg">
-                <div className="w-1/12 flex flex-col gap-y-2">
+                <div className="w-2/12 flex flex-col gap-y-0.5">
                     <span className="text-md font-bold">Editor Mode</span>
                     <Select
                         value={mode}
@@ -188,9 +188,7 @@ const EditorApp = () => {
                             <SelectItem value={"delete"}>Delete</SelectItem>
                         </SelectContent>
                     </Select>
-                </div>
-                <Toolbar.Separator className="mx-2.5 w-px bg-black" />
-                <div className="w-2/12 flex flex-col gap-y-2">
+
                     <span className="text-md font-bold">Edge Type</span>
                     <Select
                         value={edgeType}
@@ -275,7 +273,7 @@ const EditorApp = () => {
                     </Toggle.Root>
                 </div>
                 <Toolbar.Separator className="mx-2.5 w-px bg-black" />
-                <div className="w-1/12 flex flex-col gap-y-2">
+                <div className="w-1/12 flex flex-col gap-y-0.5">
                     <span className="text-md font-bold">Settings</span>
                     <div className="flex content-center h-fit gap-2">
                         <Checkbox 
