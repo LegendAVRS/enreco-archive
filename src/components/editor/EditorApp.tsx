@@ -41,7 +41,11 @@ const EditorApp = () => {
         insertDay,
         deleteDay,
         cloneDay,
-        moveDay
+        moveDay,
+        setChapterTitle,
+        setChapterTeams,
+        setChapterRelationships,
+        setDayRecap,
     } = useEditorStore();
     const { selectedEdge, selectedNode, setSelectedEdge, setSelectedNode } =
         useFlowStore();
@@ -95,6 +99,7 @@ const EditorApp = () => {
             insertChapter(chapter);
             setChapter(chapter + 1);
         }
+        setDay(null);
     };
 
     const deleteChapterEH = () => {
@@ -240,7 +245,7 @@ const EditorApp = () => {
                         }
                         className="h-8 disabled:opacity-50 outline-none disabled:outline-none hover:outline hover:outline-black hover:outline-2 bg-white rounded-lg data-[state=on]:bg-neutral-300"
                     >
-                        <span className="text-md">Chapter Info</span>
+                        <span className="text-md">Chapter Title / Day Recap</span>
                     </Toggle.Root>
                     <Toggle.Root 
                         disabled={chapter === null}
@@ -292,7 +297,15 @@ const EditorApp = () => {
                     updateEdge={updateEdge}
                 />
             )}
-            {currentCard === "general" && <EditorGeneralCard />}
+            <EditorGeneralCard
+                key={`${chapter}/${day}`}
+                isVisible={currentCard === "general"}
+                chapterData={chapter !== null ? data[chapter] : null}
+                dayData={chapter !== null && day !== null ? data[chapter].charts[day] : null}
+                onChapterTitleChange={setChapterTitle}
+                onDayRecapChange={setDayRecap}
+                onCardClose={() => setCurrentCard(null)}
+            />
         </>
     );
 };

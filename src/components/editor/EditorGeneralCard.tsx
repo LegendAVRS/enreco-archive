@@ -1,64 +1,96 @@
+import clsx from "clsx";
+import React, { useState } from "react";
+import MDEditor from "@uiw/react-md-editor";
+
 import EditorCard from "@/components/editor/EditorCard";
+import { EditorChapter, EditorChartData } from "@/lib/type";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChartData } from "@/lib/type";
-import { useChartStore } from "@/store/chartStore";
-import { useEditorStore } from "@/store/editorStore";
-import MDEditor from "@uiw/react-md-editor";
-import { useEffect, useState } from "react";
-const EditorGeneralCard = () => {
-    const { showHandles, setShowHandles } = useEditorStore();
-    const { data, setData } = useChartStore();
 
-    // local states
-    const [localRecap, setLocalRecap] = useState("");
-    const [title, setTitle] = useState("");
+interface FormElements extends HTMLFormControlsCollection {
+    chapterTitle: HTMLInputElement;
+    dayRecap: HTMLTextAreaElement;
+}
 
-    useEffect(() => {
-        setLocalRecap(data.dayRecap || "");
-        setTitle(data.title || "");
-    }, [data.dayRecap, data.title]);
+interface GeneralFormElement extends HTMLFormElement {
+    readonly elements: FormElements
+}
 
-    const handleSave = () => {
-        // Save the description
-        const newData: ChartData = {
-            ...data,
-            dayRecap: localRecap,
-            title,
-        };
+interface EditorGeneralCardProps {
+    isVisible: boolean;
+    chapterData: EditorChapter | null;
+    dayData: EditorChartData | null;
+    onChapterTitleChange: (title: string) => void;
+    onDayRecapChange: (recap: string) => void;
+    onCardClose: () => void;
+}
 
-        setData(newData);
+const EditorGeneralCard = ({
+    isVisible,
+    chapterData,
+    dayData,
+    onChapterTitleChange, 
+    onDayRecapChange,
+    onCardClose
+}: EditorGeneralCardProps) => {
+    const [dayRecapMdData, setDayRecapMdData] = useState(dayData !== null ? dayData.dayRecap : "");
+    
+    if(!isVisible || chapterData === null) {
+        return;
+    }
+
+    const submitHandler = (event: React.FormEvent<GeneralFormElement>) => {
+        event.preventDefault();
+
+        const newChTitle = event.currentTarget.elements.chapterTitle.value;
+        if(chapterData && newChTitle !== chapterData.title) {
+            onChapterTitleChange(newChTitle);
+        }
+
+        const newDayRecap = event.currentTarget.elements.dayRecap.value;
+        if(dayData && newDayRecap !== dayData.dayRecap) {
+            onDayRecapChange(newDayRecap);
+        }
+    };
+
+    const onClose = () => {
+        // Reset day recap on modal close. Yes this means unsaved changes will be blown away.
+        setDayRecapMdData(dayData?.dayRecap || "");
+        onCardClose();
     };
 
     return (
         <EditorCard>
-            <h1 className="text-2xl font-bold">General Settings</h1>
-            <div className="flex flex-col items-center mt-4">
-                <div className="flex flex-rowitems-center w-full gap-4">
-                    <Label htmlFor="handles">Show handles</Label>
-                    <Checkbox
-                        id="handles"
-                        checked={showHandles}
-                        onCheckedChange={() => setShowHandles(!showHandles)}
+            <h1 className="text-2xl font-bold">Chapter Info</h1>
+
+            <form onSubmit={submitHandler}>
+                <div className="my-2">
+                    <Label className="my-1" htmlFor="title">Title</Label>
+                    <Input
+                        type="text"
+                        id="title"
+                        name="chapterTitle"
+                        defaultValue={chapterData.title}
                     />
                 </div>
-            </div>
-            <Label htmlFor="title">Title</Label>
-            <Input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                id="title"
-            />
 
-            <div>Day Recap</div>
-            <MDEditor
-                value={localRecap}
-                onChange={(e) => setLocalRecap(e?.valueOf() || "")}
-                preview="edit"
-            />
-            <Button onClick={handleSave}>Save</Button>
+                <div className={clsx("my-2", dayData === null && "hidden")}>
+                    <Label className="block my-1" htmlFor="dayRecap">Day Recap</Label>
+                    <MDEditor
+                        id="dayRecap"
+                        textareaProps={{name: "dayRecap"}}
+                        value={dayRecapMdData}
+                        onChange={(value) => { if(value) { setDayRecapMdData(value) }}}
+                        preview="edit"
+                    />
+                </div>
+
+                <div className="my-2 flex flex-row gap-16 w-full justify-center">
+                    <Button className="w-1/4" type="submit">Save</Button>
+                    <Button className="w-1/4" type="button" onClick={onClose}>Close</Button>
+                </div>
+            </form>
         </EditorCard>
     );
 };
