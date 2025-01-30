@@ -185,7 +185,7 @@ export default function EditorTeamsCard({
                                         defaultValue={team.id}
                                         onBlur={(event) => setId(team.id, event.target.value)}
                                         disabled={autoGenIdFromName}
-                                        className="w-full disabled:opacity-50"
+                                        className="w-full border rounded-lg disabled:opacity-50 disabled:bg-gray-200"
                                     />
                                 </td>
                                 <td className="border border-black p-2">
@@ -194,7 +194,7 @@ export default function EditorTeamsCard({
                                         name="name" 
                                         defaultValue={team.name} 
                                         onBlur={(event) => setName(team.id, event.target.value)}
-                                        className="w-full"
+                                        className="w-full border rounded-lg"
                                     />
                                 </td>
                                 <td className="border border-black p-2">
@@ -203,7 +203,7 @@ export default function EditorTeamsCard({
                                         name="iconUrl" 
                                         defaultValue={team.teamIconSrc} 
                                         onBlur={(event) => setIconSrc(team.id, event.target.value)}
-                                        className="w-full"
+                                        className="w-full border rounded-lg"
                                     />
                                 </td>
                             </tr>
@@ -217,13 +217,32 @@ export default function EditorTeamsCard({
                 <span className="text-lg col-span-2">Add New Team</span>
 
                 <Label htmlFor="new-team-id" className="text-right text-md">Id</Label>
-                <input type="text" id="new-team-id" name="newTeamId" disabled={autoGenIdFromName} required />
+                <input 
+                    type="text" 
+                    id="new-team-id" 
+                    name="newTeamId" 
+                    disabled={autoGenIdFromName}
+                    className="border rounded-lg disabled:bg-gray-200"
+                    required 
+                />
 
                 <Label htmlFor="new-team-name" className="text-right text-md">Name</Label>
-                <input type="text" id="new-team-name" name="newTeamName" required />
+                <input 
+                    type="text" 
+                    id="new-team-name" 
+                    name="newTeamName" 
+                    className="border rounded-lg"
+                    required 
+                />
 
                 <Label htmlFor="new-team-icon-url" className="text-right text-md">Icon URL</Label>
-                <input type="text" id="new-team-icon-url" name="newTeamIconUrl" required />
+                <input 
+                    type="text" 
+                    id="new-team-icon-url" 
+                    name="newTeamIconUrl" 
+                    className="border rounded-lg"
+                    required 
+                />
 
                 <Button type="submit" className="col-span-2">Add New Team</Button>
             </form>

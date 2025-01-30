@@ -190,7 +190,16 @@ export default function EditorRelationshipsCard({
                             <tr key={relationship.id}>
                                 <td className="border border-black p-2">
                                     <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                        <line x1="0" y1="32" x2="64" y2="32" style={relationship.style} />
+                                        <line 
+                                            x1="0" 
+                                            y1="32" 
+                                            x2="64"
+                                            y2="32" 
+                                            style={{
+                                                strokeWidth: "0.5rem",
+                                                ...relationship.style
+                                            }} 
+                                        />
                                     </svg>
                                 </td>
                                 <td className="border border-black p-2">
@@ -200,7 +209,7 @@ export default function EditorRelationshipsCard({
                                         defaultValue={relationship.id}
                                         onBlur={(event) => setId(relationship.id, event.target.value)}
                                         disabled={autoGenIdFromName}
-                                        className="w-full disabled:opacity-50"
+                                        className="w-full border rounded-lg disabled:opacity-50 disabled:bg-gray-200"
                                     />
                                 </td>
                                 <td className="border border-black p-2">
@@ -209,7 +218,7 @@ export default function EditorRelationshipsCard({
                                         name="name" 
                                         defaultValue={relationship.name} 
                                         onBlur={(event) => setName(relationship.id, event.target.value)}
-                                        className="w-full"
+                                        className="w-full border rounded-lg"
                                     />
                                 </td>
                                 <td className="border border-black p-2">
@@ -218,7 +227,7 @@ export default function EditorRelationshipsCard({
                                         name="strokeColor" 
                                         defaultValue={relationship.style.stroke} 
                                         onBlur={(event) => setStrokeColor(relationship.id, event.target.value)}
-                                        className="w-full"
+                                        className="w-full border rounded-lg p-0.5"
                                     />
                                 </td>
                                 <td className="border border-black p-2">
@@ -227,7 +236,7 @@ export default function EditorRelationshipsCard({
                                         name="strokeDashArray" 
                                         defaultValue={relationship.style.strokeDasharray} 
                                         onBlur={(event) => setStrokeDashArray(relationship.id, event.target.value)}
-                                        className="w-full"
+                                        className="w-full border rounded-lg"
                                     />
                                 </td>
                             </tr>
@@ -246,7 +255,7 @@ export default function EditorRelationshipsCard({
                     id="new-rel-id"
                     name="newRelationshipId"
                     disabled={autoGenIdFromName}
-                    className="border rounded-lg disabled:bg-gray-300"
+                    className="border rounded-lg disabled:bg-gray-200"
                     required 
                 />
 
