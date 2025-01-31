@@ -1,3 +1,5 @@
+"use client";
+
 import { ChartData, CustomEdgeType, FitViewOperation, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
 import { ConnectionMode, FitViewOptions, ReactFlow, useReactFlow } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
@@ -5,7 +7,7 @@ import { isMobile } from "react-device-detect";
 
 import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ImageNodeView from "@/components/view/ViewImageNode";
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useReactFlowFitViewToEdge } from "@/hooks/useReactFlowFitViewToEdge";
 import { usePreviousValue } from "@/hooks/usePreviousValue";
 
@@ -35,6 +37,10 @@ function findBottomRightNode(nodes: ImageNodeType[]) {
     return bottomRightNode;
 }
 
+function getFlowRendererWidth(widthToShrink: number) {
+    return isMobile ? '100%' : `calc(100% - ${widthToShrink}px)`;
+}
+
 const nodeTypes = {
     image: ImageNodeView,
 };
@@ -61,7 +67,7 @@ interface Props {
     selectedEdge: CustomEdgeType | null;
     focusOnSelectedEdge?: boolean;
     focusOnSelectedNode?: boolean;
-    widthToShrink?: number;
+    widthToShrink: number;
     isCardOpen: boolean;
     fitViewOperation: FitViewOperation;
     onNodeClick: (node: ImageNodeType) => void;
@@ -95,6 +101,7 @@ function ViewChart({
     const prevSelectedNode = usePreviousValue<ImageNodeType | null>(selectedNode);
     const prevSelectedEdge = usePreviousValue<CustomEdgeType | null>(selectedEdge);
     const prevWidthToShrink = usePreviousValue(widthToShrink);
+    const flowRendererSizer = useRef<HTMLDivElement>(null);
 
     const fitViewAsync = useCallback(async (fitViewOptions?: FitViewOptions) => {
         await fitView(fitViewOptions);
@@ -118,6 +125,10 @@ function ViewChart({
 
     useEffect(() => {
         if(widthToShrink !== prevWidthToShrink) {
+            if(flowRendererSizer.current) {
+                flowRendererSizer.current.style.width = getFlowRendererWidth(widthToShrink);
+            }
+
             // Need a slight delay to make sure the width is updated before fitting the view
             setTimeout(fitViewFunc, 50);
         }
@@ -198,12 +209,8 @@ function ViewChart({
         fitViewFunc();
     }
 
-    const widthStyle: React.CSSProperties = useMemo(() => (
-        isMobile ? { width: "100%" } : { width: `calc(100% - ${widthToShrink}px)`}
-    ), [widthToShrink]);
-
     return (
-        <div style={widthStyle} className="w-screen h-screen">
+        <div ref={flowRendererSizer} className="w-full h-full">
             <ReactFlow 
                 connectionMode={ConnectionMode.Loose}
                 nodes={renderableNodes}

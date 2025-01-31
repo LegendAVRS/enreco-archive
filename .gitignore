@@ -28,3 +28,6 @@ todo.txt
 .next/*
 out/*
 tsconfig.tsbuildinfo
+
+# Auto-generated file, probably don't need to commit this.
+next-env.d.ts
