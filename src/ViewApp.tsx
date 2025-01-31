@@ -21,6 +21,7 @@ import ViewSettingsModal from "./components/view/ViewSettingsModal";
 import { ViewTransportControls } from "./components/view/ViewTransportControls";
 import { IconButton } from "./components/ui/IconButton";
 import { Dice6, Info, Settings } from "lucide-react";
+import ViewMiniGameModal from "@/components/view/ViewMiniGameModal";
 
 function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     const parseOrZero = (value: string): number => {
@@ -61,6 +62,8 @@ const ViewApp = ({ siteData }: Props) => {
         setInfoModalOpen,
         settingsModalOpen,
         setSettingsModalOpen,
+        minigameModalOpen,
+        setMinigameModalOpen,
         chapter,
         setChapter,
         day,
@@ -264,6 +267,11 @@ const ViewApp = ({ siteData }: Props) => {
                 }
             />
 
+            <ViewMiniGameModal
+                open={minigameModalOpen}
+                onOpenChange={setMinigameModalOpen}
+            />
+
             <div className="fixed top-0 right-0 m-2 z-10 flex flex-col gap-2">
                 <IconButton
                     id="chart-info-btn"
@@ -311,7 +319,7 @@ const ViewApp = ({ siteData }: Props) => {
                     tooltipText="Minigames"
                     enabled={true}
                     tooltipSide="left"
-                    onClick={() => console.log("minigame button clicked")}
+                    onClick={() => setMinigameModalOpen(true)}
                 >
                     <Dice6 />
                 </IconButton>

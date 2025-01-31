@@ -28,6 +28,9 @@ interface ViewState {
     settingsModalOpen: boolean;
     setSettingsModalOpen: (isSettingsModalOpen: boolean) => void;
 
+    minigameModalOpen: boolean;
+    setMinigameModalOpen: (isMinigameModalOpen: boolean) => void;
+
     hoveredEdgeId: string | null;
     setHoveredEdgeId: (hoveredEdgeId: string) => void;
 }
@@ -58,10 +61,16 @@ export const useViewStore = create<ViewState>((set) => {
         }) => set(() => ({ characterVisibility })),
 
         infoModalOpen: false,
-        setInfoModalOpen: (isInfoModalOpen: boolean) => set(() => ({ infoModalOpen: isInfoModalOpen })),
+        setInfoModalOpen: (isInfoModalOpen: boolean) =>
+            set(() => ({ infoModalOpen: isInfoModalOpen })),
 
         settingsModalOpen: false,
-        setSettingsModalOpen: (isSettingsModalOpen: boolean) => set(() => ({settingsModalOpen: isSettingsModalOpen})),
+        setSettingsModalOpen: (isSettingsModalOpen: boolean) =>
+            set(() => ({ settingsModalOpen: isSettingsModalOpen })),
+
+        minigameModalOpen: false,
+        setMinigameModalOpen: (isMinigameModalOpen: boolean) =>
+            set(() => ({ minigameModalOpen: isMinigameModalOpen })),
 
         hoveredEdgeId: null,
         setHoveredEdgeId: (hoveredEdgeId: string) =>
