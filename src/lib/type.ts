@@ -53,7 +53,7 @@ export type ChartData = {
 export type EditorChartData = {
     title: string;
     dayRecap: string;
-    nodes: ImageNodeType[];
+    nodes: EditorImageNodeType[];
     edges: CustomEdgeType[];
 }
 
@@ -66,14 +66,18 @@ type CommonNodeData = {
     status: string;
     new: boolean;
     bgCardColor: string;
+}
 
+export type EditorImageNodeData = CommonNodeData & {
     // The following properties are used during the rendering of this node,
     // and should not be filled by the data source.
-    renderTeamImageSrc?: string;
+    renderShowHandles?: boolean
 }
 
 export type ImageNodeData = CommonNodeData & {
-
+    // The following properties are used during the rendering of this node,
+    // and should not be filled by the data source.
+    renderTeamImageSrc?: string;
 };
 
 type CommonEdgeData = {
@@ -96,6 +100,9 @@ export type FixedEdgeData = CommonEdgeData & {
     renderEdgeStyle?: CSSProperties;
     renderIsHoveredEdge?: boolean;
 }
+
+export type EditorImageNodeType = Node<EditorImageNodeData, "editorImage">;
+export type EditorImageNodeProps = NodeProps<EditorImageNodeType>;
 
 export type ImageNodeType = Node<ImageNodeData, "image">;
 export type ImageNodeProps = NodeProps<ImageNodeType>;

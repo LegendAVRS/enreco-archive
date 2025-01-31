@@ -12,9 +12,8 @@ import { EditorTransportControls } from "@/components/editor/EditorTransportCont
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useKeyboard from "@/hooks/useKeyboard";
-import { CustomEdgeType, CustomEdgeTypeNames, ImageNodeType, RelationshipMap, TeamMap } from "@/lib/type";
+import { CustomEdgeType, CustomEdgeTypeNames, EditorImageNodeType, RelationshipMap, TeamMap } from "@/lib/type";
 import { EditorMode, useEditorStore } from "@/store/editorStore";
-import { useFlowStore } from "@/store/flowStore";
 import EditorTeamsCard from "./EditorTeamsCard";
 import EditorRelationshipsCard from "./EditorRelationshipsCard";
 
@@ -48,9 +47,11 @@ const EditorApp = () => {
         setChapterTeams,
         setChapterRelationships,
         setDayRecap,
+        selectedEdge,
+        setSelectedEdge,
+        selectedNode,
+        setSelectedNode
     } = useEditorStore();
-    const { selectedEdge, selectedNode, setSelectedEdge, setSelectedNode } =
-        useFlowStore();
     useKeyboard();
     
     const numChapters = data.length;
@@ -66,7 +67,7 @@ const EditorApp = () => {
         setEdges(newEdgeArray);
     };
 
-    const updateNode = (oldNode: ImageNodeType, newNode: ImageNodeType) => {
+    const updateNode = (oldNode: EditorImageNodeType, newNode: EditorImageNodeType) => {
         const newNodeArray = nodes.filter(e => e.id !== oldNode.id);
         newNodeArray.push(newNode);
         setNodes(newNodeArray);
@@ -156,7 +157,7 @@ const EditorApp = () => {
                     edgeType={edgeType}
                     areNodesDraggable={mode === "edit"}
                     canPlaceNewNode={mode === "place"}
-                    onNodeClick={(node: ImageNodeType) => {
+                    onNodeClick={(node: EditorImageNodeType) => {
                         setCurrentCard("node");
                         setSelectedNode(node);
                         setSelectedEdge(null);

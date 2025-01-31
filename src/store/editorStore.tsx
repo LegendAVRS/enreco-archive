@@ -1,4 +1,12 @@
-import { CustomEdgeType, CustomEdgeTypeNames, EditorChapter, EditorChartData, ImageNodeType, RelationshipMap, TeamMap } from "@/lib/type";
+import { 
+    CustomEdgeType, 
+    CustomEdgeTypeNames, 
+    EditorChapter, 
+    EditorChartData, 
+    EditorImageNodeType,  
+    RelationshipMap, 
+    TeamMap 
+} from "@/lib/type";
 import { create, StateCreator } from "zustand";
 import { immer } from 'zustand/middleware/immer';
 
@@ -41,6 +49,12 @@ interface EditorSlice {
 
     edgeType: CustomEdgeTypeNames;
     setEdgeType: (edgeType: CustomEdgeTypeNames) => void;
+
+    selectedNode: EditorImageNodeType | null;
+    setSelectedNode: (node: EditorImageNodeType | null) => void;
+
+    selectedEdge: CustomEdgeType | null;
+    setSelectedEdge: (edge: CustomEdgeType | null) => void;
 }
 
 interface EditorDataSlice {
@@ -61,7 +75,7 @@ interface EditorDataSlice {
     day: number | null;
     setDay: (newDay: number | null) => void;
 
-    setNodes: (newNodes: ImageNodeType[]) => void;
+    setNodes: (newNodes: EditorImageNodeType[]) => void;
     setEdges: (newEdges: CustomEdgeType[]) => void;
 
     setChapterTitle: (title: string) => void;
@@ -87,6 +101,12 @@ const createEditorSlice: StateCreator<EditorState, [["zustand/immer", never]], [
 
         edgeType: "custom",
         setEdgeType: (edgeType: CustomEdgeTypeNames) => set({ edgeType: edgeType }),
+
+        selectedNode: null,
+        setSelectedNode: (node: EditorImageNodeType | null) => set({ selectedNode: node }),
+
+        selectedEdge: null,
+        setSelectedEdge: (edge: CustomEdgeType | null) => set({ selectedEdge: edge }),
     });
 
 function validateChapter(chapter: number, state: EditorState) {
@@ -174,7 +194,7 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
 
             set((state) => {
                 const dayClone = structuredClone(get().data[ch].charts[day]);
-                dayClone.nodes.forEach((value: ImageNodeType) => value.data.new = false);
+                dayClone.nodes.forEach((value: EditorImageNodeType) => value.data.new = false);
                 dayClone.edges.forEach((value: CustomEdgeType) => { 
                     if(value.data) {
                         value.data!.new = false;
@@ -207,7 +227,7 @@ const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]
             set({ day: newDay });
         },
 
-        setNodes: (newNodes: ImageNodeType[]) => {
+        setNodes: (newNodes: EditorImageNodeType[]) => {
             stateChapterNotNull(get());
             stateDayNotNull(get())
 

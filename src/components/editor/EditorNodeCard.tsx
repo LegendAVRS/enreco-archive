@@ -9,15 +9,15 @@ import {
     SelectItem,
     SelectValue,
 } from "@/components/ui/select";
-import { ImageNodeType, TeamMap } from "@/lib/type";
+import { EditorImageNodeType, TeamMap } from "@/lib/type";
 import { SelectTrigger } from "@radix-ui/react-select";
 import MDEditor from "@uiw/react-md-editor";
 import { useEffect, useState } from "react";
 
 interface EditorNodeCardProps {
     teams: TeamMap;
-    selectedNode: ImageNodeType | null;
-    updateNode: (oldNode: ImageNodeType, newNode: ImageNodeType) => void;
+    selectedNode: EditorImageNodeType | null;
+    updateNode: (oldNode: EditorImageNodeType, newNode: EditorImageNodeType) => void;
     deleteNode: () => void;
 }
 

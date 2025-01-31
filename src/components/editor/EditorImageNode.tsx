@@ -1,4 +1,4 @@
-import { ImageNodeProps } from "@/lib/type";
+import { EditorImageNodeProps } from "@/lib/type";
 import { useEditorStore } from "@/store/editorStore";
 import {
     Handle,
@@ -48,7 +48,7 @@ const generateHandles = (numOfHandles: number) => {
     return handles;
 };
 
-const EditorImageNode = ({ data, id }: ImageNodeProps) => {
+const EditorImageNode = ({ data, id }: EditorImageNodeProps) => {
     const { showHandles } = useEditorStore();
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
     const updateNodeInternals = useUpdateNodeInternals();
