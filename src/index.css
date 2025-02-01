@@ -134,7 +134,7 @@ figure {
     @apply rounded-lg md:max-w-[80%] mx-auto;
 }
 
-iframe {
+lite-youtube {
     @apply rounded-lg w-full aspect-video;
 }
 

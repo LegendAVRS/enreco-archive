@@ -68,3 +68,15 @@ export const getLineSvg = (style: React.CSSProperties, showMarker = false) => {
         </svg>
     );
 };
+
+export const urlToEmbedUrl = (url: string | null) => {
+    if (!url) return { videoid: "", params: "" };
+
+    let videoid = url.split("/live/")[1];
+    let params = videoid.split("?")[1];
+    // replace t= with start=, cause YoutubeEmbed uses start= for timestamp (i think)
+    params = params.replace("t=", "start=");
+    videoid = videoid.split("?")[0];
+
+    return { videoid, params };
+};

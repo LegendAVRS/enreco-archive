@@ -5,6 +5,8 @@ import { useReactFlow } from "@xyflow/react";
 import { MouseEventHandler } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { YouTubeEmbed } from "@next/third-parties/google";
+import { urlToEmbedUrl } from "@/lib/utils";
 
 export type NodeLinkClickHandler = (targetNode: ImageNodeType) => void;
 export type EdgeLinkClickHandler = (targetEdge: CustomEdgeType) => void;
@@ -131,10 +133,15 @@ export function ViewMarkdown({
                         );
                     } else if (href && href.startsWith("#embed")) {
                         const embedUrl = href.replace("#embed:", "");
+                        const { videoid, params } = urlToEmbedUrl(embedUrl);
                         const caption = rest.children as string;
+
                         return (
                             <figure>
-                                <iframe src={embedUrl} title={caption} />
+                                <YouTubeEmbed
+                                    videoid={videoid}
+                                    params={params}
+                                />
                                 <figcaption>{caption}</figcaption>
                             </figure>
                         );

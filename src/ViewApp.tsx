@@ -52,8 +52,6 @@ const ViewApp = ({ siteData }: Props) => {
     const flowStore = useFlowStore();
     const viewStore = useViewStore();
 
-    // TODO: might need to convert this to state once bgm is implemented
-    const [isBgmEnabled, setIsBgmEnabled] = useState(false);
     const [chartShrink, setChartShrink] = useState(0);
     const [fitViewOperation, setFitViewOperation] =
         useState<FitViewOperation>("none");
@@ -245,10 +243,6 @@ const ViewApp = ({ siteData }: Props) => {
             <ViewSettingsModal
                 open={viewStore.settingsModalOpen}
                 onOpenChange={viewStore.setSettingsModalOpen}
-                bgmEnabled={isBgmEnabled}
-                onBgmEnabledChange={(newValue: boolean) =>
-                    setIsBgmEnabled(newValue)
-                }
             />
 
             <ViewMiniGameModal
