@@ -1,12 +1,7 @@
-// @ts-nocheck
 import { BaseEdge, EdgeLabelRenderer, useReactFlow } from "@xyflow/react";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
-import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { CustomEdgeProps } from "@/lib/type";
-import { useEditorStore } from "@/store/editorStore";
-import { drag } from "d3-drag";
-import { select } from "d3-selection";
 import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 
 //copied from reactflow lib - probably you can import this util directly from
@@ -30,13 +25,169 @@ function getEdgeCenter({
     return { centerX, centerY, xOffset, yOffset };
 }
 
-// just to store some data outside the function so we can avoid re-rendering
-const storeYVal = {};
-const storeXValBottom = {};
-const storeXValTop = {};
+// Function that generates the SVG path given start/end coords of the edges and all the offsets.
+function generateOrthogonalEdgePath(
+    startX: number,
+    startY: number,
+    endX: number,
+    endY: number,
+    padding: number,
+    HCoffset = 0,
+    VRoffset = 0,
+    VLoffset = 0,
+    HLoffset = 0,
+    HRoffset = 0,
+) {
+    // Calculate horizontal and vertical distances
+    const dy = endY - startY;
 
-const extraPoints = {};
+    // Calculate the position for the horizontal line
+    const horizontalY = startY + dy / 2 - HCoffset;
 
+    // Calculate the position for the vertical line
+    const verticalX = endX - padding + VRoffset ;
+    const verticalXT = startX - padding + VLoffset;
+
+    // Create a path string, draw the line all at once from left to right.
+    // Do it like this to get a nice smooth line.
+    let path = `M${startX},${startY} `;
+
+    // Part of the line that gets drawn if HL and its line segment exists.
+    if (VLoffset !== 0) {
+        path += `V${startY + HLoffset} `
+        path += `H${verticalXT} `;
+    }
+
+    // Main part of the line
+    path += `V${horizontalY} `;
+    path += `H${verticalX} `;
+    path += `V${endY + HRoffset} `;
+
+    // Part of the line that gets drawn if HR and its line segment exists.
+    if (VRoffset !== 0) {
+        path += `H${endX} `;
+        path += `V${endY} `;
+    }
+
+    return path.trim();
+}
+
+function drag(
+    element: HTMLElement,
+    allowHorizontalDragging: boolean,
+    allowVerticalDragging: boolean,
+    onDrag: (dx: number, dy: number) => void,
+    onFinishedDrag: () => void
+) {
+    const prevClient = { x: 0, y: 0 };
+
+    function dragMouseDown(event: MouseEvent) {
+        event.preventDefault();
+        prevClient.x = event.clientX;
+        prevClient.y = event.clientY;
+        document.addEventListener("mousemove", dragMouseMove);
+        document.addEventListener("mouseup", dragMouseUp);
+    }
+
+    function dragMouseMove(event: MouseEvent) {
+        event.preventDefault();
+
+        const newX = event.clientX;
+        const newY = event.clientY;
+        let dx = 0, dy = 0;
+
+        if(allowHorizontalDragging) {
+            dx = prevClient.x - newX;
+        }
+
+        if(allowVerticalDragging) {
+            dy = prevClient.y - newY;
+        }
+
+        prevClient.x = newX;
+        prevClient.y = newY;
+
+        onDrag(dx, dy);
+    }
+
+    function dragMouseUp(event: MouseEvent) {
+        event.preventDefault();
+        document.removeEventListener("mousemove", dragMouseMove);
+        document.removeEventListener("mouseup", dragMouseUp);
+        onFinishedDrag();
+    }
+
+    element.addEventListener("mousedown", dragMouseDown);
+
+    return () => element.removeEventListener("mousedown", dragMouseDown);
+}
+
+interface DragPointProps {
+    isSelected: boolean | undefined;
+    direction: "horizontal" | "vertical";
+    x: number,
+    y: number,
+    onDrag: (newXPos: number, newYPos: number) => void
+    onFinishedDrag: () => void;
+}
+
+const DRAG_POINT_WIDTH = 10;
+const DRAG_POINT_HEIGHT = 10;
+function DragPoint({
+    isSelected = false,
+    direction,
+    x,
+    y,
+    onDrag,
+    onFinishedDrag
+}: DragPointProps) {
+    const pointRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if(pointRef.current) {
+            return drag(pointRef.current, 
+                direction === "vertical", 
+                direction === "horizontal",
+                onDrag,
+                onFinishedDrag
+            );
+        }
+    }, [direction, onDrag, onFinishedDrag])
+
+    return (
+        <div
+            ref={pointRef}
+            className="custom_point nodrag nopan"
+            style={{
+                position: "absolute",
+                left: `${x - DRAG_POINT_WIDTH / 2}px`,
+                top: `${y - DRAG_POINT_HEIGHT / 2}px`,
+                opacity: isSelected ? 1 : 0.3,
+                width: `${DRAG_POINT_WIDTH}px`,
+                height: `${DRAG_POINT_HEIGHT}px`,
+                pointerEvents: "all",
+                borderRadius: "50%",
+                background: "black",
+                cursor: direction === "horizontal" ? "row-resize" : "col-resize",
+            }}
+        />
+    );
+}
+
+/*
+Anatomy of a custom edge
+    
+    |                              | 
+    |--[HL]--|            |--[HR]--|
+            [VL]        [VR]
+              |---[HC]---|
+
+[HL]/[HC]/[HR] are points that can adjust the Y position of the horizontal line segments.
+[VL]/[VR] are points that can adjust the X position of the vertical line segments. Moving these points will cause
+[HL]/[HR] and their line segments to spawn as well.
+
+[HL]/[HR] only appear if [VL]/[VR] have been moved to spawn the other horizontal edges.
+*/
 const EditorCustomEdge = ({
     id,
     sourceX,
@@ -44,273 +195,84 @@ const EditorCustomEdge = ({
     targetX,
     targetY,
     data,
+    selected
 }: CustomEdgeProps) => {
-    const { edgeStyle } = useEdgeStyle(data?.relationship);
+    const edgeStyle = data?.renderEdgeStyle || {};
     const { centerX, centerY, yOffset } = getEdgeCenter({
         sourceX,
         sourceY,
         targetX,
         targetY,
     });
-    const [labelPointY, setLabelPointY] = useState(storeYVal?.[id] || 0);
-    const [labelPointX, setLabelPointX] = useState(storeXValBottom[id] || 0);
-    const [labelPointXTop, setLabelPointXTop] = useState(storeXValTop[id] || 0);
-    // const [extraPointsPosState, setExtraPointsPosState] = useState({});
-    const { setEdgePaths, edgePaths } = useEditorStore();
 
-    const showDragLabels = true;
-    let zoom = 0;
+    // TODO: Move this to edge data.
+    const [hlOffset, setHLOffset] = useState(data?.customEdgeHLOffset || 0);
+    const [vlOffset, setVLOffset] = useState(data?.customEdgeVLOffset || 0);
+    const [hcOffset, setHCOffset] = useState(data?.customEdgeHCOffset || 0);
+    const [vrOffset, setVROffset] = useState(data?.customEdgeVROffset || 0);
+    const [hrOffset, setHROffset] = useState(data?.customEdgeHROffset || 0);
+    
+    const { getZoom, setEdges, updateEdge } = useReactFlow();
 
-    const { getZoom, setEdges } = useReactFlow();
-    const isSelected = true; //edges.find((edge) => edge.id === id && edge.selected);
+    const zoom = getZoom();
 
-    zoom = getZoom();
-
-    const edgeRef = useRef(null);
-    const edgeRefBottom = useRef(null);
-    const edgeRefTop = useRef(null);
-    useEffect(() => {
-        if (edgeRef.current) {
-            const d3Selection = select(edgeRef.current);
-            d3Selection.call(
-                drag().on("drag", (e) => {
-                    setEdges((prev) => {
-                        return prev.map((edge) =>
-                            edge.id === id
-                                ? { ...edge, selected: true }
-                                : { ...edge, selected: false }
-                        );
-                    });
-                    setLabelPointY((prev) => prev - e.dy / zoom);
-                    // Storing previous change in a simple way to not reset on re-render.
-                    // you can improve it by having context.
-                    // or you can try to use useStore hook.
-                    storeYVal[id] = (storeYVal[id] || 0) - e.dy / zoom;
-                })
+    function onDragged(offset: number, setter: Dispatch<SetStateAction<number>>) {
+        setEdges((prev) => {
+            return prev.map((edge) =>
+                edge.id === id
+                    ? { ...edge, selected: true }
+                    : { ...edge, selected: false }
             );
-        }
-        if (edgeRefBottom.current) {
-            const d3Selection = select(edgeRefBottom.current);
+        });
 
-            d3Selection.call(
-                drag().on("drag", (e) => {
-                    setEdges((prev) => {
-                        return prev.map((edge) =>
-                            edge.id === id
-                                ? { ...edge, selected: true }
-                                : { ...edge, selected: false }
-                        );
-                    });
-                    setLabelPointX((prev) => prev + e.dx / zoom);
-                    // Storing previous change in a simple way to not reset on re-render.
-                    // you can improve it by having context.
-                    // or you can try to use useStore hook.
-                    storeXValBottom[id] =
-                        (storeXValBottom[id] || 0) + e.dx / zoom;
-                })
-            );
-        }
-        if (edgeRefTop.current) {
-            const d3Selection = select(edgeRefTop.current);
-
-            d3Selection.call(
-                drag().on("drag", (e) => {
-                    setEdges((prev) => {
-                        return prev.map((edge) =>
-                            edge.id === id
-                                ? { ...edge, selected: true }
-                                : { ...edge, selected: false }
-                        );
-                    });
-                    setLabelPointXTop((prev) => prev + e.dx / zoom);
-                    storeXValTop[id] = (storeXValTop[id] || 0) + e.dx / zoom;
-                })
-            );
-        }
-    }, [id, setEdges, zoom]);
-    const isFirstExtraPoint = {};
-    useEffect(() => {
-        if (labelPointX !== 0 || labelPointXTop !== 0) {
-            Object.keys(extraPoints).forEach((XtraPoint) => {
-                if (!isFirstExtraPoint[XtraPoint]) {
-                    const d3Selection = select(
-                        document.getElementById(XtraPoint)
-                    );
-
-                    d3Selection.call(
-                        drag().on("drag", (e) => {
-                            setEdges((prev) => {
-                                return prev.map((edge) =>
-                                    edge.id === id
-                                        ? { ...edge, selected: true }
-                                        : { ...edge, selected: false }
-                                );
-                            });
-                            // setExtraPointsPosState((prev) => ({
-                            //     ...prev,
-                            //     XtraPoint: {
-                            //         ...prev?.XtraPoint,
-                            //         y: (prev?.XtraPoint?.y || 0) + e.dy / zoom,
-                            //     },
-                            // }));
-
-                            extraPoints[XtraPoint] = {
-                                ...extraPoints?.[XtraPoint],
-                                y:
-                                    (extraPoints?.[XtraPoint]?.y || 0) +
-                                    e.dy / zoom,
-                            };
-                        })
-                    );
-                } else {
-                    isFirstExtraPoint[XtraPoint] = true;
-                }
-            });
-        }
-    }, [labelPointX, labelPointXTop, id, isFirstExtraPoint, setEdges, zoom]);
-
-    function generateOrthogonalEdgePath(
-        startX,
-        startY,
-        endX,
-        endY,
-        padding,
-        Hoffset = 0,
-        Voffset = 0,
-        VToffset = 0
-    ) {
-        // Calculate horizontal and vertical distances
-        const dy = endY - startY;
-
-        // Calculate the position for the horizontal line
-        const horizontalY = startY + dy / 2 - Hoffset;
-
-        // Calculate the position for the vertical line
-        const verticalX = endX - padding + Voffset;
-        const verticalXT = startX - padding + VToffset;
-        // Create a path string
-        let path =
-            "M" +
-            verticalXT +
-            "," +
-            (startY + (extraPoints?.[`topCenter-${id}`]?.y || 0)) +
-            " ";
-
-        // Horizontal then vertical
-        path += "V" + horizontalY + " ";
-        path += "H" + verticalXT + " ";
-        path += "H" + verticalX + " ";
-        path +=
-            "V" + (endY + (extraPoints?.[`bottomCenter-${id}`]?.y || 0)) + "";
-
-        if (VToffset !== 0) {
-            extraPoints[`topCenter-${id}`] = {
-                ...extraPoints?.[`topCenter-${id}`],
-                pos: {
-                    left: `${(sourceX + verticalXT) / 2}px`,
-                    top: `${
-                        startY + (extraPoints?.[`topCenter-${id}`]?.y || 0)
-                    }px`,
-                    transform: isSelected
-                        ? "translateY(-5px)"
-                        : "translateY(-2.5px)",
-                },
-            };
-
-            path += "M" + startX + "," + startY + " ";
-            path +=
-                "V" +
-                (startY + (extraPoints?.[`topCenter-${id}`]?.y || 0)) +
-                " ";
-            path += "H" + verticalXT;
-        }
-        if (Voffset !== 0) {
-            extraPoints[`bottomCenter-${id}`] = {
-                ...extraPoints?.[`bottomCenter-${id}`],
-                pos: {
-                    left: `${(targetX + verticalX) / 2}px`,
-                    top: `${
-                        endY + (extraPoints?.[`bottomCenter-${id}`]?.y || 0)
-                    }px`,
-                    transform: isSelected
-                        ? "translateY(-5px)"
-                        : "translateY(-2.5px)",
-                },
-            };
-
-            path += "M" + endX + "," + endY + " ";
-            path +=
-                "V" +
-                (endY + (extraPoints?.[`bottomCenter-${id}`]?.y || 0)) +
-                " ";
-            path += "H" + verticalX + " ";
-        }
-
-        return path;
+        setter((prev) => prev + offset);
     }
+
+    function onFinishedDragging() {
+        updateEdge(id, {
+            data: {
+                ...data,
+                customEdgeHLOffset: hlOffset,
+                customEdgeVLOffset: vlOffset,
+                customEdgeHCOffset: hcOffset,
+                customEdgeVROffset: vrOffset,
+                customEdgeHROffset: hrOffset
+            }
+        });
+    }
+
     // generating the path
-    let path = generateOrthogonalEdgePath(
+    const path = generateOrthogonalEdgePath(
         sourceX,
         sourceY,
         targetX,
         targetY,
         0,
-        labelPointY,
-        labelPointX,
-        labelPointXTop
+        hcOffset,
+        vrOffset,
+        vlOffset,
+        hlOffset,
+        hrOffset
     );
 
-    const getTopBottomPointsY = (top) => {
+    const getTopBottomPointsY = (top: boolean) => {
         if (targetY < sourceY) {
             if (top) {
-                return (
-                    centerY -
-                    labelPointY +
-                    (yOffset +
-                        labelPointY +
-                        (extraPoints?.[`topCenter-${id}`]?.y || 0)) /
-                        2
-                );
+                return (centerY - hcOffset + (yOffset + hcOffset + hlOffset) / 2);
             } else {
-                return (
-                    centerY -
-                    labelPointY -
-                    (yOffset -
-                        labelPointY -
-                        (extraPoints?.[`bottomCenter-${id}`]?.y || 0)) /
-                        2
-                );
+                return (centerY - hcOffset - (yOffset - hcOffset - hrOffset) / 2);
             }
         } else {
             if (top) {
-                return (
-                    centerY -
-                    labelPointY -
-                    (yOffset -
-                        labelPointY -
-                        (extraPoints?.[`topCenter-${id}`]?.y || 0)) /
-                        2
-                );
+                return (centerY - hcOffset - (yOffset - hcOffset - hlOffset) / 2);
             } else {
-                return (
-                    centerY -
-                    labelPointY +
-                    (yOffset +
-                        labelPointY +
-                        (extraPoints?.[`bottomCenter-${id}`]?.y || 0)) /
-                        2
-                );
+                return (centerY - hcOffset + (yOffset + hcOffset + hrOffset) / 2);
             }
         }
     };
-    useEffect(() => {
-        setEdgePaths({ ...edgePaths, [id]: path });
-    }, [path]);
-    if (data?.path) {
-        path = data?.path;
-    }
 
     const isNew = data?.new || false;
+
     return (
         <>
             <BaseEdge
@@ -323,102 +285,54 @@ const EditorCustomEdge = ({
                 }}
                 className="z-10"
             />
-            {showDragLabels && !data?.path && (
-                <EdgeLabelRenderer>
-                    <div
-                        ref={edgeRef}
-                        className="custom_point"
-                        style={{
-                            position: "absolute",
-                            left: `${
-                                centerX + (labelPointX + labelPointXTop) / 2
-                            }px`,
-                            top: `${centerY - labelPointY}px`,
-                            transform: isSelected
-                                ? "translateY(-5px)"
-                                : "translateY(-3.5px)",
-                            opacity: isSelected ? 1 : 0.3,
-                            width: isSelected ? "10px" : "5px",
-                            height: isSelected ? "10px" : "5px",
-                            pointerEvents: "all",
-                            borderRadius: "50%",
-                            background: "black",
-                            cursor: "row-resize",
-                        }}
+            <EdgeLabelRenderer>
+                {
+                    vlOffset !== 0 &&
+                    <DragPoint 
+                        isSelected={selected} 
+                        direction={"horizontal"} 
+                        x={sourceX + (vlOffset / 2)} 
+                        y={sourceY + hlOffset} 
+                        onDrag={(_, newDY) => onDragged(-newDY / zoom, setHLOffset)}
+                        onFinishedDrag={onFinishedDragging}                  
                     />
-
-                    <div
-                        ref={edgeRefBottom}
-                        className="custom_point"
-                        style={{
-                            position: "absolute",
-                            left: `${targetX + labelPointX}px`,
-                            top: `${getTopBottomPointsY(false)}px`,
-                            transform: isSelected
-                                ? "translateX(-5px)"
-                                : "translateX(-2.5px)",
-                            opacity: isSelected ? 1 : 0.3,
-                            width: isSelected ? "10px" : "5px",
-                            height: isSelected ? "10px" : "5px",
-                            pointerEvents: "all",
-                            borderRadius: "50%",
-                            background: "black",
-                            cursor: "col-resize",
-                        }}
+                }
+                <DragPoint 
+                    isSelected={selected} 
+                    direction={"vertical"} 
+                    x={sourceX + vlOffset} 
+                    y={getTopBottomPointsY(true)} 
+                    onDrag={(newDX) => onDragged(-(newDX / zoom), setVLOffset)}
+                    onFinishedDrag={onFinishedDragging}                   
+                />
+                <DragPoint 
+                    isSelected={selected} 
+                    direction={"horizontal"} 
+                    x={centerX + (vlOffset + vrOffset) / 2} 
+                    y={centerY - hcOffset} 
+                    onDrag={(_, newDY) => onDragged(newDY / zoom, setHCOffset)}
+                    onFinishedDrag={onFinishedDragging}                  
+                />
+                <DragPoint 
+                    isSelected={selected} 
+                    direction={"vertical"} 
+                    x={targetX + vrOffset} 
+                    y={getTopBottomPointsY(false)} 
+                    onDrag={(newDX) => onDragged(-(newDX / zoom), setVROffset)}
+                    onFinishedDrag={onFinishedDragging}     
+                />
+                { 
+                    vrOffset !== 0 &&
+                    <DragPoint 
+                        isSelected={selected} 
+                        direction={"horizontal"} 
+                        x={targetX + (vrOffset / 2)} 
+                        y={targetY + hrOffset} 
+                        onDrag={(_, newDY) => onDragged(-newDY / zoom, setHROffset)} 
+                        onFinishedDrag={onFinishedDragging}                  
                     />
-                    <div
-                        ref={edgeRefTop}
-                        className="custom_point"
-                        style={{
-                            position: "absolute",
-                            left: `${sourceX + labelPointXTop}px`,
-                            top: `${getTopBottomPointsY(true)}px`,
-                            transform: isSelected
-                                ? "translateX(-5px)"
-                                : "translateX(-2.5px)",
-                            opacity: isSelected ? 1 : 0.3,
-                            width: isSelected ? "10px" : "5px",
-                            height: isSelected ? "10px" : "5px",
-                            pointerEvents: "all",
-                            borderRadius: "50%",
-                            background: "black",
-                            cursor: "col-resize",
-                        }}
-                    />
-                    {Object.keys(extraPoints).length > 0 &&
-                        Object.keys(extraPoints).map((pointKey, index) => {
-                            if (
-                                pointKey === `bottomCenter-${id}` ||
-                                pointKey === `topCenter-${id}`
-                            ) {
-                                return (
-                                    <div
-                                        id={pointKey}
-                                        key={index}
-                                        className="custom_point"
-                                        style={{
-                                            position: "absolute",
-                                            left: extraPoints[pointKey]?.pos
-                                                ?.left,
-                                            top: extraPoints[pointKey]?.pos
-                                                ?.top,
-                                            transform:
-                                                extraPoints[pointKey]?.pos
-                                                    ?.transform,
-                                            opacity: isSelected ? 1 : 0.3,
-                                            width: isSelected ? "10px" : "5px",
-                                            height: isSelected ? "10px" : "5px",
-                                            pointerEvents: "all",
-                                            borderRadius: "50%",
-                                            background: "black",
-                                            cursor: "row-resize",
-                                        }}
-                                    />
-                                );
-                            }
-                        })}
-                </EdgeLabelRenderer>
-            )}
+                }
+            </EdgeLabelRenderer>
         </>
     );
 };

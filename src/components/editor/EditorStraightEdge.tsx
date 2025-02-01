@@ -1,9 +1,7 @@
-import useEdgeStyle from "@/hooks/useEdgeStyle";
 import { EDGE_WIDTH } from "@/lib/constants";
 import { CustomEdgeProps } from "@/lib/type";
-import { useEditorStore } from "@/store/editorStore";
+
 import { BaseEdge, getStraightPath } from "@xyflow/react";
-import { useEffect } from "react";
 
 const EditorStraightEdge = ({
     id,
@@ -13,22 +11,17 @@ const EditorStraightEdge = ({
     targetY,
     data,
 }: CustomEdgeProps) => {
-    const { edgeStyle } = useEdgeStyle(data?.relationship);
-    const { setEdgePaths, edgePaths } = useEditorStore();
-    let [path] = getStraightPath({
+    const edgeStyle = data?.renderEdgeStyle || {};
+    const strokeColor = edgeStyle?.stroke || "#000";
+
+    const isNew = data?.new || false;
+    const [path] = getStraightPath({
         sourceX,
         sourceY,
         targetX,
         targetY,
     });
-    const strokeColor = edgeStyle?.stroke || "#000";
-    useEffect(() => {
-        setEdgePaths({ ...edgePaths, [id]: path });
-    }, [path]);
-    if (data?.path) {
-        path = data?.path;
-    }
-    const isNew = data?.new || false;
+
     return (
         <>
             <svg width="0" height="0">

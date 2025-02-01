@@ -91,7 +91,16 @@ type CommonEdgeData = {
 }
 
 export type CustomEdgeData = CommonEdgeData & {
-    
+    // The following properties are used in EditorCustomEdge.
+    customEdgeHLOffset?: number;
+    customEdgeVLOffset?: number;
+    customEdgeHCOffset?: number;
+    customEdgeVROffset?: number;
+    customEdgeHROffset?: number;
+
+    // The following properties are used during the rendering of this edge,
+    // and should not be filled by the data source.
+    renderEdgeStyle?: CSSProperties;
 };
 
 export type FixedEdgeData = CommonEdgeData & {

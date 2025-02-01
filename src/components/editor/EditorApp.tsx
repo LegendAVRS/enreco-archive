@@ -56,10 +56,27 @@ const EditorApp = () => {
     
     const numChapters = data.length;
     const numDays = chapter !== null && data ? data[chapter].numberOfDays : 0;
-    const nodes = chapter !== null && day !== null && data ? data[chapter].charts[day]?.nodes : [];
-    const edges = chapter !== null && day !== null && data ? data[chapter].charts[day]?.edges : [];
     const teams = chapter !== null && data ? data[chapter].teams : {};
     const relationships = chapter && chapter !== -1 && data ? data[chapter].relationships : {};
+
+    const rawNodes = chapter !== null && day !== null && data ? data[chapter].charts[day]?.nodes : [];
+    const nodes = rawNodes.map(node => {
+        const newNode = structuredClone(node);
+        newNode.data.renderShowHandles = showHandles;
+        return newNode;
+    });
+
+    const rawEdges = chapter !== null && day !== null && data ? data[chapter].charts[day]?.edges : [];
+    const edges = rawEdges.map(edge => {
+        const newEdge = structuredClone(edge);
+        if(newEdge.data && newEdge.data.relationshipId) {
+            newEdge.data.renderEdgeStyle = relationships[newEdge.data.relationshipId].style || {};
+        }
+        else {
+            newEdge.data!.renderEdgeStyle = {};
+        }
+        return newEdge;
+    });
 
     const updateEdge = (oldEdge: CustomEdgeType, newEdge: CustomEdgeType) => {
         const newEdgeArray = edges.filter(e => e.id !== oldEdge.id);
@@ -143,8 +160,6 @@ const EditorApp = () => {
             deleteDay(day);
         }
     };
-
-    console.log(data);
 
     return (
         <>

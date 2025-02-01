@@ -68,7 +68,8 @@ export function EditorChart({
                 teamId: "",
                 status: "",
                 new: true,
-                bgCardColor: ""
+                bgCardColor: "",
+                renderShowHandles: true
             },
         };
         console.log(x, y, newNode);
@@ -90,7 +91,13 @@ export function EditorChart({
                 timestampUrl: "",
                 new: true,
                 path: "",
-                marker: false
+                marker: false,
+                renderEdgeStyle: {},
+                customEdgeHLOffset: 0,
+                customEdgeVLOffset: 0,
+                customEdgeHCOffset: 0,
+                customEdgeVROffset: 0,
+                customEdgeHROffset: 0
             }
         };
         
