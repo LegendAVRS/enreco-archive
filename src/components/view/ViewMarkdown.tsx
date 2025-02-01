@@ -1,4 +1,6 @@
 import { CustomEdgeType, ImageNodeType } from "@/lib/type";
+import { useSettingStore } from "@/store/settingStore";
+import { useViewStore } from "@/store/viewStore";
 import { useReactFlow } from "@xyflow/react";
 import { MouseEventHandler } from "react";
 import Markdown from "react-markdown";
@@ -27,6 +29,8 @@ export function ViewMarkdown({
     children,
 }: Props) {
     const { getNode, getEdge } = useReactFlow<ImageNodeType, CustomEdgeType>();
+    const viewStore = useViewStore();
+    const settingStore = useSettingStore();
 
     const nodeLinkHandler: MouseEventHandler<HTMLAnchorElement> = (
         event: React.MouseEvent<HTMLAnchorElement>
@@ -58,10 +62,49 @@ export function ViewMarkdown({
         onEdgeLinkClicked(targetEdge);
     };
 
+    const timestampHandler: MouseEventHandler<HTMLAnchorElement> = async (
+        event: React.MouseEvent<HTMLAnchorElement>
+    ) => {
+        event.preventDefault();
+
+        const timestampUrl =
+            (event.target as Element).getAttribute("data-timestamp-url") || "";
+
+        if (settingStore.timestampOption === "none") {
+            viewStore.setAskVideoModalOpen(true);
+
+            // Wait for user decision and opens the video accordingly
+            await new Promise<void>((resolve) => {
+                const unsubscribe = useSettingStore.subscribe((state) => {
+                    if (state.timestampOption !== "none") {
+                        if (state.timestampOption === "modal") {
+                            viewStore.setVideoModalOpen(true);
+                            viewStore.setVideoUrl(timestampUrl);
+                        } else if (state.timestampOption === "tab") {
+                            window.open(timestampUrl, "_blank");
+                        }
+                        unsubscribe();
+                        resolve();
+                    }
+                });
+            });
+
+            viewStore.setAskVideoModalOpen(false);
+        }
+
+        if (settingStore.timestampOption === "modal") {
+            viewStore.setVideoModalOpen(true);
+            viewStore.setVideoUrl(timestampUrl);
+        } else if (settingStore.timestampOption === "tab") {
+            window.open(timestampUrl, "_blank");
+        }
+    };
+
     return (
         <Markdown
             rehypePlugins={[rehypeRaw]}
             components={{
+                p: ({ children }) => <>{children}</>,
                 a(props) {
                     const { href, ...rest } = props;
 
@@ -88,7 +131,7 @@ export function ViewMarkdown({
                         );
                     } else if (href && href.startsWith("#embed")) {
                         const embedUrl = href.replace("#embed:", "");
-                        let caption = rest.children as string;
+                        const caption = rest.children as string;
                         return (
                             <figure>
                                 <iframe src={embedUrl} title={caption} />
@@ -97,9 +140,28 @@ export function ViewMarkdown({
                         );
                     } else if (href && href.startsWith("#out")) {
                         return <a href={href} target="_blank" {...rest} />;
+                    } else if (href && href.startsWith("#image")) {
+                        const imageUrl = href.replace("#image:", "");
+                        const caption = rest.children as string;
+                        return (
+                            <figure>
+                                <img
+                                    src={imageUrl}
+                                    alt={rest.children as string}
+                                />
+                                <figcaption>{caption}</figcaption>
+                            </figure>
+                        );
+                    } else {
+                        return (
+                            <a
+                                href={href}
+                                data-timestamp-url={href}
+                                onClick={timestampHandler}
+                                {...rest}
+                            />
+                        );
                     }
-
-                    return <a href={href} target="_blank" {...rest} />;
                 },
             }}
         >
