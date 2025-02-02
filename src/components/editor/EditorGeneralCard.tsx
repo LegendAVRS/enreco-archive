@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import React, { useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
+import { LucideX } from "lucide-react";
 
 import EditorCard from "@/components/editor/EditorCard";
 import { EditorChapter, EditorChartData } from "@/lib/type";
@@ -64,6 +65,10 @@ const EditorGeneralCard = ({
         <EditorCard>
             <h1 className="text-2xl font-bold">Chapter Info</h1>
 
+            <Button onClick={onClose} className="absolute top-2 right-2">
+                <LucideX />
+            </Button>
+
             <form onSubmit={submitHandler}>
                 <div className="my-2">
                     <Label className="my-1" htmlFor="title">Title</Label>
@@ -86,9 +91,8 @@ const EditorGeneralCard = ({
                     />
                 </div>
 
-                <div className="my-2 flex flex-row gap-16 w-full justify-center">
-                    <Button className="w-1/4" type="submit">Save</Button>
-                    <Button className="w-1/4" type="button" onClick={onClose}>Close</Button>
+                <div className="my-2 flex flex-row w-full justify-center">
+                    <Button className="w-2/4" type="submit">Save</Button>
                 </div>
             </form>
         </EditorCard>

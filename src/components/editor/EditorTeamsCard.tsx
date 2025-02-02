@@ -8,6 +8,7 @@ import { Team, TeamMap } from "@/lib/type";
 
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { produce } from "immer";
+import { LucideX } from "lucide-react";
 import slug from "slug";
 
 interface FormElements extends HTMLFormControlsCollection {
@@ -152,6 +153,10 @@ export default function EditorTeamsCard({
         <EditorCard>
             <h1 className="text-2xl font-bold">Chapter Teams</h1>
 
+            <Button onClick={onClose} className="absolute top-2 right-2">
+                <LucideX />
+            </Button>
+
             <div className="flex flex-row content-center gap-2">
                 <Checkbox id="autoGenId" checked={autoGenIdFromName} onCheckedChange={onToggleAutoGenId}/>
                 <Label htmlFor="autoGenId">Auto-generate id from name</Label>
@@ -247,9 +252,8 @@ export default function EditorTeamsCard({
                 <Button type="submit" className="col-span-2">Add New Team</Button>
             </form>
 
-            <div className="my-2 flex flex-row gap-16 w-full justify-center">
-                <Button className="w-1/4" onClick={onSave}>Save</Button>
-                <Button className="w-1/4" onClick={onClose}>Close</Button>
+            <div className="my-2 flex flex-row w-full justify-center">
+                <Button className="w-2/4" onClick={onSave}>Save</Button>
             </div>
         </EditorCard>
     );

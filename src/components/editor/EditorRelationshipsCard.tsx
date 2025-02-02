@@ -1,11 +1,13 @@
+import EditorCard from "@/components/editor/EditorCard";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { Relationship, RelationshipMap } from "@/lib/type";
-import EditorCard from "./EditorCard";
-import { useState } from "react";
-import { Checkbox } from "../ui/checkbox";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
+
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { produce } from "immer";
+import { LucideX } from "lucide-react";
+import { useState } from "react";
 import slug from "slug";
 
 interface FormElements extends HTMLFormControlsCollection {
@@ -168,6 +170,10 @@ export default function EditorRelationshipsCard({
         <EditorCard>
             <h1 className="text-2xl font-bold">Chapter Relationships</h1>
 
+            <Button onClick={onClose} className="absolute top-2 right-2">
+                <LucideX />
+            </Button>
+
             <div className="flex flex-row content-center gap-2">
                 <Checkbox id="autoGenId" checked={autoGenIdFromName} onCheckedChange={onToggleAutoGenId}/>
                 <Label htmlFor="autoGenId">Auto-generate id from name</Label>
@@ -289,9 +295,8 @@ export default function EditorRelationshipsCard({
                 <Button type="submit" className="col-span-2">Add New Relationship</Button>
             </form>
 
-            <div className="my-2 flex flex-row gap-16 w-full justify-center">
-                <Button className="w-1/4" onClick={onSave}>Save</Button>
-                <Button className="w-1/4" onClick={onClose}>Close</Button>
+            <div className="my-2 flex flex-row w-full justify-center">
+                <Button className="w-2/4" onClick={onSave}>Save</Button>
             </div>
         </EditorCard>
     );
