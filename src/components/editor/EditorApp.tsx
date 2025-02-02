@@ -33,6 +33,28 @@ const EMPTY_NODE: EditorImageNodeType = {
     },
 };
 
+const EMPTY_EDGE: CustomEdgeType = {
+    id: "",
+    type: "custom",
+    source: "",
+    target: "",
+    data: {
+        relationshipId: "",
+        title: "",
+        content: "",
+        timestampUrl: "",
+        new: true,
+        path: "",
+        marker: false,
+        renderEdgeStyle: {},
+        customEdgeHLOffset: 0,
+        customEdgeVLOffset: 0,
+        customEdgeHCOffset: 0,
+        customEdgeVROffset: 0,
+        customEdgeHROffset: 0
+    }
+};
+
 const EditorApp = () => {
     const { deleteElements } = useReactFlow();
     const {
@@ -73,7 +95,7 @@ const EditorApp = () => {
     const numChapters = data.length;
     const numDays = chapter !== null && data ? data[chapter].numberOfDays : 0;
     const teams = chapter !== null && data ? data[chapter].teams : {};
-    const relationships = chapter && chapter !== -1 && data ? data[chapter].relationships : {};
+    const relationships = chapter !== null && data ? data[chapter].relationships : {};
 
     const rawNodes = chapter !== null && day !== null && data ? data[chapter].charts[day]?.nodes : [];
     const nodes = rawNodes.map(node => {
@@ -331,25 +353,27 @@ const EditorApp = () => {
                 </div>
             </Toolbar.Root>
 
-            {currentCard === "node" && (
-                <EditorNodeCard
-                    isVisible={currentCard === "node"}
-                    selectedNode={selectedNode || EMPTY_NODE}
-                    teams={teams}
-                    nodes={nodes}
-                    updateNode={updateNode}
-                    deleteNode={deleteNode}
-                    onCardClose={() => setCurrentCard(null)}
-                />
-            )}
-            {currentCard === "edge" && (
-                <EdgeEditorCard
-                    selectedEdge={selectedEdge}
-                    relationships={relationships}
-                    deleteEdge={deleteEdge}
-                    updateEdge={updateEdge}
-                />
-            )}
+            <EditorNodeCard
+                key={selectedNode ? selectedNode.id : ""}
+                isVisible={currentCard === "node"}
+                selectedNode={selectedNode || EMPTY_NODE}
+                teams={teams}
+                nodes={nodes}
+                updateNode={updateNode}
+                deleteNode={deleteNode}
+                onCardClose={() => setCurrentCard(null)}
+            />
+        
+            <EdgeEditorCard
+                key={selectedEdge ? selectedEdge.id : ""}
+                isVisible={currentCard === "edge"}
+                selectedEdge={selectedEdge || EMPTY_EDGE}
+                relationships={relationships}
+                deleteEdge={deleteEdge}
+                updateEdge={updateEdge}
+                onCardClose={() => setCurrentCard(null)}
+            />
+            
             <EditorGeneralCard
                 key={`${chapter}/${day}`}
                 isVisible={currentCard === "general"}
