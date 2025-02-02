@@ -17,6 +17,22 @@ import { EditorMode, useEditorStore } from "@/store/editorStore";
 import EditorTeamsCard from "./EditorTeamsCard";
 import EditorRelationshipsCard from "./EditorRelationshipsCard";
 
+const EMPTY_NODE: EditorImageNodeType = {
+    id: "",
+    type: "editorImage",
+    position: { x: 0, y: 0 },
+    data: {
+        title: "",
+        content: "",
+        imageSrc: "/default-node-image.png",
+        teamId: "",
+        status: "",
+        new: true,
+        bgCardColor: "",
+        renderShowHandles: true
+    },
+};
+
 const EditorApp = () => {
     const { deleteElements } = useReactFlow();
     const {
@@ -317,10 +333,13 @@ const EditorApp = () => {
 
             {currentCard === "node" && (
                 <EditorNodeCard
-                    selectedNode={selectedNode}
+                    isVisible={currentCard === "node"}
+                    selectedNode={selectedNode || EMPTY_NODE}
                     teams={teams}
+                    nodes={nodes}
                     updateNode={updateNode}
                     deleteNode={deleteNode}
+                    onCardClose={() => setCurrentCard(null)}
                 />
             )}
             {currentCard === "edge" && (
