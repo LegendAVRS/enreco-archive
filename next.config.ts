@@ -14,6 +14,7 @@ const nextConfig = {
         // ],
         unoptimized: true, // Disables image optimization.
     },
+    reactStrictMode: false, // Disables React strict mode.
     output: "export", // Outputs a Single-Page Application (SPA).
 };
 
