@@ -122,6 +122,7 @@ export default function EditorNodeCard({
 
     const extractColorsFromImage = async () => {
         const imgColors = await extractColors(imgPreviewLink);
+        imgColors.sort((a,b) => b.area - a.area);
         setExtractedColors(imgColors.slice(0, 5).map(color => color.hex));
         setWorkingNodeAttr(draft => { draft.data.bgCardColor = imgColors[0].hex });
     }
