@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { CustomEdgeType, RelationshipMap } from "@/lib/type";
+
 import { produce, WritableDraft } from "immer";
 import { LucideX } from "lucide-react";
 import { useState } from "react";
@@ -65,6 +66,9 @@ const EdgeEditorCard = ({
             </Button>
 
             <div className="grid grid-cols-[1fr_4fr] gap-2 w-full">
+                <Label className="text-right text-lg self-center">Id</Label>
+                <span className="text-md self-center">{workingEdge.id}</span>
+
                 <Label htmlFor="edge-relationship" className="text-right text-lg self-center">Relationship</Label>
                 <Select
                     value={ workingEdge.data?.relationshipId || selectedEdge.data?.relationshipId }

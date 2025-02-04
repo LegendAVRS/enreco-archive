@@ -19,6 +19,7 @@ import EditorStraightEdge from "@/components/editor/EditorStraightEdge";
 import EditorFixedEdge from "@/components/editor/EditorFixedEdge";
 import { CustomEdgeType, CustomEdgeTypeNames, EditorImageNodeType } from "@/lib/type";
 import { MouseEventHandler, useCallback } from "react";
+import { generateEdgeId } from "@/lib/editor-utils";
 
 const nodeTypes = {
     editorImage: EditorImageNode,
@@ -78,7 +79,7 @@ export function EditorChart({
 
     const connectEdge = useCallback((params: Connection) => {
         const newEdge: CustomEdgeType = {
-            id: `${params.source}-${params.target}-${params.sourceHandle}-${params.targetHandle}`,
+            id: generateEdgeId(params.source, params.target, params.sourceHandle, params.targetHandle),
             source: params.source,
             target: params.target,
             sourceHandle: params.sourceHandle,

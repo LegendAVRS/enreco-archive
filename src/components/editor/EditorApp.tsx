@@ -16,6 +16,7 @@ import { CustomEdgeType, CustomEdgeTypeNames, EditorImageNodeType, RelationshipM
 import { EditorMode, useEditorStore } from "@/store/editorStore";
 import EditorTeamsCard from "./EditorTeamsCard";
 import EditorRelationshipsCard from "./EditorRelationshipsCard";
+import { generateEdgeId } from "@/lib/editor-utils";
 
 const EMPTY_NODE: EditorImageNodeType = {
     id: "",
@@ -56,7 +57,7 @@ const EMPTY_EDGE: CustomEdgeType = {
 };
 
 const EditorApp = () => {
-    const { deleteElements } = useReactFlow();
+    const { updateEdge, updateNode, deleteElements } = useReactFlow();
     const {
         mode,
         setMode,
@@ -116,16 +117,26 @@ const EditorApp = () => {
         return newEdge;
     });
 
-    const updateEdge = (oldEdge: CustomEdgeType, newEdge: CustomEdgeType) => {
-        const newEdgeArray = edges.filter(e => e.id !== oldEdge.id);
-        newEdgeArray.push(newEdge);
-        setEdges(newEdgeArray);
+    const updateEdgeEH = (oldEdge: CustomEdgeType, newEdge: CustomEdgeType) => {
+        updateEdge(oldEdge.id, newEdge);
     };
 
-    const updateNode = (oldNode: EditorImageNodeType, newNode: EditorImageNodeType) => {
-        const newNodeArray = nodes.filter(e => e.id !== oldNode.id);
-        newNodeArray.push(newNode);
-        setNodes(newNodeArray);
+    const updateNodeEH = (oldNode: EditorImageNodeType, newNode: EditorImageNodeType) => {
+        if(oldNode.id !== newNode.id) {
+            edges.filter(edge => edge.source === oldNode.id)
+            .forEach(edge => {
+                edge.source = newNode.id;
+                edge.id = generateEdgeId(newNode.id, edge.target, edge.sourceHandle, edge.targetHandle);
+            });
+            edges.filter(edge => edge.target === oldNode.id)
+            .forEach(edge => {
+                edge.target = newNode.id;
+                edge.id = generateEdgeId(edge.source, newNode.id, edge.sourceHandle, edge.targetHandle);
+            });
+            setEdges(edges);
+        }
+        
+        updateNode(oldNode.id, newNode);
     };
 
     const deleteEdge = () => {
@@ -354,23 +365,23 @@ const EditorApp = () => {
             </Toolbar.Root>
 
             <EditorNodeCard
-                key={selectedNode ? selectedNode.id : ""}
+                key={selectedNode ? `${selectedNode.id}-node-editor-card` : "null-node-editor-card"}
                 isVisible={currentCard === "node"}
                 selectedNode={selectedNode || EMPTY_NODE}
                 teams={teams}
                 nodes={nodes}
-                updateNode={updateNode}
+                updateNode={updateNodeEH}
                 deleteNode={deleteNode}
                 onCardClose={() => setCurrentCard(null)}
             />
         
             <EdgeEditorCard
-                key={selectedEdge ? selectedEdge.id : ""}
+                key={selectedEdge ? `${selectedEdge.id}-edge-editor-card` : "null-edge-editor-card"}
                 isVisible={currentCard === "edge"}
                 selectedEdge={selectedEdge || EMPTY_EDGE}
                 relationships={relationships}
                 deleteEdge={deleteEdge}
-                updateEdge={updateEdge}
+                updateEdge={updateEdgeEH}
                 onCardClose={() => setCurrentCard(null)}
             />
             

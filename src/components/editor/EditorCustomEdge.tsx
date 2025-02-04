@@ -1,7 +1,7 @@
 import { BaseEdge, EdgeLabelRenderer, useReactFlow } from "@xyflow/react";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-import { CustomEdgeProps } from "@/lib/type";
+import { CustomEdgeProps, CustomEdgeType, EditorImageNodeType } from "@/lib/type";
 import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 
 //copied from reactflow lib - probably you can import this util directly from
@@ -76,8 +76,7 @@ function drag(
     element: HTMLElement,
     allowHorizontalDragging: boolean,
     allowVerticalDragging: boolean,
-    onDrag: (dx: number, dy: number) => void,
-    onFinishedDrag: () => void
+    onDrag: (dx: number, dy: number) => void
 ) {
     const prevClient = { x: 0, y: 0 };
 
@@ -114,7 +113,6 @@ function drag(
         event.preventDefault();
         document.removeEventListener("mousemove", dragMouseMove);
         document.removeEventListener("mouseup", dragMouseUp);
-        onFinishedDrag();
     }
 
     element.addEventListener("mousedown", dragMouseDown);
@@ -125,10 +123,9 @@ function drag(
 interface DragPointProps {
     isSelected: boolean | undefined;
     direction: "horizontal" | "vertical";
-    x: number,
-    y: number,
-    onDrag: (newXPos: number, newYPos: number) => void
-    onFinishedDrag: () => void;
+    x: number;
+    y: number;
+    onDrag: (newXPos: number, newYPos: number) => void;
 }
 
 const DRAG_POINT_WIDTH = 10;
@@ -139,7 +136,6 @@ function DragPoint({
     x,
     y,
     onDrag,
-    onFinishedDrag
 }: DragPointProps) {
     const pointRef = useRef<HTMLDivElement>(null);
 
@@ -148,11 +144,10 @@ function DragPoint({
             return drag(pointRef.current, 
                 direction === "vertical", 
                 direction === "horizontal",
-                onDrag,
-                onFinishedDrag
+                onDrag
             );
         }
-    }, [direction, onDrag, onFinishedDrag])
+    }, [direction, onDrag])
 
     return (
         <div
@@ -204,19 +199,12 @@ const EditorCustomEdge = ({
         targetX,
         targetY,
     });
-
-    // TODO: Move this to edge data.
-    const [hlOffset, setHLOffset] = useState(data?.customEdgeHLOffset || 0);
-    const [vlOffset, setVLOffset] = useState(data?.customEdgeVLOffset || 0);
-    const [hcOffset, setHCOffset] = useState(data?.customEdgeHCOffset || 0);
-    const [vrOffset, setVROffset] = useState(data?.customEdgeVROffset || 0);
-    const [hrOffset, setHROffset] = useState(data?.customEdgeHROffset || 0);
     
-    const { getZoom, setEdges, updateEdge } = useReactFlow();
+    const { getZoom, setEdges, updateEdgeData } = useReactFlow<EditorImageNodeType, CustomEdgeType>();
 
     const zoom = getZoom();
 
-    function onDragged(offset: number, setter: Dispatch<SetStateAction<number>>) {
+    function onDraggedCommon() {
         setEdges((prev) => {
             return prev.map((edge) =>
                 edge.id === id
@@ -224,22 +212,78 @@ const EditorCustomEdge = ({
                     : { ...edge, selected: false }
             );
         });
-
-        setter((prev) => prev + offset);
     }
 
-    function onFinishedDragging() {
-        updateEdge(id, {
-            data: {
-                ...data,
-                customEdgeHLOffset: hlOffset,
-                customEdgeVLOffset: vlOffset,
-                customEdgeHCOffset: hcOffset,
-                customEdgeVROffset: vrOffset,
-                customEdgeHROffset: hrOffset
-            }
+    function onHLDragged(offset: number) {
+        onDraggedCommon();
+
+        updateEdgeData(id, (prevEdge) => {
+            return {
+                customEdgeHLOffset: 
+                    prevEdge.data?.customEdgeHLOffset === undefined ? 
+                        0 + offset : 
+                        prevEdge.data?.customEdgeHLOffset + offset
+            };
         });
     }
+
+    function onVLDragged(offset: number) {
+        onDraggedCommon();
+
+        updateEdgeData(id, (prevEdge) => {
+            return {
+                customEdgeVLOffset: 
+                    prevEdge.data?.customEdgeVLOffset === undefined ? 
+                        0 + offset : 
+                        prevEdge.data?.customEdgeVLOffset + offset
+            };
+        });
+    }
+
+    function onHCDragged(offset: number) {
+        onDraggedCommon();
+        
+        updateEdgeData(id, (prevEdge) => {
+            return {
+                customEdgeHCOffset: 
+                    prevEdge.data?.customEdgeHCOffset === undefined ? 
+                        0 + offset : 
+                        prevEdge.data?.customEdgeHCOffset + offset
+            };
+        });
+    }
+
+    function onVRDragged(offset: number) {
+        onDraggedCommon();
+    
+        updateEdgeData(id, (prevEdge) => {
+            return {
+                customEdgeVROffset: 
+                    prevEdge.data?.customEdgeVROffset === undefined ? 
+                        0 + offset : 
+                        prevEdge.data?.customEdgeVROffset + offset
+            };
+        });
+    }
+
+    function onHRDragged(offset: number) {
+        onDraggedCommon();
+
+        updateEdgeData(id, (prevEdge) => {
+            return {
+                customEdgeHROffset: 
+                    prevEdge.data?.customEdgeHROffset === undefined ? 
+                        0 + offset : 
+                        prevEdge.data?.customEdgeHROffset + offset
+            };
+        });
+    }
+
+    const hlOffset = data?.customEdgeHLOffset !== undefined ? data.customEdgeHLOffset : 0;
+    const vlOffset = data?.customEdgeVLOffset !== undefined ? data.customEdgeVLOffset : 0;
+    const hcOffset = data?.customEdgeHCOffset !== undefined ? data.customEdgeHCOffset : 0;
+    const vrOffset = data?.customEdgeVROffset !== undefined ? data.customEdgeVROffset : 0;
+    const hrOffset = data?.customEdgeHROffset !== undefined ? data.customEdgeHROffset : 0;
 
     // generating the path
     const path = generateOrthogonalEdgePath(
@@ -293,8 +337,7 @@ const EditorCustomEdge = ({
                         direction={"horizontal"} 
                         x={sourceX + (vlOffset / 2)} 
                         y={sourceY + hlOffset} 
-                        onDrag={(_, newDY) => onDragged(-newDY / zoom, setHLOffset)}
-                        onFinishedDrag={onFinishedDragging}                  
+                        onDrag={(_, newDY) => onHLDragged(-newDY / zoom)}
                     />
                 }
                 <DragPoint 
@@ -302,24 +345,21 @@ const EditorCustomEdge = ({
                     direction={"vertical"} 
                     x={sourceX + vlOffset} 
                     y={getTopBottomPointsY(true)} 
-                    onDrag={(newDX) => onDragged(-(newDX / zoom), setVLOffset)}
-                    onFinishedDrag={onFinishedDragging}                   
+                    onDrag={(newDX) => onVLDragged(-(newDX / zoom))}                 
                 />
                 <DragPoint 
                     isSelected={selected} 
                     direction={"horizontal"} 
                     x={centerX + (vlOffset + vrOffset) / 2} 
                     y={centerY - hcOffset} 
-                    onDrag={(_, newDY) => onDragged(newDY / zoom, setHCOffset)}
-                    onFinishedDrag={onFinishedDragging}                  
+                    onDrag={(_, newDY) => onHCDragged(newDY / zoom)}
                 />
                 <DragPoint 
                     isSelected={selected} 
                     direction={"vertical"} 
                     x={targetX + vrOffset} 
                     y={getTopBottomPointsY(false)} 
-                    onDrag={(newDX) => onDragged(-(newDX / zoom), setVROffset)}
-                    onFinishedDrag={onFinishedDragging}     
+                    onDrag={(newDX) => onVRDragged(-(newDX / zoom))}
                 />
                 { 
                     vrOffset !== 0 &&
@@ -328,8 +368,7 @@ const EditorCustomEdge = ({
                         direction={"horizontal"} 
                         x={targetX + (vrOffset / 2)} 
                         y={targetY + hrOffset} 
-                        onDrag={(_, newDY) => onDragged(-newDY / zoom, setHROffset)} 
-                        onFinishedDrag={onFinishedDragging}                  
+                        onDrag={(_, newDY) => onHRDragged(-newDY / zoom)}              
                     />
                 }
             </EdgeLabelRenderer>
