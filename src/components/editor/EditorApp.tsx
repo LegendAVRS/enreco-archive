@@ -17,6 +17,9 @@ import { EditorMode, useEditorStore } from "@/store/editorStore";
 import EditorTeamsCard from "./EditorTeamsCard";
 import EditorRelationshipsCard from "./EditorRelationshipsCard";
 import { generateEdgeId } from "@/lib/editor-utils";
+import { Button } from "../ui/button";
+import { LucideArrowRightFromLine, LucideFolderOpen, LucideSave } from "lucide-react";
+import { saveData } from "@/lib/datahelper";
 
 const EMPTY_NODE: EditorImageNodeType = {
     id: "",
@@ -346,6 +349,21 @@ const EditorApp = () => {
                     >
                         <span className="text-md">Chapter Relationships</span>
                     </Toggle.Root>
+                </div>
+                <Toolbar.Separator className="mx-2.5 w-px bg-black" />
+                <div className="w-1/12 flex flex-col gap-y-2">
+                    <Button className="h-8 gap-2 bg-white text-black hover:text-white" onClick={() => saveData(data)}>
+                        <LucideSave />
+                        <span className="text-md">Save</span>
+                    </Button>
+                    <Button className="h-8 gap-2 bg-white text-black hover:text-white">
+                        <LucideFolderOpen />
+                        <span className="text-md">Load</span>
+                    </Button>
+                    <Button className="h-8 gap-2 bg-white text-black hover:text-white">
+                        <LucideArrowRightFromLine />
+                        <span className="text-md">Export</span>
+                    </Button>
                 </div>
                 <Toolbar.Separator className="mx-2.5 w-px bg-black" />
                 <div className="w-1/12 flex flex-col gap-y-0.5">
