@@ -73,7 +73,6 @@ export function EditorChart({
                 renderShowHandles: true
             },
         };
-        console.log(x, y, newNode);
         setNodes([...nodes, newNode]);
     }, [nodes, screenToFlowPosition, setNodes]);
 
