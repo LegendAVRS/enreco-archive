@@ -59,6 +59,8 @@ interface EditorSlice {
 
 interface EditorDataSlice {
     data: EditorChapter[];
+    setData: (newData: EditorChapter[]) => void;
+
     addChapter: () => void;
     insertChapter: (chapter: number) => void;
     deleteChapter: (chapter: number) => void;
@@ -139,6 +141,15 @@ function stateDayNotNull(state: EditorState) {
 const createEditorDataSlice: StateCreator<EditorState, [["zustand/immer", never]], [["zustand/immer", never]], EditorDataSlice> = 
     (set, get) => ({
         data: [],
+
+        setData: (newData: EditorChapter[]) => {
+            set((state) => {
+                state.data = newData;
+                state.chapter = newData.length ? 0 : null;
+                state.day = newData.length ? 0 : null;
+            })
+        },
+
         addChapter: () => 
             set((state) => {
                 state.data.push(createBlankChapter());

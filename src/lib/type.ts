@@ -15,6 +15,11 @@ export type SiteData = {
     chapters: Chapter[];
 };
 
+export type EditorSaveMetadata = {
+    version: number;
+    numChapters: number;
+}
+
 export type Chapter = {
     numberOfDays: number;
     title: string;
