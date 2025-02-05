@@ -19,7 +19,7 @@ import EditorRelationshipsCard from "./EditorRelationshipsCard";
 import { generateEdgeId } from "@/lib/editor-utils";
 import { Button } from "../ui/button";
 import { LucideArrowRightFromLine, LucideFolderOpen, LucideSave } from "lucide-react";
-import { saveData } from "@/lib/datahelper";
+import { loadData, saveData } from "@/lib/datahelper";
 
 const EMPTY_NODE: EditorImageNodeType = {
     id: "",
@@ -65,6 +65,7 @@ const EditorApp = () => {
         mode,
         setMode,
         data,
+        setData,
         chapter,
         setChapter,
         day,
@@ -356,7 +357,7 @@ const EditorApp = () => {
                         <LucideSave />
                         <span className="text-md">Save</span>
                     </Button>
-                    <Button className="h-8 gap-2 bg-white text-black hover:text-white">
+                    <Button className="h-8 gap-2 bg-white text-black hover:text-white" onClick={() => loadData(setData)}>
                         <LucideFolderOpen />
                         <span className="text-md">Load</span>
                     </Button>
