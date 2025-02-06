@@ -70,7 +70,7 @@ export async function loadData(setData: (newData: EditorChapter[]) => void) {
 
         const file = target.files[0];
 
-        if(file.type !== "application/zip") {
+        if(file.type !== "application/zip" && file.type !== "application/x-zip-compressed") {
             return;
         }
         
