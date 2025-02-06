@@ -93,11 +93,13 @@ export function EditorChart({
                 new: true,
                 path: "",
                 marker: false,
-                customEdgeHLOffset: 0,
-                customEdgeVLOffset: 0,
-                customEdgeHCOffset: 0,
-                customEdgeVROffset: 0,
-                customEdgeHROffset: 0
+                offsets: {
+                    HL: 0,
+                    VL: 0,
+                    HC: 0,
+                    VR: 0,
+                    HR: 0,
+                }
             }
         };
         

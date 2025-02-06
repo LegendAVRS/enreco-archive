@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { CustomEdgeProps, CustomEdgeType, EditorImageNodeType } from "@/lib/type";
 import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { generateOrthogonalEdgePath } from "@/lib/custom-edge-svg-path";
+import { produce } from "immer";
 
 //copied from reactflow lib - probably you can import this util directly from
 function getEdgeCenter({
@@ -172,12 +173,11 @@ const EditorCustomEdge = ({
         onDraggedCommon();
 
         updateEdgeData(id, (prevEdge) => {
-            return {
-                customEdgeHLOffset: 
-                    prevEdge.data?.customEdgeHLOffset === undefined ? 
-                        0 + offset : 
-                        prevEdge.data?.customEdgeHLOffset + offset
-            };
+            if(prevEdge.data === undefined) {
+                throw new Error(`${prevEdge} does not have a data object???`);
+            }
+
+            return produce(prevEdge.data, draft => { draft.offsets.HL += offset });
         });
     }
 
@@ -185,12 +185,11 @@ const EditorCustomEdge = ({
         onDraggedCommon();
 
         updateEdgeData(id, (prevEdge) => {
-            return {
-                customEdgeVLOffset: 
-                    prevEdge.data?.customEdgeVLOffset === undefined ? 
-                        0 + offset : 
-                        prevEdge.data?.customEdgeVLOffset + offset
-            };
+            if(prevEdge.data === undefined) {
+                throw new Error(`${prevEdge} does not have a data object???`);
+            }
+
+            return produce(prevEdge.data, draft => { draft.offsets.VL += offset });
         });
     }
 
@@ -198,12 +197,11 @@ const EditorCustomEdge = ({
         onDraggedCommon();
         
         updateEdgeData(id, (prevEdge) => {
-            return {
-                customEdgeHCOffset: 
-                    prevEdge.data?.customEdgeHCOffset === undefined ? 
-                        0 + offset : 
-                        prevEdge.data?.customEdgeHCOffset + offset
-            };
+            if(prevEdge.data === undefined) {
+                throw new Error(`${prevEdge} does not have a data object???`);
+            }
+
+            return produce(prevEdge.data, draft => { draft.offsets.HC += offset });
         });
     }
 
@@ -211,12 +209,11 @@ const EditorCustomEdge = ({
         onDraggedCommon();
     
         updateEdgeData(id, (prevEdge) => {
-            return {
-                customEdgeVROffset: 
-                    prevEdge.data?.customEdgeVROffset === undefined ? 
-                        0 + offset : 
-                        prevEdge.data?.customEdgeVROffset + offset
-            };
+            if(prevEdge.data === undefined) {
+                throw new Error(`${prevEdge} does not have a data object???`);
+            }
+
+            return produce(prevEdge.data, draft => { draft.offsets.VR += offset });
         });
     }
 
@@ -224,20 +221,21 @@ const EditorCustomEdge = ({
         onDraggedCommon();
 
         updateEdgeData(id, (prevEdge) => {
-            return {
-                customEdgeHROffset: 
-                    prevEdge.data?.customEdgeHROffset === undefined ? 
-                        0 + offset : 
-                        prevEdge.data?.customEdgeHROffset + offset
-            };
+            if(prevEdge.data === undefined) {
+                throw new Error(`${prevEdge} does not have a data object???`);
+            }
+
+            return produce(prevEdge.data, draft => { draft.offsets.HR += offset });
         });
     }
 
-    const hlOffset = data?.customEdgeHLOffset !== undefined ? data.customEdgeHLOffset : 0;
-    const vlOffset = data?.customEdgeVLOffset !== undefined ? data.customEdgeVLOffset : 0;
-    const hcOffset = data?.customEdgeHCOffset !== undefined ? data.customEdgeHCOffset : 0;
-    const vrOffset = data?.customEdgeVROffset !== undefined ? data.customEdgeVROffset : 0;
-    const hrOffset = data?.customEdgeHROffset !== undefined ? data.customEdgeHROffset : 0;
+    const { 
+        HL: hlOffset = 0, 
+        VL: vlOffset = 0, 
+        HC: hcOffset = 0, 
+        VR: vrOffset = 0, 
+        HR: hrOffset = 0 
+    } = data !== undefined ? data.offsets : {};
 
     // generating the path
     const path = generateOrthogonalEdgePath(

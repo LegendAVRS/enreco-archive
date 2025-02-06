@@ -91,6 +91,14 @@ export type ImageNodeData = CommonNodeData & {
     renderTeamImageSrc?: string;
 };
 
+type CustomEdgeOffsets = {
+    HL: number;
+    VL: number;
+    HC: number;
+    VR: number;
+    HR: number;
+};
+
 type CommonEdgeData = {
     relationshipId: string;
     title: string;
@@ -99,16 +107,10 @@ type CommonEdgeData = {
     path: string;
     marker: boolean;
     new: boolean;
+    offsets: CustomEdgeOffsets;
 }
 
-export type CustomEdgeData = CommonEdgeData & {
-    // The following properties are used in EditorCustomEdge.
-    customEdgeHLOffset?: number;
-    customEdgeVLOffset?: number;
-    customEdgeHCOffset?: number;
-    customEdgeVROffset?: number;
-    customEdgeHROffset?: number;
-};
+export type CustomEdgeData = CommonEdgeData & {};
 
 export type FixedEdgeData = CommonEdgeData & {
     // The following properties are used during the rendering of this edge,
