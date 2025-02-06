@@ -15,9 +15,16 @@ export type SiteData = {
     chapters: Chapter[];
 };
 
+export type Metadata = {
+    version: number;
+    numChapters: number;
+    exportDatetime: string;
+}
+
 export type EditorSaveMetadata = {
     version: number;
     numChapters: number;
+    saveDatetime: string;
 }
 
 export type Chapter = {
