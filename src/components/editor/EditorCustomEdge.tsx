@@ -165,8 +165,6 @@ const EditorCustomEdge = ({
     
     const { getZoom, setEdges, updateEdgeData } = useReactFlow<EditorImageNodeType, CustomEdgeType>();
 
-    const zoom = getZoom();
-
     function onDraggedCommon() {
         setEdges((prev) => {
             return prev.map((edge) =>
@@ -179,6 +177,8 @@ const EditorCustomEdge = ({
 
     function onHLDragged(offset: number) {
         onDraggedCommon();
+
+        offset /= getZoom();
 
         updateEdgeData(id, (prevEdge) => {
             if(prevEdge.data === undefined) {
@@ -198,6 +198,8 @@ const EditorCustomEdge = ({
     function onVLDragged(offset: number) {
         onDraggedCommon();
 
+        offset /= getZoom();
+
         updateEdgeData(id, (prevEdge) => {
             if(prevEdge.data === undefined) {
                 throw new Error(`${prevEdge} does not have a data object???`);
@@ -215,6 +217,8 @@ const EditorCustomEdge = ({
 
     function onHCDragged(offset: number) {
         onDraggedCommon();
+
+        offset /= getZoom();
         
         updateEdgeData(id, (prevEdge) => {
             if(prevEdge.data === undefined) {
@@ -222,10 +226,10 @@ const EditorCustomEdge = ({
             }
 
             return produce(prevEdge.data, draft => { 
-                draft.offsets = {
-                    ...EMPTY_OFFSETS,
-                    ...prevEdge.data?.offsets,
-                };
+                if(draft.offsets === undefined) {
+                    draft.offsets = EMPTY_OFFSETS;
+                }
+
                 draft.offsets.HC += offset;
             });
         });
@@ -233,6 +237,8 @@ const EditorCustomEdge = ({
 
     function onVRDragged(offset: number) {
         onDraggedCommon();
+
+        offset /= getZoom();
     
         updateEdgeData(id, (prevEdge) => {
             if(prevEdge.data === undefined) {
@@ -251,6 +257,8 @@ const EditorCustomEdge = ({
 
     function onHRDragged(offset: number) {
         onDraggedCommon();
+
+        offset /= getZoom();
 
         updateEdgeData(id, (prevEdge) => {
             if(prevEdge.data === undefined) {
@@ -275,6 +283,8 @@ const EditorCustomEdge = ({
         VR: vrOffset = 0, 
         HR: hrOffset = 0 
     } = offsets;
+
+    console.log(offsets);
 
     // generating the path
     const path = generateOrthogonalEdgePath(
@@ -324,7 +334,7 @@ const EditorCustomEdge = ({
                         direction={"horizontal"} 
                         x={sourceX + (vlOffset / 2)} 
                         y={sourceY + hlOffset} 
-                        onDrag={(_, newDY) => onHLDragged(-newDY / zoom)}
+                        onDrag={(_, newDY) => onHLDragged(-newDY)}
                     />
                 }
                 <DragPoint 
@@ -332,21 +342,21 @@ const EditorCustomEdge = ({
                     direction={"vertical"} 
                     x={sourceX + vlOffset} 
                     y={getTopBottomPointsY(true)} 
-                    onDrag={(newDX) => onVLDragged(-(newDX / zoom))}                 
+                    onDrag={(newDX) => onVLDragged(-newDX)}                 
                 />
                 <DragPoint 
                     isSelected={selected} 
                     direction={"horizontal"} 
                     x={centerX + (vlOffset + vrOffset) / 2} 
                     y={centerY - hcOffset} 
-                    onDrag={(_, newDY) => onHCDragged(newDY / zoom)}
+                    onDrag={(_, newDY) => onHCDragged(newDY)}
                 />
                 <DragPoint 
                     isSelected={selected} 
                     direction={"vertical"} 
                     x={targetX + vrOffset} 
                     y={getTopBottomPointsY(false)} 
-                    onDrag={(newDX) => onVRDragged(-(newDX / zoom))}
+                    onDrag={(newDX) => onVRDragged(-newDX)}
                 />
                 { 
                     vrOffset !== 0 &&
@@ -355,7 +365,7 @@ const EditorCustomEdge = ({
                         direction={"horizontal"} 
                         x={targetX + (vrOffset / 2)} 
                         y={targetY + hrOffset} 
-                        onDrag={(_, newDY) => onHRDragged(-newDY / zoom)}              
+                        onDrag={(_, newDY) => onHRDragged(-newDY)}              
                     />
                 }
             </EdgeLabelRenderer>
