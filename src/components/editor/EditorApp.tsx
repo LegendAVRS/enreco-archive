@@ -2,7 +2,7 @@
 
 import * as Toggle from "@radix-ui/react-toggle";
 import * as Toolbar from "@radix-ui/react-toolbar";
-import { useReactFlow, useStoreApi } from "@xyflow/react";
+import { useReactFlow } from "@xyflow/react";
 
 import { EditorChart } from "@/components/editor/EditorChart";
 import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
@@ -49,8 +49,8 @@ const EMPTY_EDGE: CustomEdgeType = {
         content: "",
         timestampUrl: "",
         new: true,
-        path: "",
         marker: false,
+        pathType: "invalid",
         offsets: {
             HL: 0,
             VL: 0,
@@ -98,8 +98,6 @@ const EditorApp = () => {
         setSelectedNode
     } = useEditorStore();
     useKeyboard();
-
-    const rfStore = useStoreApi<EditorImageNodeType, CustomEdgeType>();
     
     const numChapters = data.length;
     const numDays = chapter !== null && data ? data[chapter].numberOfDays : 0;
@@ -365,7 +363,7 @@ const EditorApp = () => {
                         <LucideFolderOpen />
                         <span className="text-md">Load</span>
                     </Button>
-                    <Button className="h-8 gap-2 bg-white text-black hover:text-white" onClick={() => exportData(data, rfStore.getState())}>
+                    <Button className="h-8 gap-2 bg-white text-black hover:text-white" onClick={() => exportData(data)}>
                         <LucideArrowRightFromLine />
                         <span className="text-md">Export</span>
                     </Button>

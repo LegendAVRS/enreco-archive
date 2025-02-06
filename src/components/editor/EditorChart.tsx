@@ -16,7 +16,6 @@ import EditorImageNode from "@/components/editor/EditorImageNode";
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
 import EditorSmoothEdge from "@/components/editor/EditorSmoothEdge";
 import EditorStraightEdge from "@/components/editor/EditorStraightEdge";
-import EditorFixedEdge from "@/components/editor/EditorFixedEdge";
 import { CustomEdgeType, CustomEdgeTypeNames, EditorImageNodeType } from "@/lib/type";
 import { MouseEventHandler, useCallback } from "react";
 import { generateEdgeId } from "@/lib/editor-utils";
@@ -28,8 +27,7 @@ const nodeTypes = {
 const edgeTypes = {
     custom: EditorCustomEdge,
     customSmooth: EditorSmoothEdge,
-    customStraight: EditorStraightEdge,
-    fixed: EditorFixedEdge,
+    customStraight: EditorStraightEdge
 };
 
 interface EditorChartProps {
@@ -77,6 +75,19 @@ export function EditorChart({
     }, [nodes, screenToFlowPosition, setNodes]);
 
     const connectEdge = useCallback((params: Connection) => {
+        const pathType = (() => {
+            switch(edgeType) {
+                case "custom":
+                    return "custom";
+                case "customSmooth":
+                    return "smoothstep";
+                case "customStraight":
+                    return "straight";
+                default:
+                    throw new Error(`Cannot find pathType for edgeType ${edgeType}`);
+            }
+        })();
+
         const newEdge: CustomEdgeType = {
             id: generateEdgeId(params.source, params.target, params.sourceHandle, params.targetHandle),
             source: params.source,
@@ -91,8 +102,8 @@ export function EditorChart({
                 content: "",
                 timestampUrl: "",
                 new: true,
-                path: "",
                 marker: false,
+                pathType: pathType,
                 offsets: {
                     HL: 0,
                     VL: 0,

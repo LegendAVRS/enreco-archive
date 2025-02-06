@@ -3,18 +3,13 @@
 import { 
     Chapter, 
     ChartData, 
-    CustomEdgeType, 
     EditorChapter, 
-    EditorImageNodeType, 
     EditorSaveMetadata, 
     FixedEdgeType, 
     ImageNodeType, 
     Metadata 
 } from "@/lib/type";
-import { generateOrthogonalEdgePath } from "@/lib/custom-edge-svg-path";
 
-import { getSmoothStepPath, ReactFlowState } from "@xyflow/react";
-import { getEdgePosition } from "@xyflow/system";
 import JSZip from "jszip";
 
 const SAVE_VERSION = 1;
@@ -105,7 +100,7 @@ export async function loadData(setData: (newData: EditorChapter[]) => void) {
     fileInput.click();
 }
 
-export async function exportData(editorChapters: EditorChapter[], rfStore: ReactFlowState<EditorImageNodeType, CustomEdgeType>) {
+export async function exportData(editorChapters: EditorChapter[]) {
     const exportData = editorChapters.map<Chapter>(editorChapter => {
         const chartData = editorChapter.charts.map<ChartData>(chart => {
             const nodes = chart.nodes.map(node => {
@@ -127,82 +122,6 @@ export async function exportData(editorChapters: EditorChapter[], rfStore: React
             });
 
             const edges = chart.edges.map(edge => {
-                // This code calculates the edge positions so we can pass it to the path generation functions.
-                // It is copied from React Flow internals and also uses the React Flow internal store.
-                // This code makes me very sad but is the least terrible way I can think of to do this.
-                const sourceNode = rfStore.nodeLookup.get(edge.source);
-                const targetNode = rfStore.nodeLookup.get(edge.target);
-
-                if(!sourceNode || !targetNode) {
-                    throw new Error("Invalid edge, missing either source or target!");
-                }
-
-                const onError = (id: string, message: string) => { throw new Error(`Failed to get position of edge ${id}: ${message}`); };
-
-                const edgePosData = getEdgePosition({
-                    id: edge.id,
-                    sourceNode: sourceNode,
-                    targetNode: targetNode,
-                    sourceHandle: edge.sourceHandle || null,
-                    targetHandle: edge.targetHandle || null,
-                    connectionMode: rfStore.connectionMode,
-                    onError: onError
-                });
-
-                if(edgePosData === null) {
-                    throw new Error("Failed to get edge positioning data");
-                }
-
-                const {
-                    sourceX,
-                    sourceY,
-                    targetX,
-                    targetY,
-                    sourcePosition,
-                    targetPosition,
-                } = edgePosData;
-
-                let path = "";
-                if(edge.type === "custom") {
-                    path = generateOrthogonalEdgePath(
-                        sourceX,
-                        sourceY,
-                        targetX,
-                        targetY,
-                        0,
-                        edge.data!.customEdgeHCOffset,
-                        edge.data!.customEdgeVROffset,
-                        edge.data!.customEdgeVLOffset,
-                        edge.data!.customEdgeHLOffset,
-                        edge.data!.customEdgeHROffset
-                    );
-                }
-                else if(edge.type === "customSmooth") {
-                    [path] = getSmoothStepPath({
-                        sourceX,
-                        sourceY,
-                        sourcePosition,
-                        targetX,
-                        targetY,
-                        targetPosition,
-                        borderRadius: 0,
-                    });
-                }
-                else if(edge.type === "customStraight") {
-                    [path] = getSmoothStepPath({
-                        sourceX,
-                        sourceY,
-                        sourcePosition,
-                        targetX,
-                        targetY,
-                        targetPosition,
-                        borderRadius: 0,
-                    });
-                }
-                else {
-                    throw new Error(`Don't know how to generate path for edge ${edge.id} with type ${edge.type}.`);
-                }
-
                 const resultEdge: FixedEdgeType = {
                     ...edge,
                     type: "fixed",
@@ -211,9 +130,10 @@ export async function exportData(editorChapters: EditorChapter[], rfStore: React
                         title: edge.data!.title,
                         content: edge.data!.content,
                         timestampUrl: edge.data!.timestampUrl,
-                        path: path,
+                        pathType: edge.data!.pathType,
                         marker: edge.data!.marker,
                         new: edge.data!.new,
+                        offsets: edge.data!.offsets
                     }
                 };
                 

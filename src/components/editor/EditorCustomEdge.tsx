@@ -1,7 +1,7 @@
 import { BaseEdge, EdgeLabelRenderer, useReactFlow } from "@xyflow/react";
 import { useEffect, useRef } from "react";
 
-import { CustomEdgeProps, CustomEdgeType, EditorImageNodeType } from "@/lib/type";
+import { CustomEdgeOffsets, CustomEdgeProps, CustomEdgeType, EditorImageNodeType } from "@/lib/type";
 import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { generateOrthogonalEdgePath } from "@/lib/custom-edge-svg-path";
 import { produce } from "immer";
@@ -124,6 +124,14 @@ function DragPoint({
     );
 }
 
+const EMPTY_OFFSETS: CustomEdgeOffsets = {
+    HL: 0,
+    VL: 0,
+    HC: 0,
+    VR: 0,
+    HR: 0
+};
+
 /*
 Anatomy of a custom edge
     
@@ -177,7 +185,13 @@ const EditorCustomEdge = ({
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { draft.offsets.HL += offset });
+            return produce(prevEdge.data, draft => { 
+                draft.offsets = {
+                    ...EMPTY_OFFSETS,
+                    ...prevEdge.data?.offsets,
+                };
+                draft.offsets.HL += offset;
+            });
         });
     }
 
@@ -189,7 +203,13 @@ const EditorCustomEdge = ({
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { draft.offsets.VL += offset });
+            return produce(prevEdge.data, draft => { 
+                draft.offsets = {
+                    ...EMPTY_OFFSETS,
+                    ...prevEdge.data?.offsets,
+                };
+                draft.offsets.VL += offset;
+            });
         });
     }
 
@@ -201,7 +221,13 @@ const EditorCustomEdge = ({
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { draft.offsets.HC += offset });
+            return produce(prevEdge.data, draft => { 
+                draft.offsets = {
+                    ...EMPTY_OFFSETS,
+                    ...prevEdge.data?.offsets,
+                };
+                draft.offsets.HC += offset;
+            });
         });
     }
 
@@ -213,7 +239,13 @@ const EditorCustomEdge = ({
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { draft.offsets.VR += offset });
+            return produce(prevEdge.data, draft => { 
+                draft.offsets = {
+                    ...EMPTY_OFFSETS,
+                    ...prevEdge.data?.offsets,
+                };
+                draft.offsets.VR += offset;
+            });
         });
     }
 
@@ -225,7 +257,13 @@ const EditorCustomEdge = ({
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { draft.offsets.HR += offset });
+            return produce(prevEdge.data, draft => { 
+                draft.offsets = {
+                    ...EMPTY_OFFSETS,
+                    ...prevEdge.data?.offsets,
+                };
+                draft.offsets.HR += offset;
+            });
         });
     }
 
@@ -235,7 +273,7 @@ const EditorCustomEdge = ({
         HC: hcOffset = 0, 
         VR: vrOffset = 0, 
         HR: hrOffset = 0 
-    } = data !== undefined ? data.offsets : {};
+    } = data !== undefined && data.offsets != undefined ? data.offsets : {};
 
     // generating the path
     const path = generateOrthogonalEdgePath(

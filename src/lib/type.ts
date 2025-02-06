@@ -91,7 +91,7 @@ export type ImageNodeData = CommonNodeData & {
     renderTeamImageSrc?: string;
 };
 
-type CustomEdgeOffsets = {
+export type CustomEdgeOffsets = {
     HL: number;
     VL: number;
     HC: number;
@@ -104,10 +104,10 @@ type CommonEdgeData = {
     title: string;
     content: string;
     timestampUrl: string;
-    path: string;
     marker: boolean;
     new: boolean;
-    offsets: CustomEdgeOffsets;
+    pathType: "invalid" | "custom" | "smoothstep" | "straight";
+    offsets?: CustomEdgeOffsets;
 }
 
 export type CustomEdgeData = CommonEdgeData & {};
