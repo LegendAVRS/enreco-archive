@@ -172,7 +172,7 @@ function ViewChart({
             return edge;
         }
         
-        edgeData.renderEdgeStyle = chapterData.relationships[edgeData.relationshipId].style || {};
+        edge.style = chapterData.relationships[edgeData.relationshipId].style || {};
         edgeData.renderIsHoveredEdge = edge.id === hoveredEdgeId;
 
         return edge;

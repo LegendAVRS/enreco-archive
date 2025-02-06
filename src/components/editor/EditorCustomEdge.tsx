@@ -144,9 +144,9 @@ const EditorCustomEdge = ({
     targetX,
     targetY,
     data,
-    selected
+    selected,
+    style,
 }: CustomEdgeProps) => {
-    const edgeStyle = data?.renderEdgeStyle || {};
     const { centerX, centerY, yOffset } = getEdgeCenter({
         sourceX,
         sourceY,
@@ -278,7 +278,7 @@ const EditorCustomEdge = ({
                 path={path}
                 style={{
                     strokeWidth: EDGE_WIDTH,
-                    ...edgeStyle,
+                    ...style,
                     opacity: isNew ? 1 : OLD_EDGE_OPACITY,
                 }}
                 className="z-10"

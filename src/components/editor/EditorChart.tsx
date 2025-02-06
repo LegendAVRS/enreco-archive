@@ -84,6 +84,7 @@ export function EditorChart({
             sourceHandle: params.sourceHandle,
             targetHandle: params.targetHandle,
             type: edgeType,
+            style: {},
             data: {
                 relationshipId: "",
                 title: "",
@@ -92,7 +93,6 @@ export function EditorChart({
                 new: true,
                 path: "",
                 marker: false,
-                renderEdgeStyle: {},
                 customEdgeHLOffset: 0,
                 customEdgeVLOffset: 0,
                 customEdgeHCOffset: 0,

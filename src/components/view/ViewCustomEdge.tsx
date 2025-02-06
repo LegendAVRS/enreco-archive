@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { BaseEdge } from "@xyflow/react";
 import { memo } from "react";
 
-const ViewCustomEdge = ({ data }: FixedEdgeProps) => {
+const ViewCustomEdge = ({ data, style }: FixedEdgeProps) => {
     const isNew = data?.new || false;
 
     return (
@@ -21,7 +21,7 @@ const ViewCustomEdge = ({ data }: FixedEdgeProps) => {
                         ? EDGE_WIDTH + 2
                         : EDGE_WIDTH,
                 opacity: isNew ? 1 : OLD_EDGE_OPACITY,
-                ...data?.renderEdgeStyle
+                ...style
             }}
             interactionWidth={0}
         />

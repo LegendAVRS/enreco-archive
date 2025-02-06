@@ -10,9 +10,9 @@ const EditorStraightEdge = ({
     targetX,
     targetY,
     data,
+    style
 }: CustomEdgeProps) => {
-    const edgeStyle = data?.renderEdgeStyle || {};
-    const strokeColor = edgeStyle?.stroke || "#000";
+    const strokeColor = style?.stroke || "#000";
 
     const isNew = data?.new || false;
     const [path] = getStraightPath({
@@ -44,7 +44,7 @@ const EditorStraightEdge = ({
                 path={path}
                 style={{
                     strokeWidth: EDGE_WIDTH,
-                    ...edgeStyle,
+                    ...style,
                     opacity: isNew ? 1 : 0.3,
                 }}
                 className="z-10"

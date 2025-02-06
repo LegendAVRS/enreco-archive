@@ -42,6 +42,7 @@ const EMPTY_EDGE: CustomEdgeType = {
     type: "custom",
     source: "",
     target: "",
+    style: {},
     data: {
         relationshipId: "",
         title: "",
@@ -50,7 +51,6 @@ const EMPTY_EDGE: CustomEdgeType = {
         new: true,
         path: "",
         marker: false,
-        renderEdgeStyle: {},
         customEdgeHLOffset: 0,
         customEdgeVLOffset: 0,
         customEdgeHCOffset: 0,
@@ -115,10 +115,10 @@ const EditorApp = () => {
     const edges = rawEdges.map(edge => {
         const newEdge = structuredClone(edge);
         if(newEdge.data && newEdge.data.relationshipId) {
-            newEdge.data.renderEdgeStyle = relationships[newEdge.data.relationshipId].style || {};
+            newEdge.style = relationships[newEdge.data.relationshipId].style || {};
         }
         else {
-            newEdge.data!.renderEdgeStyle = {};
+            newEdge.style = {};
         }
         return newEdge;
     });

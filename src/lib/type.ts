@@ -1,5 +1,4 @@
 import { Edge, EdgeProps, Node, NodeProps } from "@xyflow/react";
-import { CSSProperties } from "react";
 
 /* App Types */
 export type StringToBooleanObjectMap = { [key: string]: boolean };
@@ -109,16 +108,11 @@ export type CustomEdgeData = CommonEdgeData & {
     customEdgeHCOffset?: number;
     customEdgeVROffset?: number;
     customEdgeHROffset?: number;
-
-    // The following properties are used during the rendering of this edge,
-    // and should not be filled by the data source.
-    renderEdgeStyle?: CSSProperties;
 };
 
 export type FixedEdgeData = CommonEdgeData & {
     // The following properties are used during the rendering of this edge,
     // and should not be filled by the data source.
-    renderEdgeStyle?: CSSProperties;
     renderIsHoveredEdge?: boolean;
 }
 
