@@ -3,23 +3,23 @@
 import * as Toggle from "@radix-ui/react-toggle";
 import * as Toolbar from "@radix-ui/react-toolbar";
 import { useReactFlow } from "@xyflow/react";
+import { LucideArrowRightFromLine, LucideFolderOpen, LucideSave } from "lucide-react";
 
-import { EditorChart } from "@/components/editor/EditorChart";
+import EditorChart from "@/components/editor/EditorChart";
 import EdgeEditorCard from "@/components/editor/EditorEdgeCard";
 import EditorGeneralCard from "@/components/editor/EditorGeneralCard";
 import EditorNodeCard from "@/components/editor/EditorNodeCard";
-import { EditorTransportControls } from "@/components/editor/EditorTransportControls";
+import EditorRelationshipsCard from "@/components/editor/EditorRelationshipsCard";
+import EditorTeamsCard from "@/components/editor/EditorTeamsCard";
+import EditorTransportControls from "@/components/editor/EditorTransportControls";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useKeyboard from "@/hooks/useKeyboard";
+import { exportData, loadData, saveData } from "@/lib/datahelper";
+import { generateEdgeId } from "@/lib/editor-utils";
 import { CustomEdgeType, CustomEdgeTypeNames, EditorImageNodeType, RelationshipMap, TeamMap } from "@/lib/type";
 import { EditorMode, useEditorStore } from "@/store/editorStore";
-import EditorTeamsCard from "./EditorTeamsCard";
-import EditorRelationshipsCard from "./EditorRelationshipsCard";
-import { generateEdgeId } from "@/lib/editor-utils";
-import { Button } from "../ui/button";
-import { LucideArrowRightFromLine, LucideFolderOpen, LucideSave } from "lucide-react";
-import { exportData, loadData, saveData } from "@/lib/datahelper";
 
 const EMPTY_NODE: EditorImageNodeType = {
     id: "",

@@ -17,7 +17,7 @@ import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMob
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import ViewChart from "./components/view/ViewChart";
 import ViewSettingsModal from "./components/view/ViewSettingsModal";
-import { ViewTransportControls } from "./components/view/ViewTransportControls";
+import ViewTransportControls from "./components/view/ViewTransportControls";
 import { IconButton } from "./components/ui/IconButton";
 import { Dice6, Info, Settings } from "lucide-react";
 

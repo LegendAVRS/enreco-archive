@@ -38,7 +38,7 @@ interface EditorTransportControlsProps {
     onDayMove: (dayToMove: number, newPos: number) => void;
 }
 
-export function EditorTransportControls({
+export default function EditorTransportControls({
     className,
     chapter,
     chapters,

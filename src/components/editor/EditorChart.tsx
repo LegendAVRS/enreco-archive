@@ -42,7 +42,7 @@ interface EditorChartProps {
     setEdges: (edges: CustomEdgeType[]) => void;
 }
 
-export function EditorChart({
+export default function EditorChart({
     nodes,
     edges,
     areNodesDraggable,
