@@ -2,6 +2,8 @@ import {
     addEdge, 
     applyEdgeChanges, 
     applyNodeChanges, 
+    Background, 
+    BackgroundVariant, 
     Connection, 
     ConnectionLineType, 
     ConnectionMode, 
@@ -156,6 +158,8 @@ export default function EditorChart({
             connectionMode={ConnectionMode.Loose}
             connectionLineType={ConnectionLineType.SmoothStep}
             zoomOnDoubleClick={false}
-        />
+        >
+            <Background id="bg-axis" color="#dcdcdc" variant={BackgroundVariant.Cross} gap={25} />
+        </ReactFlow>
     );
 }
