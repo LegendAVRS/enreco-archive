@@ -1,7 +1,9 @@
 'use client';
 
+import { generatePath } from "@/lib/get-edge-svg-path";
 import { FixedEdgeType, ImageNodeType } from "@/lib/type";
-import { useReactFlow } from "@xyflow/react";
+import { useReactFlow, useStoreApi } from "@xyflow/react";
+import { getEdgePosition } from "@xyflow/system";
 import { isMobile } from "react-device-detect";
 
 // Get center point of svg path
@@ -24,15 +26,15 @@ export interface EdgeViewCenterArgs {
 }
 
 // Function to fit edge to view, returns all values required to plug into setCenter
-export function findCenterViewOfEdge (
+function findCenterViewOfEdge (
     nodeA: ImageNodeType,
     nodeB: ImageNodeType,
-    edge: FixedEdgeType,
-    isMobile: boolean
+    isMobile: boolean,
+    path: string
 ) : EdgeViewCenterArgs {
     const nodeAPosition = nodeA!.position;
     const nodeBPosition = nodeB!.position;
-    const centerEdge = getCenterPoint(edge.data?.path || "");
+    const centerEdge = getCenterPoint(path);
 
     // Offset for desktop, since there's a card on the right
     let offsetX = 0;
@@ -61,7 +63,7 @@ export function findCenterViewOfEdge (
 
     // Map the zoom factor to a value between minZoom and maxZoom
     let minZoom = 0.5;
-    let maxZoom = 1;
+    let maxZoom = 1.0;
 
     if (isMobile) {
         minZoom = 0.3;
@@ -83,17 +85,54 @@ export function findCenterViewOfEdge (
 };
 
 export function useReactFlowFitViewToEdge() {
-    const { getNode, setCenter } = useReactFlow<ImageNodeType, FixedEdgeType>();
+    const { setCenter } = useReactFlow<ImageNodeType, FixedEdgeType>();
+    const rfStore = useStoreApi<ImageNodeType, FixedEdgeType>();
 
     // Function to fit edge to view
     const fitViewToEdge = (nodeAID: string, nodeBID: string, edge: FixedEdgeType) => {
-        const nodeA = getNode(nodeAID);
-        const nodeB = getNode(nodeBID);
+        const nodeA = rfStore.getState().nodeLookup.get(nodeAID);
+        const nodeB = rfStore.getState().nodeLookup.get(nodeBID);
         if(!nodeA || !nodeB) {
             return;
         }
+
+        const edgePos = getEdgePosition({
+            id: edge.id,
+            sourceNode: nodeA,
+            targetNode: nodeB,
+            sourceHandle: edge.sourceHandle || null,
+            targetHandle: edge.targetHandle || null,
+            connectionMode: rfStore.getState().connectionMode,
+            onError: (id: string, message: string) => {
+                throw new Error(`Failed to get edge position for edge ${id}: ${message}`)
+            },
+        });
+
+        if(!edgePos) {
+            throw new Error("edge position is undefined");
+        }
+
+        const {
+            sourceX,
+            sourceY,
+            sourcePosition,
+            targetX,
+            targetY,
+            targetPosition
+        } = edgePos
+
+        const path = generatePath(
+            edge.data?.pathType, 
+            edge.data?.offsets, 
+            sourceX, 
+            sourceY, 
+            sourcePosition, 
+            targetX, 
+            targetY, 
+            targetPosition
+        );
         
-        const {centerPointX, centerPointY, duration, zoom} = findCenterViewOfEdge(nodeA, nodeB, edge, isMobile);
+        const {centerPointX, centerPointY, duration, zoom} = findCenterViewOfEdge(nodeA, nodeB, isMobile, path);
 
         // Pan to calculated center point
         (async () => (

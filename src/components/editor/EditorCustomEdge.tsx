@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 
 import { CustomEdgeOffsets, CustomEdgeProps, CustomEdgeType, EditorImageNodeType } from "@/lib/type";
 import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
-import { generateOrthogonalEdgePath } from "@/lib/custom-edge-svg-path";
+import { generateOrthogonalEdgePath } from "@/lib/get-edge-svg-path";
 import { produce } from "immer";
 
 //copied from reactflow lib - probably you can import this util directly from

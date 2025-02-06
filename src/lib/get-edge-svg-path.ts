@@ -1,4 +1,5 @@
 import { CustomEdgeOffsets } from "@/lib/type";
+import { getSmoothStepPath, getStraightPath, Position } from "@xyflow/react";
 
 // Function that generates the SVG path given start/end coords of the edges and all the offsets.
 export function generateOrthogonalEdgePath(
@@ -41,4 +42,58 @@ export function generateOrthogonalEdgePath(
     }
 
     return path.trim();
+}
+
+export function generatePath(
+    pathType: string | undefined, 
+    offsets: CustomEdgeOffsets | undefined, 
+    sourceX: number,
+    sourceY: number,
+    sourcePosition: Position | undefined,
+    targetX: number,
+    targetY: number,
+    targetPosition: Position | undefined
+) {
+    if(pathType === "custom") {
+        if(offsets === undefined) {
+            throw new Error("offsets is undefined!");
+        }
+
+        const path = generateOrthogonalEdgePath(
+            sourceX,
+            sourceY,
+            targetX,
+            targetY,
+            0,
+            offsets
+        );
+
+        return path;
+    }
+    else if(pathType === "smoothstep") {
+        const [path] = getSmoothStepPath({
+            sourceX,
+            sourceY,
+            sourcePosition,
+            targetX,
+            targetY,
+            targetPosition,
+            borderRadius: 0,
+        });
+
+        return path;
+    }
+    else if(pathType === "straight") {
+        const [path] = getStraightPath({
+            sourceX,
+            sourceY,
+            targetX,
+            targetY,
+        });
+
+        return path;
+    }
+    else {
+        throw new Error(`Unkwown pathType ${pathType}`);
+    }
 }
