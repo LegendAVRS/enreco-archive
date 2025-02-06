@@ -104,13 +104,13 @@ export function EditorChart({
                 new: true,
                 marker: false,
                 pathType: pathType,
-                offsets: {
+                offsets: pathType === "custom" ? {
                     HL: 0,
                     VL: 0,
                     HC: 0,
                     VR: 0,
                     HR: 0,
-                }
+                } : undefined
             }
         };
         
