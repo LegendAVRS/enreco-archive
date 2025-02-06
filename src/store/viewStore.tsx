@@ -29,6 +29,18 @@ interface ViewState {
     settingsModalOpen: boolean;
     setSettingsModalOpen: (isSettingsModalOpen: boolean) => void;
 
+    minigameModalOpen: boolean;
+    setMinigameModalOpen: (isMinigameModalOpen: boolean) => void;
+
+    videoModalOpen: boolean;
+    setVideoModalOpen: (isVideoModalOpen: boolean) => void;
+
+    askVideoModalOpen: boolean;
+    setAskVideoModalOpen: (isAskVideoModalOpen: boolean) => void;
+
+    videoUrl: string | null;
+    setVideoUrl: (currentVideoUrl: string | null) => void;
+
     hoveredEdgeId: string | null;
     setHoveredEdgeId: (hoveredEdgeId: string) => void;
 
@@ -65,10 +77,27 @@ export const useViewStore = create<ViewState>((set) => {
         }) => set(() => ({ characterVisibility })),
 
         infoModalOpen: false,
-        setInfoModalOpen: (isInfoModalOpen: boolean) => set(() => ({ infoModalOpen: isInfoModalOpen })),
+        setInfoModalOpen: (isInfoModalOpen: boolean) =>
+            set(() => ({ infoModalOpen: isInfoModalOpen })),
 
         settingsModalOpen: false,
-        setSettingsModalOpen: (isSettingsModalOpen: boolean) => set(() => ({settingsModalOpen: isSettingsModalOpen})),
+        setSettingsModalOpen: (isSettingsModalOpen: boolean) =>
+            set(() => ({ settingsModalOpen: isSettingsModalOpen })),
+
+        minigameModalOpen: false,
+        setMinigameModalOpen: (isMinigameModalOpen: boolean) =>
+            set(() => ({ minigameModalOpen: isMinigameModalOpen })),
+
+        videoModalOpen: false,
+        setVideoModalOpen: (isVideoModalOpen: boolean) =>
+            set(() => ({ videoModalOpen: isVideoModalOpen })),
+
+        askVideoModalOpen: false,
+        setAskVideoModalOpen: (isAskVideoModalOpen: boolean) =>
+            set(() => ({ askVideoModalOpen: isAskVideoModalOpen })),
+
+        videoUrl: null,
+        setVideoUrl: (videoUrl: string | null) => set(() => ({ videoUrl })),
 
         hoveredEdgeId: null,
         setHoveredEdgeId: (hoveredEdgeId: string) =>

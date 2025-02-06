@@ -13,13 +13,16 @@ import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
 import { CardType, useViewStore } from "@/store/viewStore";
 
-import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMobilePinchZoom";
-import { useBrowserHash } from "./hooks/useBrowserHash";
+import ViewAskVideoModal from "@/components/view/ViewAskVideoModal";
+import ViewMiniGameModal from "@/components/view/ViewMiniGameModal";
+import ViewVideoModal from "@/components/view/ViewVideoModal";
 import ViewChart from "./components/view/ViewChart";
 import ViewSettingsModal from "./components/view/ViewSettingsModal";
 import ViewTransportControls from "./components/view/ViewTransportControls";
 import { IconButton } from "./components/ui/IconButton";
 import { Dice6, Info, Settings } from "lucide-react";
+import { useBrowserHash } from "./hooks/useBrowserHash";
+import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMobilePinchZoom";
 
 function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     const parseOrZero = (value: string): number => {
@@ -45,31 +48,8 @@ interface Props {
 let didInit = false;
 const ViewApp = ({ siteData }: Props) => {
     /* State variables */
-    const {
-        currentCard,
-        setCurrentCard,
-        edgeVisibility,
-        setEdgeVisibility,
-        teamVisibility,
-        setTeamVisibility,
-        characterVisibility,
-        setCharacterVisibility,
-        infoModalOpen,
-        setInfoModalOpen,
-        settingsModalOpen,
-        setSettingsModalOpen,
-        chapter,
-        setChapter,
-        day,
-        setDay,
-        selectedEdge, 
-        setSelectedEdge, 
-        selectedNode, 
-        setSelectedNode
-    } = useViewStore();
+    const viewStore = useViewStore();
 
-    // TODO: might need to convert this to state once bgm is implemented
-    const [isBgmEnabled, setIsBgmEnabled] = useState(false);
     const [chartShrink, setChartShrink] = useState(0);
     const [fitViewOperation, setFitViewOperation] =
         useState<FitViewOperation>("none");
@@ -80,8 +60,8 @@ const ViewApp = ({ siteData }: Props) => {
     useDisabledDefaultMobilePinchZoom();
 
     /* Data variables */
-    const chapterData = siteData.chapters[chapter];
-    const dayData = chapterData.charts[day];
+    const chapterData = siteData.chapters[viewStore.chapter];
+    const dayData = chapterData.charts[viewStore.day];
     const nodes = dayData.nodes;
     const edges = dayData.edges;
 
@@ -91,7 +71,7 @@ const ViewApp = ({ siteData }: Props) => {
             newChapter < 0 ||
             newChapter > siteData.numberOfChapters ||
             newDay < 0 ||
-            newDay > siteData.chapters[chapter].numberOfDays
+            newDay > siteData.chapters[viewStore.chapter].numberOfDays
         ) {
             return;
         }
@@ -116,14 +96,16 @@ const ViewApp = ({ siteData }: Props) => {
             teamVisibilityLoaded[key] = true;
         });
 
-        newDayData.nodes.forEach((node) => characterVisibilityLoaded[node.id] = true);
+        newDayData.nodes.forEach(
+            (node) => (characterVisibilityLoaded[node.id] = true),
+        );
 
         onCurrentCardChange(null);
-        setEdgeVisibility(edgeVisibilityLoaded);
-        setTeamVisibility(teamVisibilityLoaded);
-        setCharacterVisibility(characterVisibilityLoaded);
-        setChapter(newChapter);
-        setDay(newDay);
+        viewStore.setEdgeVisibility(edgeVisibilityLoaded);
+        viewStore.setTeamVisibility(teamVisibilityLoaded);
+        viewStore.setCharacterVisibility(characterVisibilityLoaded);
+        viewStore.setChapter(newChapter);
+        viewStore.setDay(newDay);
         setBrowserHash(`${newChapter}/${newDay}`);
     }
 
@@ -154,23 +136,23 @@ const ViewApp = ({ siteData }: Props) => {
             setFitViewOperation("fit-to-edge");
         }
 
-        setCurrentCard(newCurrentCard);
+        viewStore.setCurrentCard(newCurrentCard);
     }
 
     function onNodeClick(node: ImageNodeType) {
         onCurrentCardChange("node");
-        setSelectedNode(node);
+        viewStore.setSelectedNode(node);
     }
 
     function onEdgeClick(edge: FixedEdgeType) {
         onCurrentCardChange("edge");
-        setSelectedEdge(edge);
+        viewStore.setSelectedEdge(edge);
     }
 
     function onPaneClick() {
         onCurrentCardChange(null);
-        setSelectedNode(null);
-        setSelectedEdge(null);
+        viewStore.setSelectedNode(null);
+        viewStore.setSelectedEdge(null);
     }
 
     /* Init block, runs only on first render/load. */
@@ -187,10 +169,16 @@ const ViewApp = ({ siteData }: Props) => {
         }
     }
 
-    const selectedNodeTeam = selectedNode && selectedNode.data.teamId ? 
-        chapterData.teams[selectedNode.data.teamId] : null;
-    const selectedEdgeRelationship = selectedEdge && selectedEdge.data?.relationshipId ? 
-        chapterData.relationships[selectedEdge.data?.relationshipId] : null;
+    const selectedNodeTeam =
+        viewStore.selectedNode && viewStore.selectedNode.data.teamId
+            ? chapterData.teams[viewStore.selectedNode.data.teamId]
+            : null;
+    const selectedEdgeRelationship =
+        viewStore.selectedEdge && viewStore.selectedEdge.data?.relationshipId
+            ? chapterData.relationships[
+                  viewStore.selectedEdge.data?.relationshipId
+              ]
+            : null;
 
     return (
         <>
@@ -198,14 +186,14 @@ const ViewApp = ({ siteData }: Props) => {
                 <ViewChart
                     nodes={nodes}
                     edges={edges}
-                    edgeVisibility={edgeVisibility}
-                    teamVisibility={teamVisibility}
-                    characterVisibility={characterVisibility}
+                    edgeVisibility={viewStore.edgeVisibility}
+                    teamVisibility={viewStore.teamVisibility}
+                    characterVisibility={viewStore.characterVisibility}
+                    selectedNode={viewStore.selectedNode}
+                    selectedEdge={viewStore.selectedEdge}
                     chapterData={chapterData}
-                    selectedNode={selectedNode}
-                    selectedEdge={selectedEdge}
                     widthToShrink={chartShrink}
-                    isCardOpen={currentCard !== null}
+                    isCardOpen={viewStore.currentCard !== null}
                     fitViewOperation={fitViewOperation}
                     onNodeClick={onNodeClick}
                     onEdgeClick={onEdgeClick}
@@ -221,48 +209,62 @@ const ViewApp = ({ siteData }: Props) => {
                     }}
                 />
                 <ViewSettingCard
-                    isCardOpen={currentCard === "setting"}
+                    isCardOpen={viewStore.currentCard === "setting"}
                     onCardClose={() => onCurrentCardChange(null)}
-                    chapterData={chapterData}
-                    day={day}
+                    day={viewStore.day}
                     dayData={dayData}
-                    edgeVisibility={edgeVisibility}
-                    onEdgeVisibilityChange={setEdgeVisibility}
-                    teamVisibility={teamVisibility}
-                    onTeamVisibilityChange={setTeamVisibility}
-                    characterVisibility={characterVisibility}
-                    onCharacterVisibilityChange={setCharacterVisibility}
+                    edgeVisibility={viewStore.edgeVisibility}
+                    onEdgeVisibilityChange={viewStore.setEdgeVisibility}
+                    teamVisibility={viewStore.teamVisibility}
+                    onTeamVisibilityChange={viewStore.setTeamVisibility}
+                    characterVisibility={viewStore.characterVisibility}
+                    onCharacterVisibilityChange={
+                        viewStore.setCharacterVisibility
+                    }
+                    chapterData={chapterData}
                 />
                 <ViewNodeCard
-                    isCardOpen={currentCard === "node"}
-                    selectedNode={selectedNode}
-                    nodeTeam={selectedNodeTeam}
+                    isCardOpen={viewStore.currentCard === "node"}
+                    selectedNode={viewStore.selectedNode}
                     onCardClose={() => onCurrentCardChange(null)}
                     onNodeLinkClicked={onNodeClick}
                     onEdgeLinkClicked={onEdgeClick}
+                    nodeTeam={selectedNodeTeam}
                 />
                 <ViewEdgeCard
-                    isCardOpen={currentCard === "edge"}
-                    selectedEdge={selectedEdge}
-                    edgeRelationship={selectedEdgeRelationship}
+                    isCardOpen={viewStore.currentCard === "edge"}
+                    selectedEdge={viewStore.selectedEdge}
                     onCardClose={() => onCurrentCardChange(null)}
                     onNodeLinkClicked={onNodeClick}
                     onEdgeLinkClicked={onEdgeClick}
+                    edgeRelationship={selectedEdgeRelationship}
                 />
             </div>
 
             <ViewInfoModal
-                open={infoModalOpen}
-                onOpenChange={setInfoModalOpen}
+                open={viewStore.infoModalOpen}
+                onOpenChange={viewStore.setInfoModalOpen}
             />
 
             <ViewSettingsModal
-                open={settingsModalOpen}
-                onOpenChange={setSettingsModalOpen}
-                bgmEnabled={isBgmEnabled}
-                onBgmEnabledChange={(newValue: boolean) =>
-                    setIsBgmEnabled(newValue)
-                }
+                open={viewStore.settingsModalOpen}
+                onOpenChange={viewStore.setSettingsModalOpen}
+            />
+
+            <ViewMiniGameModal
+                open={viewStore.minigameModalOpen}
+                onOpenChange={viewStore.setMinigameModalOpen}
+            />
+
+            <ViewVideoModal
+                open={viewStore.videoModalOpen}
+                onOpenChange={viewStore.setVideoModalOpen}
+                videoUrl={viewStore.videoUrl}
+            />
+
+            <ViewAskVideoModal
+                open={viewStore.askVideoModalOpen}
+                onOpenChange={viewStore.setAskVideoModalOpen}
             />
 
             <div className="fixed top-0 right-0 m-2 z-10 flex flex-col gap-2">
@@ -274,7 +276,9 @@ const ViewApp = ({ siteData }: Props) => {
                     tooltipSide="left"
                     onClick={() =>
                         onCurrentCardChange(
-                            currentCard === "setting" ? null : "setting"
+                            viewStore.currentCard === "setting"
+                                ? null
+                                : "setting",
                         )
                     }
                 >
@@ -290,7 +294,7 @@ const ViewApp = ({ siteData }: Props) => {
                     tooltipText="Info"
                     enabled={true}
                     tooltipSide="left"
-                    onClick={() => setInfoModalOpen(true)}
+                    onClick={() => viewStore.setInfoModalOpen(true)}
                 >
                     <Info />
                 </IconButton>
@@ -301,7 +305,7 @@ const ViewApp = ({ siteData }: Props) => {
                     tooltipText="Settings"
                     enabled={true}
                     tooltipSide="left"
-                    onClick={() => setSettingsModalOpen(true)}
+                    onClick={() => viewStore.setSettingsModalOpen(true)}
                 >
                     <Settings />
                 </IconButton>
@@ -312,7 +316,7 @@ const ViewApp = ({ siteData }: Props) => {
                     tooltipText="Minigames"
                     enabled={true}
                     tooltipSide="left"
-                    onClick={() => console.log("minigame button clicked")}
+                    onClick={() => viewStore.setMinigameModalOpen(true)}
                 >
                     <Dice6 />
                 </IconButton>
@@ -320,16 +324,18 @@ const ViewApp = ({ siteData }: Props) => {
 
             <div className="fixed inset-x-0 bottom-0 w-full md:w-4/5 2xl:w-2/5 mb-2 px-2 md:p-0 md:mx-auto">
                 <ViewTransportControls
-                    chapter={chapter}
+                    chapter={viewStore.chapter}
                     chapterData={chapterData}
-                    day={day}
+                    day={viewStore.day}
                     numberOfChapters={siteData.numberOfChapters}
                     numberOfDays={chapterData.numberOfDays}
-                    isCardOpen={currentCard !== null}
+                    isCardOpen={viewStore.currentCard !== null}
                     onChapterChange={(newChapter) =>
-                        updateData(newChapter, day)
+                        updateData(newChapter, viewStore.day)
                     }
-                    onDayChange={(newDay) => updateData(chapter, newDay)}
+                    onDayChange={(newDay) =>
+                        updateData(viewStore.chapter, newDay)
+                    }
                 />
             </div>
         </>

@@ -130,6 +130,18 @@ li {
     @apply mb-2;
 }
 
+figure {
+    @apply rounded-lg md:max-w-[80%] mx-auto;
+}
+
+lite-youtube {
+    @apply rounded-lg w-full aspect-video;
+}
+
+figcaption {
+    @apply text-center;
+}
+
 .deco {
     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23000"><path d="M0 0v100c250 0 375-24 500-48 125 24 250 48 500 48V0H0Z" opacity=".5"></path><path d="M0 0v4c250 0 375 24 500 48C625 28 750 4 1000 4V0H0Z"></path></svg>');
     background-repeat: no-repeat; /* Prevents repetition */
@@ -154,4 +166,38 @@ li {
     to {
         stroke-dashoffset: 0;
     }
+}
+
+/* Minigame stuff */
+.box {
+    @apply w-[50px] h-[50px] shadow-lg cursor-pointer;
+}
+
+.box-fixed-size {
+    width: 100px;
+    height: 100px;
+}
+
+.box-selected {
+    @apply border-4 p-4;
+}
+
+.box-empty {
+    @apply box bg-gray-200;
+}
+
+.box-blue {
+    @apply box bg-blue-500;
+}
+
+.box-red {
+    @apply box bg-red-500;
+}
+
+.box-green {
+    @apply box bg-green-500;
+}
+
+.box-yellow {
+    @apply box bg-yellow-500;
 }
