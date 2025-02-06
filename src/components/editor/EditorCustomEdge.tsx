@@ -267,13 +267,14 @@ const EditorCustomEdge = ({
         });
     }
 
+    const offsets = data !== undefined && data.offsets != undefined ? data.offsets : EMPTY_OFFSETS;
     const { 
         HL: hlOffset = 0, 
         VL: vlOffset = 0, 
         HC: hcOffset = 0, 
         VR: vrOffset = 0, 
         HR: hrOffset = 0 
-    } = data !== undefined && data.offsets != undefined ? data.offsets : {};
+    } = offsets;
 
     // generating the path
     const path = generateOrthogonalEdgePath(
@@ -282,11 +283,7 @@ const EditorCustomEdge = ({
         targetX,
         targetY,
         0,
-        hcOffset,
-        vrOffset,
-        vlOffset,
-        hlOffset,
-        hrOffset
+        offsets
     );
 
     const getTopBottomPointsY = (top: boolean) => {
