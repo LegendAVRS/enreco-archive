@@ -13,7 +13,7 @@ import clsx from "clsx";
 
 interface ViewTransportControlsProps {
     chapter: number;
-    chapterData: Chapter;
+    chapterData: Chapter[];
     day: number;
     numberOfChapters: number;
     numberOfDays: number;
@@ -64,11 +64,16 @@ export default function ViewTransportControls({
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent side={"top"}>
-                        {[...Array(numberOfChapters).keys()].map((index) => (
-                            <SelectItem key={index} value={index.toString()}>
-                                {chapterData.title || `Chapter ${index + 1}`}
-                            </SelectItem>
-                        ))}
+                        {Array.from(chapterData.entries()).map(
+                            ([index, chapter]) => (
+                                <SelectItem
+                                    key={`${index}-${chapter.title}`}
+                                    value={index.toString()}
+                                >
+                                    {chapter.title || `Chapter ${index + 1}`}
+                                </SelectItem>
+                            ),
+                        )}
                     </SelectContent>
                 </Select>
 

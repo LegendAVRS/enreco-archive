@@ -7,3 +7,4 @@ export const EDGE_WIDTH = 5;
 
 // Miscel stuff
 export const SCROLL_THRESHOLD = 0.0001;
+export const DEFAULT_NODE_IMAGE = "/default-node-image.png";

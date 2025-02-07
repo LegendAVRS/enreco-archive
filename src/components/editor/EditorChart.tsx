@@ -24,6 +24,7 @@ import {
     EditorImageNodeType,
 } from "@/lib/type";
 import { MouseEventHandler, useCallback } from "react";
+import { DEFAULT_NODE_IMAGE } from "@/lib/constants";
 import { generateEdgeId } from "@/lib/editor-utils";
 
 const nodeTypes = {
@@ -70,7 +71,7 @@ export default function EditorChart({
                 data: {
                     title: "",
                     content: "",
-                    imageSrc: "/default-node-image.png",
+                    imageSrc: DEFAULT_NODE_IMAGE,
                     teamId: "",
                     status: "",
                     new: true,

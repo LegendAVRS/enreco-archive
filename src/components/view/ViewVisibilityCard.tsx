@@ -41,7 +41,10 @@ const ViewVisibilityCard = ({
         <div className="flex flex-col gap-4 p-4 overflow-y-auto h-full">
             <span className="font-bold text-xl">Visibility toggles</span>
             <div className="flex flex-row justify-between items-center">
-                <span className="font-bold">Edge visibility</span>
+                <Label htmlFor="edge-all">
+                    <span className="font-bold">Edge visibility</span>
+                </Label>
+
                 <Checkbox
                     id="edge-all"
                     checked={Object.keys(edgeVisibility).every((key) => {
@@ -83,15 +86,15 @@ const ViewVisibilityCard = ({
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
-                    <div className="flex flex-row gap-2 items-center">
-                        {getLineSvg(chapterData.relationships[key].style)}
-                        <Label
-                            htmlFor={`edge-${key.toLowerCase()}`}
-                            className="capitalize"
-                        >
-                            {key.toLowerCase()}
-                        </Label>
-                    </div>
+                    <Label htmlFor={`edge-${key.toLowerCase()}`}>
+                        <div className="flex flex-row gap-2 items-center">
+                            {getLineSvg(chapterData.relationships[key].style)}
+                            <span className="capitalize">
+                                {key.toLowerCase()}
+                            </span>
+                        </div>
+                    </Label>
+
                     <Checkbox
                         id={`edge-${key.toLowerCase()}`}
                         checked={edgeVisibility[key]}
@@ -105,7 +108,10 @@ const ViewVisibilityCard = ({
                 </div>
             ))}
             <div className="flex flex-row justify-between items-center">
-                <span>Team toggles</span>
+                <Label htmlFor="team-all">
+                    <span className="font-bold">Team toggles</span>
+                </Label>
+
                 <Checkbox
                     id="team-all"
                     checked={Object.values(teamVisibility).every((v) => v)}
@@ -128,19 +134,19 @@ const ViewVisibilityCard = ({
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
-                    <div className="flex flex-row gap-2 items-center">
-                        <img
-                            src={chapterData.teams[key].teamIconSrc}
-                            className="w-8 h-8"
-                            alt={`${key} logo`}
-                        />
-                        <Label
-                            htmlFor={`team-${key.toLowerCase()}`}
-                            className="capitalize"
-                        >
-                            {key.toLowerCase()}
-                        </Label>
-                    </div>
+                    <Label htmlFor={`team-${key.toLowerCase()}`}>
+                        <div className="flex flex-row gap-2 items-center">
+                            <img
+                                src={chapterData.teams[key].teamIconSrc}
+                                className="w-8 h-8"
+                                alt={`${key} logo`}
+                            />
+                            <span className="capitalize">
+                                {key.toLowerCase()}
+                            </span>
+                        </div>
+                    </Label>
+
                     <Checkbox
                         id={`team-${key.toLowerCase()}`}
                         checked={teamVisibility[key]}
@@ -154,7 +160,10 @@ const ViewVisibilityCard = ({
                 </div>
             ))}
             <div className="flex flex-row justify-between items-center">
-                <span>Character toggles</span>
+                <Label htmlFor="character-all">
+                    <span className="font-bold">Character toggles</span>
+                </Label>
+
                 <Checkbox
                     id="character-all"
                     checked={Object.values(characterVisibility).every((v) => v)}
@@ -177,19 +186,17 @@ const ViewVisibilityCard = ({
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
-                    <div className="flex flex-row gap-2 items-center">
-                        <img
-                            src={characterImagesMap[key]}
-                            className="w-8 h-8"
-                            alt={`${key} logo`}
-                        />
-                        <Label
-                            htmlFor={`character-${key.toLowerCase()}`}
-                            className="capitalize"
-                        >
-                            {key}
-                        </Label>
-                    </div>
+                    <Label htmlFor={`character-${key.toLowerCase()}`}>
+                        <div className="flex flex-row gap-2 items-center">
+                            <img
+                                src={characterImagesMap[key]}
+                                className="w-8 h-8"
+                                alt={`${key} logo`}
+                            />
+                            <span className="capitalize">{key}</span>
+                        </div>
+                    </Label>
+
                     <Checkbox
                         id={`character-${key.toLowerCase()}`}
                         checked={characterVisibility[key]}

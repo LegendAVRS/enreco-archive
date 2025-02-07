@@ -53,6 +53,7 @@ const ViewApp = ({ siteData }: Props) => {
     const [chartShrink, setChartShrink] = useState(0);
     const [fitViewOperation, setFitViewOperation] =
         useState<FitViewOperation>("none");
+    const [doFitView, setDoFitView] = useState(true);
     const { browserHash, setBrowserHash } = useBrowserHash(onBrowserHashChange);
 
     // For disabling default pinch zoom on mobiles, as it conflict with the chart's zoom
@@ -137,6 +138,7 @@ const ViewApp = ({ siteData }: Props) => {
         }
 
         viewStore.setCurrentCard(newCurrentCard);
+        setDoFitView(!doFitView);
     }
 
     function onNodeClick(node: ImageNodeType) {
@@ -194,6 +196,7 @@ const ViewApp = ({ siteData }: Props) => {
                     chapterData={chapterData}
                     widthToShrink={chartShrink}
                     isCardOpen={viewStore.currentCard !== null}
+                    doFitView={doFitView}
                     fitViewOperation={fitViewOperation}
                     onNodeClick={onNodeClick}
                     onEdgeClick={onEdgeClick}
@@ -325,14 +328,16 @@ const ViewApp = ({ siteData }: Props) => {
             <div className="fixed inset-x-0 bottom-0 w-full md:w-4/5 2xl:w-2/5 mb-2 px-2 md:p-0 md:mx-auto">
                 <ViewTransportControls
                     chapter={viewStore.chapter}
-                    chapterData={chapterData}
+                    chapterData={siteData.chapters}
                     day={viewStore.day}
                     numberOfChapters={siteData.numberOfChapters}
                     numberOfDays={chapterData.numberOfDays}
                     isCardOpen={viewStore.currentCard !== null}
-                    onChapterChange={(newChapter) =>
-                        updateData(newChapter, viewStore.day)
-                    }
+                    onChapterChange={(newChapter) => {
+                        setFitViewOperation("fit-to-all");
+                        setDoFitView(!doFitView);
+                        updateData(newChapter, viewStore.day);
+                    }}
                     onDayChange={(newDay) =>
                         updateData(viewStore.chapter, newDay)
                     }
