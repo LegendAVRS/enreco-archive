@@ -26,32 +26,34 @@ interface EditorEdgeCard {
     onCardClose: () => void;
 }
 
-const EdgeEditorCard = ({ 
+const EdgeEditorCard = ({
     isVisible,
-    selectedEdge, 
-    relationships, 
-    updateEdge, 
-    deleteEdge, 
-    onCardClose 
+    selectedEdge,
+    relationships,
+    updateEdge,
+    deleteEdge,
+    onCardClose,
 }: EditorEdgeCard) => {
     const [workingEdge, setWorkingEdge] = useState(selectedEdge);
-    const [streamPreviewLink, setStreamPreviewLink] = useState(selectedEdge.data?.timestampUrl);
+    const [streamPreviewLink, setStreamPreviewLink] = useState(
+        selectedEdge.data?.timestampUrl,
+    );
 
     const handleSave = () => {
         updateEdge(selectedEdge, workingEdge);
     };
 
-    const setWorkingEdgeAttr = (updater: (draft: WritableDraft<CustomEdgeType>) => void) => {
-        setWorkingEdge(
-            produce(workingEdge, updater)
-        );
-    }
+    const setWorkingEdgeAttr = (
+        updater: (draft: WritableDraft<CustomEdgeType>) => void,
+    ) => {
+        setWorkingEdge(produce(workingEdge, updater));
+    };
 
     const onClose = () => {
         onCardClose();
-    }
+    };
 
-    if(!isVisible) {
+    if (!isVisible) {
         return;
     }
 
@@ -69,62 +71,110 @@ const EdgeEditorCard = ({
                 <Label className="text-right text-lg self-center">Id</Label>
                 <span className="text-md self-center">{workingEdge.id}</span>
 
-                <Label htmlFor="edge-relationship" className="text-right text-lg self-center">Relationship</Label>
+                <Label
+                    htmlFor="edge-relationship"
+                    className="text-right text-lg self-center"
+                >
+                    Relationship
+                </Label>
                 <Select
-                    value={ workingEdge.data?.relationshipId || selectedEdge.data?.relationshipId }
-                    onValueChange={(value) => setWorkingEdgeAttr(draft => {draft.data!.relationshipId = value})}
+                    value={
+                        workingEdge.data?.relationshipId ||
+                        selectedEdge.data?.relationshipId
+                    }
+                    onValueChange={(value) =>
+                        setWorkingEdgeAttr((draft) => {
+                            draft.data!.relationshipId = value;
+                        })
+                    }
                 >
                     <SelectTrigger id="edge-relationship">
                         <SelectValue
-                            placeholder={relationships[workingEdge.data!.relationshipId]?.name || "Select a relationship"}
+                            placeholder={
+                                relationships[workingEdge.data!.relationshipId]
+                                    ?.name || "Select a relationship"
+                            }
                         />
                     </SelectTrigger>
                     <SelectContent>
                         {Object.keys(relationships).map((key) => (
                             <SelectItem key={key} value={key}>
-                                { relationships[key].name }
+                                {relationships[key].name}
                             </SelectItem>
                         ))}
                     </SelectContent>
                 </Select>
-                
-                <Label htmlFor="edge-title" className="text-right text-lg self-center">Title</Label>
+
+                <Label
+                    htmlFor="edge-title"
+                    className="text-right text-lg self-center"
+                >
+                    Title
+                </Label>
                 <Input
                     id="edge-title"
                     type="text"
                     value={workingEdge.data!.title}
-                    onChange={(event) => setWorkingEdgeAttr(draft => {draft.data!.title = event.target.value})}
+                    onChange={(event) =>
+                        setWorkingEdgeAttr((draft) => {
+                            draft.data!.title = event.target.value;
+                        })
+                    }
                 />
 
                 <div className="flex flex-row gap-2 items-center col-start-2">
                     <Checkbox
                         id="marker"
                         checked={workingEdge.data?.new}
-                        onCheckedChange={(checked) => 
-                            checked === true ? 
-                            setWorkingEdgeAttr(draft => { draft.data!.new = true }) : 
-                            setWorkingEdgeAttr(draft => { draft.data!.new = false })
+                        onCheckedChange={(checked) =>
+                            checked === true
+                                ? setWorkingEdgeAttr((draft) => {
+                                      draft.data!.new = true;
+                                  })
+                                : setWorkingEdgeAttr((draft) => {
+                                      draft.data!.new = false;
+                                  })
                         }
                     />
-                    <Label htmlFor="marker" className="text-right text-lg self-center">New</Label>
+                    <Label
+                        htmlFor="marker"
+                        className="text-right text-lg self-center"
+                    >
+                        New
+                    </Label>
                 </div>
 
                 <hr className="col-span-2 my-0.5" />
-                
+
                 <div className="flex flex-col col-span-2">
-                    <Label htmlFor="edge-content" className="text-lg">Content</Label>
+                    <Label htmlFor="edge-content" className="text-lg">
+                        Content
+                    </Label>
                     <Textarea
                         id="edge-content"
                         value={workingEdge.data!.content}
-                        onChange={(event) => setWorkingEdgeAttr(draft => { draft.data!.content = event.target.value })}
+                        onChange={(event) =>
+                            setWorkingEdgeAttr((draft) => {
+                                draft.data!.content = event.target.value;
+                            })
+                        }
                     />
                 </div>
-                
-                <Label htmlFor="edge-stream-link" className="text-right text-lg self-center">Stream Link</Label>
+
+                <Label
+                    htmlFor="edge-stream-link"
+                    className="text-right text-lg self-center"
+                >
+                    Stream Link
+                </Label>
                 <Input
                     id="edge-stream-link"
                     value={workingEdge.data!.timestampUrl}
-                    onChange={(event) => setWorkingEdgeAttr(draft => { draft.data!.timestampUrl = event.target.value })}
+                    onChange={(event) =>
+                        setWorkingEdgeAttr((draft) => {
+                            draft.data!.timestampUrl = event.target.value;
+                        })
+                    }
                     onBlur={(event) => setStreamPreviewLink(event.target.value)}
                 />
                 <div className="col-span-2 h-48">

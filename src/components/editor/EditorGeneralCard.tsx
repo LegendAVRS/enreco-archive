@@ -15,7 +15,7 @@ interface FormElements extends HTMLFormControlsCollection {
 }
 
 interface GeneralFormElement extends HTMLFormElement {
-    readonly elements: FormElements
+    readonly elements: FormElements;
 }
 
 interface EditorGeneralCardProps {
@@ -31,13 +31,15 @@ const EditorGeneralCard = ({
     isVisible,
     chapterData,
     dayData,
-    onChapterTitleChange, 
+    onChapterTitleChange,
     onDayRecapChange,
-    onCardClose
+    onCardClose,
 }: EditorGeneralCardProps) => {
-    const [dayRecapMdData, setDayRecapMdData] = useState(dayData !== null ? dayData.dayRecap : "");
-    
-    if(!isVisible || chapterData === null) {
+    const [dayRecapMdData, setDayRecapMdData] = useState(
+        dayData !== null ? dayData.dayRecap : "",
+    );
+
+    if (!isVisible || chapterData === null) {
         return;
     }
 
@@ -45,12 +47,12 @@ const EditorGeneralCard = ({
         event.preventDefault();
 
         const newChTitle = event.currentTarget.elements.chapterTitle.value;
-        if(chapterData && newChTitle !== chapterData.title) {
+        if (chapterData && newChTitle !== chapterData.title) {
             onChapterTitleChange(newChTitle);
         }
 
         const newDayRecap = event.currentTarget.elements.dayRecap.value;
-        if(dayData && newDayRecap !== dayData.dayRecap) {
+        if (dayData && newDayRecap !== dayData.dayRecap) {
             onDayRecapChange(newDayRecap);
         }
     };
@@ -71,7 +73,9 @@ const EditorGeneralCard = ({
 
             <form onSubmit={submitHandler}>
                 <div className="my-2">
-                    <Label className="my-1" htmlFor="title">Title</Label>
+                    <Label className="my-1" htmlFor="title">
+                        Title
+                    </Label>
                     <Input
                         type="text"
                         id="title"
@@ -81,18 +85,26 @@ const EditorGeneralCard = ({
                 </div>
 
                 <div className={clsx("my-2", dayData === null && "hidden")}>
-                    <Label className="block my-1" htmlFor="dayRecap">Day Recap</Label>
+                    <Label className="block my-1" htmlFor="dayRecap">
+                        Day Recap
+                    </Label>
                     <MDEditor
                         id="dayRecap"
-                        textareaProps={{name: "dayRecap"}}
+                        textareaProps={{ name: "dayRecap" }}
                         value={dayRecapMdData}
-                        onChange={(value) => { if(value) { setDayRecapMdData(value) }}}
+                        onChange={(value) => {
+                            if (value) {
+                                setDayRecapMdData(value);
+                            }
+                        }}
                         preview="edit"
                     />
                 </div>
 
                 <div className="my-2 flex flex-row w-full justify-center">
-                    <Button className="w-2/4" type="submit">Save</Button>
+                    <Button className="w-2/4" type="submit">
+                        Save
+                    </Button>
                 </div>
             </form>
         </EditorCard>

@@ -1,13 +1,13 @@
 "use client";
 
-import { 
-    Chapter, 
-    ChartData, 
-    EditorChapter, 
-    EditorSaveMetadata, 
-    FixedEdgeType, 
-    ImageNodeType, 
-    Metadata 
+import {
+    Chapter,
+    ChartData,
+    EditorChapter,
+    EditorSaveMetadata,
+    FixedEdgeType,
+    ImageNodeType,
+    Metadata,
 } from "@/lib/type";
 
 import JSZip from "jszip";
@@ -23,7 +23,7 @@ export async function saveData(editorChapters: EditorChapter[]) {
     const zipFile = new JSZip();
     let chNum = 0;
 
-    for(const editorChapter of editorChapters) {
+    for (const editorChapter of editorChapters) {
         const chJson = JSON.stringify(editorChapter, null, 2);
         zipFile.file(getChapterFileName(chNum), utf8Encoder.encode(chJson));
         chNum++;
@@ -33,7 +33,7 @@ export async function saveData(editorChapters: EditorChapter[]) {
     const metadata: EditorSaveMetadata = {
         version: SAVE_VERSION,
         numChapters: chNum,
-        saveDatetime: saveDate
+        saveDatetime: saveDate,
     };
 
     const metadataJson = JSON.stringify(metadata, null, 2);
@@ -44,7 +44,10 @@ export async function saveData(editorChapters: EditorChapter[]) {
 
     const dlLink = document.createElement("a");
     dlLink.setAttribute("href", zipBlobUrl);
-    dlLink.setAttribute("download", `enreco-archive-editor-save-${saveDate}.zip`);
+    dlLink.setAttribute(
+        "download",
+        `enreco-archive-editor-save-${saveDate}.zip`,
+    );
     dlLink.style.display = "none";
 
     document.body.appendChild(dlLink);
@@ -56,39 +59,48 @@ export async function saveData(editorChapters: EditorChapter[]) {
 
 export async function loadData(setData: (newData: EditorChapter[]) => void) {
     const utf8Decoder = new TextDecoder("utf-8");
-    
+
     const fileInput = document.createElement("input");
     fileInput.setAttribute("type", "file");
     fileInput.setAttribute("accept", "application/zip");
 
     fileInput.addEventListener("change", async (event) => {
         const target = event.target as HTMLInputElement;
-        
-        if(!target.files) {
+
+        if (!target.files) {
             return;
         }
 
         const file = target.files[0];
 
-        if(file.type !== "application/zip" && file.type !== "application/x-zip-compressed") {
+        if (
+            file.type !== "application/zip" &&
+            file.type !== "application/x-zip-compressed"
+        ) {
             return;
         }
-        
+
         const zipData = await file.arrayBuffer();
         const zipFile = await JSZip.loadAsync(zipData);
-        
-        const metadataFile = zipFile.filter((_, file) => file.name === "metadata.json")[0];
-        const metadataData = await metadataFile.async("uint8array");
-        const metadata: EditorSaveMetadata = JSON.parse(utf8Decoder.decode(metadataData));
 
-        if(metadata.version !== SAVE_VERSION) {
+        const metadataFile = zipFile.filter(
+            (_, file) => file.name === "metadata.json",
+        )[0];
+        const metadataData = await metadataFile.async("uint8array");
+        const metadata: EditorSaveMetadata = JSON.parse(
+            utf8Decoder.decode(metadataData),
+        );
+
+        if (metadata.version !== SAVE_VERSION) {
             return;
         }
 
         const data = [];
-        for(let i = 0; i < metadata.numChapters; i++) {
+        for (let i = 0; i < metadata.numChapters; i++) {
             const chFileName = getChapterFileName(i);
-            const chFile = zipFile.filter((_, file) => file.name === chFileName)[0];
+            const chFile = zipFile.filter(
+                (_, file) => file.name === chFileName,
+            )[0];
             const chData = await chFile.async("uint8array");
             const ch: EditorChapter = JSON.parse(utf8Decoder.decode(chData));
             data.push(ch);
@@ -101,9 +113,9 @@ export async function loadData(setData: (newData: EditorChapter[]) => void) {
 }
 
 export async function exportData(editorChapters: EditorChapter[]) {
-    const exportData = editorChapters.map<Chapter>(editorChapter => {
-        const chartData = editorChapter.charts.map<ChartData>(chart => {
-            const nodes = chart.nodes.map(node => {
+    const exportData = editorChapters.map<Chapter>((editorChapter) => {
+        const chartData = editorChapter.charts.map<ChartData>((chart) => {
+            const nodes = chart.nodes.map((node) => {
                 const resultNode: ImageNodeType = {
                     ...node,
                     type: "image",
@@ -114,14 +126,14 @@ export async function exportData(editorChapters: EditorChapter[]) {
                         teamId: node.data.teamId,
                         status: node.data.status,
                         new: node.data.new,
-                        bgCardColor: node.data.bgCardColor
-                    }
+                        bgCardColor: node.data.bgCardColor,
+                    },
                 };
 
                 return resultNode;
             });
 
-            const edges = chart.edges.map(edge => {
+            const edges = chart.edges.map((edge) => {
                 const resultEdge: FixedEdgeType = {
                     ...edge,
                     type: "fixed",
@@ -133,10 +145,10 @@ export async function exportData(editorChapters: EditorChapter[]) {
                         pathType: edge.data!.pathType,
                         marker: edge.data!.marker,
                         new: edge.data!.new,
-                        offsets: edge.data!.offsets
-                    }
+                        offsets: edge.data!.offsets,
+                    },
                 };
-                
+
                 return resultEdge;
             });
 
@@ -144,12 +156,12 @@ export async function exportData(editorChapters: EditorChapter[]) {
                 dayRecap: chart.dayRecap,
                 title: chart.title,
                 nodes: nodes,
-                edges: edges
+                edges: edges,
             };
             return resultChart;
         });
-        
-        const resultChapter: Chapter =  {
+
+        const resultChapter: Chapter = {
             numberOfDays: editorChapter.numberOfDays,
             title: editorChapter.title,
             charts: chartData,
@@ -164,7 +176,7 @@ export async function exportData(editorChapters: EditorChapter[]) {
     const zipFile = new JSZip();
     let chNum = 0;
 
-    for(const chapter of exportData) {
+    for (const chapter of exportData) {
         const chJson = JSON.stringify(chapter, null, 2);
         zipFile.file(getChapterFileName(chNum), utf8Encoder.encode(chJson));
         chNum++;
@@ -174,7 +186,7 @@ export async function exportData(editorChapters: EditorChapter[]) {
     const metadata: Metadata = {
         version: SAVE_VERSION,
         numChapters: chNum,
-        exportDatetime: exportDate
+        exportDatetime: exportDate,
     };
 
     const metadataJson = JSON.stringify(metadata, null, 2);

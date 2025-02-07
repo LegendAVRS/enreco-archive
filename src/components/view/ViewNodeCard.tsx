@@ -15,23 +15,32 @@ interface Props {
     onCardClose: () => void;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
-};
+}
 
-const ViewNodeCard = ({ isCardOpen, selectedNode, nodeTeam, onCardClose, onNodeLinkClicked, onEdgeLinkClicked }: Props) => {
+const ViewNodeCard = ({
+    isCardOpen,
+    selectedNode,
+    nodeTeam,
+    onCardClose,
+    onNodeLinkClicked,
+    onEdgeLinkClicked,
+}: Props) => {
     function onDrawerOpenChange(newOpenState: boolean): void {
-        if(!newOpenState) {
+        if (!newOpenState) {
             onCardClose();
         }
     }
 
     // If this card is not meant to be open, return nothing.
-    if(!isCardOpen) {
+    if (!isCardOpen) {
         return;
     }
 
     // If selectedNode is null but the card is meant to be visible, throw Error.
-    if(!selectedNode || !nodeTeam) {
-        throw new Error("selectedNode or nodeTeam is null but the card is being shown!");
+    if (!selectedNode || !nodeTeam) {
+        throw new Error(
+            "selectedNode or nodeTeam is null but the card is being shown!",
+        );
     }
 
     return (
@@ -44,24 +53,28 @@ const ViewNodeCard = ({ isCardOpen, selectedNode, nodeTeam, onCardClose, onNodeL
                         {
                             "opacity-0 -z-10 invisible": !isCardOpen,
                             "opacity-1 z-10 visible": isCardOpen,
-                        }
+                        },
                     )}
                 >
                     <ViewNodeContent
                         onNodeLinkClicked={onNodeLinkClicked}
-                        onEdgeLinkClicked={onEdgeLinkClicked} 
-                        selectedNode={selectedNode} 
+                        onEdgeLinkClicked={onEdgeLinkClicked}
+                        selectedNode={selectedNode}
                         team={nodeTeam}
                     />
                 </ViewCard>
             </BrowserView>
             <MobileView>
-                <VaulDrawer open={true} onOpenChange={onDrawerOpenChange} disableScrollablity={false} >
+                <VaulDrawer
+                    open={true}
+                    onOpenChange={onDrawerOpenChange}
+                    disableScrollablity={false}
+                >
                     <div className="flex-col flex items-center gap-4 max-h-full">
                         <ViewNodeContent
                             onNodeLinkClicked={onNodeLinkClicked}
-                            onEdgeLinkClicked={onEdgeLinkClicked} 
-                            selectedNode={selectedNode} 
+                            onEdgeLinkClicked={onEdgeLinkClicked}
+                            selectedNode={selectedNode}
                             team={nodeTeam}
                         />
                     </div>

@@ -1,7 +1,19 @@
 "use client";
 
-import { Chapter, CustomEdgeType, FitViewOperation, FixedEdgeType, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
-import { ConnectionMode, FitViewOptions, ReactFlow, useReactFlow } from "@xyflow/react";
+import {
+    Chapter,
+    CustomEdgeType,
+    FitViewOperation,
+    FixedEdgeType,
+    ImageNodeType,
+    StringToBooleanObjectMap,
+} from "@/lib/type";
+import {
+    ConnectionMode,
+    FitViewOptions,
+    ReactFlow,
+    useReactFlow,
+} from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { isMobile } from "react-device-detect";
 
@@ -15,8 +27,9 @@ function findTopLeftNode(nodes: ImageNodeType[]) {
     let topLeftNode = nodes[0];
     for (const node of nodes) {
         if (
-            node.position.x < topLeftNode.position.x || 
-            (node.position.x === topLeftNode.position.x && node.position.y < topLeftNode.position.y)
+            node.position.x < topLeftNode.position.x ||
+            (node.position.x === topLeftNode.position.x &&
+                node.position.y < topLeftNode.position.y)
         ) {
             topLeftNode = node;
         }
@@ -28,8 +41,9 @@ function findBottomRightNode(nodes: ImageNodeType[]) {
     let bottomRightNode = nodes[0];
     for (const node of nodes) {
         if (
-            node.position.x > bottomRightNode.position.x || 
-            (node.position.x === bottomRightNode.position.x && node.position.y > bottomRightNode.position.y)
+            node.position.x > bottomRightNode.position.x ||
+            (node.position.x === bottomRightNode.position.x &&
+                node.position.y > bottomRightNode.position.y)
         ) {
             bottomRightNode = node;
         }
@@ -38,7 +52,7 @@ function findBottomRightNode(nodes: ImageNodeType[]) {
 }
 
 function getFlowRendererWidth(widthToShrink: number) {
-    return isMobile ? '100%' : `calc(100% - ${widthToShrink}px)`;
+    return isMobile ? "100%" : `calc(100% - ${widthToShrink}px)`;
 }
 
 const nodeTypes = {
@@ -89,97 +103,129 @@ function ViewChart({
     fitViewOperation,
     onNodeClick,
     onEdgeClick,
-    onPaneClick
+    onPaneClick,
 }: Props) {
-    const [ hoveredEdgeId, setHoveredEdgeId ] = useState<string | null>(null);
+    const [hoveredEdgeId, setHoveredEdgeId] = useState<string | null>(null);
     const topLeftNode = useMemo(() => findTopLeftNode(nodes), [nodes]);
     const bottomRightNode = useMemo(() => findBottomRightNode(nodes), [nodes]);
 
     const { fitView } = useReactFlow<ImageNodeType, CustomEdgeType>();
     const { fitViewToEdge } = useReactFlowFitViewToEdge();
     const prevFitViewOperation = usePreviousValue(fitViewOperation);
-    const prevSelectedNode = usePreviousValue<ImageNodeType | null>(selectedNode);
-    const prevSelectedEdge = usePreviousValue<FixedEdgeType | null>(selectedEdge);
+    const prevSelectedNode = usePreviousValue<ImageNodeType | null>(
+        selectedNode,
+    );
+    const prevSelectedEdge = usePreviousValue<FixedEdgeType | null>(
+        selectedEdge,
+    );
     const prevWidthToShrink = usePreviousValue(widthToShrink);
     const flowRendererSizer = useRef<HTMLDivElement>(null);
 
-    const fitViewAsync = useCallback(async (fitViewOptions?: FitViewOptions) => {
-        await fitView(fitViewOptions);
-    }, [fitView]);
+    const fitViewAsync = useCallback(
+        async (fitViewOptions?: FitViewOptions) => {
+            await fitView(fitViewOptions);
+        },
+        [fitView],
+    );
 
     const fitViewFunc = useCallback(() => {
-        if(selectedNode && fitViewOperation === "fit-to-node") {
+        if (selectedNode && fitViewOperation === "fit-to-node") {
             fitViewAsync({
                 nodes: [selectedNode],
                 duration: 1000,
                 maxZoom: 1.5,
             });
-        }
-        else if(selectedEdge && fitViewOperation === "fit-to-edge") {
-            fitViewToEdge(selectedEdge.source, selectedEdge.target, selectedEdge);
-        }
-        else if(fitViewOperation === "fit-to-all") {
+        } else if (selectedEdge && fitViewOperation === "fit-to-edge") {
+            fitViewToEdge(
+                selectedEdge.source,
+                selectedEdge.target,
+                selectedEdge,
+            );
+        } else if (fitViewOperation === "fit-to-all") {
             fitViewAsync({ padding: 0.5, duration: 1000 });
         }
-    }, [fitViewAsync, fitViewOperation, fitViewToEdge, selectedEdge, selectedNode]);
+    }, [
+        fitViewAsync,
+        fitViewOperation,
+        fitViewToEdge,
+        selectedEdge,
+        selectedNode,
+    ]);
 
     useEffect(() => {
-        if(widthToShrink !== prevWidthToShrink) {
-            if(flowRendererSizer.current) {
-                flowRendererSizer.current.style.width = getFlowRendererWidth(widthToShrink);
+        if (widthToShrink !== prevWidthToShrink) {
+            if (flowRendererSizer.current) {
+                flowRendererSizer.current.style.width =
+                    getFlowRendererWidth(widthToShrink);
             }
 
             // Need a slight delay to make sure the width is updated before fitting the view
             setTimeout(fitViewFunc, 50);
         }
-    }, [widthToShrink, prevWidthToShrink, fitViewFunc])
+    }, [widthToShrink, prevWidthToShrink, fitViewFunc]);
 
     // Filter and fill in render properties for nodes/edges before passing them to ReactFlow.
-    
-    const renderableNodes = nodes.filter(node => (
-        // Compute node visibility based on related edge and viewstore settings
-        teamVisibility[node.data.teamId || "null"] && characterVisibility[node.id]
-    )).map(node => {
-        // Set team icon image, if available.
-        if(node.data.teamId) {
-            node.data.renderTeamImageSrc = chapterData.teams[node.data.teamId].teamIconSrc || "";
-        }
-        else {
-            node.data.renderTeamImageSrc = "";
-        }
-        
-        return node;
-    });
 
-    const renderableEdges = edges.filter(edge => {
-        const nodeSrc = nodes.filter(node => node.id == edge.source)[0] as ImageNodeType;
-        const nodeTarget = nodes.filter(node => node.id == edge.target)[0] as ImageNodeType;
-        if(!nodeSrc || !nodeTarget) {
-            return false;
-        }
+    const renderableNodes = nodes
+        .filter(
+            (node) =>
+                // Compute node visibility based on related edge and viewstore settings
+                teamVisibility[node.data.teamId || "null"] &&
+                characterVisibility[node.id],
+        )
+        .map((node) => {
+            // Set team icon image, if available.
+            if (node.data.teamId) {
+                node.data.renderTeamImageSrc =
+                    chapterData.teams[node.data.teamId].teamIconSrc || "";
+            } else {
+                node.data.renderTeamImageSrc = "";
+            }
 
-        const edgeData = edge.data;
-        if(!edgeData) { return false; }
+            return node;
+        });
 
-        return edgeVisibility[edgeData.relationshipId] &&
-            teamVisibility[nodeSrc.data.teamId || "null"] &&
-            teamVisibility[nodeTarget.data.teamId || "null"] &&
-            characterVisibility[nodeSrc.id] && 
-            characterVisibility[nodeTarget.id];
-    }).map(edge => {
-        const edgeData = edge.data;
-        if(!edgeData) {
+    const renderableEdges = edges
+        .filter((edge) => {
+            const nodeSrc = nodes.filter(
+                (node) => node.id == edge.source,
+            )[0] as ImageNodeType;
+            const nodeTarget = nodes.filter(
+                (node) => node.id == edge.target,
+            )[0] as ImageNodeType;
+            if (!nodeSrc || !nodeTarget) {
+                return false;
+            }
+
+            const edgeData = edge.data;
+            if (!edgeData) {
+                return false;
+            }
+
+            return (
+                edgeVisibility[edgeData.relationshipId] &&
+                teamVisibility[nodeSrc.data.teamId || "null"] &&
+                teamVisibility[nodeTarget.data.teamId || "null"] &&
+                characterVisibility[nodeSrc.id] &&
+                characterVisibility[nodeTarget.id]
+            );
+        })
+        .map((edge) => {
+            const edgeData = edge.data;
+            if (!edgeData) {
+                return edge;
+            }
+
+            edge.style =
+                chapterData.relationships[edgeData.relationshipId].style || {};
+            edgeData.renderIsHoveredEdge = edge.id === hoveredEdgeId;
+
             return edge;
-        }
-        
-        edge.style = chapterData.relationships[edgeData.relationshipId].style || {};
-        edgeData.renderIsHoveredEdge = edge.id === hoveredEdgeId;
+        });
 
-        return edge;
-    });
-
-    if(prevFitViewOperation !== fitViewOperation || 
-        selectedNode !== prevSelectedNode || 
+    if (
+        prevFitViewOperation !== fitViewOperation ||
+        selectedNode !== prevSelectedNode ||
         selectedEdge !== prevSelectedEdge
     ) {
         fitViewFunc();
@@ -187,7 +233,7 @@ function ViewChart({
 
     return (
         <div ref={flowRendererSizer} className="w-full h-full">
-            <ReactFlow 
+            <ReactFlow
                 connectionMode={ConnectionMode.Loose}
                 nodes={renderableNodes}
                 edges={renderableEdges}
@@ -209,7 +255,7 @@ function ViewChart({
                 minZoom={minZoom}
                 zoomOnDoubleClick={false}
                 onPaneClick={() => {
-                    if(isCardOpen) {
+                    if (isCardOpen) {
                         fitViewAsync({ padding: 0.5, duration: 1000 });
                     }
                     onPaneClick();

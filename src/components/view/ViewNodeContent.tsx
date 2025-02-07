@@ -5,7 +5,11 @@ import { ImageNodeType, Team } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { EdgeLinkClickHandler, NodeLinkClickHandler, ViewMarkdown } from "./ViewMarkdown";
+import {
+    EdgeLinkClickHandler,
+    NodeLinkClickHandler,
+    ViewMarkdown,
+} from "./ViewMarkdown";
 
 interface ViewNodeContentProps {
     selectedNode: ImageNodeType;
@@ -14,7 +18,12 @@ interface ViewNodeContentProps {
     onEdgeLinkClicked: EdgeLinkClickHandler;
 }
 
-const ViewNodeContent = ({ selectedNode, team, onNodeLinkClicked, onEdgeLinkClicked }: ViewNodeContentProps) => {
+const ViewNodeContent = ({
+    selectedNode,
+    team,
+    onNodeLinkClicked,
+    onEdgeLinkClicked,
+}: ViewNodeContentProps) => {
     const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility
 
     const characterImageRef = useRef<HTMLImageElement>(null);
@@ -29,7 +38,7 @@ const ViewNodeContent = ({ selectedNode, team, onNodeLinkClicked, onEdgeLinkClic
         }
     };
 
-    if(!selectedNode) {
+    if (!selectedNode) {
         return;
     }
 
@@ -38,7 +47,7 @@ const ViewNodeContent = ({ selectedNode, team, onNodeLinkClicked, onEdgeLinkClic
             {/* Header */}
             <div
                 className={cn(
-                    "flex flex-col items-center transition-all duration-300 "
+                    "flex flex-col items-center transition-all duration-300 ",
                 )}
                 style={{
                     opacity: isHeaderVisible ? 1 : 0,
@@ -83,7 +92,10 @@ const ViewNodeContent = ({ selectedNode, team, onNodeLinkClicked, onEdgeLinkClic
                 className="overflow-auto mt-2 pb-20"
                 onScroll={handleScroll} // Track scroll position
             >
-                <ViewMarkdown onEdgeLinkClicked={onEdgeLinkClicked} onNodeLinkClicked={onNodeLinkClicked} >
+                <ViewMarkdown
+                    onEdgeLinkClicked={onEdgeLinkClicked}
+                    onNodeLinkClicked={onNodeLinkClicked}
+                >
                     {selectedNode?.data.content || "No content available"}
                 </ViewMarkdown>
             </div>

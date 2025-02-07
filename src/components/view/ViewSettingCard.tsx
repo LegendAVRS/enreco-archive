@@ -14,20 +14,26 @@ interface Props {
     day: number;
     dayData: ChartData;
     edgeVisibility: StringToBooleanObjectMap;
-    onEdgeVisibilityChange: (newEdgeVisibility: StringToBooleanObjectMap) => void;
+    onEdgeVisibilityChange: (
+        newEdgeVisibility: StringToBooleanObjectMap,
+    ) => void;
     teamVisibility: StringToBooleanObjectMap;
-    onTeamVisibilityChange: (newTeamVisibility: StringToBooleanObjectMap) => void; 
+    onTeamVisibilityChange: (
+        newTeamVisibility: StringToBooleanObjectMap,
+    ) => void;
     characterVisibility: { [key: string]: boolean };
-    onCharacterVisibilityChange: (newCharacterVisibility: StringToBooleanObjectMap) => void;
+    onCharacterVisibilityChange: (
+        newCharacterVisibility: StringToBooleanObjectMap,
+    ) => void;
 }
 
-const ViewSettingCard = ({ 
-    isCardOpen, 
+const ViewSettingCard = ({
+    isCardOpen,
     onCardClose,
-    chapterData, 
-    day, 
-    dayData, 
-    edgeVisibility, 
+    chapterData,
+    day,
+    dayData,
+    edgeVisibility,
     onEdgeVisibilityChange,
     teamVisibility,
     onTeamVisibilityChange,
@@ -35,12 +41,12 @@ const ViewSettingCard = ({
     onCharacterVisibilityChange,
 }: Props) => {
     function onDrawerOpenChange(newOpenState: boolean): void {
-        if(!newOpenState) {
+        if (!newOpenState) {
             onCardClose();
         }
     }
 
-    if(!isCardOpen) {
+    if (!isCardOpen) {
         return;
     }
 
@@ -60,22 +66,23 @@ const ViewSettingCard = ({
                     >
                         <TabsList className="grid w-full grid-cols-2">
                             <TabsTrigger value="general">Day Recap</TabsTrigger>
-                            <TabsTrigger value="visibility">Chart Visibility</TabsTrigger>
+                            <TabsTrigger value="visibility">
+                                Chart Visibility
+                            </TabsTrigger>
                         </TabsList>
                         <TabsContent value="general" className="h-full">
-                            <ViewRecapCard 
-                                day={day}
-                                dayData={dayData}
-                            />
+                            <ViewRecapCard day={day} dayData={dayData} />
                         </TabsContent>
                         <TabsContent value="visibility" className="h-full">
-                            <ViewVisibilityCard 
+                            <ViewVisibilityCard
                                 edgeVisibility={edgeVisibility}
                                 onEdgeVisibilityChange={onEdgeVisibilityChange}
                                 teamVisibility={teamVisibility}
                                 onTeamVisibilityChange={onTeamVisibilityChange}
                                 characterVisibility={characterVisibility}
-                                onCharacterVisibilityChange={onCharacterVisibilityChange}
+                                onCharacterVisibilityChange={
+                                    onCharacterVisibilityChange
+                                }
                                 chapterData={chapterData}
                                 nodes={dayData.nodes}
                             />
@@ -98,22 +105,21 @@ const ViewSettingCard = ({
                             value="general"
                             className="h-[80vh] pb-[10vh]"
                         >
-                            <ViewRecapCard 
-                                day={day}
-                                dayData={dayData}
-                            />
+                            <ViewRecapCard day={day} dayData={dayData} />
                         </TabsContent>
                         <TabsContent
                             value="visibility"
                             className="h-[80vh] pb-[10vh]"
                         >
-                            <ViewVisibilityCard 
+                            <ViewVisibilityCard
                                 edgeVisibility={edgeVisibility}
                                 onEdgeVisibilityChange={onEdgeVisibilityChange}
                                 teamVisibility={teamVisibility}
                                 onTeamVisibilityChange={onTeamVisibilityChange}
                                 characterVisibility={characterVisibility}
-                                onCharacterVisibilityChange={onCharacterVisibilityChange}
+                                onCharacterVisibilityChange={
+                                    onCharacterVisibilityChange
+                                }
                                 chapterData={chapterData}
                                 nodes={dayData.nodes}
                             />

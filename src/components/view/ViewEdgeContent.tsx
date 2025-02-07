@@ -4,7 +4,11 @@ import { FixedEdgeType, ImageNodeType, Relationship } from "@/lib/type";
 import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
 import { useRef, useState, useEffect } from "react";
 import { SCROLL_THRESHOLD } from "@/lib/constants";
-import { EdgeLinkClickHandler, NodeLinkClickHandler, ViewMarkdown } from "./ViewMarkdown";
+import {
+    EdgeLinkClickHandler,
+    NodeLinkClickHandler,
+    ViewMarkdown,
+} from "./ViewMarkdown";
 
 interface ViewEdgeContentProps {
     selectedEdge: FixedEdgeType;
@@ -21,12 +25,12 @@ const ViewEdgeContent = ({
     nodeA,
     nodeB,
     onNodeLinkClicked,
-    onEdgeLinkClicked
+    onEdgeLinkClicked,
 }: ViewEdgeContentProps) => {
     const edgeStyle = edgeRelationship.style;
     const backgroundColor = getLighterOrDarkerColor(
         edgeStyle?.stroke || "",
-        30
+        30,
     );
 
     const contentRef = useRef<HTMLDivElement>(null); // Ref for scrollable content
@@ -89,7 +93,7 @@ const ViewEdgeContent = ({
                     <span className="">
                         Relationship:{" "}
                         <span className="underline underline-offset-2">
-                            { edgeRelationship.name }
+                            {edgeRelationship.name}
                         </span>
                     </span>
                 </div>
@@ -102,7 +106,10 @@ const ViewEdgeContent = ({
                 className="overflow-auto mt-2 pb-20"
                 onScroll={handleScroll} // Track scroll position
             >
-                <ViewMarkdown onEdgeLinkClicked={onEdgeLinkClicked} onNodeLinkClicked={onNodeLinkClicked}>
+                <ViewMarkdown
+                    onEdgeLinkClicked={onEdgeLinkClicked}
+                    onNodeLinkClicked={onNodeLinkClicked}
+                >
                     {selectedEdge.data?.content || "No content available"}
                 </ViewMarkdown>
             </div>

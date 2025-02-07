@@ -11,29 +11,38 @@ import { EdgeLinkClickHandler, NodeLinkClickHandler } from "./ViewMarkdown";
 interface Props {
     isCardOpen: boolean;
     selectedEdge: FixedEdgeType | null;
-    edgeRelationship: Relationship | null; 
+    edgeRelationship: Relationship | null;
     onCardClose: () => void;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
-};
+}
 
-const ViewEdgeCard = ({ isCardOpen, selectedEdge, edgeRelationship, onCardClose, onEdgeLinkClicked, onNodeLinkClicked }: Props) => {
+const ViewEdgeCard = ({
+    isCardOpen,
+    selectedEdge,
+    edgeRelationship,
+    onCardClose,
+    onEdgeLinkClicked,
+    onNodeLinkClicked,
+}: Props) => {
     const { getNode } = useReactFlow();
 
     function onDrawerOpenChange(newOpenState: boolean): void {
-        if(!newOpenState) {
+        if (!newOpenState) {
             onCardClose();
         }
     }
 
     // If this card is not meant to be open, return nothing.
-    if(!isCardOpen) {
+    if (!isCardOpen) {
         return;
     }
 
     // If selectedEdge is null but the card is meant to be visible, throw Error.
-    if(!selectedEdge || !edgeRelationship) {
-        throw new Error("selectedEdge or edgeRelationship is null but the card is being shown!");
+    if (!selectedEdge || !edgeRelationship) {
+        throw new Error(
+            "selectedEdge or edgeRelationship is null but the card is being shown!",
+        );
     }
 
     // An edge always has a source and target node, which explains the !

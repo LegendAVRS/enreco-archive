@@ -6,9 +6,9 @@ const ViewInfoGuide = () => {
                 <div className="mb-2">
                     Welcome to{" "}
                     <span className="font-semibold">ENReco Archive!</span> A
-                    fan-made project created with the goal to recollect, archive all
-                    the events that transpired in Hololive English's long running
-                    project Enigmatic Recollection.
+                    fan-made project created with the goal to recollect, archive
+                    all the events that transpired in Hololive English's long
+                    running project Enigmatic Recollection.
                 </div>
                 <div className="font-semibold text-xl">How to use</div>
                 <div className="mt-2 space-y-2">

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useEffect } from "react";
 
 export function useDisabledDefaultMobilePinchZoom() {
@@ -8,7 +8,7 @@ export function useDisabledDefaultMobilePinchZoom() {
             (e) => {
                 e.preventDefault();
             },
-            { passive: false }
+            { passive: false },
         );
 
         document.addEventListener(
@@ -16,7 +16,7 @@ export function useDisabledDefaultMobilePinchZoom() {
             (e) => {
                 e.preventDefault();
             },
-            { passive: false }
+            { passive: false },
         );
 
         document.addEventListener(
@@ -24,7 +24,7 @@ export function useDisabledDefaultMobilePinchZoom() {
             (e) => {
                 e.preventDefault();
             },
-            { passive: false }
+            { passive: false },
         );
     }, []);
 }

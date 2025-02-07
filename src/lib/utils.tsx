@@ -25,7 +25,7 @@ export function getLighterOrDarkerColor(color: string, percent: number) {
 }
 
 export const extractImageSrcFromNodes = (
-    nodes: ImageNodeType[]
+    nodes: ImageNodeType[],
 ): { [key: string]: string } => {
     return nodes.reduce((acc: { [key: string]: string }, node) => {
         if (node.data.title) {

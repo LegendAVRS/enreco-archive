@@ -11,7 +11,7 @@ const EditorSmoothEdge = ({
     sourcePosition,
     targetPosition,
     data,
-    style
+    style,
 }: CustomEdgeProps) => {
     const strokeColor = style?.stroke || "#000";
 

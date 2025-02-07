@@ -23,7 +23,7 @@ const ViewGamblingGame = () => {
         const initialValueBoard = Array(boardSize).fill("box-empty");
         const initialPositionBoard = Array.from(
             { length: boardSize },
-            (_, i) => i
+            (_, i) => i,
         );
 
         // A map a tuple to a value
@@ -42,7 +42,7 @@ const ViewGamblingGame = () => {
                 curCol,
                 curRow,
                 sideLength - curCol - 1,
-                sideLength - curRow - 1
+                sideLength - curRow - 1,
             );
             initialValueBoard[i] = indexColorMap[currentVal];
         }
@@ -82,7 +82,7 @@ const ViewGamblingGame = () => {
 
                 setPositionBoard((prevPositionBoard) => {
                     const newPositionBoard = prevPositionBoard.filter(
-                        (position) => !randomPositions.includes(position)
+                        (position) => !randomPositions.includes(position),
                     );
                     return newPositionBoard;
                 });
@@ -95,7 +95,7 @@ const ViewGamblingGame = () => {
         } else if (currentRoll > 4) {
             // Calculate the winning amount
             const winningColor = valueBoard.find(
-                (value) => value !== "box-empty"
+                (value) => value !== "box-empty",
             );
             if (winningColor === chosenColor) {
                 const winningMutiplier =

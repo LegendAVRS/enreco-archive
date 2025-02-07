@@ -43,7 +43,7 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                             checked={settingStore.bgmEnabled}
                             onCheckedChange={() =>
                                 settingStore.setBgmEnabled(
-                                    !settingStore.bgmEnabled
+                                    !settingStore.bgmEnabled,
                                 )
                             }
                         />
@@ -56,7 +56,7 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                         <Select
                             onValueChange={(value) =>
                                 settingStore.setTimestampOption(
-                                    value as TimestampOption
+                                    value as TimestampOption,
                                 )
                             }
                         >

@@ -21,7 +21,7 @@ export function IconButton({
     className,
     tooltipSide = "top",
     onClick,
-    children
+    children,
 }: IconButtonProps) {
     return (
         <Tooltip.Provider delayDuration={500}>
@@ -29,14 +29,15 @@ export function IconButton({
                 <Tooltip.Trigger asChild>
                     <Button
                         id={id}
-                        className={clsx("h-8 w-8 aspect-square rounded-full p-2", className)}
+                        className={clsx(
+                            "h-8 w-8 aspect-square rounded-full p-2",
+                            className,
+                        )}
                         variant="outline"
                         disabled={!enabled}
                         onClick={() => onClick()}
                     >
-                        <div className="h-fit w-fit m-auto">
-                            {children}
-                        </div>
+                        <div className="h-fit w-fit m-auto">{children}</div>
                     </Button>
                 </Tooltip.Trigger>
                 <Tooltip.Portal>

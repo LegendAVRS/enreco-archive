@@ -9,14 +9,9 @@ const data: SiteData = {
     version: 1,
     numberOfChapters: siteMeta.numChapters,
     event: "Test Data V2",
-    chapters: [
-        chapter1 as Chapter,
-        chapter2 as Chapter
-    ]
-}
+    chapters: [chapter1 as Chapter, chapter2 as Chapter],
+};
 
 export function ViewAppWrapper() {
-    return (
-        <ViewApp siteData={data} />
-    )
+    return <ViewApp siteData={data} />;
 }
