@@ -297,9 +297,7 @@ const EditorCustomEdge = ({
         VR: vrOffset = 0,
         HR: hrOffset = 0,
     } = offsets;
-
-    console.log(offsets);
-
+    
     // generating the path
     const path = generateOrthogonalEdgePath(
         sourceX,
