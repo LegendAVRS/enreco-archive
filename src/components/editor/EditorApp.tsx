@@ -26,6 +26,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import useKeyboard from "@/hooks/useKeyboard";
+import { DEFAULT_NODE_IMAGE } from "@/lib/constants";
 import { exportData, loadData, saveData } from "@/lib/datahelper";
 import { generateEdgeId } from "@/lib/editor-utils";
 import {
@@ -44,7 +45,7 @@ const EMPTY_NODE: EditorImageNodeType = {
     data: {
         title: "",
         content: "",
-        imageSrc: "/default-node-image.png",
+        imageSrc: DEFAULT_NODE_IMAGE,
         teamId: "",
         status: "",
         new: true,

@@ -1,6 +1,7 @@
 import { ImageNodeType } from "@/lib/type";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { DEFAULT_NODE_IMAGE } from "@/lib/constants";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -28,9 +29,7 @@ export const extractImageSrcFromNodes = (
     nodes: ImageNodeType[],
 ): { [key: string]: string } => {
     return nodes.reduce((acc: { [key: string]: string }, node) => {
-        if (node.data.title) {
-            acc[node.data.title] = node.data.imageSrc as string;
-        }
+        acc[node.id] = node.data.imageSrc || DEFAULT_NODE_IMAGE;
         return acc;
     }, {});
 };

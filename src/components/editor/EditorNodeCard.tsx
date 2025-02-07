@@ -10,6 +10,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { DEFAULT_NODE_IMAGE } from "@/lib/constants";
 import { EditorImageNodeType, TeamMap } from "@/lib/type";
 
 import { CheckedState } from "@radix-ui/react-checkbox";
@@ -62,7 +63,7 @@ export default function EditorNodeCard({
     const [autoGenIdFromTitle, setAutoGenIdFromTitle] = useState(true);
     const [workingNode, setWorkingNode] = useState(selectedNode);
     const [imgPreviewLink, setImgPreviewLink] = useState(
-        selectedNode.data.imageSrc || "/default-node-image.png",
+        selectedNode.data.imageSrc || DEFAULT_NODE_IMAGE,
     );
     const [extractedColors, setExtractedColors] = useState<string[]>([]);
 
