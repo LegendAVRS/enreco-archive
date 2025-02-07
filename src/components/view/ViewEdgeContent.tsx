@@ -103,7 +103,7 @@ const ViewEdgeContent = ({
             {/* Content */}
             <div
                 ref={contentRef} // Add ref to the scrollable container
-                className="overflow-auto mt-2 pb-20"
+                className="overflow-auto mt-2"
                 onScroll={handleScroll} // Track scroll position
             >
                 <ViewMarkdown

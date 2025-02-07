@@ -55,7 +55,7 @@ const ViewCustomEdge = ({
                 opacity: isNew ? 1 : OLD_EDGE_OPACITY,
                 ...style,
             }}
-            interactionWidth={0}
+            interactionWidth={20}
         />
     );
 };
