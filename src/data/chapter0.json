@@ -1,0 +1,706 @@
+{
+  "numberOfDays": 1,
+  "title": "The Beginning",
+  "charts": [
+    {
+      "dayRecap": "## Day 1: Welcome to Libestal\n\nAnd so the journey begins. Summoned to the fantastical **Kingdom of Lisbestal** by its King, 19 heroes, each with their uniquie quirks, are tasked with a vital mission: to combat the looming threat known as The Stains. Yet, this new reality is not without its complications. Each of them, stripped of their memories, awoke with no recollection of their past lives, leaving them to navigate this strange world as strangers even to themselves.\n<br>\n\n\nChaos and confusion ruled the day, which was to be expected. The girls were divided into four distinct guilds, each representing a unique philosophy:\n\n- **Jade Sword**: The beacon of the righteous and loyal, where great threats are faced with even greater courage  \n- **Cerulean Cup**: The sanctum of healing, where the spirit of empathy and devotion thrives.\n- **Amber Coin**: The home for glory-seekers with ambition and vision, where closest allies become fiercest rivals.\n- **Scarlet Wand**: The haven for the curious, where knowledge and creativity are valued above all.\n<br>\n\n[The four guild masters](#image:https://cdn.holoen.fans/hefw/media/guildmasters.png)\n<br>\n\nTasked and trusted by the king, the heroes set out to acclimate to their new world. They learned about its intricate systems, including forming parties, using telepathic devices for communication, undertaking quests to earn coins, and more. Central to their roles were the unique weapons bestowed upon them. Each weapon possessed a special ability, or **Revelation** tied exclusively to its wielder—a power as mysterious as it was significant. \n<br>\n\n\nThe day's primary mission led them to the **Underworld Dungeon**, a foreboding place tied to the essence of death. Success in conquering the dungeon promised a reward of profound value: the restoration of fragments of their lost memories.\n<br>\n\n[The girls attempting the Underworld Dungeon](#image:https://cdn.holoen.fans/hefw/media/underworld-dungeon.png)\n<br>\n\nHowever, this was far from the day's only story. The heroes summoned by the king proved to be anything but ordinary. Beyond the main quest, countless shenanigans unfolded, along with budding relationships and unexpected narratives. For every grand objective, there were personal moments of humor, mischief, and discovery.",
+      "title": "",
+      "nodes": [
+        {
+          "id": "fuwawa-abyssguard",
+          "type": "image",
+          "position": {
+            "x": 475,
+            "y": 300
+          },
+          "data": {
+            "title": "Fuwawa Abyssguard",
+            "content": "A soft, timid *“Bau bau”* escaped from **Fuwawa** as she woke up in the white box. Everything was unfamiliar, and like someone who seemed oddly familiar to her—Mococo Abyssguard—Fuwawa was completely lost and confused. \n<br>\n\nAs she moved around, sniffing those around her, she couldn’t shake the feeling that Nerissa was [trouble](https://www.youtube.com/live/3s_pVYBEax0?feature=shared&t=572), much like Mococo had sensed. When talking to Raora, Fuwawa introduced herself as a [demon dog](https://www.youtube.com/live/3s_pVYBEax0?feature=shared&t=871), though her gentle demeanor and iconic “Ehehehe” giggle made it hard to imagine anything demonic about her. She radiated warmth, more fluffy than fearsome.\n<br>\n\n\nDuring the battle with the *Stain King*, Fuwawa revealed her weapon: a pair of [sharp blue claws](https://www.youtube.com/live/3s_pVYBEax0?feature=shared&t=3181). When she activated their *Revelation*, a whirlwind of slashes tore through the enemy. After the battle, she was sorted into the **Jade Sword** [guild](https://www.youtube.com/live/3s_pVYBEax0?feature=shared&t=3471), ready to begin her journey.\n<br>\n\n\nFuwawa’s adventure in the kingdom was off to a calm start. She explored the new world, took on quests, and, like always, found herself adorably [confused](https://www.youtube.com/live/3s_pVYBEax0?feature=shared&t=4981) most of the time. But that was part of her charm, and everyone around her found it endearing. Oddly, Mococo’s voice would occasionally echo around Fuwawa, even when Mococo wasn’t nearby, as if the two were in the [same room](https://www.youtube.com/live/3s_pVYBEax0?feature=shared&t=4778). \n<br>\n\nTo avoid further confusion when filling out tasks, Fuwawa tried her best to stay focus when reading the requirements. She was so focused that she completely ignored the Hot Pink One's attempt to greet her.\n<br>\n\n[Fuwawa completely ignoring the Hot Pink One](#embed:https://www.youtube.com/live/3s_pVYBEax0?t=5438)\n<br>\n\n\nLater, Fuwawa joined forces with Nerissa, Bijou, Mococo, and Raora to tackle the Underworld Dungeon. The conquest, though chaotic, ended successfully with the group recovering memories of Mori Calliope. Afterward, Fuwawa spent time with the group before calling it a day.\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Fuwawa-Abyssgard_list_thumb.png",
+            "teamId": "jade-sword",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#67b2ff"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "mococo-abyssguard",
+          "type": "image",
+          "position": {
+            "x": 700,
+            "y": 300
+          },
+          "data": {
+            "title": "Mococo Abyssguard",
+            "content": "**Mococo** woke up in a strange white room, completely confuzzled and [on edge](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=540). Everyone around her seemed suspicious, but Nerissa especially set off her alarms—something about her just felt like [bad news](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=587). \n<br>\n\nBacked into a corner and overwhelmed, she let out a series of nervous “Haeh” sounds, her usual response when she doesn’t know what’s going on. Thankfully, the tension eased as she got to know the others. They were weird but friendly. She also ocasionally let out \"Bau Bau\" as a way to express her emotions.   \n<br>\n\n\nDuring the battle with the *Stain King*, Mococo didn’t have the best start—being the [first to fall](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=3153). She didn’t stay down long, though, and that’s when her true weapon made its debut: a pair of [sharp pink claws](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=3184). When their *Revelation* activated, Mococo unleashed a wild flurry of slashes, her movements filled with raw fury. After the battle, she found herself sorted into the **Jade Sword** [guild](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=3462).\n<br>\n\n\nHer first encounter in the guild was with *Fuwawa Abyssguard*, who looked so similar it was almost [uncanny](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=3549). \n<br>\n\nJust when Mococo thought she’d gotten over her initial fear of this new world, a different fear crept in: loneliness. When checking out the Jade Sword arena, she wandered off alone and, realizing she was left behind, began to panic. Luckily, her guildmates found her in time and promised they’d always stick by her (see [Elizabeth-Mococo: By your side](#edge:mococo-abyssguard-elizabeth-rose-bloodflame-left-3-right-2)). \n<br>\n\n\nWith her fears calmed, Mococo dove into learning about this strange world. She lit up with joy when she figured out how to ride a [horse](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=4345) and couldn’t stop laughing as she repeatedly destroyed a berry bush for [fun](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=6611). Though she was often confused, it didn’t stop her from having a blast.\n\n<br>\n\n\nLater, Mococo teamed up with *Bijou, Nerissa, Fuwawa, and Raora* to tackle the **Underworld Dungeon**. Let’s just say it was chaos—filled with shrieks and yelps, mostly from [Mococo and Fuwawa](https://www.youtube.com/live/ASF0b50sKM0?feature=shared&t=2143). Despite her best efforts to be brave, she looked more like a frightened pup than a fierce guard dog.\n<br>\n\n\nThrough many screams, screeches, and the many times falling into their doom, the five of them did manage to conquer the dungeon, and recovered memories of **[Mori Calliope](https://www.youtube.com/live/ASF0b50sKM0?feature=shared&t=3463)**. She hung out with the four girls for a bit afterwards, getting very frusrated when she got [lost](https://www.youtube.com/live/ASF0b50sKM0?feature=shared&t=3688), got escorted by *Mysterious Hero I* to the [shore](https://www.youtube.com/live/ASF0b50sKM0?feature=shared&t=4152), and finally dedcided to call it a day. \n<br>\n\n\nIt was a day full of confusion and excitement for Mococo. Her pure, innocent nature made her stand out, and everyone appreciated her for it. Hopefully, she’d stay that way—untouched by greed or temptation, especially when things like, say, a lottery came into play.",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Mococo-Abyssgard_list_thumb.png",
+            "teamId": "jade-sword",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#f7a6ca"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "elizabeth-rose-bloodflame",
+          "type": "image",
+          "position": {
+            "x": 475,
+            "y": 500
+          },
+          "data": {
+            "title": "Elizabeth Rose Bloodflame",
+            "content": "Elizabeth Rose Bloodflame, once the mighty queen of the Bloodflame Kingdom, awoke in the fantastical kingdom of Libestal with no memory of her past life. Confusion was inevitable, but within her burned an unyielding fire—a deep sense of justice and a natural instinct to protect the weak. It was no surprise, then, that she was placed in the [Jade Sword](https://www.youtube.com/live/2qiX7084obE?si=wjA60_hrPgwaKHhO&t=3519), the guild known as the beacon of righteousness and loyalty.\n<br>\n\n\nElizabeth wielded a massive claymore named Thorn, its fiery scarlet hue reflecting her unbreakable spirit. The sheer size of the blade made Shakira feel a tad self-conscious about her own [weapon](https://www.youtube.com/live/2qiX7084obE?si=C9BFKwM0cwgfjdSw&t=3987), but Elizabeth, ever the knight, reassured her that size didn’t matter—it’s how you wield it. She was, after all, a symbol of knighthood: diligent, kind, and beloved by all. Or so it should have been.   \n<br>\n\n\nReality painted a different picture. Instead of a tale of a noble knight, Elizabeth's first day became a comedy of errors. She was run over by [horses](https://www.youtube.com/live/2qiX7084obE?si=9E-oTwiGMR2lsnub&t=8617), got [lost](https://www.youtube.com/live/2qiX7084obE?si=uOp34AwQFe8CymWf&t=8087) repeatedly (even while searching for her own guild), left by her lonesome after everyone promised her a [duel](https://www.youtube.com/live/2qiX7084obE?si=7bnMESvqaIYNGCRN&t=8624), and was teased endlessly for being mistaken as a member of [Amber Coin](https://www.youtube.com/live/2qiX7084obE?si=yttis-Jdo0fiakRM&t=7205). The cherry on top? She was branded a harlot simply for hushing the gums of the Hot Pink One, albeit it was with no consent (see Elizabeth-Tam: Red and Blue). During all this, her internal [\"music\"](https://www.youtube.com/live/2qiX7084obE?si=aFtzqtqD04vkkJTW&t=8848) seemed to change with the situation, as if her life were a melodramatic play.\n<br>\n\n\nDespite the chaos, Elizabeth found solace in her guildmates, with whom she felt an undeniable connection. Perhaps her nature was to be kind, to stand for the weak, no matter the mishaps. She felt this strongly with the two doggos (see Elizabeth-Mococo: By your side). \n<br>\n\nContinuing on, by the end of the day, alongside Gonathan G and Nino Ina, two of which are of Cerulean Cup, Elizabeth conquered the **Underworld Dungeon**, reclaiming the lost memories of [Mori Calliope](https://www.youtube.com/live/2qiX7084obE?feature=shared&t=12428). It marked not just the end of her chaotic first day but the beginning of her journey in this strange new world.\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Elizabeth-Rose-Bloodflame_list_thumb.png",
+            "teamId": "jade-sword",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#d46759"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false
+        },
+        {
+          "id": "jyan-watson",
+          "type": "image",
+          "position": {
+            "x": 700,
+            "y": 500
+          },
+          "data": {
+            "title": "Jyan Watson",
+            "content": "**The maiden in blonde** awoke in the mysterious white box, completely disoriented. [Questions](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=287) flooded her mind: \"Am I dead?\", \"Am I in limbo?\", \"Why do these people have buttons floating over their heads?\". \n<br>\n\nBut those concerns were secondary. The real issue? She had no memory of anything, not even her own name. Her first interaction was with a sharky girl, who, to her observation, had a questionable [smell](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=552). The people around her seemed equally bizarre. Confused and overwhelmed, the blonde tried to break out, but escape was impossible. \n<br>\n\n\nShe soon discovered that she had been summoned by a King to save the kingdom. Save it? Not her style. Instead, she had a different plan: take over the kingdom. Revelation? No thanks—she was more about [revolution](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=2486). Despite overhearing murmurs from others, including *Gonathan*, about her rebellious plans, the blonde was undeterred. Her determination to overthrow the King was clear, evident in how she brushed off any explanations from the guild masters and focused on her singular goal.   \n<br>\n\n[Skippa Skippa Skippa](#embed:https://www.youtube.com/live/hUCfCWOj-1w?t=2609)\n<br>\n\n\nDuring the battle with the Stain King, Ame—who introduced herself as [Jyan Watson](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=2554)—revealed her weapon: a [magnifying glass](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=3055). Its Revelation is a bonk on the enemy’s head. Cute, but not exactly earth-shattering. After the battle, she was sorted into the **Jade Sword** [guild](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=3328)—a group dedicated to protecting the King. Oh, the irony.\n<br>\n\nJyan's journey to overthrow the kingdom officially began. True to her rebellious nature, she quickly made a name for herself by riding her horse into random [bystanders](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=3966). Still, even revolutionaries need to learn the ropes. Jyan begrudgingly completed quests and figured out how the world worked, all while having chaotic run-ins with [others](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=5214). One notable incident involved Gonathan making a scene after spotting her, but thanks you her guild mates, she was able to slither out of [trouble](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=5893).\n<br>\n\n\n\nThen came the moment Jyan had been waiting for: her attempt to assassinate the King. She sneaked her way into the kingdom's castle, stealthily approached the King, carefully lining up her strike. With a dramatic flourish, she activated her Revelation, bonking the King on the head with her magnifying glass. She followed up with a flurry of attacks using her stone sword and even dug a hole beneath him with a pickaxe. The King was sure gone now... actually, none of her attacks worked. Defeated but undeterred, she vowed to return for [vengeance](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=6333).\n<br>\n\n[Jyan's attempt in assasinating the King](#embed:https://www.youtube.com/live/hUCfCWOj-1w?t=7359)\n<br>\n\nLater, Gonathan confronted her again. This time, Jyan managed to persuade him, spinning a tale that convinced him to let her go (see [Gonathan-Amelia: King Killer](#edge:gonathan-g-jyan-watson-top-2-bottom-2)). With that hurdle cleared, she capped off her day with a [prank call](https://www.youtube.com/live/hUCfCWOj-1w?feature=shared&t=7353) to Gura, claiming to represent the “Libestonian Charity.” Unsurprisingly, Gura wasn’t fooled and rejected her scam. \n<br>\n\nSatisfied with the chaos she’d caused, Jyan called it a day.",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/ame.png",
+            "teamId": "jade-sword",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#f8db92"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false
+        },
+        {
+          "id": "tanakisha-shakaria",
+          "type": "image",
+          "position": {
+            "x": 1000,
+            "y": 300
+          },
+          "data": {
+            "title": "Tanakisha Shakaria",
+            "content": "The maiden in orange awoke in a mysterious white box with no memories of her past, much like everyone else trapped there. Despite the confusion, she realized she could speak a language called German and quickly connected with Cecilia Immergreen, another German speaker, when they first crossed paths in the box, with a [conversation](https://www.youtube.com/watch?t=907&v=izEX6XKyApQ&feature=youtu.be) only they understood. Nerissa Ravencroft also claimed she and Kiara were [married](https://www.youtube.com/watch?v=izEX6XKyApQ&t=2651s), adding even more confusion to the perplexing situation.\n<br>\n\n\nThough Kiara was baffled, her purpose became clear when summoned by the king to fight off the Stains—she was to protect the ~~Lesbians~~ [Lebestians](https://www.youtube.com/watcht=2687&v=izEX6XKyApQ&feature=youtu.be). Embracing her role, she adopted the name *Tanakisha Karia*, though it proved difficult for others to pronounce, leading to the nickname [\"Shakira\"](https://www.youtube.com/watch?v=izEX6XKyApQ&t=2943s).\n<br>\n\nHer Revelation took the form of a blazing sword, [*Burning Phoenix*](https://www.youtube.com/live/izEX6XKyApQ?feature=shared&t=3181), carving a path of flames through its enemies.\n<br>\n\nShakira was sorted into the **Amber Coin** guild, a lively group that nearly gained another member, The Hot Pink One, before the Cerulean Cup  reclaimed the maiden despite Kiara's bold [attempt](https://www.youtube.com/watch?t=5610&v=izEX6XKyApQ&feature=youtu.be) to recruit her. \n<br>\n\nDetermined to forge her own path, Kiara embarked on her first major quest with her guildmates: delving into the **Underworld dungeon**. There, they sought to recover the memories of [Mori Calliope](https://www.youtube.com/live/izEX6XKyApQ?feature=shared&t=9829), someone Kiara felt an inexplicable, deep connection to. With each step of their journey, Kiara grew more resolved to uncover the truth behind their strange new world and her place within it.\n<br>\n\nOh and she also [drowned Gura.](https://www.youtube.com/live/izEX6XKyApQ?feature=shared&t=6894)",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Takanashi-Kiara_thumb.png",
+            "teamId": "amber-coin",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#ff511c"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "peasant-da-bae",
+          "type": "image",
+          "position": {
+            "x": 1225,
+            "y": 300
+          },
+          "data": {
+            "title": "Peasant Da Bae",
+            "content": "When she suddenly found herself in a mysterious white box surrounded by strangers, her immediate reaction was to [panic](https://www.youtube.com/live/y8bcLA6BQsw?feature=shared&t=281). Huh, whuh, where am I? Who are all these folks? Crikey, what’s happenin’? Let me out!. That was the rat's entrance into the fantasy world, it was...understandable to say the least. \n<br>\n\nShe claimed a corner to herself, staying put like a feral animal, ranting like one crazed old man would about the end of the world. Anyone who dared approach was met with a wild-eyed glare and threatening [babbling](https://www.youtube.com/live/y8bcLA6BQsw?feature=shared&t=343). She was not having it. She made it clear to everyone that she was a rat—a very weak one, in fact—and had no interest in playing hero, or whatever it was that she was summoned for.\n<br>\n\n[She just wants to go home](#embed:https://www.youtube.com/live/y8bcLA6BQsw?t=466)\n<br>\n\nHer first real interaction was with **Tam Gandr**, who casually mentioned she was destined to become the next *Queen of Libestal* (or so she claimed). Bae, starstruck by the revelation, saw an opportunity. If Tam became queen, maybe she could convince the king to send Bae back to her old life. Introducing herself as **Peasant Da Bae**, she swore to protect Tam in hopes of earning that [favor](https://www.youtube.com/live/y8bcLA6BQsw?feature=shared&t=2919).\n<br>\n\nDuring the battle with the Stain King, Bae briefly entertained the idea that she might actually be destined for a heroic title. That hopeful thought vanished the moment a laser beam hit her square in the [face](https://www.youtube.com/watch?v=y8bcLA6BQsw&t=3059s). Her weapon of choice, a [dice](https://www.youtube.com/live/y8bcLA6BQsw?feature=shared&t=3171), mirrored her unpredictable nature. Its Revelation? Rolling a number between 1 and 6, with the resulting explosions matching the roll. \n<br>\n\nDespite her paranoia, she made it through the fight and was sorted into the **[Amber Coin](https://www.youtube.com/live/y8bcLA6BQsw?feature=shared&t=3446)** guild alongside three others.\n<br>\n\nOnce in the kingdom, Bae’s adventures continued. She immediately clashed with *Cleopatra Eisenhower Da Vinci III the Great*, known as Three, who was also part of Amber Coin. Three wasted no time calling Bae a [weirdo](https://www.youtube.com/live/y8bcLA6BQsw?feature=shared&t=3510). Three did make fun of Bae before when someone tried to claim her [precious corner](https://www.youtube.com/live/y8bcLA6BQsw?feature=shared&t=2482), but this solidified the fact that her guildmate was not someone she can get along with. The two developed a love-hate relationship that leaned heavily on the hate. (see [Bae-Three: Friends](#edge:peasant-da-bae-cleopatra-eisenhower-da-vinci-bottom-2-top-2)) \n<br>\n\nDespite her grumbling and reluctance, Bae completed her quests diligently. She hated the King for dragging her away from her comfortable life but went along with the tasks nonetheless. Toward the end of the day, she and her guildmates tackled the **Underworld Dungeon** and recovered memories of [Mori Calliope](https://www.youtube.com/live/y8bcLA6BQsw?feature=shared&t=9842). \n<br>\n\nFor a moment, Bae considered the possibility that life here might not be so bad. Maybe she could make friends, build relationships, and fulfill her role as a hero...yeah, no. One dungeon was more than enough. After that, she disappeared, retreating to what she hoped would be an eternal nap, leaving her guildmates to handle the rest of the journey without her. A true hero’s exit.\n<br>\n\n[Adios, suckers](#embed:www.youtube.com/live/y8bcLA6BQsw?t=10388)\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Hakos-Baelz_list_thumb.png",
+            "teamId": "amber-coin",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#ff675d"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "raora-panthera",
+          "type": "image",
+          "position": {
+            "x": 1000,
+            "y": 500
+          },
+          "data": {
+            "title": "Raora Panthera",
+            "content": "**Raora** awoke in the white box and, true to her nature, did what any self-respecting big cat might do: she [lashed out](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=847) at a few unfortunate souls and, oddly enough, offered comfort to a [lost dog](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=934). \n<br>\n\nThe image of a fearsome panther only lasted for a moment, though, as not too long after, she was very content being doted on, purring as others [pet her](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=1645). Like everyone else summoned into this world, she had no recollection of her past. When *Bijou* introduced herself, Raora followed suit, though Bijou struggled to pronounce her name, instead calling her [Waowa](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=2777).\n<br>\n\n\nDuring the confrontation with the Stain King, Raora’s prowess came to light. Her weapon of choice was that of a pair of sleek [white claws](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=3272). Upon activating their Revelation, she moved with the swiftness and agility of a panther, teleporting around her enemy and delivering a flurry of slashes. After the battle, Raora was assigned to the **Amber Coin** [guild](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=3543).\n<br>\n\n\nWithin the guild, Raora was treated much like a cherished pet. Her guildmates found her endearing, caring for her attentively and often searching for her when she [wandered off](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=3929). *Shakira*, in particular, took it upon herself to ensure Raora’s comfort and well-being (see [Shakira-Raora: Big Pink Cat](#edge:tanakisha-shakaria-raora-panthera-bottom-2-top-2)). Raora was not one to talk, but rather, she remained quiet and [passive](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=5774) during most interactions, preferring to listen and occasionally offer a chuckle (wheeze) or a nod. \n<br>\n\n[Raora giggling to herself as chaos unfolds](#embed:https://www.youtube.com/live/8ybUOw9NhMc?t=5854)\n<br>\n\nThroughout the day, she participated in various quests, often relying on her guildmates' assistance. Together, they successfully conquered the **Underworld Dungeon** and recovered the memories of *[Mori Calliope](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=9964)*. While many would have taken a moment to rest, Raora chose to continue exploring the world.\n<br>\n\n\nHer adventures led to several memorable encounters. She met new faces, laughed at their antics, and at one point, suggested trading *Gura’s* life for her [hat](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=10513). Raora's fondness for building soon became apparent as she gathered materials and began [constructing](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=12337) a base for her guild alongside Shakira. In doing so, she was among the first heroes to focus on such tasks, finding great satisfaction in the process.\n<br>\n\n\nOne of the more entertaining moments of her adventure then involved *Tam Gandr*. Tam made repeated efforts to teach Raora the correct pronunciation of her name, but Raora consistently mispronounced it, much to Tam’s frustration. Their conversation took an interesting turn when Tam declared her destiny to become the *Queen of Libestal*. Raora, however, countered with a confident assertion that she was destined for that role (see [Raora-Tam: Say my name](#edge:raora-panthera-tam-gandr-right-2-top-1)). \n<br>\n\n\nHer interactions with others were just as unpredictable. She accidentally hurt *Nerissa’s* feelings by bluntly saying they weren’t [friends](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=13860), she also tried to charm *Gonathan* with some [suggestive gestures](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=14436), only to casually mention that she planned to [overthrow](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=14473) the king.\n<br>\n\n\nLater on, deciding that earning the trust of her “future subjects” was important, Raora volunteered to help *Nerissa, Bijou, and the dog-like twins* in the Underworld Dungeon, as she was to be the next queen after all. Although it's debatable whether her bursting into laughter when Fuwawa and Bijou fell into a pool of lava would be considered queenly behavior.\n\n<br>\n\n[The 'Queen' laughing as her future subjects fall to their doom](#embed:https://www.youtube.com/live/8ybUOw9NhMc?t=15966)\n<br>\n\nAfter helping them complete the dungeon, Raora finally called it a day. It had been a fun and eventful one, and perhaps the first steps toward her self-proclaimed destiny as the next queen of Libestal.\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Raora-Panthera_list_thumb.png",
+            "teamId": "amber-coin",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#f087a9"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "cleopatra-eisenhower-da-vinci",
+          "type": "image",
+          "position": {
+            "x": 1225,
+            "y": 500
+          },
+          "data": {
+            "title": "Cleopatra Eisenhower Da Vinci the Great the Third",
+            "content": "**Mumei** woke up in the white box and just like everyone else, she... didn't lose her memories? Wait hold on that something isn't right, let's fix that real quick. ***[Bang](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=520)***. A swift head-to-table collision later. Whoa, what happened, where am I? The maiden in brown's reaction upon waking up in the white box was the same as everyone else: confused, dazed, and completely lost. \n<br>\n\nIt was very loud there, the noise from all the talking was overwhelming, but our subject, ever the quiet observer, simply wandered around, tossing out random [one-liners](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=2327) at people. For some reason, though, she saved most of her jabs for *Peasant Da Bae*. No one knew why—probably not even herself. \n<br>\n\nAnd as she wanderered around, the saw how everyone was trying to break one particular block. Wanting to be helpful, the brown maiden came over to offer a hand. And then...\n<br>\n\n[Breaking Dimensions](#embed:https://www.youtube.com/embed/vuij6YTMIzw?si=uT5gm9w8EjDPGNX0&amp;start=2426)\n<br>\n\n\n\nNext thing we know, our hero had somehow skipped ahead and was already fighting the Stain King. [Alone](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=2768). At the very least, there weren't any voices yammering around her anymore. During the battle, she revealed her weapon of choice: a [dagger](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=2940). When she activated its Revelation, it unleashed a flurry of rapid slashes towards the targeted enemy. Afterward, she had a chat with the guild masters and the King, finding herself amused by the Amber Coin guild master's [accent](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=2987). Coincidentally, she was sorted into the **Amber Coin** [guild](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=3306).  \n<br>\n\n\nWhen she first met up with her guildmates, after calling Bae a weirdo, Mumei introduced herself as ***Cleopatra Eisenhower Da Vinci The Great III***. Bae shortened it to *Three*, for obvious reasons. Later, at the quest board, Three’s eyes lit up when she saw someone riding a [horse](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=3947). From that moment on, she was all about the horses. She enjoyed herself [way](https://www.youtube.com/live/vuij6YTMIzw?t=4951s) too much, riding around like a knight from some chaotic medieval fair. Unfortunately for everyone else, her idea of fun included using her steed as a [battering ram](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=5259).\n<br>\n\n\nAlthough they started off rocky, Mumei and Bae ended up sticking together for most of the day. Sure, they bickered and called each other names, but somewhere along the way, a weird little friendship formed (see [Bae-Three: Friends](#edge:peasant-da-bae-cleopatra-eisenhower-da-vinci-bottom-2-top-2)).\n\n<br>\n\n\nBy the end of the day, Three and her guildmates conquered the **Underworld Dungeon** and recovered *[Mori Calliope’s](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=9831)* memories. Her start was odd indeed, but Three throughout the day had fun nontheless. Here’s hoping things stay fun—and that her love for trampling people with horses doesn’t get her in too much trouble.\n<br>\n\n[Three gets into trouble for trampling people with horses](#embed:https://www.youtube.com/live/vuij6YTMIzw?t=10378)\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Nanashi-Mumei_list_thumb.png",
+            "teamId": "amber-coin",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#dcc4b2"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "mori-calliope",
+          "type": "image",
+          "position": {
+            "x": 250,
+            "y": 400
+          },
+          "data": {
+            "title": "Mori Calliope",
+            "content": "**Calli** had been working tirelessly—deadlines, projects, you name it. She decided it was time for a well-deserved break, going for a stroll with her beloved Deadbeats. But just as she was enjoying her walk, a truck crashed into her, knocking her out and sending her to the mysterious white box. How a truck managed to take down the literal incarnation of Death? No clue, but here we are.  \n<br>\n\n[Calli getting knocked out by a truck](#embed:https://www.youtube.com/live/xE3JQ1R2DdU?t=331)\n<br>\n\n\nWhen Calli opened her eyes, confusion hit her like a second truck. She couldn't remember anything, everything looked boxy, voices were everywhere, and a chaotic red figure was [shouting](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=2575). Overwhelmed and disoriented, Calli managed to find a bit of solace after a brief, calming exchange with *Shakira*, who she quickly took a [liking to](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=893). Calli soon learned her name was *Mori Calliope*, thanks to the “floating text” above her head that everyone could [see](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=1658). \n<br>\n\n\nDuring the battle with the *Stain King*, Calli revealed her weapon: a [scythe](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=3259). Its Revelation? A deadly slash that cut through enemies with ease. After the battle, she was sorted into the **Jade Sword** [guild](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=3639), fitting her strong will and courage.\n<br>\n\n\nAs her journey began, Calli stumbled her way through learning the ropes: tackling quests, forming parties, and figuring out how to use the telekinesis device. Adapting wasn’t easy—she even struggled with entering and leaving the [kingdom](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=4875). But Calli’s resolve was unbreakable. When Frieda and some others kept riding their horses into her and Liz, Calli didn’t hesitate to declare she’d duel them if it meant setting things [right](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=5481).\n\n<br>\n\n\nCalli eventually began building her own small [home](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=7457) in the kingdom. Later, she joined the Cerulean Cup members to take on the **Underworld Dungeon**. Before that, however, there was a bit of chaos when Liz, trying to pass as an Amber Coin member, accidentally got exposed by Calli, much to Liz’s dismay. Calli, blissfully unaware of the drama, observed the scene like a lost [child](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=8558).  \n<br>\n\n\n\nOnce inside the Underworld Dungeon with Tam and “The Hot Pink One”, Calli felt something familiar. The bony, eerie atmosphere resonated deeply within her. When she saw a giant skull statue, she instinctively called it [“Father”](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=11570). It wasn’t until they conquered the dungeon that her memories returned. She was **Mori Calliope**, a Grim Reaper who had rejected the traditional role of taking lives. Instead, she sought a higher purpose—finding beauty and joy in human emotion as a replacement for souls.\n<br>\n\n[Calli recollecting her true identity](#embed:https://www.youtube.com/live/xE3JQ1R2DdU?t=12230)\n<br>\n\n\nThe return of her memories filled Calli with fear and guilt. She felt like a traitor for abandoning her duties and leaving her people behind. But Tam and her fellow adventurers reassured her, accepting her [unconditionally](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=12438). Afterward, Calli had another chat with Shakira and spent more time exploring the kingdom, preparing for the next dungeon with the Cerulean Cup members. She even got called “Dad” by Koseki Bijou, much to her [surprise](https://www.youtube.com/live/xE3JQ1R2DdU?feature=shared&t=14424).\n<br>\n\n\nAt the end of the day—a day that included being hit by a truck, losing her memories, navigating chaos, and rediscovering herself—Calli took a moment to reflect. It had been wild, but it wasn’t the end. Her enigmatic journey was only just beginning, with many more adventures yet to come.\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/calli.png",
+            "teamId": "jade-sword",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#c90d40"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "ceres-fauna",
+          "type": "image",
+          "position": {
+            "x": 475,
+            "y": 800
+          },
+          "data": {
+            "title": "Ceres Fauna",
+            "content": "The first thing **Fauna** noticed upon waking in the white box was how absurdly [bright](https://www.youtube.com/live/VrLNA0SjYN8?si=8uBOHktGG-Kzh9WB&t=247) it was, folllowing up with a complaint about how loud everyone’s voices were. Complaining seemed like the logical first step when you’ve lost all your memories, right? \n<br>\n\nUnlike the other heroes, though, Fauna remained calm, collected, and entirely in control. It was as if she had done this before, casually remarking that the world reminded her of [\"Minecraft\"](https://www.youtube.com/live/VrLNA0SjYN8?si=s__Wo-nNYnk4VH3F&t=1682). Which explained her immediate urge to chop down a lone tree when she spotted one, it wasn’t just nostalgia—it was fueled by her [OCD](https://www.youtube.com/live/VrLNA0SjYN8?si=4SkKMgTqMYkdVuaV&t=2875).\n<br>\n\n\nDuring the battle with the *Stain King*, Fauna’s weapon made its debut: a wand topped with a [golden apple](https://www.youtube.com/live/VrLNA0SjYN8?si=c8218mEL2pzXTcr2&t=3173). Its *Revelation*, *“Instant Tipi”* as she named it, summoned a magical tipi-like dome that trapped enemies. More importantly, the wand also functioned as a healing tool, making Fauna the only one capable of providing support. \n<br>\n\nIn a brief exchange with the guildmasters, she mimicked the *Amber Coin* guild master’s accent, calling it “British”, and, knowing how \"good\" Fauna is at her accents, the voices in her head went into an immediate state of [panic](https://www.youtube.com/live/VrLNA0SjYN8?si=0_DR3pQaTV-Eefyw&t=3234). She was eventually sorted into the **Scarlet Wand** [guild](https://www.youtube.com/live/VrLNA0SjYN8?si=-WFwPJ36yVIN8B7Z&t=3441).\n<br>\n\n\nAfter entering the new world, Fauna began familiarizing herself with her surroundings. While completing a quest to slay stains, Fauna discovered something intriguing—she earned money for each stain defeated. The realization amused her, sparking a newfound joy. The stains were no longer just enemies to vanquish for the greater good—they were a source of [income](https://www.youtube.com/live/VrLNA0SjYN8?si=Ewua3iV9CrElQap3&t=5008). With dollar signs in her eyes, Fauna’s motivation shifted ever so slightly as she continued questing with her guildmates. \n<br>\n\n\nContinuing on, in a memorable moment involving *Shakira*, the lady in orange challenged *Gura* to float on water, given that she had a shark tail. Gura gave it a go and promptly drowned. Fauna, observing the entire fiasco, didn’t lift a finger to help (she did but only after Gura'd drowned). She did feel very guilty for her guild mate, however, because right after Gura cried out, *“HEALER? WHERE’S MY HEAL?”*, holding the support title, Fauna felt it was her resposibility to provide a sincere apoplogy, and so she replied:\n\n[gg no re](#embed:https://www.youtube.com/live/VrLNA0SjYN8?t=6903)\n<br>\n\n\nLater, Fauna teamed up with her guildmates, Gura and Cecilia, to conquer the **Underworld Dungeon**, where they recovered memories of [Mori Calliope](https://www.youtube.com/live/VrLNA0SjYN8?si=-eUxCKiyxKEaV8hA&t=9484). The trio then explored the world further, buying “gacha boxes” along the way. Gura pulled a ridiculously long, pointy hat, prompting Fauna to quip that she looked like a [garden gnome](https://www.youtube.com/live/VrLNA0SjYN8?si=k2bJ5eR6M8O7z9M6&t=10304). \n<br>\n\nThe two later dueled, with Fauna emerging victorious—and promptly extorting Gura for some loot, as a good guild mate [would](https://www.youtube.com/live/VrLNA0SjYN8?si=xCvDCmma03qWhWhk&t=11073). Their next adventure led them to a casino, where Fauna’s love of money truly shone. Betting everything on the color green—the color of money—she won a few rounds but lost just as many. Still, the thrill of the gamble fueled her, and despite her questionable behavior for a hero, she couldn’t get enough.\n<br>\n\n[It has to be green this time, right?](#embed:https://www.youtube.com/live/VrLNA0SjYN8?t=11878)\n<br>\n\n\nAfter a long day of questing and gambling her life away, Fauna decided to call it a night. But something had awoken within her. It wasn’t the thrill of saving the world or helping people—it was the joy of money. Who knows where this newfound passion will lead her? Perhaps… a business empire?\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Ceres-Fauna_list_thumb.png",
+            "teamId": "scarlet-wand",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": ""
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "shiori-nyavella",
+          "type": "image",
+          "position": {
+            "x": 700,
+            "y": 800
+          },
+          "data": {
+            "title": "Shiori Nyavella",
+            "content": "**Shiori** woke up in the white box with no memories, full of questions: *Who’s this? What’s that? Where’s Waldo?* As she wandered around, inspecting (and judging) the [others](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=97), she frequently conversed with the 'guardian angels' in her head, affectionately calling them *“Chat”*. \n<br>\n\nEvery time she tried something new, she’d ask, [“Chat, am I cookin’?”](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=157). She also faintly recalled an image of a truck heading toward her in a place called \"New York,\" hinting at how she might have ended up [here](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=342).\n<br>\n\n\nHer first interactions with the group were, predictably, odd. She called Bijou “rock hard” and demanded money from [Calli](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=840), just because she could. Then she met Nerissa, who claimed to be her [wife](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=2562). Shiori, unconvinced, pointed out the lack of a ring and refused a kiss, noting Nerissa seemed like she’d kiss anyone. \n<br>\n\nShiori’s unpredictability was, well, unpredictablle, she floated around to wherever she found interseting, and said the most absurd things one can [think of](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=2519).\n<br>\n\nWhen the *Stain King* was about to appear, Shiori tried to [run](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=2774) from her responsibilities but was stopped by an invisible barrier. Resigned to her fate, she fought..or not. Instead of assiting her comrades, she stood by the side, and just watched, for the entirety of the fight. \n<br>\n\n[Shiori standing by as she watches her comrades get beaten up](#embed:https://www.youtube.com/live/KSaC99K4IF8?t=2992)\n<br>\n\nIt wasn't until she was forced into a 'cutscene' did she finally start to act. Her weapon, a [feather](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=3110), revealed its *Revelation*: shooting magical beams at enemies, but she liked to refered to it as “tickling them to death.” After the battle, she was sorted into the **Scarlet Wand** [guild](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=3347).\n<br>\n\n\n\nAs her journey began, Shiori embarked on quests with her guildmates, spending much of her time with her “goth” comrade Fauna, whom she affectionately called her wonderful majestic [green lady](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=4218). In return, Fauna referred to Shiori as her wonderful majestic Oreo. Their conversations meandered through topics like dentists and places like 'hot topics', a prime example of what some might call [“yapping”](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=4528).\n<br>\n\n\nUnlike the others, Shiori didn’t tackle the **Underworld Dungeon** on the first day, as she had other matters to attend to. Left alone with her thoughts, she began to question everything. She didn’t believe the town was real, suspecting it was part of a complex scheme to keep her memoryless because she was “too dangerous.” Shiori didn’t trust the King—or, as she put it, “this suspicious place.” Her skepticism ran deep, and her unpredictable mind continued to wander as her journey unfolded.\n<br>\n\n[Shiori and her conspiracy theories](#embed:https://www.youtube.com/live/KSaC99K4IF8?t=5588)\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Shiori-Novella_list_thumb.png",
+            "teamId": "scarlet-wand",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#b8a0cd"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "cecilia-immergreen",
+          "type": "image",
+          "position": {
+            "x": 475,
+            "y": 1025
+          },
+          "data": {
+            "title": "Cecilia Immergreen",
+            "content": "**Cecilia**, the very durable *automaton*, was minding her own business when, out of nowhere, a grand piano fell on her, knocking her out [instantly](https://www.youtube.com/live/SAdndMvNK98?feature=shared&t=435). Don’t you just hate it when random pianos fall from the sky, indoors? \n<br>\n\nAnyway, upon waking up in the mysterious white box, Cecilia was immediately greeted by Shakira, who asked if she spoke *German*, in German: \"Ach san Sie auch Deitsch?\" To her surprise, Cecilia did, and the two struck up a hearty [conversation](https://www.youtube.com/live/SAdndMvNK98?feature=shared&t=781). It was a strange way to start, but oddly comforting amid the chaos. Like everyone else, Cecilia had no memory of her past—aside from knowing she liked [pizza](https://www.youtube.com/live/SAdndMvNK98?feature=shared&t=1090). \n<br>\n\n\nDuring the battle with the *Stain King*, Cecilia’s role was... questionable. She didn’t actually fight but justified her idleness by claiming to be “standing by as medic.” Shiori, also opted out of fighting, the difference is she didn't even have an excuse. \n<br>\n\n[The medic of the team, doing absolutely nothing](https://www.youtube.com/live/SAdndMvNK98?t=2950)\n<br>\n\nFor heroes summoned to save a kingdom, their approach was, well, unconventional. Eventually, Cecilia revealed her weapon: [a spear](https://www.youtube.com/live/SAdndMvNK98?feature=shared&t=3060). Upon activating its *Revelation*, it unleashed a flurry of rapid jabs against the enemy. She, like her 'watch mate' Shiori, was sorted into the **Scarlet Wand** [guild](https://www.youtube.com/live/KSaC99K4IF8?feature=shared&t=3347).\n<br>\n\n\nCecilia’s adventure officially began with great enthusiasm, especially after donning the [Libestal Cloak](https://www.youtube.com/live/SAdndMvNK98?feature=shared&t=3483). She started tackling quests with her guildmates, learning the basics of the world: communication devices, forming parties, and more. She quickly formed bonds, particularly with Raora, as her fondness for cats became increasingly [evident](https://www.youtube.com/live/SAdndMvNK98?feature=shared&t=6770).\n\n<br>\n\n\nLater, Cecilia teamed up with *Gura and Fauna* to take on the **Underworld Dungeon**. She had the most animated reactions during their journey, reacting dramatically to every [twist and turn](https://www.youtube.com/live/SAdndMvNK98?feature=shared&t=8277). Together, they conquered the dungeon and unlocked the memories of *[Mori Calliope](https://www.youtube.com/live/SAdndMvNK98?feature=shared&t=9328)*. Afterward, the trio decided to hang out in the kingdom, exploring buildings, dueling, and purchasing “gacha boxes.” Gura’s prize—a ridiculously long hat—left Cecilia in fits of [laughter](https://www.youtube.com/live/SAdndMvNK98?feature=shared&t=10126).\n\n<br>\n\n\nTheir day didn’t end there. They ventured into a casino to test their luck. Cecilia and Fauna both bet on green (naturally, as green ladies). Cecilia faced some losses but managed to win back her money in the end—unlike Gura, who lost everything. Despite the ups and downs, Cecilia wrapped up her day feeling fulfilled, looking forward to more adventures with her guildmates and hoping the fun would continue.\n<br>\n\n[Green women whispering into your ears](https://www.youtube.com/live/SAdndMvNK98?t=12161)\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Cecilia-Immergreen_list_thumb.png",
+            "teamId": "scarlet-wand",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#119a5c"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "nerissa-ravencroft",
+          "type": "image",
+          "position": {
+            "x": 700,
+            "y": 1025
+          },
+          "data": {
+            "title": "Nerissa Ravencroft",
+            "content": "**Nerissa**, like everyone else, woke up in a white box with no memories of her past. Although overwhelmed, she tried her best to start conversations with those around her, having small chats here and there. \n<br>\n\nHowever, her longest initial conversation was with a maiden in red, *Elizabeth Rose Bloodflame*. Their chat was simple introductions, but there was an undeniable sense of familiarity, like a deeper connection existed between [them](https://www.youtube.com/live/PJSd7DYlGNo?si=l3socXPAD6ViAdz6&t=1654). \n<br>\n\nThe voices in Nerissa’s head complicated things further by claiming Shiori was her [wife](https://www.youtube.com/live/PJSd7DYlGNo?si=IrdKxeAeyiGiGTRo&t=2831). Hold on a minute, as if that wasn’t confusing enough, Nerissa also believed Shakira was her [wife?](https://www.youtube.com/live/PJSd7DYlGNo?si=OQzUggvD5b5qEPR-&t=2858) She had two wives?? And that they were destined to save the [lesbians???](https://www.youtube.com/live/PJSd7DYlGNo?si=mFVLccqol1nRAhOa&t=2883) Wasn't this supposed to be a heroic tale about saving a kingdom invaded by dark forces?\n<br>\n\n\nA-anyway, during the battle with the Stain King, Nerissa’s weapon—a large [tuning fork](https://www.youtube.com/live/PJSd7DYlGNo?si=YUlEKwX4-40_5Ozy&t=3378)—was revealed. Upon activating its *Revelation*, she struck the fork against the enemy’s head, creating a shockwave dealing damage towards the enemy. After the battle, she was sorted into the **Scarlet Wand** [guild](https://www.youtube.com/live/PJSd7DYlGNo?si=bBVH8rYcn0cL0hzO&t=3533).\n<br>\n\n\nVenturing into the new kingdom with her guildmates, Nerissa began adjusting to her new life. It was anything but smooth. She was baffled by the quest system, randomly earned [100 coins](https://www.youtube.com/live/PJSd7DYlGNo?si=Y5p-IBZHw__yD9o1&t=4842) without doing anything, got ambushed by [stains](https://www.youtube.com/live/PJSd7DYlGNo?si=ee1ikNmeMoYdUCkA&t=5226) while trying to gather wood, and “soft locked” Gura in a [trade](https://www.youtube.com/live/PJSd7DYlGNo?si=cGT81Dci8yieBCmn&t=5619). She was very much confused, and the voices in her head described her as having *\"wet cat energy\"*, whatever that meant. \n<br>\n\nDespite the chaos, Nerissa persevered, accompanied by the support and adoration of her guildmates, who found her quirks endearing.\n<br>\n\n[Nerissa mimicking an Amber Coin citizen's accent](https://www.youtube.com/live/PJSd7DYlGNo?t=6344)\n<br>\n\n\nWhile exploring the kingdom, she overheard a peculiar conversation between [Tam and Raora](https://www.youtube.com/live/DDwNcYCtAXw?si=HEyqQCWXDnTaUrnB&t=474), watching in silent bewilderment as Raora laughed hysterically and Tam spiraled into frustration. “I feel like I just experienced something I wasn’t supposed to”, Nerissa muttered as she walked away. \n<br>\n\n\nLater, Nerissa teamed up with *Fuwawa, Mococo, Bijou, and Raora* to tackle the **Underworld Dungeon**. The experience was more amusing than frightening, especially when Nerissa watched her friends fall into a bottomless lava [pit](https://www.youtube.com/live/DDwNcYCtAXw?si=mGSwx70XvMtulrqg&t=3511). Despite the mishaps, they conquered the dungeon and recovered *[Mori Calliope’s](https://www.youtube.com/live/DDwNcYCtAXw?si=ceD6NIenRuYSxQYk&t=5176)* memories.\n<br>\n\n\nAfter a bit more wandering, Nerissa called it a day. It had been confusing, chaotic, and a little painful at times, but ultimately fun—and that was all that mattered.\n<br>\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Nerissa-Ravencroft_list_thumb.png",
+            "teamId": "scarlet-wand",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#2233fb"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "koseki-bijou",
+          "type": "image",
+          "position": {
+            "x": 1000,
+            "y": 800
+          },
+          "data": {
+            "title": "Koseki Bijou",
+            "content": "There are many different ways a person may gets transported to another world. They might get hit by a truck, get hit by a train, basically get hit by any moving vechile. While many heroes claimed to have arrived through these methods, **Koseki Bijou's** tale stood out. She was crushed by a giant [Moai statue](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=327), complemented with mutiple *vine boom sound effect*. \n<br>\n\nOdd as it was, Bijou managed to arrive in the same mysterious white box as the others—that was what mattered. \n<br>\n\nThanks to something many referred to as a 'stream overlay', she knew her name was [Koseki Bijou](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=381). Being the curious little gem she is, she wasted no time running around asking the important questions—like whether *Nerissa* laid eggs, if *Fauna* was her mom, or if *Shiori* was her [lover](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=972). You know, totally normal, first-day-in-another-world stuff.  She also kept asking people to comment on her [feet](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=2669). \n<br>\n\n\nDuring the fight with the Stain King, Bijou showed off her weapon of choice: [two dazzling gems](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=3377) that launched an endless array of radiant gemstones at their foes. After that, she got sorted into the **Cerulean Cup** guild, joining the ranks of other not-so-normal heroes.\n<br>\n\nHer journey officially began in classic Bijou fashion—with a mix-up. She somehow (not deliberately) joined the [wrong](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=4058) party at first, but it was quickly resolved. While working on a quest outside the kingdom, she discovered a [sheep](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=4470) she grew strangely attached to and also developed an odd fondness for the world’s [rocks](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=5204). She hesitated to mine them, even though it was part of her task, feeling an emotional connection to them. \n<br>\n\nBijou later played a key role in the *Hot Pink One* incident, being the first to find her and calling in the rest of the guild for [support](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=5851). Despite her contributions, Bijou secretly claimed to be an *undercover agent of evil*, plotting to overthrow the system someday. She even went so far as to offer her assistance to Jyan Watson in [assassinating](https://www.youtube.com/live/OTmQwttr1Aw?feature=shared&t=6329) the King, proving she’s more unpredictable than the King might have anticipated.\n<br>\n\nAs her day continued, Bijou eventually, she teamed up with Nerissa, the two doggos, and later Raora to take on the **Underworld Dungeon**. Amidst plenty of chaos and [screaming](https://www.youtube.com/live/Fr6yMByDTIs?feature=shared&t=3318v), they managed to recover [Mori Calliope’s](https://www.youtube.com/live/Fr6yMByDTIs?feature=shared&t=4986) memories. But Bijou’s day didn’t end there.\n<br>\n\nTrue to her adventurous spirit—or questionable priorities—she decided to gamble all her money. Unsurprisingly, she lost [60%](https://www.youtube.com/live/Fr6yMByDTIs?feature=shared&t=7354) of it, but in her words: “99% of gamblers quit before they lose (?)” she persevered. Eventually, her luck turned around, and she won it all [back](https://www.youtube.com/live/Fr6yMByDTIs?feature=shared&t=8864).\n<br>\n\n\nHer actions, however, may have raised some eyebrows among the voices in her head. After all, one of the supposed heroes of the realm turned out to be a gambling enthusiast who openly planned to overthrow the King that trusted them so. But despite her chaotic tendencies, Bijou’s day was eventful, and whatever lies ahead, her journey is sure to be just as unpredictable as she is. Whether her mischievous tendencies would lead to any kind of *corruption* remained to be seen.\n<br>\n\n\nOh and one more thing, wooden shovel.\n<br>\n\n[Wooden shovel](#embed:https://www.youtube.com/live/Fr6yMByDTIs?t=7886)\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Koseki-Bijou_list_thumb.png",
+            "teamId": "cerulean-cup",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#6e5bf4"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "gonathan-g",
+          "type": "image",
+          "position": {
+            "x": 1225,
+            "y": 800
+          },
+          "data": {
+            "title": "Gonathan G",
+            "content": "Only minutes after waking up in the mysterious white box, the individual cladded in orange proclaimed a new identity: **Gonathan with a G**, or simply [Gonathan G](https://www.youtube.com/live/y9KKa_k2VTU?si=wZsW1DBJimIdz-06&t=607Gonathan), a knight with medieval flair, speaking in a manner that added a peculiar charm to the group's already chaotic dynamic. Like everyone else, they were completely clueless about the strange fantasy world they had been summoned to. \n<br>\n\n\nAn important detail about Gonathan: *he* (at least for the time being) identifies as a knight, and his weapon of choice, was a pair of metal fists, or [Gremlin Grenade](https://www.youtube.com/live/y9KKa_k2VTU?feature=shared&t=3085)—unleashes devastating explosions when activated.\n<br>\n\n\nGonathan was sorted into the Cerulean Cup guild, known for its spirit of empathy, along with four other members. However, the harmonious image didn’t last long. Tensions flared when their rival guild, the Amber Coin, attempted to [kidnap](https://www.youtube.com/live/y9KKa_k2VTU?si=xE2vDkSE0e1yKT_w&t=5565) one of Cerulean Cup’s own, the so-called Hot Pink One. This act of aggression led the Cerulean Cup members to unanimously declare Amber Coin their worst enemy. Fortunately, our empaths eventually managed to retrieve their guildmate back.\n<br>\n\nGonathan G, though brave, wore his heart on his sleeve. His emotions ran high, and he was easily affected by the words and actions of others. For instance, he couldn’t help but cause a [commotion](https://www.youtube.com/live/y9KKa_k2VTU?si=vc1KGcH05IKM9TgX&t=5967) every time he encountered Jyan Watson, the so accused King Killer (see [Gonathan-Jyonathan: King Killer](#edge:gonathan-g-jyan-watson-top-2-bottom-2)). \n<br>\n\n\nHe also grew visibly agitated when Elizabeth, one of Jade Sword's members, referred to him as [\"the loud one\"](https://www.youtube.com/live/y9KKa_k2VTU?si=xoXIP9Ni9qdFv1mJ&t=9070). And crying? Well, Gonathan did that often, for just about any reason. Whether it was Liz [\"hushing the gums\"](https://www.youtube.com/live/y9KKa_k2VTU?si=uOA9eA5-H_wGz8oT&t=7910) of the Hot Pink One, insulting his [long-forgotten mother](https://www.youtube.com/live/y9KKa_k2VTU?si=m_ePVuEIKMxJr459&t=6031), or even refusing to share her [melons](https://www.youtube.com/live/y9KKa_k2VTU?si=XQ3I0HtnRB2G2yhn&t=9151), Gonathan’s tears flowed freely.\n<br>\n\n\nGonathan's first day wasn’t entirely marked by screams and tears. Many of the people he encountered treated him kindly, especially his guildmates. One person, however, stood out above all the rest. She wasn’t just any ordinary individual—she was destined to become the next Queen of this new kingdom. Moved by a sense of honor and purpose, Gonathan vowed his loyalty to her (see [Gonathan-Tam: You're the Queen!](#edge:gonathan-g-tam-gandr-bottom-2-left-2)).\n<br>\n\nAnyhow, alongside Elizabeth Rose Bloodflame and Nino Ina, he ventured into the **Underworld Dungeon**. Together, they recovered memories tied to [Mori Calliope](https://www.youtube.com/live/y9KKa_k2VTU?feature=shared&t=12343), taking their first steps in unraveling the mysteries of their fragmented pasts.\n<br>\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Gigi-Murin_list_thumb.png",
+            "teamId": "cerulean-cup",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#fdb440"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "hot-pink-one",
+          "type": "image",
+          "position": {
+            "x": 1000,
+            "y": 1025
+          },
+          "data": {
+            "title": "Hot Pink One",
+            "content": "The lady in pink's introduction to the fantasy world was, well, a little different from the others. She awoke in the mysterious white box by herself, spoke with the king by herself, and even faced the Stain King...[by herself.](https://www.youtube.com/live/Rk7nZ91vme4?si=SR-vjc02WKIL4nUb&t=1084)\n<br>\n\n\nAn odd and grueling start it was, but the isolation didn’t last long. Once she entered the Kingdom of Lisbestal, her presence made an immediate impact, transforming her lonely beginning into something much more dynamic.\n<br>\n\n\n\nAfter her exhausting and painful battle with the Stain King, she was officially sorted into the Cerulean Cup. Shortly after, she had her first encounter with the lively members of Amber Coin. That’s when <em>Shakira</em>, ever the opportunist, swooped in and attempted to recruit the pink one to her own guild instead. \n<br>\n\n\nLittle did Shakira knew, the pink one was not that of a simpleton. She was of someone loyal to her friends and true to the ideals of empathy, someone who would never betray her guild no matter what, it was her destiny to be that of the Cerulean Cup, and no forces would ever change such... She accepted Shakira's invitation without a second thought.\n<br>\n[Everyone wants the pink woman](#embed:https://www.youtube.com/live/Rk7nZ91vme4?t=2087)\n<br>\n\nThis betrayal was short-lived, however. When the rest of Cerulean Cup arrived to retrieve their wayward guildmate, she eventually returned to her proper guild, albeit reluctantly. After showcasing her unique Revelation, *Light and Darkness*, which some dubbed it similar to a [fart](https://www.youtube.com/live/Rk7nZ91vme4?si=uFnTUFLfBm36VZS-&t=2668), she threw herself into the day’s activities. Completing quests, enduring [hushed gums](https://www.youtube.com/live/Rk7nZ91vme4?si=5AhwIkLOBX3MgfA2&t=4480), and earning her fair share of [eyebrow-raising](https://www.youtube.com/live/Rk7nZ91vme4?si=5jr_c9OW9ds8maMQ&t=5777) remarks.\n<br>\n\nher journey culminated in the group’s venture into the **Underworld Dungeon**, where she recovered the memories of [Mori Calliope](https://www.youtube.com/live/Rk7nZ91vme4?feature=shared&t=8690), and also where she was first nicknamed [Hot Pink One](https://www.youtube.com/live/Rk7nZ91vme4?si=PZSB2R7NaSzFRo_b&t=7601). \n<br>\n\n\nIt was a whirlwind of a day for the maiden, filled with ups, downs, and plenty of chaos. But through it all, she had fun, marking the vibrant beginning of The Hot Pink One’s journey.\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/IRyS_list_thumb.png",
+            "teamId": "cerulean-cup",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#e10e5b"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "nino-ina",
+          "type": "image",
+          "position": {
+            "x": 1225,
+            "y": 1025
+          },
+          "data": {
+            "title": "Nino Ina",
+            "content": "**Ina's** introduction to the journey began much like everyone else's: waking up in the blindingly white box, disoriented and uncertain. Yet, her experience stood apart in her calmness. Unlike Peasant Da Bae's dramatic exclamations or Tam's barrage of questions, Ina approached the situation with a quiet sense of detachment, simply observing and [taking it all in](https://www.youtube.com/live/THllQCVOYzY?feature=shared&t=240s). Perhaps this was her nature—to remain composed and collected, even in the face of chaos. \n<br>\n\n\nThis trait became even more apparent during the battle with the Stain King, where she calmly wielded her Revelation—a magical book, [Violet Miasma](https://www.youtube.com/live/THllQCVOYzY?feature=shared&t=3183s)—while her companions screamed. When its ability was activated, the book unleashed radiant beams of energy that struck nearby enemies. Her serene demeanor and empathetic spirit naturally led to her being sorted into the Cerulean Cup [guild](https://www.youtube.com/watch?v=THllQCVOYzY&t=3425s). \n<br>\n\n\nAt first, Ina believed this journey might not be as daunting as she'd feared. The guild seemed filled with empathetic, heroic individuals, and the kingdom's tasks felt manageable. But her optimism soon wavered as she began to grasp the eccentricities of her guildmates. During the dispute with Amber Coin over recruiting the Hot Pink One, Ina couldn't help but notice their [unusual antics](https://www.youtube.com/live/THllQCVOYzY?feature=shared&t=5761). Her concerns further deepened during confrontations with Elizabeth and Jyan Watson, leaving Ina to wonder: \n<br>\n\n\n[“Am I right to be in Cerulean? This cast seems a little…”](#embed:https://www.youtube.com/live/THllQCVOYzY?t=6125s)\n<br>\n\n\nDespite being surrounded by chaos, Ina embraced her role as the level-headed one in the group. She diligently completed her tasks, made puns whenever [inspiration](https://www.youtube.com/live/THllQCVOYzY?feature=shared&t=7603s) struck, and had [fleeting](https://www.youtube.com/watch?v=THllQCVOYzY&t=9680s) interactions with members of other guilds. Her day culminated in the **Underworld Dungeon**, where she teamed up with Elizabeth and Gonathan. \n<br>\n\n\nAfter successfully completing the challenge, she regained memories of [Mori Calliope](https://www.youtube.com/watch?v=THllQCVOYzY&t=12389s). While most heroes chose to retire for the day afterward, Ina's adventures continued. She exchanged friendly [banter](https://www.youtube.com/watch?v=THllQCVOYzY&t=14236s) with Nerissa, tackled additional quests, and stumbled upon a peculiar \"glitch\" that allowed her to [duplicate items](https://www.youtube.com/watch?v=THllQCVOYzY&t=17960s). True to her empathetic nature, she refrained from exploiting it and dutifully reported it to the Gods of the world.\n<br>\n\n\nAs her day drew to a close, Ina took on yet another self-imposed task: escorting the two doggos and Bijou to the shores, parting ways with the title of [\"Mysterious Hero I\"](https://www.youtube.com/live/THllQCVOYzY?feature=shared&t=18239s). She then decided to unwind in her own unique way—by [solo-conquering](https://www.youtube.com/live/THllQCVOYzY?feature=shared&t=19659s) the Underworld Dungeon. A peculiar choice for relaxation, but it was undeniably Ina. \n<br>\n\n\nDespite being placed in a guild full of quirky personalities, she remained calm at the center of the storm. Her composed demeanor and quiet strength suggested that she might just be the true hero the King had hoped for, one whose traits would carry her far in this enigmatic journey.\n<br>\n\n[Ina observing her not so normal guildmates from afar](#embed:https://www.youtube.com/live/THllQCVOYzY?t=6842)\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/ina.png",
+            "teamId": "cerulean-cup",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#4c3f5a"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "king-of-libestal",
+          "type": "image",
+          "position": {
+            "x": 850,
+            "y": 75
+          },
+          "data": {
+            "title": "King of Libestal",
+            "content": "The King of Libestal was the one who had summoned all the adventurers to this kingdom. He described it as a desperate act, a final hope, for his kingdom and its people stood on the brink of ruin. A calamity known as the Stains—a corrupted force threatening to consume the world—was closing in. And so, he summoned these nineteen heroes, placing his faith in them as the kingdom’s saviors, holding great hopes that they would rise to the occasion and fend off the terrible fate looming ahead.\n<br>\n\n[The King greets his heroes](#embed:https://www.youtube.com/live/2qiX7084obE?feature=shared&t=2768)\n<br>\n\nAfter the heroes successfully defended the kingdom from the first wave of corruption, the King took notice of the strange power they possessed—Revelation. \n<br>\n\nIt was unlike anything he had seen before, and he believed it to be the key to defeating the Stains once and for all. With this newfound hope, he called upon the heroes, asking them to lend their strength, to embark on a long and arduous journey, and ultimately, to save the world. He entrusted the four guild leaders with guiding them, allowing them to explain their purpose and direction. And in doing so, he provided the heroes with a place to call home—where they would forge bonds, grow stronger, and prepare for the [enigmatic journey](https://www.youtube.com/live/PJtapc2_7ok?feature=shared&t=3169) ahead.",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/king.png",
+            "teamId": "",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#f6e7c8"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "tam-gandr",
+          "type": "image",
+          "position": {
+            "x": 1450,
+            "y": 925
+          },
+          "data": {
+            "title": "Tam Gandr",
+            "content": "**The maiden in blue** woke up in a peculiar white box, her first thought fixating on why everything—her hands, the world, even the people—appeared so square and pixelated. Ever curious, she roamed around asking anyone and everyone a barrage of questions: “Is your name Kiara? What are you doing in the corner? The server closed? What does that mean?” Her confusion was palpable, and it became evident that she couldn’t even recall her own name. \n<br>\n\n\nThis changed when she crossed paths with Gonathan G, who suggested the title *'The Azure Maiden'* because of her fondness for blue. While Kronii found it poetic, she also thought it was a bit too long. Gonathan shortened it to *'Tam'*, and Kronii, in her own flair, appended *Gandr*. Thus, her new identity was born—***Tam Gandr***\n<br>\n\n\nWhen summoned by the King alongside the other heroes, Tam felt a unique sense of destiny. Unlike the rest, she was convinced that the King’s fateful words, “Will you—” were the prelude to a royal proposal. Naturally, this meant she was destined to be his *Queen* (see Tam-King: Guess I'm Queen now). \n<br>\n\nBrimming with this belief, she shared her newfound 'truth' with *Peasant the Bae*, who became awestruck at the honor of standing in the presence of [royalty](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=1333). \n<br>\n\n\nDuring the battle with the *Stain King*, Tam unsheathed her weapons: a pair of dual-wielding blades shaped like clock hands, which upon activation, unleashed a relentless flurry of attacks. She was then sorted into the ***Cerulean Cup*** guild.\n<br>\n\n\nTam’s presence in Cerulean Cup quickly established her as a dominant figure, her charisma and aura of confidence naturally earning her respect as the guild leader. This was evident during the first major conflict in the kingdom, a heated recruitment battle between *Cerulean Cup and Amber Coin* over *the Hot Pink One*. \n<br>\n\nTam’s empathetic nature shone as she leveraged her remarkable powers of persuasion—a skill she had already demonstrated while aspiring a [Libestan child](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=5140). It was no surprise when The Hot Pink One eventually succumbed to her words, sealed with Tam’s unforgettable declaration: \n<br>\n\n[“Nobody wants you except us.”](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=6213)\n<br>\n\nAs the day progressed, Tam found herself caught in various shenanigans. Yet, she always managed to handle situations with an air of maturity. When Gonathan was interrogated by Elizabeth, Tam intervened, *calmly* defusing the tension (see [Elizabeth-Tam: Red and Blue](#edge:elizabeth-rose-bloodflame-tam-gandr-top-3-top-2). \n<br>\n\n\nBy the day's end, Tam joined The Hot Pink One and Mori Calliope in the **Underworld Dungeon**, where they recovered fragments of their lost [memories](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=11965). It was a chaotic, exhausting day for Tam, filled with triumphs, conflicts, and laughter. She gained devoted followers who pledged their unwavering loyalty (see [Gonathan-Tam: You're the Queen!](#edge:gonathan-g-tam-gandr-bottom-2-left-2)). She stood as a beacon of righteousness, a protector and a leader. \n<br>\n\nBut above all, she found solace in the simple yet profound comfort of having a name—Tam. Though it was given impulsively by Gonathan, it resonated with her, becoming a cherished part of her identity. To Tam, that name was more than just a label; it was a symbol of her newfound self, one she would carry and treasure throughout the rest of her journey.\n<br>\n\nAs the kingdom settled into quiet, Tam yearned for a peaceful night’s sleep. Surely, nothing else would trouble her now. Surely...(see [Raora-Tam: Say my name](#edge:raora-panthera-tam-gandr-right-2-top-1)). \n\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Ouro-Kronii_list_thumb.png",
+            "teamId": "cerulean-cup",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#6879c7"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "gawr-gura",
+          "type": "image",
+          "position": {
+            "x": 250,
+            "y": 925
+          },
+          "data": {
+            "title": "Gawr Gura",
+            "content": "*\"I want to punch this one. I don't know why, I just have an urge,\"* was one of the first things **Gura** said after waking up in the white room. The target? A blonde maiden named [Jyan Watson](https://www.youtube.com/live/PJtapc2_7ok?si=Y5cIDsVzAWQ_KLyt&t=535). It felt like there was unresolved tension between them—despite Gura not remembering anything about her past. Or maybe she was just feeling extra sassy, later casually calling Tam a dumbass when addressing her [name](https://www.youtube.com/live/PJtapc2_7ok?si=DZTu5_2xTqaUWn3X&t=2562). Honestly, that’s probably just her personality: a sassy child with attitude for everyone she meets.\n\n<br>\n\n\nDuring the battle with the Stain King, Gura’s weapon—a [trident](https://www.youtube.com/live/PJtapc2_7ok?si=iOr1m3bizOsFkBs6&t=3078)—was revealed. When she activated its Revelation, it summoned a wave of water that pushed back enemies. After the battle, she was sorted into the **Scarlet Wand** [guild](https://www.youtube.com/live/PJtapc2_7ok?si=0VHccAIdMWhD0QQf&t=3413).\n<br>\n\n\nAnd so, Gura’s journey began. Like everyone else, her first task was figuring out this strange new world. She started doing quests with her guildmates but was confused most of the time—thanks to her [shork brain](https://www.youtube.com/live/PJtapc2_7ok?si=6UmKNJggTOPF7KXR&t=5172). All sass, zero intelligence. Luckily, her guildmates included *Nerissa, Fauna, Shiori, and Cecilia*, who lived up to the Scarlet Wand's reputation for being smart. They carried her through most challenges. \n<br>\n\nNot everything went smoothly, though. She got involved in a [hit-and-run](https://www.youtube.com/live/PJtapc2_7ok?si=SyZDDDTLhI0pvuNb&t=5252) incident with *Cleopatra Eisenhower Da Vinci The Great III* and, in another instance, drowned after accepting Shakira’s challenge to float on water. Yes, despite her shark-like features and literal tail, she somehow managed to drown.   \n<br>\n\n[The 'shark' somehow manages to drown](#embed:https://www.youtube.com/live/PJtapc2_7ok?t=6778)\n<br>\n\nLater, Gura teamed up with Fauna and Cecilia to tackle the **Underworld Dungeon**. During their conquest, Gura got an unexpected call from [Jyan Watson](https://www.youtube.com/live/PJtapc2_7ok?si=Zjtfn-It4RAxI-V-&t=7423), claiming to represent the 'Libestonian Charity'. Predictably, Gura saw through the scam and shut it down immediately. The trio conquered the dungeon, recovering memories of [Mori Calliope](https://www.youtube.com/live/PJtapc2_7ok?si=Jtp8XzHA_FLV9Wi9&t=9383), though not without some [screaming](https://www.youtube.com/live/PJtapc2_7ok?si=Zst9EdhSWxT2Oh3-&t=7627) along the way.  \n<br>\n\n\nTheir day didn’t end there. The group continued exploring the world, with one highlight being the *gacha boxes*. Gura scored a ridiculous, long, pointy red velvet hat and proudly declared herself *The Appointed Point*. \n<br>\n\n[The Appointed Point](#embed:https://www.youtube.com/embed/PJtapc2_7ok?t=10161)\n<br>\n\n\nThe almighty Appointed Point didn’t stay mighty for long, as Fauna promptly beat her up and extorted some [loot](https://www.youtube.com/live/PJtapc2_7ok?si=YkwgWZsNZ_jUp72e&t=10970). Turns out, the hat didn’t boost her strength—or intelligence. Finally, the three of them wrapped up their day at the casino. While Fauna and Cecilia made decent profits, Gura went bankrupt, she lost so much money she couldn't feel her legs anymore. Again, the hat offered no perks. Despite that, she had a blast and was excited for whatever adventures lay ahead.\n",
+            "imageSrc": "https://cdn.holoen.fans/hefw/media/Gawr-Gura_list_thumb.png",
+            "teamId": "scarlet-wand",
+            "status": "Alive",
+            "new": true,
+            "bgCardColor": "#5d81c7"
+          },
+          "measured": {
+            "width": 100,
+            "height": 100
+          },
+          "selected": false,
+          "dragging": false
+        }
+      ],
+      "edges": [
+        {
+          "id": "gonathan-g-jyan-watson-top-2-bottom-2",
+          "source": "gonathan-g",
+          "target": "jyan-watson",
+          "sourceHandle": "top-2",
+          "targetHandle": "bottom-2",
+          "type": "fixed",
+          "style": {
+            "stroke": "#ffd885"
+          },
+          "data": {
+            "relationshipId": "alliance",
+            "title": "King Killer",
+            "content": "Gonathan was a thorn in Jyan Watson's side for most of the day. The orange knight had discovered Jyan's plan to assassinate the King, a plot that Gonathan couldn’t tolerate in good conscience. Every time he encountered the blonde maiden, he would shout accusations and cause a scene, determined to expose her treachery to the rest of the kingdom.\n<br>\n\n[Gonathan confronts Jyan Watson](#embed:https://www.youtube.com/live/y9KKa_k2VTU?t=5967)\n<br>\n\nThe others, however, were far less invested. Many found the interactions between the two amusing—watching Gonathan chase Jyan around like an overzealous guard dog. Most of them, save for Elizabeth, didn’t care much for the King anyway.\n<br>\n\nEventually, Jyan seemed to tire of the relentless pursuit and finally decided to confront her pursuer. She stopped and calmly explained her reasoning for wanting to take down the King.\n<br>\n\n[Jyan explains to Gonathan why she wants to slay the King](#embed:https://www.youtube.com/embed/y9KKa_k2VTU?si=3dehAp08bmCG59ye&amp;start=7108)\n<br>\n\nAccording to her, the King was corrupted and bore a \"Stain\" (on his pants, no less) and was deceiving everyone into serving him for his own nefarious purposes. However, her claims were offered without evidence, sources, or any tangible proof... so it made perfect sense for Gonathan to believe her without question. Whether it was her striking beauty or her confident delivery that swayed him, the knight cast aside all of his earlier accusations.\n<br>\n\nSwearing allegiance to her cause, Gonathan vowed to help Jyan in her endeavors to bring down the King. The transformation left the rest of the kingdom baffled, but to Gonathan, it seemed like the most natural course of action.\n\n",
+            "timestampUrl": "",
+            "pathType": "smoothstep",
+            "marker": false,
+            "new": true
+          },
+          "selected": false
+        },
+        {
+          "id": "elizabeth-rose-bloodflame-tam-gandr-top-3-top-2",
+          "source": "elizabeth-rose-bloodflame",
+          "target": "tam-gandr",
+          "sourceHandle": "top-3",
+          "targetHandle": "top-2",
+          "type": "fixed",
+          "style": {
+            "stroke": "#e30d0d"
+          },
+          "data": {
+            "relationshipId": "enemy",
+            "title": "Red and Blue",
+            "content": "It wasn’t long before a conflict—if you could call it that—erupted in the Kingdom between two of Libestal's most fiery personalities: Tam Gandr, the self-proclaimed future \"Queen\" of Libestal, and Elizabeth Rose Bloodflame, a former Queen in her past life. \n<br>\n\nThe tension sparked during an interrogation of Jyan Watson, the would-be king-slayer, led by Gonathan G. Elizabeth, a member of the same guild as Jyan, wasn’t about to let her guildmate be accused without defense (even if Jyan did plot to kill the King). On the other side, Tam wasn’t about to let anyone disrespect her guildmate Gonathan, setting the stage for a dramatic clash of wills.\n<br>\n\n[Red and Blue, round one](#embed:https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=5877)\n<br>\n\n\nWhat followed was a verbal showdown—sharp words flying between them, though much of it boiled down to one repeatedly telling the other to [shut up](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=5985). Neither backed down, but the feud escalated when Elizabeth claimed to be part of Amber Coin, a guild Tam utterly [despised](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=5964) (for some odd reason). For Tam, this was confirmation: Elizabeth was her enemy. Tam wasted no time mocking Elizabeth’s supposed allegiance to Amber Coin, and every subsequent interaction between them became a battle of petty [exchanges](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=6995).  \n\n<br>\n\n\nThings reached a boiling point when Tam discovered Elizabeth was actually a member of Jade Sword. This revelation didn’t defuse the situation; instead, Tam branded Elizabeth a compulsive [liar](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=7706) and kept her guard up at all times.\n\n<br>\n\n\nIt seemed clear: these two weren’t about to reconcile anytime soon. Their rivalry had just begun, and the Kingdom of Libestal would undoubtedly bear witness to more clashes between the self-assured would-be Queen and the regal knight of fire.\n\n<br>\n\n[Red and Blue, round two](#embed:https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=8324)",
+            "timestampUrl": "",
+            "pathType": "smoothstep",
+            "marker": false,
+            "new": true
+          },
+          "selected": false
+        },
+        {
+          "id": "tanakisha-shakaria-raora-panthera-bottom-2-top-2",
+          "source": "tanakisha-shakaria",
+          "target": "raora-panthera",
+          "sourceHandle": "bottom-2",
+          "targetHandle": "top-2",
+          "type": "fixed",
+          "style": {
+            "stroke": "#c65cff"
+          },
+          "data": {
+            "relationshipId": "big-pink-cat",
+            "title": "Catlady",
+            "content": "Raora, affectionately known as the “beeg cat” of the group, quickly became a favorite of Shakira, who clearly had a soft spot for cats. From the moment they met, Shakira went out of her way to ensure Raora was comfortable and cared for. \n<br>\n\nHer attentiveness was unwavering—when Raora went missing, Shakira was the first to notice. Without hesitation, she rallied everyone to search for [her](https://www.youtube.com/watch?v=izEX6XKyApQ&t=3874s). On another ocassion, when Shakira found Raora on her own after wandering around on her lonesome herself, she was [overjoyed](https://www.youtube.com/watch?v=izEX6XKyApQ&t=4707s), like an owner finding their lost pet.\n<br>\n\n[Kitty kitty, where are you?](#embed:https://www.youtube.com/live/izEX6XKyApQ?t=3874)\n<br>\n\n\nThroughout the day, the two shared countless moments together, forming a bond that felt natural and heartwarming amidst the chaos. They chatted about various topics, laughed, and worked together to build up their guild base. Shakira seemed intent on keeping Raora company at all [times](https://www.youtube.com/watch?v=izEX6XKyApQ&t=6381s), treating her with the same affection one might give to a beloved pet. \n<br>\n\nBefore the day ended, Shakira called out to Raora one last time to say [goodbye](https://www.youtube.com/watch?v=izEX6XKyApQ&t=13636s)—like a caring cat owner bidding farewell before heading off to work. It was a sweet and wholesome connection, a refreshing contrast to the madness unfolding around them.\n<br>\n\n[Orange woman and her pink cat goofing around](#embed:https://www.youtube.com/live/izEX6XKyApQ?t=12541)\n",
+            "timestampUrl": "",
+            "pathType": "smoothstep",
+            "marker": false,
+            "new": true
+          },
+          "selected": false
+        },
+        {
+          "id": "tam-gandr-king-of-libestal-top-3-right-2",
+          "source": "tam-gandr",
+          "target": "king-of-libestal",
+          "sourceHandle": "top-3",
+          "targetHandle": "right-2",
+          "type": "fixed",
+          "style": {
+            "stroke": "#ff7ae2"
+          },
+          "data": {
+            "relationshipId": "marriage",
+            "title": "Guess I'm Queen now",
+            "content": "When Tam was summoned to this world, she didn’t share the confusion or fear that consumed the others. No, she felt superior, as if destiny itself had singled her out for greatness. Tam was convinced she wasn’t just any commoner but someone of immense importance—the future Queen, to be precise. After all, didn’t the King himself begin a sentence with, *“Will you-”?* Surely, the only possible continuation was *“marry,”* right? It was obvious to her.\n<br>\n\n[Tam accepting the King's proposal (?) with various demands](#embed:https://www.youtube.com/live/zgioohaY0m4?t=2555)\n<br>\n\nBrimming with confidence, Tam wasted no time sharing her “royal engagement” with everyone. She told [Peasant the Bae](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=1331), [Gura](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=2497), and essentially all her [guild mates](https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=5589). To her delight—or perhaps bewilderment—everyone believed her, or at least went along with it, not knowing any better.\n<br>\n\nBefore long, word spread throughout the entire kingdom: Tam was destined to marry the diminutive rabbit-man King, who stood at half her height. Whether or not anyone questioned the absurdity of it, one thing was certain—the kingdom would never be the same with Tam’s unique brand of shaping her path forward.  \n\n\n",
+            "timestampUrl": "",
+            "pathType": "smoothstep",
+            "marker": false,
+            "new": true
+          },
+          "selected": false
+        },
+        {
+          "id": "mococo-abyssguard-elizabeth-rose-bloodflame-left-3-right-2",
+          "source": "mococo-abyssguard",
+          "target": "elizabeth-rose-bloodflame",
+          "sourceHandle": "left-3",
+          "targetHandle": "right-2",
+          "type": "fixed",
+          "style": {
+            "stroke": "#77e03e"
+          },
+          "data": {
+            "relationshipId": "protector",
+            "title": "By your side",
+            "content": "The new world brought confusion and fear to everyone. Stripped of their memories and thrust into an unfamiliar place filled with strange faces, the situation was overwhelming. But even amidst the chaos, Elizabeth stood strong. It was as though she was destined to be a knight; her fiery resolve burned brightly, illuminating the path forward even in the darkest moments.\n<br>\n\nMococo, however, was her opposite. Timid and fearful, she resembled a lost pup, unsure of herself and the world around her. Whenever left alone, she would fall into [distress](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=4128), panic consuming her. It was during one of these moments that the fiery knight, Elizabeth, took notice. \n<br>\n\nSeeing the small girl in such a state, Elizabeth's sense of duty as a righteous knight compelled her to act. She approached Mococo and made a heartfelt promise: she would protect her and stay by her side. From that moment on, Elizabeth became Mococo's shield, her unwavering guardian in this strange new world.  \n<br>\n\n[From here on out, I will promise you I will remain by your side](#embed:https://www.youtube.com/live/2qiX7084obE?t=3891)\n<br>\n\n\nThe knight's words were stirdy, firm, and trustworthy. They provided warmth and comfort, and Mococo felt safe under the protection of Elizabeth, so much that even losing sight of her would cause her to go into a minor [panic](https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=4131). She wished to be by her side, and Elizabeth in turn, would uphold that promise, no matter what.\n",
+            "timestampUrl": "",
+            "pathType": "smoothstep",
+            "marker": false,
+            "new": true
+          },
+          "selected": false
+        },
+        {
+          "id": "gonathan-g-tam-gandr-bottom-2-left-2",
+          "source": "gonathan-g",
+          "target": "tam-gandr",
+          "sourceHandle": "bottom-2",
+          "targetHandle": "left-2",
+          "type": "fixed",
+          "style": {
+            "stroke": "#77e03e"
+          },
+          "data": {
+            "relationshipId": "protector",
+            "title": "You're the Queen!",
+            "content": "The blue maiden was still disoriented when she was first summoned to the white box, grappling with the unsettling realization that all of her memories were gone. The most pressing issue, of course, was that she couldn’t even recall her own name. Giving herself one felt like far too much effort, so when she encountered someone brimming with confidence, she simply asked them to name her.\n<br>\n\n[Gonathan gives the blue maiden a name](#embed:https://www.youtube.com/live/zgioohaY0m4?t=699)\n<br>\n\nThus, she became Tam Gandr—a name she quickly decided was befitting of royalty. Declaring herself the future ruler of this strange new kingdom (self-proclaimed, of course), Tam embraced her role with an air of grandeur. Gonathan, summoned with a sense of knightly duty already deeply instilled, immediately recognized Tam’s \"regal\" potential. Believing her to be a rightful queen, he pledged himself as her [knight](https://www.youtube.com/live/y9KKa_k2VTU?feature=shared&t=5727), swearing to protect and follow her wherever she went.\n<br>\n\nTam, in her self-proclaimed royal empathy, didn’t just demand loyalty; she reciprocated it. Whenever her loyal knight faced confrontations—particularly from Elizabeth, who doubted the legitimacy of their claims—Tam stood by Gonathan, shielding him in her own way.\n<br>\n\nTheir bond was unwavering, though their united disdain for the Amber Coins raised eyebrows. Whether or not such behavior could be deemed \"knightly\" or \"queenly\" was debatable, but to Tam, Gonathan was her most trusted follower, and to Gonathan, Tam was the queen he was destined to serve.\n<br>\n\n[Tam demanding Elizabeth to apologize to Gonathan](#embed:https://www.youtube.com/live/zgioohaY0m4?t=9132)\n",
+            "timestampUrl": "",
+            "pathType": "smoothstep",
+            "marker": false,
+            "new": true
+          },
+          "selected": false
+        },
+        {
+          "id": "peasant-da-bae-cleopatra-eisenhower-da-vinci-bottom-2-top-2",
+          "source": "peasant-da-bae",
+          "target": "cleopatra-eisenhower-da-vinci",
+          "sourceHandle": "bottom-2",
+          "targetHandle": "top-2",
+          "type": "fixed",
+          "style": {
+            "stroke": "#ffd885"
+          },
+          "data": {
+            "relationshipId": "alliance",
+            "title": "Friends (?)",
+            "content": "You put a rat and an owl in the same room, and it’s only a matter of time before the owl starts picking on the rat. That was precisely what happened between Three and Bae on their first day. Three wasn’t particularly kind to her newfound companion—teasing her, calling her crazy—and Bae knew all too well that she was being picked on.\n<br>\n\n[Bae and Three's initial encounter](#embed:https://www.youtube.com/live/vuij6YTMIzw?t=3422)\n<br>\n\nBut that dynamic didn’t last long. In a chaotic fantasy kingdom filled with equally chaotic inhabitants, survival demanded teamwork. It wasn’t long before Bae and Three put their differences aside to face the day’s challenges together. From quests to learning the kingdom’s peculiar mechanics, the two stuck together, becoming unlikely allies.\n<br>\n\nTheir teamwork extended to investigating the arrival of the [Hot Pink One](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=6025). After some awkward introductions and a hilariously confusing debate over whether the Hot Pink One’s weapon was a halo or a set of shurikens, Bae and Three came to a unanimous conclusion: she was too much trouble. Deciding against recruiting her, they [left her](https://www.youtube.com/live/vuij6YTMIzw?feature=shared&t=6319) to her eccentricities. Perhaps bringing the town loony into their guild would have done more harm than good.",
+            "timestampUrl": "",
+            "pathType": "smoothstep",
+            "marker": false,
+            "new": true
+          },
+          "selected": false
+        },
+        {
+          "id": "raora-panthera-tam-gandr-right-2-top-1",
+          "source": "raora-panthera",
+          "target": "tam-gandr",
+          "sourceHandle": "right-2",
+          "targetHandle": "top-1",
+          "type": "fixed",
+          "style": {
+            "stroke": "#e30d0d"
+          },
+          "data": {
+            "relationshipId": "enemy",
+            "title": "Say my name",
+            "content": "The (self-proclaimed) Libestian Queen was already making a name for herself across the kingdom. She had gathered loyal followers, asserted her dominance, and made others bow whenever they stood in her presence. \n<br>\n\nIt was only natural—after all, she was perfect. Brimming with empathy and compassion, she never let anything get under her skin, always maintaining her mature composure throughout the day… that was, until a certain pink cat appeared.\n<br>\n\n[Stop laughing, that's my name you're laughing about!](#embed:https://www.youtube.com/live/zgioohaY0m4?feature=shared&t=12506)\n<br>\n\nNever had Tam imagined that someone could get on her nerves so much simply by mispronouncing her name—albeit, repeatedly. But this wasn’t just any pink cat. Upon learning that Tam was supposedly the \"Queen\" of the kingdom, Raora wasted no time in claiming the title for herself, declaring that she was the true queen and that Tam was merely second in line. Tam, of course, refused to back down, firing back that she was the actual queen, while Raora was just an impostor.\n<br>\n\n\nWhat followed was a [conversation](https://www.youtube.com/live/8ybUOw9NhMc?feature=shared&t=13146) that could only be described as something straight out of a playground argument—two individuals, going back and forth, each trying to one-up the other in their imaginary rule. The only problem? These were fully grown adult women.\n<br>\n\nRaora, however, wasn’t just playing around—she was serious. She would do whatever it took to prove she was the true queen. But Tam? She could only shake her head and brush the whole thing off, thinking to herself, \"What the heck is wrong with this person?\"",
+            "timestampUrl": "",
+            "pathType": "custom",
+            "marker": false,
+            "new": true,
+            "offsets": {
+              "HL": 0,
+              "VL": 18.379173679952537,
+              "HC": 0,
+              "VR": 0,
+              "HR": 0
+            }
+          },
+          "selected": false
+        }
+      ]
+    }
+  ],
+  "teams": {
+    "scarlet-wand": {
+      "id": "scarlet-wand",
+      "name": "Scarlet Wand",
+      "teamIconSrc": "https://cdn.holoen.fans/hefw/media/scarletwand.webp"
+    },
+    "jade-sword": {
+      "id": "jade-sword",
+      "name": "Jade Sword",
+      "teamIconSrc": "https://cdn.holoen.fans/hefw/media/jadesword.webp"
+    },
+    "cerulean-cup": {
+      "id": "cerulean-cup",
+      "name": "Cerulean Cup",
+      "teamIconSrc": "https://cdn.holoen.fans/hefw/media/ceruleancup.webp"
+    },
+    "amber-coin": {
+      "id": "amber-coin",
+      "name": "Amber Coin",
+      "teamIconSrc": "https://cdn.holoen.fans/hefw/media/ambercoin.webp"
+    }
+  },
+  "relationships": {
+    "alliance": {
+      "id": "alliance",
+      "name": "Alliance",
+      "style": {
+        "stroke": "#ffd885"
+      }
+    },
+    "marriage": {
+      "id": "marriage",
+      "name": "Marriage",
+      "style": {
+        "stroke": "#ff7ae2"
+      }
+    },
+    "protector": {
+      "id": "protector",
+      "name": "Protector",
+      "style": {
+        "stroke": "#77e03e"
+      }
+    },
+    "big-pink-cat": {
+      "id": "big-pink-cat",
+      "name": "Big Pink Cat",
+      "style": {
+        "stroke": "#c65cff"
+      }
+    },
+    "enemy": {
+      "id": "enemy",
+      "name": "Enemy",
+      "style": {
+        "stroke": "#e30d0d"
+      }
+    }
+  }
+}
