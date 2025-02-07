@@ -1,149 +1,196 @@
-// @ts-nocheck
-import { ChartData, SiteData } from "@/lib/type";
-import day1 from "@/data/day1.json";
-import day2 from "@/data/day2.json";
-import day3 from "@/data/day3.json";
-import day4 from "@/data/day4.json";
-import day5 from "@/data/day5.json";
-import day6 from "@/data/day6.json";
-import day7 from "@/data/day7.json";
-import day8 from "@/data/day8.json";
+"use client";
 
-// export chart
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const exportJson = (data: any) => {
-    const dataStr = JSON.stringify(data, null, 2);
-    const dataUri = `data:application/json;charset=utf-8,${encodeURIComponent(
-        dataStr
-    )}`;
-    const exportFileDefaultName = data.title
-        ? `${data.title}.json`
-        : "data.json";
-    const linkElement = document.createElement("a");
-    linkElement.setAttribute("href", dataUri);
-    linkElement.setAttribute("download", exportFileDefaultName);
-    linkElement.click();
-};
+import { 
+    Chapter, 
+    ChartData, 
+    EditorChapter, 
+    EditorSaveMetadata, 
+    FixedEdgeType, 
+    ImageNodeType, 
+    Metadata 
+} from "@/lib/type";
 
-// function to copy the old chart's edge data to the new chart if same source node, edge node and relationship type
-export const copyEdgeData = (oldChart: ChartData, newChart: ChartData) => {
-    const oldEdges = oldChart.edges;
-    const newChartLocal = newChart;
-    newChartLocal.edges.forEach((edge) => {
-        const oldEdge = oldEdges.find(
-            (oldEdge) =>
-                oldEdge.source === edge.source &&
-                oldEdge.target === edge.target &&
-                oldEdge.data?.relationship === edge.data?.relationship
-        );
-        if (oldEdge) {
-            // copy data except path and new
-            const tempPath = edge.data?.path;
-            edge.data = {
-                ...oldEdge.data,
-                new: false,
-            };
+import JSZip from "jszip";
 
-            if (tempPath) {
-                edge.data.path = tempPath;
-            }
-        } else {
-            if (edge.data) {
-                edge.data.new = true;
-            }
-        }
-    });
-    return newChartLocal;
-};
+const SAVE_VERSION = 1;
 
-// function to copy the old chart's node data to the new chart if same imageSrc (exluding content)
-export const copyNodeData = (oldChart: ChartData, newChart: ChartData) => {
-    const oldNodes = oldChart.nodes;
-    const newChartLocal = newChart;
-    newChartLocal.nodes.forEach((node) => {
-        const oldNode = oldNodes.find(
-            (oldNode) => oldNode.data.imageSrc === node.data.imageSrc
-        );
-        if (oldNode) {
-            // clone data except for data.content
-            node.data = {
-                ...oldNode.data,
-                content: node.data.content,
-                new: node.data.new,
-            };
-        }
-    });
-    return newChartLocal;
-};
+function getChapterFileName(chapterIndex: number) {
+    return `chapter${chapterIndex}.json`;
+}
 
-export const copyChartData = (oldChart: ChartData, newChart: ChartData) => {
-    // oldChart = oldChart || day1;
-    // newChart = newChart || day2;
-    const newChartLocal = copyNodeData(oldChart, newChart);
-    if (!newChartLocal.teams || Object.keys(newChartLocal.teams).length === 0) {
-        newChartLocal.teams = oldChart.teams;
-    }
-    if (
-        !newChartLocal.relationships ||
-        Object.keys(newChartLocal.relationships).length === 0
-    ) {
-        newChartLocal.relationships = oldChart.relationships;
-    }
-    return copyEdgeData(oldChart, newChartLocal);
-};
+export async function saveData(editorChapters: EditorChapter[]) {
+    const utf8Encoder = new TextEncoder();
+    const zipFile = new JSZip();
+    let chNum = 0;
 
-// Check if chart has missing properties
-export const checkChartMissingData = (chartData: ChartData) => {
-    if (!chartData.teams || Object.keys(chartData.teams).length === 0) {
-        console.log("Teams data is missing");
-    }
-    if (
-        !chartData.relationships ||
-        Object.keys(chartData.relationships).length === 0
-    ) {
-        console.log("Relationships data is missing");
-    }
-    if (!chartData.dayRecap) {
-        console.log("Day Recap data is missing");
-    }
-    if (!chartData.title) {
-        console.log("Title data is missing");
+    for(const editorChapter of editorChapters) {
+        const chJson = JSON.stringify(editorChapter, null, 2);
+        zipFile.file(getChapterFileName(chNum), utf8Encoder.encode(chJson));
+        chNum++;
     }
 
-    if (!chartData.nodes || chartData.nodes.length === 0) {
-        console.log("Nodes data is missing");
-    }
-    if (!chartData.edges || chartData.edges.length === 0) {
-        console.log("Edges data is missing");
-    }
-};
-
-export const mergeChartsIntoOneBigFile = async () => {
-    const siteData: SiteData = {
-        numberOfChapters: 1,
-        event: "ENigmatic Recollection",
-        chapter: {
-            title: "ENigmatic Recollection Chapter 1",
-            charts: [],
-            numberOfDays: 8,
-        },
+    const saveDate = new Date().toISOString();
+    const metadata: EditorSaveMetadata = {
+        version: SAVE_VERSION,
+        numChapters: chNum,
+        saveDatetime: saveDate
     };
 
-    const charts: ChartData[] = [
-        day1,
-        day2,
-        day3,
-        day4,
-        day5,
-        day6,
-        day7,
-        day8,
-    ];
+    const metadataJson = JSON.stringify(metadata, null, 2);
+    zipFile.file("metadata.json", utf8Encoder.encode(metadataJson));
 
-    siteData.chapter = {
-        title: "ENigmatic Recollection Chapter 1",
-        charts: charts,
-        numberOfDays: 68,
+    const zipBlob = await zipFile.generateAsync({ type: "blob" });
+    const zipBlobUrl = URL.createObjectURL(zipBlob);
+
+    const dlLink = document.createElement("a");
+    dlLink.setAttribute("href", zipBlobUrl);
+    dlLink.setAttribute("download", `enreco-archive-editor-save-${saveDate}.zip`);
+    dlLink.style.display = "none";
+
+    document.body.appendChild(dlLink);
+    dlLink.click();
+    document.body.removeChild(dlLink);
+
+    URL.revokeObjectURL(zipBlobUrl);
+}
+
+export async function loadData(setData: (newData: EditorChapter[]) => void) {
+    const utf8Decoder = new TextDecoder("utf-8");
+    
+    const fileInput = document.createElement("input");
+    fileInput.setAttribute("type", "file");
+    fileInput.setAttribute("accept", "application/zip");
+
+    fileInput.addEventListener("change", async (event) => {
+        const target = event.target as HTMLInputElement;
+        
+        if(!target.files) {
+            return;
+        }
+
+        const file = target.files[0];
+
+        if(file.type !== "application/zip" && file.type !== "application/x-zip-compressed") {
+            return;
+        }
+        
+        const zipData = await file.arrayBuffer();
+        const zipFile = await JSZip.loadAsync(zipData);
+        
+        const metadataFile = zipFile.filter((_, file) => file.name === "metadata.json")[0];
+        const metadataData = await metadataFile.async("uint8array");
+        const metadata: EditorSaveMetadata = JSON.parse(utf8Decoder.decode(metadataData));
+
+        if(metadata.version !== SAVE_VERSION) {
+            return;
+        }
+
+        const data = [];
+        for(let i = 0; i < metadata.numChapters; i++) {
+            const chFileName = getChapterFileName(i);
+            const chFile = zipFile.filter((_, file) => file.name === chFileName)[0];
+            const chData = await chFile.async("uint8array");
+            const ch: EditorChapter = JSON.parse(utf8Decoder.decode(chData));
+            data.push(ch);
+        }
+
+        setData(data);
+    });
+
+    fileInput.click();
+}
+
+export async function exportData(editorChapters: EditorChapter[]) {
+    const exportData = editorChapters.map<Chapter>(editorChapter => {
+        const chartData = editorChapter.charts.map<ChartData>(chart => {
+            const nodes = chart.nodes.map(node => {
+                const resultNode: ImageNodeType = {
+                    ...node,
+                    type: "image",
+                    data: {
+                        title: node.data.title,
+                        content: node.data.content,
+                        imageSrc: node.data.imageSrc,
+                        teamId: node.data.teamId,
+                        status: node.data.status,
+                        new: node.data.new,
+                        bgCardColor: node.data.bgCardColor
+                    }
+                };
+
+                return resultNode;
+            });
+
+            const edges = chart.edges.map(edge => {
+                const resultEdge: FixedEdgeType = {
+                    ...edge,
+                    type: "fixed",
+                    data: {
+                        relationshipId: edge.data!.relationshipId,
+                        title: edge.data!.title,
+                        content: edge.data!.content,
+                        timestampUrl: edge.data!.timestampUrl,
+                        pathType: edge.data!.pathType,
+                        marker: edge.data!.marker,
+                        new: edge.data!.new,
+                        offsets: edge.data!.offsets
+                    }
+                };
+                
+                return resultEdge;
+            });
+
+            const resultChart: ChartData = {
+                dayRecap: chart.dayRecap,
+                title: chart.title,
+                nodes: nodes,
+                edges: edges
+            };
+            return resultChart;
+        });
+        
+        const resultChapter: Chapter =  {
+            numberOfDays: editorChapter.numberOfDays,
+            title: editorChapter.title,
+            charts: chartData,
+            teams: editorChapter.teams,
+            relationships: editorChapter.relationships,
+        };
+
+        return resultChapter;
+    });
+
+    const utf8Encoder = new TextEncoder();
+    const zipFile = new JSZip();
+    let chNum = 0;
+
+    for(const chapter of exportData) {
+        const chJson = JSON.stringify(chapter, null, 2);
+        zipFile.file(getChapterFileName(chNum), utf8Encoder.encode(chJson));
+        chNum++;
+    }
+
+    const exportDate = new Date().toISOString();
+    const metadata: Metadata = {
+        version: SAVE_VERSION,
+        numChapters: chNum,
+        exportDatetime: exportDate
     };
-    return siteData;
-};
+
+    const metadataJson = JSON.stringify(metadata, null, 2);
+    zipFile.file("metadata.json", utf8Encoder.encode(metadataJson));
+
+    const zipBlob = await zipFile.generateAsync({ type: "blob" });
+    const zipBlobUrl = URL.createObjectURL(zipBlob);
+
+    const dlLink = document.createElement("a");
+    dlLink.setAttribute("href", zipBlobUrl);
+    dlLink.setAttribute("download", `enreco-archive-export-${exportDate}.zip`);
+    dlLink.style.display = "none";
+
+    document.body.appendChild(dlLink);
+    dlLink.click();
+    document.body.removeChild(dlLink);
+
+    URL.revokeObjectURL(zipBlobUrl);
+}

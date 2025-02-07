@@ -22,7 +22,7 @@ interface ViewTransportControlsProps {
     onDayChange: (newDay: number) => void;
 }
 
-export function ViewTransportControls({
+export default function ViewTransportControls({
     chapter,
     chapterData,
     day,

@@ -1,41 +1,24 @@
 import { Separator } from "@/components/ui/separator";
 import NodeCardDeco from "@/components/view/NodeCardDeco";
 import { SCROLL_THRESHOLD } from "@/lib/constants";
-import { ChartData, ImageNodeType } from "@/lib/type";
-import { cn, getLighterOrDarkerColor } from "@/lib/utils";
-import { extractColors } from "extract-colors";
+import { ImageNodeType, Team } from "@/lib/type";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { EdgeLinkClickHandler, NodeLinkClickHandler, ViewMarkdown } from "./ViewMarkdown";
 
 interface ViewNodeContentProps {
-    selectedNode: ImageNodeType | null;
-    data: ChartData;
+    selectedNode: ImageNodeType;
+    team: Team;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
 }
 
-const ViewNodeContent = ({ selectedNode, onNodeLinkClicked, onEdgeLinkClicked }: ViewNodeContentProps) => {
-    const [color, setColor] = useState<string | null>(null);
+const ViewNodeContent = ({ selectedNode, team, onNodeLinkClicked, onEdgeLinkClicked }: ViewNodeContentProps) => {
     const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility
 
     const characterImageRef = useRef<HTMLImageElement>(null);
     const contentRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
-
-    // Extract the dominant color from the character image and set it as the background color
-    useEffect(() => {
-        const extractAndSetColor = async () => {
-            if (characterImageRef.current) {
-                const extractedColors = await extractColors(characterImageRef.current);
-                const dominantColor = extractedColors.reduce(
-                    (prev, current) => prev.area > current.area ? prev : current
-                );
-                setColor(getLighterOrDarkerColor(dominantColor.hex, 50));
-            }
-        };
-
-        extractAndSetColor();
-    }, [selectedNode]);
 
     // Handle scroll event to toggle header visibility
     const handleScroll = () => {
@@ -75,7 +58,7 @@ const ViewNodeContent = ({ selectedNode, onNodeLinkClicked, onEdgeLinkClicked }:
                     />
                 )}
 
-                <NodeCardDeco color={color} />
+                <NodeCardDeco color={selectedNode.data.bgCardColor} />
 
                 <div className="font-semibold text-center">
                     {selectedNode?.data.title}
@@ -84,7 +67,7 @@ const ViewNodeContent = ({ selectedNode, onNodeLinkClicked, onEdgeLinkClicked }:
                 <div className="flex flex-row justify-around w-full">
                     <div className="flex flex-col items-center">
                         <div className="font-semibold">Team</div>
-                        <div>{selectedNode?.data.team}</div>
+                        <div>{team?.name}</div>
                     </div>
                     <div className="flex flex-col items-center">
                         <div className="font-semibold">Status</div>

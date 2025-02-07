@@ -18,7 +18,7 @@ function Chevron({useUpChevron}: ChevronProps) {
     return <ChevronUp className="h-4 w-4 opacity-50" />
   }
   else {
-    <ChevronDown className="h-4 w-4 opacity-50" />
+    return <ChevronDown className="h-4 w-4 opacity-50" />
   }
 }
 

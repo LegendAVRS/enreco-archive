@@ -1,27 +1,26 @@
 "use client";
 import { useState } from "react";
 
+import {
+    FitViewOperation,
+    FixedEdgeType,
+    ImageNodeType,
+    SiteData,
+} from "@/lib/type";
 import ViewEdgeCard from "@/components/view/ViewEdgeCard";
 import ViewInfoModal from "@/components/view/ViewInfoModal";
 import ViewNodeCard from "@/components/view/ViewNodeCard";
 import ViewSettingCard from "@/components/view/ViewSettingCard";
-import {
-    CustomEdgeType,
-    FitViewOperation,
-    ImageNodeType,
-    SiteData,
-} from "@/lib/type";
-import { useFlowStore } from "@/store/flowStore";
 import { CardType, useViewStore } from "@/store/viewStore";
 
 import ViewAskVideoModal from "@/components/view/ViewAskVideoModal";
 import ViewMiniGameModal from "@/components/view/ViewMiniGameModal";
 import ViewVideoModal from "@/components/view/ViewVideoModal";
-import { Dice6, Info, Settings } from "lucide-react";
-import { IconButton } from "./components/ui/IconButton";
 import ViewChart from "./components/view/ViewChart";
 import ViewSettingsModal from "./components/view/ViewSettingsModal";
-import { ViewTransportControls } from "./components/view/ViewTransportControls";
+import ViewTransportControls from "./components/view/ViewTransportControls";
+import { IconButton } from "./components/ui/IconButton";
+import { Dice6, Info, Settings } from "lucide-react";
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMobilePinchZoom";
 
@@ -49,7 +48,6 @@ interface Props {
 let didInit = false;
 const ViewApp = ({ siteData }: Props) => {
     /* State variables */
-    const flowStore = useFlowStore();
     const viewStore = useViewStore();
 
     const [chartShrink, setChartShrink] = useState(0);
@@ -90,22 +88,17 @@ const ViewApp = ({ siteData }: Props) => {
         // To avoid overwriting current visibility for "new"
         edgeVisibilityLoaded["new"] = edgeVisibilityLoaded["new"] || true;
 
-        Object.keys(newDayData.relationships).forEach((key) => {
+        Object.keys(newChapterData.relationships).forEach((key) => {
             edgeVisibilityLoaded[key] = true;
         });
 
-        Object.keys(newDayData.teams).forEach((key) => {
+        Object.keys(newChapterData.teams).forEach((key) => {
             teamVisibilityLoaded[key] = true;
         });
 
-        for (const node of newDayData.nodes) {
-            if (node.data.team) {
-                teamVisibilityLoaded[node.data.team] = true;
-            }
-            if (node.data.title) {
-                characterVisibilityLoaded[node.data.title] = true;
-            }
-        }
+        newDayData.nodes.forEach(
+            (node) => (characterVisibilityLoaded[node.id] = true),
+        );
 
         onCurrentCardChange(null);
         viewStore.setEdgeVisibility(edgeVisibilityLoaded);
@@ -148,18 +141,18 @@ const ViewApp = ({ siteData }: Props) => {
 
     function onNodeClick(node: ImageNodeType) {
         onCurrentCardChange("node");
-        flowStore.setSelectedNode(node);
+        viewStore.setSelectedNode(node);
     }
 
-    function onEdgeClick(edge: CustomEdgeType) {
+    function onEdgeClick(edge: FixedEdgeType) {
         onCurrentCardChange("edge");
-        flowStore.setSelectedEdge(edge);
+        viewStore.setSelectedEdge(edge);
     }
 
     function onPaneClick() {
         onCurrentCardChange(null);
-        flowStore.setSelectedNode(null);
-        flowStore.setSelectedEdge(null);
+        viewStore.setSelectedNode(null);
+        viewStore.setSelectedEdge(null);
     }
 
     /* Init block, runs only on first render/load. */
@@ -176,6 +169,17 @@ const ViewApp = ({ siteData }: Props) => {
         }
     }
 
+    const selectedNodeTeam =
+        viewStore.selectedNode && viewStore.selectedNode.data.teamId
+            ? chapterData.teams[viewStore.selectedNode.data.teamId]
+            : null;
+    const selectedEdgeRelationship =
+        viewStore.selectedEdge && viewStore.selectedEdge.data?.relationshipId
+            ? chapterData.relationships[
+                  viewStore.selectedEdge.data?.relationshipId
+              ]
+            : null;
+
     return (
         <>
             <div className="w-screen h-screen top-0 inset-x-0 overflow-hidden">
@@ -185,9 +189,9 @@ const ViewApp = ({ siteData }: Props) => {
                     edgeVisibility={viewStore.edgeVisibility}
                     teamVisibility={viewStore.teamVisibility}
                     characterVisibility={viewStore.characterVisibility}
-                    dayData={dayData}
-                    selectedNode={flowStore.selectedNode}
-                    selectedEdge={flowStore.selectedEdge}
+                    selectedNode={viewStore.selectedNode}
+                    selectedEdge={viewStore.selectedEdge}
+                    chapterData={chapterData}
                     widthToShrink={chartShrink}
                     isCardOpen={viewStore.currentCard !== null}
                     fitViewOperation={fitViewOperation}
@@ -217,21 +221,23 @@ const ViewApp = ({ siteData }: Props) => {
                     onCharacterVisibilityChange={
                         viewStore.setCharacterVisibility
                     }
+                    chapterData={chapterData}
                 />
                 <ViewNodeCard
                     isCardOpen={viewStore.currentCard === "node"}
-                    selectedNode={flowStore.selectedNode}
+                    selectedNode={viewStore.selectedNode}
                     onCardClose={() => onCurrentCardChange(null)}
-                    dayData={dayData}
                     onNodeLinkClicked={onNodeClick}
                     onEdgeLinkClicked={onEdgeClick}
+                    nodeTeam={selectedNodeTeam}
                 />
                 <ViewEdgeCard
                     isCardOpen={viewStore.currentCard === "edge"}
-                    selectedEdge={flowStore.selectedEdge}
+                    selectedEdge={viewStore.selectedEdge}
                     onCardClose={() => onCurrentCardChange(null)}
                     onNodeLinkClicked={onNodeClick}
                     onEdgeLinkClicked={onEdgeClick}
+                    edgeRelationship={selectedEdgeRelationship}
                 />
             </div>
 
@@ -272,7 +278,7 @@ const ViewApp = ({ siteData }: Props) => {
                         onCurrentCardChange(
                             viewStore.currentCard === "setting"
                                 ? null
-                                : "setting"
+                                : "setting",
                         )
                     }
                 >

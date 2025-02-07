@@ -3,13 +3,14 @@ import VaulDrawer from "@/components/view/VaulDrawer";
 import ViewCard from "@/components/view/ViewCard";
 import ViewRecapCard from "@/components/view/ViewGeneralCard";
 import ViewVisibilityCard from "@/components/view/ViewVisibilityCard";
-import { ChartData, StringToBooleanObjectMap } from "@/lib/type";
+import { Chapter, ChartData, StringToBooleanObjectMap } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { BrowserView, MobileView } from "react-device-detect";
 
 interface Props {
     isCardOpen: boolean;
     onCardClose: () => void;
+    chapterData: Chapter;
     day: number;
     dayData: ChartData;
     edgeVisibility: StringToBooleanObjectMap;
@@ -22,7 +23,8 @@ interface Props {
 
 const ViewSettingCard = ({ 
     isCardOpen, 
-    onCardClose, 
+    onCardClose,
+    chapterData, 
     day, 
     dayData, 
     edgeVisibility, 
@@ -74,7 +76,8 @@ const ViewSettingCard = ({
                                 onTeamVisibilityChange={onTeamVisibilityChange}
                                 characterVisibility={characterVisibility}
                                 onCharacterVisibilityChange={onCharacterVisibilityChange}
-                                dayData={dayData}
+                                chapterData={chapterData}
+                                nodes={dayData.nodes}
                             />
                         </TabsContent>
                     </Tabs>
@@ -111,7 +114,8 @@ const ViewSettingCard = ({
                                 onTeamVisibilityChange={onTeamVisibilityChange}
                                 characterVisibility={characterVisibility}
                                 onCharacterVisibilityChange={onCharacterVisibilityChange}
-                                dayData={dayData}
+                                chapterData={chapterData}
+                                nodes={dayData.nodes}
                             />
                         </TabsContent>
                     </Tabs>
