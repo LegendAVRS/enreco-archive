@@ -5,6 +5,7 @@ import { useReactFlow } from "@xyflow/react";
 import { MouseEventHandler } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 
 export type NodeLinkClickHandler = (targetNode: ImageNodeType) => void;
 export type EdgeLinkClickHandler = (targetEdge: FixedEdgeType) => void;
@@ -103,7 +104,7 @@ export function ViewMarkdown({
     return (
         <Markdown
             className={"pb-20"}
-            rehypePlugins={[rehypeRaw]}
+            rehypePlugins={[rehypeRaw, remarkGfm]}
             components={{
                 // br styles not working for some reason, will use a div instead
                 br: () => <div className="block my-6" />,
