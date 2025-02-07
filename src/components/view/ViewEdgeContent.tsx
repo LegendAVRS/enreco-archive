@@ -1,6 +1,5 @@
 import { Separator } from "@/components/ui/separator";
 import EdgeCardDeco from "@/components/view/EdgeCardDeco";
-import { SCROLL_THRESHOLD } from "@/lib/constants";
 import { FixedEdgeType, ImageNodeType, Relationship } from "@/lib/type";
 import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
@@ -46,9 +45,7 @@ const ViewEdgeContent = ({
             ) {
                 return;
             }
-            const threshold =
-                contentRef.current.scrollHeight * SCROLL_THRESHOLD;
-            setIsHeaderVisible(contentRef.current.scrollTop <= threshold);
+            setIsHeaderVisible(contentRef.current.scrollTop === 0);
         }
     };
 
