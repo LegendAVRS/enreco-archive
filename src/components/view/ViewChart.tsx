@@ -213,11 +213,11 @@ function ViewChart({
 
             return (
                 (edgeVisibility["new"] && edgeData.new) ||
-                edgeVisibility[edgeData.relationshipId] &&
-                teamVisibility[nodeSrc.data.teamId || "null"] &&
-                teamVisibility[nodeTarget.data.teamId || "null"] &&
-                characterVisibility[nodeSrc.id] &&
-                characterVisibility[nodeTarget.id]
+                (edgeVisibility[edgeData.relationshipId] &&
+                    teamVisibility[nodeSrc.data.teamId || "null"] &&
+                    teamVisibility[nodeTarget.data.teamId || "null"] &&
+                    characterVisibility[nodeSrc.id] &&
+                    characterVisibility[nodeTarget.id])
             );
         })
         .map((edge) => {
@@ -232,8 +232,6 @@ function ViewChart({
 
             return edge;
         });
-
-    
 
     return (
         <div ref={flowRendererSizer} className="w-full h-full">

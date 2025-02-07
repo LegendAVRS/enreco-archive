@@ -336,7 +336,7 @@ const ViewApp = ({ siteData }: Props) => {
                     onChapterChange={(newChapter) => {
                         setFitViewOperation("fit-to-all");
                         setDoFitView(!doFitView);
-                        updateData(newChapter, viewStore.day)
+                        updateData(newChapter, viewStore.day);
                     }}
                     onDayChange={(newDay) =>
                         updateData(viewStore.chapter, newDay)

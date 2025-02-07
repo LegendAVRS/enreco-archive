@@ -64,11 +64,16 @@ export default function ViewTransportControls({
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent side={"top"}>
-                        {Array.from(chapterData.entries()).map(([index, chapter]) => (
-                            <SelectItem key={`${index}-${chapter.title}`} value={index.toString()}>
-                                {chapter.title || `Chapter ${index + 1}`}
-                            </SelectItem>
-                        ))}
+                        {Array.from(chapterData.entries()).map(
+                            ([index, chapter]) => (
+                                <SelectItem
+                                    key={`${index}-${chapter.title}`}
+                                    value={index.toString()}
+                                >
+                                    {chapter.title || `Chapter ${index + 1}`}
+                                </SelectItem>
+                            ),
+                        )}
                     </SelectContent>
                 </Select>
 

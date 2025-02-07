@@ -44,7 +44,7 @@ const ViewVisibilityCard = ({
                 <Label htmlFor="edge-all">
                     <span className="font-bold">Edge visibility</span>
                 </Label>
-                
+
                 <Checkbox
                     id="edge-all"
                     checked={Object.keys(edgeVisibility).every((key) => {
@@ -86,12 +86,12 @@ const ViewVisibilityCard = ({
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
-                    <Label
-                        htmlFor={`edge-${key.toLowerCase()}`}
-                    >
+                    <Label htmlFor={`edge-${key.toLowerCase()}`}>
                         <div className="flex flex-row gap-2 items-center">
                             {getLineSvg(chapterData.relationships[key].style)}
-                            <span className="capitalize">{key.toLowerCase()}</span>
+                            <span className="capitalize">
+                                {key.toLowerCase()}
+                            </span>
                         </div>
                     </Label>
 
@@ -134,16 +134,16 @@ const ViewVisibilityCard = ({
                     className="flex flex-row justify-between w-full items-center gap-10"
                     key={key}
                 >
-                    <Label
-                        htmlFor={`team-${key.toLowerCase()}`} 
-                    >
+                    <Label htmlFor={`team-${key.toLowerCase()}`}>
                         <div className="flex flex-row gap-2 items-center">
                             <img
                                 src={chapterData.teams[key].teamIconSrc}
                                 className="w-8 h-8"
                                 alt={`${key} logo`}
                             />
-                            <span className="capitalize">{key.toLowerCase()}</span>
+                            <span className="capitalize">
+                                {key.toLowerCase()}
+                            </span>
                         </div>
                     </Label>
 
@@ -194,9 +194,9 @@ const ViewVisibilityCard = ({
                                 alt={`${key} logo`}
                             />
                             <span className="capitalize">{key}</span>
-                        </div> 
+                        </div>
                     </Label>
-                    
+
                     <Checkbox
                         id={`character-${key.toLowerCase()}`}
                         checked={characterVisibility[key]}
