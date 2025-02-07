@@ -1,7 +1,7 @@
 import "@/index.css";
-import { Kanit } from "next/font/google";
+import { Lexend } from "next/font/google";
 
-const kanit = Kanit({
+const kanit = Lexend({
     subsets: ["latin"],
     weight: ["300", "400", "500", "600", "700", "800"],
 });

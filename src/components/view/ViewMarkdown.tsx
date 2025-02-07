@@ -104,8 +104,11 @@ export function ViewMarkdown({
 
     return (
         <Markdown
+            className={"pb-10"}
             rehypePlugins={[rehypeRaw]}
             components={{
+                // br styles not working for some reason, will use a div instead
+                br: () => <div className="block my-6" />,
                 p: ({ children }) => <>{children}</>,
                 a(props) {
                     const { href, ...rest } = props;
@@ -141,6 +144,7 @@ export function ViewMarkdown({
                                 <YouTubeEmbed
                                     videoid={videoid}
                                     params={params}
+                                    style="max-width: 100%; max-height: 100%;"
                                 />
                                 <figcaption>{caption}</figcaption>
                             </figure>

@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import VaulDrawer from "@/components/view/VaulDrawer";
 import ViewCard from "@/components/view/ViewCard";
-import ViewRecapCard from "@/components/view/ViewGeneralCard";
+import ViewRecapCard from "@/components/view/ViewRecapCard";
 import ViewVisibilityCard from "@/components/view/ViewVisibilityCard";
 import { Chapter, ChartData, StringToBooleanObjectMap } from "@/lib/type";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,6 @@ interface Props {
     isCardOpen: boolean;
     onCardClose: () => void;
     chapterData: Chapter;
-    day: number;
     dayData: ChartData;
     edgeVisibility: StringToBooleanObjectMap;
     onEdgeVisibilityChange: (
@@ -31,7 +30,6 @@ const ViewSettingCard = ({
     isCardOpen,
     onCardClose,
     chapterData,
-    day,
     dayData,
     edgeVisibility,
     onEdgeVisibilityChange,
@@ -71,7 +69,11 @@ const ViewSettingCard = ({
                             </TabsTrigger>
                         </TabsList>
                         <TabsContent value="general" className="h-full">
-                            <ViewRecapCard day={day} dayData={dayData} />
+                            <ViewRecapCard
+                                dayData={dayData}
+                                onEdgeLinkClicked={() => {}}
+                                onNodeLinkClicked={() => {}}
+                            />
                         </TabsContent>
                         <TabsContent value="visibility" className="h-full">
                             <ViewVisibilityCard
@@ -105,7 +107,11 @@ const ViewSettingCard = ({
                             value="general"
                             className="h-[80vh] pb-[10vh]"
                         >
-                            <ViewRecapCard day={day} dayData={dayData} />
+                            <ViewRecapCard
+                                dayData={dayData}
+                                onEdgeLinkClicked={() => {}}
+                                onNodeLinkClicked={() => {}}
+                            />
                         </TabsContent>
                         <TabsContent
                             value="visibility"

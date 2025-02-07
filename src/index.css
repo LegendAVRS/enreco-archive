@@ -8,13 +8,14 @@ h2,
 h3 {
     color: rgb(63, 63, 70);
 }
-h1::after {
+
+h2::after {
     content: "";
     display: block;
     width: 100%;
     height: 1px;
     background-color: rgba(63, 63, 70, 30%);
-    margin-top: 0.5rem;
+    @apply w-full my-4;
 }
 
 img {
@@ -135,7 +136,7 @@ figure {
 }
 
 lite-youtube {
-    @apply rounded-lg w-full aspect-video;
+    @apply rounded-lg;
 }
 
 figcaption {

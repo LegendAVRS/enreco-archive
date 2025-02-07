@@ -214,7 +214,6 @@ const ViewApp = ({ siteData }: Props) => {
                 <ViewSettingCard
                     isCardOpen={viewStore.currentCard === "setting"}
                     onCardClose={() => onCurrentCardChange(null)}
-                    day={viewStore.day}
                     dayData={dayData}
                     edgeVisibility={viewStore.edgeVisibility}
                     onEdgeVisibilityChange={viewStore.setEdgeVisibility}

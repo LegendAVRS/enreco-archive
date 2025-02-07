@@ -20,8 +20,12 @@ const ViewVideoModal = ({
             <VisuallyHidden>
                 <DialogTitle>Video modal for ${videoUrl}</DialogTitle>
             </VisuallyHidden>
-            <DialogContent className="rounded-lg  max-w-none md:w-[50vw]">
-                <YouTubeEmbed videoid={videoid} params={params} />
+            <DialogContent className="rounded-lg md:w-[50vw] max-w-none w-[95vw] h-auto aspect-video md:p-6 p-2">
+                <YouTubeEmbed
+                    videoid={videoid}
+                    params={params}
+                    style="max-width: 100%; max-height: 100%;"
+                />
             </DialogContent>
         </Dialog>
     );
