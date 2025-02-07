@@ -48,7 +48,6 @@ const ViewNodeContent = ({
     useEffect(() => {
         if (contentRef.current) {
             contentRef.current.scrollTop = 0;
-            console.log("hll");
         }
         setIsHeaderVisible(true);
     }, [selectedNode]);
