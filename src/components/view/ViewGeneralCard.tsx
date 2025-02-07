@@ -13,9 +13,7 @@ const ViewRecapCard = ({ day, dayData }: Props) => {
         <div className="flex flex-col gap-4 m-4 h-full">
             {/* Scrollable Content */}
             <div className="overflow-auto">
-                <h2 className="mb-2">
-                    {`Day ${day + 1} Recap`}
-                </h2>
+                <h2 className="mb-2">{`Day ${day + 1} Recap`}</h2>
                 <Markdown className="overflow-auto" rehypePlugins={[rehypeRaw]}>
                     {dayData.dayRecap || "No content available."}
                 </Markdown>

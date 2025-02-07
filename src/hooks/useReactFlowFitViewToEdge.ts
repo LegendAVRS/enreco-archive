@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { generatePath } from "@/lib/get-edge-svg-path";
 import { FixedEdgeType, ImageNodeType } from "@/lib/type";
@@ -10,13 +10,13 @@ import { isMobile } from "react-device-detect";
 function getCenterPoint(path: string): DOMPoint {
     const pathElement = document.createElementNS(
         "http://www.w3.org/2000/svg",
-        "path"
+        "path",
     );
     pathElement.setAttribute("d", path);
     const length = pathElement.getTotalLength();
     const center = pathElement.getPointAtLength(length / 2);
     return center;
-};
+}
 
 export interface EdgeViewCenterArgs {
     centerPointX: number;
@@ -26,12 +26,12 @@ export interface EdgeViewCenterArgs {
 }
 
 // Function to fit edge to view, returns all values required to plug into setCenter
-function findCenterViewOfEdge (
+function findCenterViewOfEdge(
     nodeA: ImageNodeType,
     nodeB: ImageNodeType,
     isMobile: boolean,
-    path: string
-) : EdgeViewCenterArgs {
+    path: string,
+): EdgeViewCenterArgs {
     const nodeAPosition = nodeA!.position;
     const nodeBPosition = nodeB!.position;
     const centerEdge = getCenterPoint(path);
@@ -41,7 +41,7 @@ function findCenterViewOfEdge (
     if (!isMobile) {
         offsetX = Math.min(
             500,
-            Math.abs(nodeA!.position.x - nodeB!.position.x) / 2
+            Math.abs(nodeA!.position.x - nodeB!.position.x) / 2,
         );
     }
 
@@ -55,7 +55,7 @@ function findCenterViewOfEdge (
     // Further means less zoom, closer means more zoom
     let zoomFactor = Math.sqrt(
         Math.pow(nodeAPosition.x - nodeBPosition.x, 2) +
-            Math.pow(nodeAPosition.y - nodeBPosition.y, 2)
+            Math.pow(nodeAPosition.y - nodeBPosition.y, 2),
     );
 
     // Normalize the zoom factor
@@ -80,19 +80,23 @@ function findCenterViewOfEdge (
         centerPointX: centerPoint.x,
         centerPointY: centerPoint.y,
         duration: 1000,
-        zoom: zoomFactorMapped
-    }
-};
+        zoom: zoomFactorMapped,
+    };
+}
 
 export function useReactFlowFitViewToEdge() {
     const { setCenter } = useReactFlow<ImageNodeType, FixedEdgeType>();
     const rfStore = useStoreApi<ImageNodeType, FixedEdgeType>();
 
     // Function to fit edge to view
-    const fitViewToEdge = (nodeAID: string, nodeBID: string, edge: FixedEdgeType) => {
+    const fitViewToEdge = (
+        nodeAID: string,
+        nodeBID: string,
+        edge: FixedEdgeType,
+    ) => {
         const nodeA = rfStore.getState().nodeLookup.get(nodeAID);
         const nodeB = rfStore.getState().nodeLookup.get(nodeBID);
-        if(!nodeA || !nodeB) {
+        if (!nodeA || !nodeB) {
             return;
         }
 
@@ -104,11 +108,13 @@ export function useReactFlowFitViewToEdge() {
             targetHandle: edge.targetHandle || null,
             connectionMode: rfStore.getState().connectionMode,
             onError: (id: string, message: string) => {
-                throw new Error(`Failed to get edge position for edge ${id}: ${message}`)
+                throw new Error(
+                    `Failed to get edge position for edge ${id}: ${message}`,
+                );
             },
         });
 
-        if(!edgePos) {
+        if (!edgePos) {
             throw new Error("edge position is undefined");
         }
 
@@ -118,30 +124,30 @@ export function useReactFlowFitViewToEdge() {
             sourcePosition,
             targetX,
             targetY,
-            targetPosition
-        } = edgePos
+            targetPosition,
+        } = edgePos;
 
         const path = generatePath(
-            edge.data?.pathType, 
-            edge.data?.offsets, 
-            sourceX, 
-            sourceY, 
-            sourcePosition, 
-            targetX, 
-            targetY, 
-            targetPosition
+            edge.data?.pathType,
+            edge.data?.offsets,
+            sourceX,
+            sourceY,
+            sourcePosition,
+            targetX,
+            targetY,
+            targetPosition,
         );
-        
-        const {centerPointX, centerPointY, duration, zoom} = findCenterViewOfEdge(nodeA, nodeB, isMobile, path);
+
+        const { centerPointX, centerPointY, duration, zoom } =
+            findCenterViewOfEdge(nodeA, nodeB, isMobile, path);
 
         // Pan to calculated center point
-        (async () => (
+        (async () =>
             await setCenter(centerPointX, centerPointY, {
                 duration: duration,
                 zoom: zoom,
-            })
-        ))();
+            }))();
     };
 
-    return { fitViewToEdge }; 
-} 
+    return { fitViewToEdge };
+}

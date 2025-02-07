@@ -1,7 +1,12 @@
 import { BaseEdge, EdgeLabelRenderer, useReactFlow } from "@xyflow/react";
 import { useEffect, useRef } from "react";
 
-import { CustomEdgeOffsets, CustomEdgeProps, CustomEdgeType, EditorImageNodeType } from "@/lib/type";
+import {
+    CustomEdgeOffsets,
+    CustomEdgeProps,
+    CustomEdgeType,
+    EditorImageNodeType,
+} from "@/lib/type";
 import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { generateOrthogonalEdgePath } from "@/lib/get-edge-svg-path";
 import { produce } from "immer";
@@ -31,7 +36,7 @@ function drag(
     element: HTMLElement,
     allowHorizontalDragging: boolean,
     allowVerticalDragging: boolean,
-    onDrag: (dx: number, dy: number) => void
+    onDrag: (dx: number, dy: number) => void,
 ) {
     const prevClient = { x: 0, y: 0 };
 
@@ -48,13 +53,14 @@ function drag(
 
         const newX = event.clientX;
         const newY = event.clientY;
-        let dx = 0, dy = 0;
+        let dx = 0,
+            dy = 0;
 
-        if(allowHorizontalDragging) {
+        if (allowHorizontalDragging) {
             dx = prevClient.x - newX;
         }
 
-        if(allowVerticalDragging) {
+        if (allowVerticalDragging) {
             dy = prevClient.y - newY;
         }
 
@@ -95,14 +101,15 @@ function DragPoint({
     const pointRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if(pointRef.current) {
-            return drag(pointRef.current, 
-                direction === "vertical", 
+        if (pointRef.current) {
+            return drag(
+                pointRef.current,
+                direction === "vertical",
                 direction === "horizontal",
-                onDrag
+                onDrag,
             );
         }
-    }, [direction, onDrag])
+    }, [direction, onDrag]);
 
     return (
         <div
@@ -118,7 +125,8 @@ function DragPoint({
                 pointerEvents: "all",
                 borderRadius: "50%",
                 background: "black",
-                cursor: direction === "horizontal" ? "row-resize" : "col-resize",
+                cursor:
+                    direction === "horizontal" ? "row-resize" : "col-resize",
             }}
         />
     );
@@ -129,7 +137,7 @@ const EMPTY_OFFSETS: CustomEdgeOffsets = {
     VL: 0,
     HC: 0,
     VR: 0,
-    HR: 0
+    HR: 0,
 };
 
 /*
@@ -162,15 +170,18 @@ const EditorCustomEdge = ({
         targetX,
         targetY,
     });
-    
-    const { getZoom, setEdges, updateEdgeData } = useReactFlow<EditorImageNodeType, CustomEdgeType>();
+
+    const { getZoom, setEdges, updateEdgeData } = useReactFlow<
+        EditorImageNodeType,
+        CustomEdgeType
+    >();
 
     function onDraggedCommon() {
         setEdges((prev) => {
             return prev.map((edge) =>
                 edge.id === id
                     ? { ...edge, selected: true }
-                    : { ...edge, selected: false }
+                    : { ...edge, selected: false },
             );
         });
     }
@@ -181,11 +192,11 @@ const EditorCustomEdge = ({
         offset /= getZoom();
 
         updateEdgeData(id, (prevEdge) => {
-            if(prevEdge.data === undefined) {
+            if (prevEdge.data === undefined) {
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { 
+            return produce(prevEdge.data, (draft) => {
                 draft.offsets = {
                     ...EMPTY_OFFSETS,
                     ...prevEdge.data?.offsets,
@@ -201,11 +212,11 @@ const EditorCustomEdge = ({
         offset /= getZoom();
 
         updateEdgeData(id, (prevEdge) => {
-            if(prevEdge.data === undefined) {
+            if (prevEdge.data === undefined) {
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { 
+            return produce(prevEdge.data, (draft) => {
                 draft.offsets = {
                     ...EMPTY_OFFSETS,
                     ...prevEdge.data?.offsets,
@@ -219,14 +230,14 @@ const EditorCustomEdge = ({
         onDraggedCommon();
 
         offset /= getZoom();
-        
+
         updateEdgeData(id, (prevEdge) => {
-            if(prevEdge.data === undefined) {
+            if (prevEdge.data === undefined) {
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { 
-                if(draft.offsets === undefined) {
+            return produce(prevEdge.data, (draft) => {
+                if (draft.offsets === undefined) {
                     draft.offsets = EMPTY_OFFSETS;
                 }
 
@@ -239,13 +250,13 @@ const EditorCustomEdge = ({
         onDraggedCommon();
 
         offset /= getZoom();
-    
+
         updateEdgeData(id, (prevEdge) => {
-            if(prevEdge.data === undefined) {
+            if (prevEdge.data === undefined) {
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { 
+            return produce(prevEdge.data, (draft) => {
                 draft.offsets = {
                     ...EMPTY_OFFSETS,
                     ...prevEdge.data?.offsets,
@@ -261,11 +272,11 @@ const EditorCustomEdge = ({
         offset /= getZoom();
 
         updateEdgeData(id, (prevEdge) => {
-            if(prevEdge.data === undefined) {
+            if (prevEdge.data === undefined) {
                 throw new Error(`${prevEdge} does not have a data object???`);
             }
 
-            return produce(prevEdge.data, draft => { 
+            return produce(prevEdge.data, (draft) => {
                 draft.offsets = {
                     ...EMPTY_OFFSETS,
                     ...prevEdge.data?.offsets,
@@ -275,13 +286,16 @@ const EditorCustomEdge = ({
         });
     }
 
-    const offsets = data !== undefined && data.offsets != undefined ? data.offsets : EMPTY_OFFSETS;
-    const { 
-        HL: hlOffset = 0, 
-        VL: vlOffset = 0, 
-        HC: hcOffset = 0, 
-        VR: vrOffset = 0, 
-        HR: hrOffset = 0 
+    const offsets =
+        data !== undefined && data.offsets != undefined
+            ? data.offsets
+            : EMPTY_OFFSETS;
+    const {
+        HL: hlOffset = 0,
+        VL: vlOffset = 0,
+        HC: hcOffset = 0,
+        VR: vrOffset = 0,
+        HR: hrOffset = 0,
     } = offsets;
 
     console.log(offsets);
@@ -293,21 +307,21 @@ const EditorCustomEdge = ({
         targetX,
         targetY,
         0,
-        offsets
+        offsets,
     );
 
     const getTopBottomPointsY = (top: boolean) => {
         if (targetY < sourceY) {
             if (top) {
-                return (centerY - hcOffset + (yOffset + hcOffset + hlOffset) / 2);
+                return centerY - hcOffset + (yOffset + hcOffset + hlOffset) / 2;
             } else {
-                return (centerY - hcOffset - (yOffset - hcOffset - hrOffset) / 2);
+                return centerY - hcOffset - (yOffset - hcOffset - hrOffset) / 2;
             }
         } else {
             if (top) {
-                return (centerY - hcOffset - (yOffset - hcOffset - hlOffset) / 2);
+                return centerY - hcOffset - (yOffset - hcOffset - hlOffset) / 2;
             } else {
-                return (centerY - hcOffset + (yOffset + hcOffset + hrOffset) / 2);
+                return centerY - hcOffset + (yOffset + hcOffset + hrOffset) / 2;
             }
         }
     };
@@ -327,47 +341,45 @@ const EditorCustomEdge = ({
                 className="z-10"
             />
             <EdgeLabelRenderer>
-                {
-                    vlOffset !== 0 &&
-                    <DragPoint 
-                        isSelected={selected} 
-                        direction={"horizontal"} 
-                        x={sourceX + (vlOffset / 2)} 
-                        y={sourceY + hlOffset} 
+                {vlOffset !== 0 && (
+                    <DragPoint
+                        isSelected={selected}
+                        direction={"horizontal"}
+                        x={sourceX + vlOffset / 2}
+                        y={sourceY + hlOffset}
                         onDrag={(_, newDY) => onHLDragged(-newDY)}
                     />
-                }
-                <DragPoint 
-                    isSelected={selected} 
-                    direction={"vertical"} 
-                    x={sourceX + vlOffset} 
-                    y={getTopBottomPointsY(true)} 
-                    onDrag={(newDX) => onVLDragged(-newDX)}                 
+                )}
+                <DragPoint
+                    isSelected={selected}
+                    direction={"vertical"}
+                    x={sourceX + vlOffset}
+                    y={getTopBottomPointsY(true)}
+                    onDrag={(newDX) => onVLDragged(-newDX)}
                 />
-                <DragPoint 
-                    isSelected={selected} 
-                    direction={"horizontal"} 
-                    x={centerX + (vlOffset + vrOffset) / 2} 
-                    y={centerY - hcOffset} 
+                <DragPoint
+                    isSelected={selected}
+                    direction={"horizontal"}
+                    x={centerX + (vlOffset + vrOffset) / 2}
+                    y={centerY - hcOffset}
                     onDrag={(_, newDY) => onHCDragged(newDY)}
                 />
-                <DragPoint 
-                    isSelected={selected} 
-                    direction={"vertical"} 
-                    x={targetX + vrOffset} 
-                    y={getTopBottomPointsY(false)} 
+                <DragPoint
+                    isSelected={selected}
+                    direction={"vertical"}
+                    x={targetX + vrOffset}
+                    y={getTopBottomPointsY(false)}
                     onDrag={(newDX) => onVRDragged(-newDX)}
                 />
-                { 
-                    vrOffset !== 0 &&
-                    <DragPoint 
-                        isSelected={selected} 
-                        direction={"horizontal"} 
-                        x={targetX + (vrOffset / 2)} 
-                        y={targetY + hrOffset} 
-                        onDrag={(_, newDY) => onHRDragged(-newDY)}              
+                {vrOffset !== 0 && (
+                    <DragPoint
+                        isSelected={selected}
+                        direction={"horizontal"}
+                        x={targetX + vrOffset / 2}
+                        y={targetY + hrOffset}
+                        onDrag={(_, newDY) => onHRDragged(-newDY)}
                     />
-                }
+                )}
             </EdgeLabelRenderer>
         </>
     );

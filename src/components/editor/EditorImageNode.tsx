@@ -14,7 +14,7 @@ const NUM_OF_HANDLES = 5;
 const generateHandlesOnSide = (
     position: Position,
     positionStyle: "left" | "top",
-    numOfHandles: number
+    numOfHandles: number,
 ) => {
     const handles = [];
     const step = 100 / numOfHandles;
@@ -41,7 +41,7 @@ const generateHandles = (numOfHandles: number) => {
     handles.push(...generateHandlesOnSide(Position.Top, "left", numOfHandles));
     handles.push(...generateHandlesOnSide(Position.Right, "top", numOfHandles));
     handles.push(
-        ...generateHandlesOnSide(Position.Bottom, "left", numOfHandles)
+        ...generateHandlesOnSide(Position.Bottom, "left", numOfHandles),
     );
     handles.push(...generateHandlesOnSide(Position.Left, "top", numOfHandles));
 

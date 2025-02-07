@@ -10,7 +10,7 @@ const EditorStraightEdge = ({
     targetX,
     targetY,
     data,
-    style
+    style,
 }: CustomEdgeProps) => {
     const strokeColor = style?.stroke || "#000";
 

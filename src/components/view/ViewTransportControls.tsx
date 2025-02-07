@@ -40,7 +40,7 @@ export default function ViewTransportControls({
                     // Hide when a card is selected
                     "opacity-0 invisible": isCardOpen,
                     "opacity-100 visible": !isCardOpen,
-                }
+                },
             )}
         >
             <div className="flex-1 flex gap-2">

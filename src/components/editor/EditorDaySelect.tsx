@@ -1,9 +1,9 @@
-import { 
-    Select, 
-    SelectContent, 
-    SelectItem, 
-    SelectTrigger, 
-    SelectValue 
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 
 interface EditorDaySelectProps {
@@ -13,13 +13,22 @@ interface EditorDaySelectProps {
     className?: string;
 }
 
-export default function EditorDaySelect({day, numberOfDays, onValueChange, className}: EditorDaySelectProps) {
+export default function EditorDaySelect({
+    day,
+    numberOfDays,
+    onValueChange,
+    className,
+}: EditorDaySelectProps) {
     return (
         <Select
             value={day?.toString()}
             onValueChange={(value: string) => onValueChange(parseInt(value))}
         >
-            <SelectTrigger disabled={numberOfDays === 0} className={className} useUpChevron={false}>
+            <SelectTrigger
+                disabled={numberOfDays === 0}
+                className={className}
+                useUpChevron={false}
+            >
                 <SelectValue />
             </SelectTrigger>
             <SelectContent side={"bottom"}>

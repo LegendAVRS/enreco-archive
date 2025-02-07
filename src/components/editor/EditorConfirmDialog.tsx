@@ -1,12 +1,12 @@
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 import { Button } from "@/components/ui/button";
-import { 
-    Dialog, 
-    DialogContent, 
-    DialogOverlay, 
-    DialogPortal, 
-    DialogTitle 
+import {
+    Dialog,
+    DialogContent,
+    DialogOverlay,
+    DialogPortal,
+    DialogTitle,
 } from "@/components/ui/dialog";
 
 interface EditorConfirmDialogProps {
@@ -17,14 +17,21 @@ interface EditorConfirmDialogProps {
     onModalClose: () => void;
 }
 
-export default function EditorConfirmDialog({isModalOpen, message, onActionConfirm, onModalClose}: EditorConfirmDialogProps) {
+export default function EditorConfirmDialog({
+    isModalOpen,
+    message,
+    onActionConfirm,
+    onModalClose,
+}: EditorConfirmDialogProps) {
     return (
-        <Dialog 
-            open={isModalOpen} 
+        <Dialog
+            open={isModalOpen}
             onOpenChange={(open: boolean) => {
-                if(!open) { onModalClose(); }
-            }
-        }>
+                if (!open) {
+                    onModalClose();
+                }
+            }}
+        >
             <DialogPortal>
                 <DialogOverlay />
                 <DialogContent>
@@ -33,18 +40,16 @@ export default function EditorConfirmDialog({isModalOpen, message, onActionConfi
                     </VisuallyHidden>
                     <span className="text-md">{message}</span>
                     <div className="flex flex-row gap-2 mt-2">
-                        <Button 
+                        <Button
                             className="bg-red-600"
                             onClick={() => {
                                 onActionConfirm();
                                 onModalClose();
-                            }
-                        }>
+                            }}
+                        >
                             Confirm
                         </Button>
-                        <Button onClick={() => onModalClose()}>
-                            Cancel
-                        </Button>
+                        <Button onClick={() => onModalClose()}>Cancel</Button>
                     </div>
                 </DialogContent>
             </DialogPortal>

@@ -6,24 +6,30 @@ import { useMemo } from "react";
 
 interface Props {
     edgeVisibility: StringToBooleanObjectMap;
-    onEdgeVisibilityChange: (newEdgeVisibility: StringToBooleanObjectMap) => void;
+    onEdgeVisibilityChange: (
+        newEdgeVisibility: StringToBooleanObjectMap,
+    ) => void;
     teamVisibility: StringToBooleanObjectMap;
-    onTeamVisibilityChange: (newTeamVisibility: StringToBooleanObjectMap) => void; 
+    onTeamVisibilityChange: (
+        newTeamVisibility: StringToBooleanObjectMap,
+    ) => void;
     characterVisibility: { [key: string]: boolean };
-    onCharacterVisibilityChange: (newCharacterVisibility: StringToBooleanObjectMap) => void;
-    chapterData: Chapter,
-    nodes: ImageNodeType[]
+    onCharacterVisibilityChange: (
+        newCharacterVisibility: StringToBooleanObjectMap,
+    ) => void;
+    chapterData: Chapter;
+    nodes: ImageNodeType[];
 }
 
-const ViewVisibilityCard = ({ 
-    edgeVisibility, 
+const ViewVisibilityCard = ({
+    edgeVisibility,
     onEdgeVisibilityChange,
     teamVisibility,
     onTeamVisibilityChange,
     characterVisibility,
     onCharacterVisibilityChange,
     chapterData,
-    nodes
+    nodes,
 }: Props) => {
     // Extract image src from nodes
     const characterImagesMap = useMemo(() => {
@@ -43,15 +49,18 @@ const ViewVisibilityCard = ({
                     })}
                     onCheckedChange={(checked) => {
                         const newEdgeVisibility = Object.keys(
-                            edgeVisibility
-                        ).reduce((acc, key) => {
-                            if (key === "new") {
-                                acc[key] = true;
-                            } else {
-                                acc[key] = checked as boolean;
-                            }
-                            return acc;
-                        }, {} as Record<string, boolean>);
+                            edgeVisibility,
+                        ).reduce(
+                            (acc, key) => {
+                                if (key === "new") {
+                                    acc[key] = true;
+                                } else {
+                                    acc[key] = checked as boolean;
+                                }
+                                return acc;
+                            },
+                            {} as Record<string, boolean>,
+                        );
                         onEdgeVisibilityChange(newEdgeVisibility);
                     }}
                 />
@@ -102,11 +111,14 @@ const ViewVisibilityCard = ({
                     checked={Object.values(teamVisibility).every((v) => v)}
                     onCheckedChange={(checked) => {
                         const newTeamVisibility = Object.keys(
-                            teamVisibility
-                        ).reduce((acc, key) => {
-                            acc[key] = checked as boolean;
-                            return acc;
-                        }, {} as Record<string, boolean>);
+                            teamVisibility,
+                        ).reduce(
+                            (acc, key) => {
+                                acc[key] = checked as boolean;
+                                return acc;
+                            },
+                            {} as Record<string, boolean>,
+                        );
                         onTeamVisibilityChange(newTeamVisibility);
                     }}
                 />
@@ -148,11 +160,14 @@ const ViewVisibilityCard = ({
                     checked={Object.values(characterVisibility).every((v) => v)}
                     onCheckedChange={(checked) => {
                         const newCharacterVisibility = Object.keys(
-                            characterVisibility
-                        ).reduce((acc, key) => {
-                            acc[key] = checked as boolean;
-                            return acc;
-                        }, {} as Record<string, boolean>);
+                            characterVisibility,
+                        ).reduce(
+                            (acc, key) => {
+                                acc[key] = checked as boolean;
+                                return acc;
+                            },
+                            {} as Record<string, boolean>,
+                        );
                         onCharacterVisibilityChange(newCharacterVisibility);
                     }}
                 />

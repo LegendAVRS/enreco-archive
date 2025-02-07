@@ -3,17 +3,17 @@ import { ViewAppWrapper } from "@/ViewAppWrapper";
 import { ReactFlowProvider } from "@xyflow/react";
 
 const USE_EDITOR = false;
-const inDevEnvironment = !!process && process.env.NODE_ENV === 'development';
+const inDevEnvironment = !!process && process.env.NODE_ENV === "development";
 
 const Page = () => {
-    if(USE_EDITOR && inDevEnvironment) {
+    if (USE_EDITOR && inDevEnvironment) {
         return (
             <ReactFlowProvider>
                 <EditorApp />
             </ReactFlowProvider>
         );
     }
-    
+
     return (
         <ReactFlowProvider>
             <ViewAppWrapper />

@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import { 
-    ArrowLeftRight, 
-    ChevronLeft, 
-    ChevronRight, 
-    Copy, 
-    Minus, 
-    Plus 
+import {
+    ArrowLeftRight,
+    ChevronLeft,
+    ChevronRight,
+    Copy,
+    Minus,
+    Plus,
 } from "lucide-react";
 
 import clsx from "clsx";
@@ -50,7 +50,7 @@ export default function EditorTransportControls({
     onDayAdd,
     onDayDelete,
     onDayClone,
-    onDayMove
+    onDayMove,
 }: EditorTransportControlsProps) {
     const [moveModalOpen, setMoveModalOpen] = useState(false);
     const [deleteChapterModalOpen, setDeleteChapterModalOpen] = useState(false);
@@ -59,7 +59,10 @@ export default function EditorTransportControls({
     const numberOfChapters = chapters.length;
     const numberOfDays = chapter === null ? 0 : chapters[chapter].charts.length;
 
-    const chapterTitle = chapter === null ? "" : chapters[chapter].title || `Chapter ${chapter + 1}`;
+    const chapterTitle =
+        chapter === null
+            ? ""
+            : chapters[chapter].title || `Chapter ${chapter + 1}`;
 
     return (
         <>
@@ -85,7 +88,9 @@ export default function EditorTransportControls({
             />
             <div className={clsx(className, "flex flex-row")}>
                 <div className="w-2/4 grid grid-rows-3 grid-cols-2 gap-x-2 gap-y-1 place-content-stretch mr-2">
-                    <span className="text-md col-span-2 font-bold">Chapters</span>
+                    <span className="text-md col-span-2 font-bold">
+                        Chapters
+                    </span>
 
                     <div className="col-span-2 flex flex-row content-center gap-x-2">
                         <IconButton
@@ -104,12 +109,19 @@ export default function EditorTransportControls({
                                 onChapterChange(parseInt(value))
                             }
                         >
-                            <SelectTrigger disabled={numberOfChapters === 0} className="h-8 flex-1" useUpChevron={false}>
+                            <SelectTrigger
+                                disabled={numberOfChapters === 0}
+                                className="h-8 flex-1"
+                                useUpChevron={false}
+                            >
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent side={"bottom"}>
                                 {chapters.map((elem, index) => (
-                                    <SelectItem key={index} value={index.toString()}>
+                                    <SelectItem
+                                        key={index}
+                                        value={index.toString()}
+                                    >
                                         {elem.title || `Chapter ${index + 1}`}
                                     </SelectItem>
                                 ))}
@@ -119,7 +131,10 @@ export default function EditorTransportControls({
                         <IconButton
                             className="flex-none p-0"
                             tooltipText={"Next Chapter"}
-                            enabled={chapter !== numberOfChapters - 1 && chapter !== null}
+                            enabled={
+                                chapter !== numberOfChapters - 1 &&
+                                chapter !== null
+                            }
                             onClick={() => onChapterChange((chapter || 0) + 1)}
                         >
                             <ChevronRight />
@@ -146,7 +161,7 @@ export default function EditorTransportControls({
                 </div>
                 <div className="w-2/4 grid grid-rows-3 grid-cols-4 gap-x-2 gap-y-1 place-content-stretch">
                     <span className="text-md col-span-4 font-bold">Days</span>
-                    
+
                     <div className="col-span-4 flex flex-row content-center gap-x-2">
                         <IconButton
                             className="flex-none p-0"
@@ -162,7 +177,7 @@ export default function EditorTransportControls({
                             day={day || 0}
                             numberOfDays={numberOfDays}
                             onValueChange={(value: number) => {
-                                onDayChange(value)
+                                onDayChange(value);
                             }}
                             className="flex-1 h-8"
                         />
@@ -199,7 +214,11 @@ export default function EditorTransportControls({
                         className="w-full p-0 aspect-auto"
                         tooltipText={"Clone Day"}
                         enabled={numberOfDays !== 0}
-                            onClick={() => { if(day !== null) {onDayClone(day);} }}
+                        onClick={() => {
+                            if (day !== null) {
+                                onDayClone(day);
+                            }
+                        }}
                     >
                         <Copy />
                     </IconButton>

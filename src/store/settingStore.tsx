@@ -21,6 +21,6 @@ export const useSettingStore = create<SettingState>()(
             bgmEnabled: true,
             setBgmEnabled: (bgmEnabled) => set({ bgmEnabled }),
         }),
-        { name: "setting" }
-    )
+        { name: "setting" },
+    ),
 );

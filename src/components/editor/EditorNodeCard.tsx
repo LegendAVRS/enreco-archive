@@ -23,13 +23,13 @@ import slug from "slug";
 const MAX_ID_LENGTH = 30;
 
 function getUniqueId(newId: string, origId: string, nodeIds: string[]) {
-    if(newId === origId) {
+    if (newId === origId) {
         return origId;
     }
 
     let actualId = newId;
     let counter = 1;
-    while(nodeIds.filter(nodeId => nodeId === actualId).length !== 0) {
+    while (nodeIds.filter((nodeId) => nodeId === actualId).length !== 0) {
         actualId = `${newId}-${counter}`;
         counter++;
     }
@@ -42,7 +42,10 @@ interface EditorNodeCardProps {
     teams: TeamMap;
     nodes: EditorImageNodeType[];
     selectedNode: EditorImageNodeType;
-    updateNode: (oldNode: EditorImageNodeType, newNode: EditorImageNodeType) => void;
+    updateNode: (
+        oldNode: EditorImageNodeType,
+        newNode: EditorImageNodeType,
+    ) => void;
     deleteNode: () => void;
     onCardClose: () => void;
 }
@@ -54,20 +57,24 @@ export default function EditorNodeCard({
     selectedNode,
     updateNode,
     deleteNode,
-    onCardClose
+    onCardClose,
 }: EditorNodeCardProps) {
     const [autoGenIdFromTitle, setAutoGenIdFromTitle] = useState(true);
     const [workingNode, setWorkingNode] = useState(selectedNode);
-    const [imgPreviewLink, setImgPreviewLink] = useState(selectedNode.data.imageSrc || "/default-node-image.png")
+    const [imgPreviewLink, setImgPreviewLink] = useState(
+        selectedNode.data.imageSrc || "/default-node-image.png",
+    );
     const [extractedColors, setExtractedColors] = useState<string[]>([]);
 
-    const nodeIds = nodes.map(node => node.id);
+    const nodeIds = nodes.map((node) => node.id);
 
     const onToggleAutoGenId = (checkedState: CheckedState) => {
-        if(checkedState === true) {
+        if (checkedState === true) {
             setAutoGenIdFromTitle(true);
             const newId = generateIdFromTitle(workingNode.data.title);
-            setWorkingNodeAttr(draft => { draft.id = newId });
+            setWorkingNodeAttr((draft) => {
+                draft.id = newId;
+            });
         } else {
             setAutoGenIdFromTitle(false);
         }
@@ -81,20 +88,23 @@ export default function EditorNodeCard({
         newId = getUniqueId(newId, selectedNode.id, nodeIds);
 
         setWorkingNode(
-            produce(workingNode, draft => {
+            produce(workingNode, (draft) => {
                 draft.id = newId;
-            })
+            }),
         );
     };
 
     const generateIdFromTitle = (title: string) => {
-        const truncTitle = title.length > MAX_ID_LENGTH ? title.substring(0, MAX_ID_LENGTH) : title;
+        const truncTitle =
+            title.length > MAX_ID_LENGTH
+                ? title.substring(0, MAX_ID_LENGTH)
+                : title;
         return getUniqueId(slug(truncTitle), selectedNode.id, nodeIds);
-    }
+    };
 
     const commitTitle = (newTitle: string) => {
         let newId = "";
-        if(autoGenIdFromTitle) {
+        if (autoGenIdFromTitle) {
             newId = generateIdFromTitle(newTitle);
         }
 
@@ -102,36 +112,38 @@ export default function EditorNodeCard({
             produce(workingNode, (draft) => {
                 draft.data.title = newTitle;
 
-                if(autoGenIdFromTitle) {
+                if (autoGenIdFromTitle) {
                     draft.id = newId;
                 }
-            }
-        ));
+            }),
+        );
     };
 
     const commitImageSrc = (newImageSrc: string) => {
         setImgPreviewLink(newImageSrc);
         setExtractedColors([]);
-    }
+    };
 
-    const setWorkingNodeAttr = (updater: (draft: WritableDraft<EditorImageNodeType>) => void) => {
-        setWorkingNode(
-            produce(workingNode, updater)
-        );
-    }
+    const setWorkingNodeAttr = (
+        updater: (draft: WritableDraft<EditorImageNodeType>) => void,
+    ) => {
+        setWorkingNode(produce(workingNode, updater));
+    };
 
     const extractColorsFromImage = async () => {
         const imgColors = await extractColors(imgPreviewLink);
-        imgColors.sort((a,b) => b.area - a.area);
-        setExtractedColors(imgColors.slice(0, 5).map(color => color.hex));
-        setWorkingNodeAttr(draft => { draft.data.bgCardColor = imgColors[0].hex });
-    }
+        imgColors.sort((a, b) => b.area - a.area);
+        setExtractedColors(imgColors.slice(0, 5).map((color) => color.hex));
+        setWorkingNodeAttr((draft) => {
+            draft.data.bgCardColor = imgColors[0].hex;
+        });
+    };
 
     const onClose = () => {
         onCardClose();
-    }
+    };
 
-    if(!isVisible) {
+    if (!isVisible) {
         return;
     }
 
@@ -144,56 +156,101 @@ export default function EditorNodeCard({
             </Button>
 
             <div className="flex flex-row content-center gap-2">
-                <Checkbox id="autoGenId" checked={autoGenIdFromTitle} onCheckedChange={onToggleAutoGenId}/>
+                <Checkbox
+                    id="autoGenId"
+                    checked={autoGenIdFromTitle}
+                    onCheckedChange={onToggleAutoGenId}
+                />
                 <Label htmlFor="autoGenId">Auto-generate id from title</Label>
             </div>
 
             <div className="grid grid-cols-[1fr_4fr] gap-2 w-full">
-                <Label htmlFor="node-id" className="text-right text-lg self-center">Id</Label>
-                <Input 
-                    type="text" 
-                    id="node-id" 
-                    name="id" 
+                <Label
+                    htmlFor="node-id"
+                    className="text-right text-lg self-center"
+                >
+                    Id
+                </Label>
+                <Input
+                    type="text"
+                    id="node-id"
+                    name="id"
                     value={workingNode.id || selectedNode.id}
-                    onChange={(event) => { setWorkingNodeAttr(draft => {draft.id = event.target.value}) }}
+                    onChange={(event) => {
+                        setWorkingNodeAttr((draft) => {
+                            draft.id = event.target.value;
+                        });
+                    }}
                     onBlur={(event) => commitId(event.target.value)}
                     disabled={autoGenIdFromTitle}
                     className="disabled:bg-gray-200"
                     maxLength={MAX_ID_LENGTH}
                 />
 
-                <Label htmlFor="node-title" className="text-right text-lg self-center">Title</Label>
-                <Input 
-                    type="text" 
-                    id="node-title" 
+                <Label
+                    htmlFor="node-title"
+                    className="text-right text-lg self-center"
+                >
+                    Title
+                </Label>
+                <Input
+                    type="text"
+                    id="node-title"
                     name="title"
                     value={workingNode.data.title}
-                    onChange={(event) => { setWorkingNodeAttr(draft => {draft.data.title = event.target.value}) }}
+                    onChange={(event) => {
+                        setWorkingNodeAttr((draft) => {
+                            draft.data.title = event.target.value;
+                        });
+                    }}
                     onBlur={(event) => commitTitle(event.target.value)}
                 />
 
-                <Label htmlFor="node-status" className="text-right text-lg self-center">Status</Label>
+                <Label
+                    htmlFor="node-status"
+                    className="text-right text-lg self-center"
+                >
+                    Status
+                </Label>
                 <Input
                     type="text"
                     id="node-status"
                     name="status"
                     value={workingNode.data.status}
-                    onChange={(event) => setWorkingNodeAttr(draft => { draft.data.status = event.target.value })}
+                    onChange={(event) =>
+                        setWorkingNodeAttr((draft) => {
+                            draft.data.status = event.target.value;
+                        })
+                    }
                 />
 
-                <Label htmlFor="node-team" className="text-right text-lg self-center">Team</Label>
-                <Select 
-                    value={workingNode.data.teamId} 
-                    onValueChange={(value) => setWorkingNodeAttr(draft => { draft.data.teamId = value })}
+                <Label
+                    htmlFor="node-team"
+                    className="text-right text-lg self-center"
+                >
+                    Team
+                </Label>
+                <Select
+                    value={workingNode.data.teamId}
+                    onValueChange={(value) =>
+                        setWorkingNodeAttr((draft) => {
+                            draft.data.teamId = value;
+                        })
+                    }
                     name="team"
                 >
                     <SelectTrigger id="node-team">
-                        <SelectValue placeholder={teams[workingNode.data.teamId]?.name || "Select a team"} />
+                        <SelectValue
+                            placeholder={
+                                teams[workingNode.data.teamId]?.name ||
+                                "Select a team"
+                            }
+                        />
                     </SelectTrigger>
                     <SelectContent>
                         {Object.keys(teams).map((key) => (
                             <SelectItem key={key} value={key}>
-                                { teams[key].name }
+                                {teams[key].name}
                             </SelectItem>
                         ))}
                     </SelectContent>
@@ -204,71 +261,105 @@ export default function EditorNodeCard({
                         id="node-isNew"
                         name="isNew"
                         checked={workingNode.data.new}
-                        onCheckedChange={(checked) => 
-                            checked === true ? 
-                            setWorkingNodeAttr(draft => { draft.data.new = true }) : 
-                            setWorkingNodeAttr(draft => { draft.data.new = false })
+                        onCheckedChange={(checked) =>
+                            checked === true
+                                ? setWorkingNodeAttr((draft) => {
+                                      draft.data.new = true;
+                                  })
+                                : setWorkingNodeAttr((draft) => {
+                                      draft.data.new = false;
+                                  })
                         }
                     />
-                    <Label htmlFor="node-isNew" className="text-lg">New</Label>
+                    <Label htmlFor="node-isNew" className="text-lg">
+                        New
+                    </Label>
                 </div>
 
                 <hr className="col-span-2 my-0.5" />
 
-                <Label htmlFor="node-image-url" className="text-right text-lg self-center">Image URL</Label>
+                <Label
+                    htmlFor="node-image-url"
+                    className="text-right text-lg self-center"
+                >
+                    Image URL
+                </Label>
                 <Input
                     type="text"
                     id="node-image-url"
                     name="imageUrl"
                     value={workingNode.data.imageSrc}
-                    onChange={(event) => setWorkingNodeAttr(draft => { draft.data.imageSrc = event.target.value })}
+                    onChange={(event) =>
+                        setWorkingNodeAttr((draft) => {
+                            draft.data.imageSrc = event.target.value;
+                        })
+                    }
                     onBlur={(event) => commitImageSrc(event.target.value)}
                     required
                 />
 
-                <Label htmlFor="node-bg-card-color" className="text-right text-lg self-center">Card Color</Label>
+                <Label
+                    htmlFor="node-bg-card-color"
+                    className="text-right text-lg self-center"
+                >
+                    Card Color
+                </Label>
                 <div className="flex flex-row gap-2">
                     <Input
                         type="color"
                         id="node-bg-card-color"
                         name="bgCardColor"
                         value={workingNode.data.bgCardColor}
-                        onChange={(event) => setWorkingNodeAttr(draft => { draft.data.bgCardColor = event.target.value })}
+                        onChange={(event) =>
+                            setWorkingNodeAttr((draft) => {
+                                draft.data.bgCardColor = event.target.value;
+                            })
+                        }
                         required
                     />
-                    <div className="col-span-2" >
-                        <Button type="button" onClick={extractColorsFromImage}>Extract colors from image</Button>
+                    <div className="col-span-2">
+                        <Button type="button" onClick={extractColorsFromImage}>
+                            Extract colors from image
+                        </Button>
                         <div className="h-4 mt-2 gap-2 flex flex-row">
-                            {
-                                extractedColors.map(color => {
-                                    return (
-                                        <button
-                                            key={color}
-                                            className="h-4 w-4 border border-black rounded-full flex-none" 
-                                            style={{ backgroundColor: color }}
-                                            onClick={() => setWorkingNodeAttr(draft => { draft.data.bgCardColor = color; })}
-                                        />
-                                    );
-                                })
-                            }
+                            {extractedColors.map((color) => {
+                                return (
+                                    <button
+                                        key={color}
+                                        className="h-4 w-4 border border-black rounded-full flex-none"
+                                        style={{ backgroundColor: color }}
+                                        onClick={() =>
+                                            setWorkingNodeAttr((draft) => {
+                                                draft.data.bgCardColor = color;
+                                            })
+                                        }
+                                    />
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
-                
+
                 <span className="text-lg text-right">Image Preview</span>
-                <img 
-                    src={imgPreviewLink}
-                    className="h-16 w-16"
-                />
+                <img src={imgPreviewLink} className="h-16 w-16" />
 
                 <hr className="col-span-2 my-0.5" />
 
-                <Label htmlFor="node-status" className="text-lg self-center col-span-2">Node Day Content</Label>
+                <Label
+                    htmlFor="node-status"
+                    className="text-lg self-center col-span-2"
+                >
+                    Node Day Content
+                </Label>
                 <MDEditor
                     id="node-content"
-                    textareaProps={{name: "content"}}
+                    textareaProps={{ name: "content" }}
                     value={workingNode.data.content}
-                    onChange={(content) => setWorkingNodeAttr(draft => { draft.data.content = content || "" })}
+                    onChange={(content) =>
+                        setWorkingNodeAttr((draft) => {
+                            draft.data.content = content || "";
+                        })
+                    }
                     className="col-span-2"
                 />
             </div>

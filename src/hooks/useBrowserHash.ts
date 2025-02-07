@@ -1,15 +1,17 @@
-'use client';
+"use client";
 import { useEffect, useState } from "react";
 
 function getInitialHash() {
-    if(global?.window && window.location.hash) {
+    if (global?.window && window.location.hash) {
         return window.location.hash.substring(1);
     }
 
     return "";
 }
 
-export function useBrowserHash(onBrowserHashChange: (hashValue: string) => void) {
+export function useBrowserHash(
+    onBrowserHashChange: (hashValue: string) => void,
+) {
     const [browserHash, setBrowserHash] = useState(getInitialHash());
 
     useEffect(() => {
@@ -27,7 +29,7 @@ export function useBrowserHash(onBrowserHashChange: (hashValue: string) => void)
 
     useEffect(() => {
         window.history.replaceState({}, "", `#${browserHash}`);
-    }, [browserHash])
+    }, [browserHash]);
 
     return { browserHash, setBrowserHash };
 }

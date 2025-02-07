@@ -1,9 +1,5 @@
 import { memo, useMemo } from "react";
-import {
-    Handle,
-    HandleType,
-    Position,
-} from "@xyflow/react";
+import { Handle, HandleType, Position } from "@xyflow/react";
 import { ImageNodeProps } from "../../lib/type";
 import Image from "next/image";
 import { OLD_NODE_OPACITY } from "@/lib/constants";
@@ -13,7 +9,7 @@ const NUM_OF_HANDLES = 5;
 const generateHandlesOnSide = (
     position: Position,
     positionStyle: "left" | "top",
-    numOfHandles: number
+    numOfHandles: number,
 ) => {
     const handles = [];
     const step = 100 / numOfHandles;
@@ -50,7 +46,7 @@ const ViewImageNode = ({ data }: ImageNodeProps) => {
 
     return (
         <>
-            {handles.map(handle => (
+            {handles.map((handle) => (
                 <Handle
                     key={handle.key}
                     id={handle.id}
@@ -61,7 +57,7 @@ const ViewImageNode = ({ data }: ImageNodeProps) => {
                 />
             ))}
             <div
-                style={{opacity: isNew ? 1 : OLD_NODE_OPACITY }}
+                style={{ opacity: isNew ? 1 : OLD_NODE_OPACITY }}
                 className="transition-all relative cursor-pointer overflow-hidden w-[100px] h-[100px] rounded"
             >
                 <Image
@@ -71,12 +67,12 @@ const ViewImageNode = ({ data }: ImageNodeProps) => {
                     height={100}
                     alt="character node"
                 />
-                { data.renderTeamImageSrc !== "" && (
+                {data.renderTeamImageSrc !== "" && (
                     <Image
                         className="absolute top-1 left-1 opacity-80"
                         width={25}
                         height={25}
-                        src={ data.renderTeamImageSrc || ""}
+                        src={data.renderTeamImageSrc || ""}
                         alt="team icon"
                     />
                 )}

@@ -1,14 +1,14 @@
-import { 
-    addEdge, 
-    applyEdgeChanges, 
-    applyNodeChanges, 
-    Background, 
-    BackgroundVariant, 
-    Connection, 
-    ConnectionLineType, 
-    ConnectionMode, 
-    OnEdgesChange, 
-    OnNodesChange, 
+import {
+    addEdge,
+    applyEdgeChanges,
+    applyNodeChanges,
+    Background,
+    BackgroundVariant,
+    Connection,
+    ConnectionLineType,
+    ConnectionMode,
+    OnEdgesChange,
+    OnNodesChange,
     ReactFlow,
     useReactFlow,
 } from "@xyflow/react";
@@ -18,7 +18,11 @@ import EditorImageNode from "@/components/editor/EditorImageNode";
 import EditorCustomEdge from "@/components/editor/EditorCustomEdge";
 import EditorSmoothEdge from "@/components/editor/EditorSmoothEdge";
 import EditorStraightEdge from "@/components/editor/EditorStraightEdge";
-import { CustomEdgeType, CustomEdgeTypeNames, EditorImageNodeType } from "@/lib/type";
+import {
+    CustomEdgeType,
+    CustomEdgeTypeNames,
+    EditorImageNodeType,
+} from "@/lib/type";
 import { MouseEventHandler, useCallback } from "react";
 import { generateEdgeId } from "@/lib/editor-utils";
 
@@ -29,7 +33,7 @@ const nodeTypes = {
 const edgeTypes = {
     custom: EditorCustomEdge,
     customSmooth: EditorSmoothEdge,
-    customStraight: EditorStraightEdge
+    customStraight: EditorStraightEdge,
 };
 
 interface EditorChartProps {
@@ -57,83 +61,108 @@ export default function EditorChart({
 }: EditorChartProps) {
     const { screenToFlowPosition } = useReactFlow();
 
-    const addNode = useCallback((x: number, y: number) => {
-        const newNode: EditorImageNodeType = {
-            id: `node-${nodes.length + 1}`,
-            type: "editorImage",
-            position: screenToFlowPosition({ x, y }),
-            data: {
-                title: "",
-                content: "",
-                imageSrc: "/default-node-image.png",
-                teamId: "",
-                status: "",
-                new: true,
-                bgCardColor: "",
-                renderShowHandles: true
-            },
-        };
-        setNodes([...nodes, newNode]);
-    }, [nodes, screenToFlowPosition, setNodes]);
+    const addNode = useCallback(
+        (x: number, y: number) => {
+            const newNode: EditorImageNodeType = {
+                id: `node-${nodes.length + 1}`,
+                type: "editorImage",
+                position: screenToFlowPosition({ x, y }),
+                data: {
+                    title: "",
+                    content: "",
+                    imageSrc: "/default-node-image.png",
+                    teamId: "",
+                    status: "",
+                    new: true,
+                    bgCardColor: "",
+                    renderShowHandles: true,
+                },
+            };
+            setNodes([...nodes, newNode]);
+        },
+        [nodes, screenToFlowPosition, setNodes],
+    );
 
-    const connectEdge = useCallback((params: Connection) => {
-        const pathType = (() => {
-            switch(edgeType) {
-                case "custom":
-                    return "custom";
-                case "customSmooth":
-                    return "smoothstep";
-                case "customStraight":
-                    return "straight";
-                default:
-                    throw new Error(`Cannot find pathType for edgeType ${edgeType}`);
+    const connectEdge = useCallback(
+        (params: Connection) => {
+            const pathType = (() => {
+                switch (edgeType) {
+                    case "custom":
+                        return "custom";
+                    case "customSmooth":
+                        return "smoothstep";
+                    case "customStraight":
+                        return "straight";
+                    default:
+                        throw new Error(
+                            `Cannot find pathType for edgeType ${edgeType}`,
+                        );
+                }
+            })();
+
+            const newEdge: CustomEdgeType = {
+                id: generateEdgeId(
+                    params.source,
+                    params.target,
+                    params.sourceHandle,
+                    params.targetHandle,
+                ),
+                source: params.source,
+                target: params.target,
+                sourceHandle: params.sourceHandle,
+                targetHandle: params.targetHandle,
+                type: edgeType,
+                style: {},
+                data: {
+                    relationshipId: "",
+                    title: "",
+                    content: "",
+                    timestampUrl: "",
+                    new: true,
+                    marker: false,
+                    pathType: pathType,
+                    offsets:
+                        pathType === "custom"
+                            ? {
+                                  HL: 0,
+                                  VL: 0,
+                                  HC: 0,
+                                  VR: 0,
+                                  HR: 0,
+                              }
+                            : undefined,
+                },
+            };
+
+            setEdges(addEdge(newEdge, edges));
+        },
+        [edgeType, edges, setEdges],
+    );
+
+    const onNodesChange: OnNodesChange<EditorImageNodeType> = useCallback(
+        (changes) => {
+            const newNodes = applyNodeChanges(changes, nodes);
+            setNodes(newNodes);
+        },
+        [nodes, setNodes],
+    );
+
+    const onEdgesChange: OnEdgesChange<CustomEdgeType> = useCallback(
+        (changes) => {
+            const newEdges = applyEdgeChanges(changes, edges);
+            setEdges(newEdges);
+        },
+        [edges, setEdges],
+    );
+
+    const handleClick: MouseEventHandler<HTMLDivElement> = useCallback(
+        (event) => {
+            if (canPlaceNewNode) {
+                addNode(event.clientX, event.clientY);
             }
-        })();
-
-        const newEdge: CustomEdgeType = {
-            id: generateEdgeId(params.source, params.target, params.sourceHandle, params.targetHandle),
-            source: params.source,
-            target: params.target,
-            sourceHandle: params.sourceHandle,
-            targetHandle: params.targetHandle,
-            type: edgeType,
-            style: {},
-            data: {
-                relationshipId: "",
-                title: "",
-                content: "",
-                timestampUrl: "",
-                new: true,
-                marker: false,
-                pathType: pathType,
-                offsets: pathType === "custom" ? {
-                    HL: 0,
-                    VL: 0,
-                    HC: 0,
-                    VR: 0,
-                    HR: 0,
-                } : undefined
-            }
-        };
-        
-        setEdges(addEdge(newEdge, edges));
-    }, [edgeType, edges, setEdges]);
-
-    const onNodesChange: OnNodesChange<EditorImageNodeType> = useCallback((changes) => {
-        const newNodes = applyNodeChanges(changes, nodes);
-        setNodes(newNodes);
-    }, [nodes, setNodes]);
-
-    const onEdgesChange: OnEdgesChange<CustomEdgeType> = useCallback((changes) => {
-        const newEdges = applyEdgeChanges(changes, edges);
-        setEdges(newEdges);
-    }, [edges, setEdges]);
-
-    const handleClick: MouseEventHandler<HTMLDivElement> = useCallback((event) => {
-        if (canPlaceNewNode) {
-            addNode(event.clientX, event.clientY);
-        }
-    }, [addNode, canPlaceNewNode]);
+        },
+        [addNode, canPlaceNewNode],
+    );
 
     return (
         <ReactFlow
@@ -159,7 +188,12 @@ export default function EditorChart({
             connectionLineType={ConnectionLineType.SmoothStep}
             zoomOnDoubleClick={false}
         >
-            <Background id="bg-axis" color="#dcdcdc" variant={BackgroundVariant.Cross} gap={25} />
+            <Background
+                id="bg-axis"
+                color="#dcdcdc"
+                variant={BackgroundVariant.Cross}
+                gap={25}
+            />
         </ReactFlow>
     );
 }

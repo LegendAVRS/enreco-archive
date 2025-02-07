@@ -17,7 +17,7 @@ export function generateOrthogonalEdgePath(
     const horizontalY = startY + dy / 2 - offsets.HC;
 
     // Calculate the position for the vertical line
-    const verticalX = endX - padding + offsets.VR ;
+    const verticalX = endX - padding + offsets.VR;
     const verticalXT = startX - padding + offsets.VL;
 
     // Create a path string, draw the line all at once from left to right.
@@ -26,7 +26,7 @@ export function generateOrthogonalEdgePath(
 
     // Part of the line that gets drawn if HL and its line segment exists.
     if (offsets.VL !== 0) {
-        path += `V${startY + offsets.HL} `
+        path += `V${startY + offsets.HL} `;
         path += `H${verticalXT} `;
     }
 
@@ -45,17 +45,17 @@ export function generateOrthogonalEdgePath(
 }
 
 export function generatePath(
-    pathType: string | undefined, 
-    offsets: CustomEdgeOffsets | undefined, 
+    pathType: string | undefined,
+    offsets: CustomEdgeOffsets | undefined,
     sourceX: number,
     sourceY: number,
     sourcePosition: Position | undefined,
     targetX: number,
     targetY: number,
-    targetPosition: Position | undefined
+    targetPosition: Position | undefined,
 ) {
-    if(pathType === "custom") {
-        if(offsets === undefined) {
+    if (pathType === "custom") {
+        if (offsets === undefined) {
             throw new Error("offsets is undefined!");
         }
 
@@ -65,12 +65,11 @@ export function generatePath(
             targetX,
             targetY,
             0,
-            offsets
+            offsets,
         );
 
         return path;
-    }
-    else if(pathType === "smoothstep") {
+    } else if (pathType === "smoothstep") {
         const [path] = getSmoothStepPath({
             sourceX,
             sourceY,
@@ -82,8 +81,7 @@ export function generatePath(
         });
 
         return path;
-    }
-    else if(pathType === "straight") {
+    } else if (pathType === "straight") {
         const [path] = getStraightPath({
             sourceX,
             sourceY,
@@ -92,8 +90,7 @@ export function generatePath(
         });
 
         return path;
-    }
-    else {
+    } else {
         throw new Error(`Unkwown pathType ${pathType}`);
     }
 }
