@@ -24,19 +24,24 @@ const ViewNodeContent = ({
     onNodeLinkClicked,
     onEdgeLinkClicked,
 }: ViewNodeContentProps) => {
-    const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility
+    const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
     const characterImageRef = useRef<HTMLImageElement>(null);
-    const contentRef = useRef<HTMLDivElement>(null); // Ref for the scrollable container
+    const contentRef = useRef<HTMLDivElement>(null);
 
     // Handle scroll event to toggle header visibility
     const handleScroll = () => {
         if (contentRef.current) {
             const threshold =
-                contentRef.current.scrollHeight * SCROLL_THRESHOLD; // 5% of scrollable height
+                contentRef.current.scrollHeight * SCROLL_THRESHOLD;
             setIsHeaderVisible(contentRef.current.scrollTop <= threshold);
         }
     };
+
+    // Reset scroll position when selectedNode changes
+    if (contentRef.current) {
+        contentRef.current.scrollTop = 0;
+    }
 
     if (!selectedNode) {
         return;
@@ -69,7 +74,7 @@ const ViewNodeContent = ({
 
                 <NodeCardDeco color={selectedNode.data.bgCardColor} />
 
-                <div className="font-semibold text-center">
+                <div className="font-semibold text-center text-lg my-1">
                     {selectedNode?.data.title}
                 </div>
                 <Separator />
@@ -88,9 +93,9 @@ const ViewNodeContent = ({
 
             {/* Content */}
             <div
-                ref={contentRef} // Add ref to the scrollable container
+                ref={contentRef}
                 className="overflow-auto mt-2"
-                onScroll={handleScroll} // Track scroll position
+                onScroll={handleScroll}
             >
                 <ViewMarkdown
                     onEdgeLinkClicked={onEdgeLinkClicked}

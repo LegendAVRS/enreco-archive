@@ -1,9 +1,9 @@
 import { Separator } from "@/components/ui/separator";
 import EdgeCardDeco from "@/components/view/EdgeCardDeco";
+import { SCROLL_THRESHOLD } from "@/lib/constants";
 import { FixedEdgeType, ImageNodeType, Relationship } from "@/lib/type";
 import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
-import { useRef, useState, useEffect } from "react";
-import { SCROLL_THRESHOLD } from "@/lib/constants";
+import { useRef, useState } from "react";
 import {
     EdgeLinkClickHandler,
     NodeLinkClickHandler,
@@ -47,12 +47,9 @@ const ViewEdgeContent = ({
     };
 
     // Reset scroll position and header visibility when selectedEdge changes
-    useEffect(() => {
-        if (contentRef.current) {
-            contentRef.current.scrollTop = 0; // Reset scroll position to top
-        }
-        setIsHeaderVisible(true); // Show header when new edge is selected
-    }, [selectedEdge]);
+    if (contentRef.current) {
+        contentRef.current.scrollTop = 0;
+    }
 
     return (
         <div className="h-full flex flex-col w-full">
@@ -83,7 +80,7 @@ const ViewEdgeContent = ({
                 <EdgeCardDeco color={backgroundColor} />
 
                 {selectedEdge.data?.title && (
-                    <span className="font-semibold text-lg">
+                    <span className="font-semibold text-lg text-center my-1">
                         {selectedEdge.data.title}
                     </span>
                 )}
@@ -102,9 +99,9 @@ const ViewEdgeContent = ({
 
             {/* Content */}
             <div
-                ref={contentRef} // Add ref to the scrollable container
+                ref={contentRef}
                 className="overflow-auto mt-2"
-                onScroll={handleScroll} // Track scroll position
+                onScroll={handleScroll}
             >
                 <ViewMarkdown
                     onEdgeLinkClicked={onEdgeLinkClicked}

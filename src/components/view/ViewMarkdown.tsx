@@ -102,7 +102,7 @@ export function ViewMarkdown({
 
     return (
         <Markdown
-            className={"pb-10"}
+            className={"pb-20"}
             rehypePlugins={[rehypeRaw]}
             components={{
                 // br styles not working for some reason, will use a div instead
