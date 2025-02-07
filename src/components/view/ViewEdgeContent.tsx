@@ -3,7 +3,7 @@ import EdgeCardDeco from "@/components/view/EdgeCardDeco";
 import { SCROLL_THRESHOLD } from "@/lib/constants";
 import { FixedEdgeType, ImageNodeType, Relationship } from "@/lib/type";
 import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     EdgeLinkClickHandler,
     NodeLinkClickHandler,
@@ -36,10 +36,16 @@ const ViewEdgeContent = ({
     const contentRef = useRef<HTMLDivElement>(null); // Ref for scrollable content
     const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility
     const headerRef = useRef<HTMLDivElement>(null);
+    const cardRef = useRef<HTMLDivElement>(null);
 
     // Handle scroll event to toggle header visibility
     const handleScroll = () => {
-        if (contentRef.current) {
+        if (contentRef.current && cardRef.current) {
+            if (
+                cardRef.current.clientHeight > contentRef.current.scrollHeight
+            ) {
+                return;
+            }
             const threshold =
                 contentRef.current.scrollHeight * SCROLL_THRESHOLD;
             setIsHeaderVisible(contentRef.current.scrollTop <= threshold);
@@ -47,12 +53,15 @@ const ViewEdgeContent = ({
     };
 
     // Reset scroll position and header visibility when selectedEdge changes
-    if (contentRef.current) {
-        contentRef.current.scrollTop = 0;
-    }
+    useEffect(() => {
+        if (contentRef.current) {
+            contentRef.current.scrollTop = 0;
+        }
+        setIsHeaderVisible(true);
+    }, [selectedEdge]);
 
     return (
-        <div className="h-full flex flex-col w-full">
+        <div className="h-full flex flex-col w-full" ref={cardRef}>
             {/* Header */}
             <div
                 ref={headerRef}

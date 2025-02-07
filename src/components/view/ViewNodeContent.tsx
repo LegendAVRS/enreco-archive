@@ -1,10 +1,9 @@
 import { Separator } from "@/components/ui/separator";
 import NodeCardDeco from "@/components/view/NodeCardDeco";
-import { SCROLL_THRESHOLD } from "@/lib/constants";
 import { ImageNodeType, Team } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     EdgeLinkClickHandler,
     NodeLinkClickHandler,
@@ -28,27 +27,35 @@ const ViewNodeContent = ({
 
     const characterImageRef = useRef<HTMLImageElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
+    const cardRef = useRef<HTMLDivElement>(null);
 
     // Handle scroll event to toggle header visibility
     const handleScroll = () => {
-        if (contentRef.current) {
-            const threshold =
-                contentRef.current.scrollHeight * SCROLL_THRESHOLD;
-            setIsHeaderVisible(contentRef.current.scrollTop <= threshold);
+        if (contentRef.current && cardRef.current) {
+            if (
+                cardRef.current.clientHeight > contentRef.current.scrollHeight
+            ) {
+                return;
+            }
+            setIsHeaderVisible(contentRef.current.scrollTop === 0);
         }
     };
 
     // Reset scroll position when selectedNode changes
-    if (contentRef.current) {
-        contentRef.current.scrollTop = 0;
-    }
+    useEffect(() => {
+        if (contentRef.current) {
+            contentRef.current.scrollTop = 0;
+            console.log("hll");
+        }
+        setIsHeaderVisible(true);
+    }, [selectedNode]);
 
     if (!selectedNode) {
         return;
     }
 
     return (
-        <div className="h-full flex flex-col w-full">
+        <div className="h-full flex flex-col w-full" ref={cardRef}>
             {/* Header */}
             <div
                 className={cn(
