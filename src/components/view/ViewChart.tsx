@@ -83,6 +83,11 @@ interface Props {
     focusOnSelectedNode?: boolean;
     widthToShrink: number;
     isCardOpen: boolean;
+    /**
+     * A change in this prop will cause the chart to try and fit the viewport to show
+     * certain elements on the screen, depending on fitViewOperation.
+     */
+    doFitView: boolean;
     fitViewOperation: FitViewOperation;
     onNodeClick: (node: ImageNodeType) => void;
     onEdgeClick: (edge: FixedEdgeType) => void;
@@ -100,6 +105,7 @@ function ViewChart({
     selectedEdge,
     widthToShrink,
     isCardOpen,
+    doFitView,
     fitViewOperation,
     onNodeClick,
     onEdgeClick,
@@ -111,13 +117,7 @@ function ViewChart({
 
     const { fitView } = useReactFlow<ImageNodeType, CustomEdgeType>();
     const { fitViewToEdge } = useReactFlowFitViewToEdge();
-    const prevFitViewOperation = usePreviousValue(fitViewOperation);
-    const prevSelectedNode = usePreviousValue<ImageNodeType | null>(
-        selectedNode,
-    );
-    const prevSelectedEdge = usePreviousValue<FixedEdgeType | null>(
-        selectedEdge,
-    );
+    const prevDoFitView = usePreviousValue(doFitView);
     const prevWidthToShrink = usePreviousValue(widthToShrink);
     const flowRendererSizer = useRef<HTMLDivElement>(null);
 
@@ -160,9 +160,18 @@ function ViewChart({
             }
 
             // Need a slight delay to make sure the width is updated before fitting the view
-            setTimeout(fitViewFunc, 50);
+            setTimeout(fitViewFunc, 20);
         }
     }, [widthToShrink, prevWidthToShrink, fitViewFunc]);
+
+    useEffect(() => {
+        if (prevDoFitView !== doFitView) {
+            // Like a above, need a slight delay to make sure that nodes/edges
+            // get updated in React Flow internally when new nodes/edges are
+            // passed in.
+            setTimeout(fitViewFunc, 20);
+        }
+    }, [doFitView, fitViewFunc, prevDoFitView]);
 
     // Filter and fill in render properties for nodes/edges before passing them to ReactFlow.
 
@@ -224,13 +233,7 @@ function ViewChart({
             return edge;
         });
 
-    if (
-        prevFitViewOperation !== fitViewOperation ||
-        selectedNode !== prevSelectedNode ||
-        selectedEdge !== prevSelectedEdge
-    ) {
-        fitViewFunc();
-    }
+    
 
     return (
         <div ref={flowRendererSizer} className="w-full h-full">
