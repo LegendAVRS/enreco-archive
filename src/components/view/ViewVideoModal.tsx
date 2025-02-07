@@ -21,7 +21,7 @@ const ViewVideoModal = ({
                 <DialogTitle>Video modal for ${videoUrl}</DialogTitle>
             </VisuallyHidden>
             <DialogContent
-                className="rounded-lg md:w-[50vw] max-w-none w-[95vw] h-auto aspect-video p-2"
+                className="rounded-lg lg:w-[60vw] md:w-[80vw] max-w-none w-[95vw] h-auto aspect-video p-2"
                 style={{
                     backgroundImage: "url('bg.webp')",
                     backgroundSize: "cover",

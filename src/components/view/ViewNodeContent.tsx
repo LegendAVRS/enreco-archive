@@ -9,6 +9,7 @@ import {
     NodeLinkClickHandler,
     ViewMarkdown,
 } from "./ViewMarkdown";
+import { isMobile } from "react-device-detect";
 
 interface ViewNodeContentProps {
     selectedNode: ImageNodeType;
@@ -33,7 +34,9 @@ const ViewNodeContent = ({
     const handleScroll = () => {
         if (contentRef.current && cardRef.current) {
             if (
-                cardRef.current.clientHeight > contentRef.current.scrollHeight
+                cardRef.current.clientHeight >
+                    contentRef.current.scrollHeight ||
+                isMobile
             ) {
                 return;
             }
