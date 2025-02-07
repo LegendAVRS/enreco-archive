@@ -325,7 +325,7 @@ const ViewApp = ({ siteData }: Props) => {
             <div className="fixed inset-x-0 bottom-0 w-full md:w-4/5 2xl:w-2/5 mb-2 px-2 md:p-0 md:mx-auto">
                 <ViewTransportControls
                     chapter={viewStore.chapter}
-                    chapterData={chapterData}
+                    chapterData={siteData.chapters}
                     day={viewStore.day}
                     numberOfChapters={siteData.numberOfChapters}
                     numberOfDays={chapterData.numberOfDays}
