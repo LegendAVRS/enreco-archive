@@ -2,7 +2,14 @@ import { FixedEdgeType, ImageNodeType } from "@/lib/type";
 import { useSettingStore } from "@/store/settingStore";
 import { useViewStore } from "@/store/viewStore";
 import { useReactFlow } from "@xyflow/react";
-import { MouseEventHandler } from "react";
+import {
+    Children,
+    cloneElement,
+    isValidElement,
+    MouseEventHandler,
+    ReactNode,
+    MouseEvent,
+} from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
@@ -34,7 +41,7 @@ export function ViewMarkdown({
     const settingStore = useSettingStore();
 
     const nodeLinkHandler: MouseEventHandler<HTMLAnchorElement> = (
-        event: React.MouseEvent<HTMLAnchorElement>,
+        event: MouseEvent<HTMLAnchorElement>,
     ) => {
         event.preventDefault();
 
@@ -49,7 +56,7 @@ export function ViewMarkdown({
     };
 
     const edgeLinkHandler: MouseEventHandler<HTMLAnchorElement> = (
-        event: React.MouseEvent<HTMLAnchorElement>,
+        event: MouseEvent<HTMLAnchorElement>,
     ) => {
         event.preventDefault();
 
@@ -64,7 +71,7 @@ export function ViewMarkdown({
     };
 
     const timestampHandler: MouseEventHandler<HTMLAnchorElement> = async (
-        event: React.MouseEvent<HTMLAnchorElement>,
+        event: MouseEvent<HTMLAnchorElement>,
     ) => {
         event.preventDefault();
 
@@ -108,7 +115,74 @@ export function ViewMarkdown({
             components={{
                 // br styles not working for some reason, will use a div instead
                 br: () => <div className="block my-6" />,
-                p: ({ children }) => <>{children}</>,
+                p: ({ children }) => {
+                    // Put team icons next to team names
+                    const teamIcons: { [key: string]: string } = {
+                        "Amber Coin":
+                            "https://cdn.holoen.fans/hefw/media/ambercoin.webp",
+                        "Scarlet Wand":
+                            "https://cdn.holoen.fans/hefw/media/scarletwand.webp",
+                        "Cerulean Cup":
+                            "https://cdn.holoen.fans/hefw/media/ceruleancup.webp",
+                        "Jade Sword":
+                            "https://cdn.holoen.fans/hefw/media/jadesword.webp",
+                    };
+
+                    const processNode = (node: ReactNode): ReactNode => {
+                        if (typeof node === "string") {
+                            const parts = node.split(
+                                /(Amber Coin|Scarlet Wand|Cerulean Cup|Jade Sword)/g,
+                            );
+
+                            return parts.reduce(
+                                (acc: ReactNode[], part, index) => {
+                                    if (!part) return acc;
+
+                                    if (teamIcons[part]) {
+                                        return [
+                                            ...acc,
+                                            <span
+                                                key={index}
+                                                className="inline-flex items-center gap-1"
+                                            >
+                                                {part}
+                                                <img
+                                                    className="inline h-6 w-6"
+                                                    src={teamIcons[part]}
+                                                    alt={part}
+                                                />
+                                            </span>,
+                                        ];
+                                    }
+
+                                    return [...acc, part];
+                                },
+                                [],
+                            );
+                        }
+
+                        if (isValidElement(node)) {
+                            const newChildren = Children.map(
+                                (node as React.ReactElement).props.children,
+                                processNode,
+                            );
+                            return cloneElement(
+                                node,
+                                (node as React.ReactElement).props,
+                                newChildren,
+                            );
+                        }
+
+                        return node;
+                    };
+
+                    const processedChildren = Children.map(
+                        children,
+                        processNode,
+                    );
+
+                    return <>{processedChildren}</>;
+                },
                 a(props) {
                     const { href, ...rest } = props;
 
@@ -143,7 +217,7 @@ export function ViewMarkdown({
                                 data-timestamp-url={href}
                                 onClick={timestampHandler}
                                 {...rest}
-                                className="block text-center italic underline underline-offset-4 text-lg"
+                                className="block text-center italic underline underline-offset-4 text-bold text-[1.125rem]"
                             >
                                 {caption}
                             </a>
