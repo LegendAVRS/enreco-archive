@@ -203,6 +203,7 @@ function ViewChart({
             }
 
             return (
+                (edgeVisibility["new"] && edgeData.new) ||
                 edgeVisibility[edgeData.relationshipId] &&
                 teamVisibility[nodeSrc.data.teamId || "null"] &&
                 teamVisibility[nodeTarget.data.teamId || "null"] &&
