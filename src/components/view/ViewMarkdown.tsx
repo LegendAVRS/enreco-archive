@@ -1,8 +1,6 @@
 import { FixedEdgeType, ImageNodeType } from "@/lib/type";
-import { urlToEmbedUrl } from "@/lib/utils";
 import { useSettingStore } from "@/store/settingStore";
 import { useViewStore } from "@/store/viewStore";
-import { YouTubeEmbed } from "@next/third-parties/google";
 import { useReactFlow } from "@xyflow/react";
 import { MouseEventHandler } from "react";
 import Markdown from "react-markdown";
@@ -135,19 +133,19 @@ export function ViewMarkdown({
                             />
                         );
                     } else if (href && href.startsWith("#embed")) {
-                        const embedUrl = href.replace("#embed:", "");
-                        const { videoid, params } = urlToEmbedUrl(embedUrl);
+                        const url = href.replace("#embed:", "");
                         const caption = rest.children as string;
 
                         return (
-                            <figure>
-                                <YouTubeEmbed
-                                    videoid={videoid}
-                                    params={params}
-                                    style="max-width: 100%; max-height: 100%;"
-                                />
-                                <figcaption>{caption}</figcaption>
-                            </figure>
+                            <a
+                                href={url}
+                                data-timestamp-url={href}
+                                onClick={timestampHandler}
+                                {...rest}
+                                className="block text-center italic underline underline-offset-4 text-lg"
+                            >
+                                {caption}
+                            </a>
                         );
                     } else if (href && href.startsWith("#out")) {
                         return <a href={href} target="_blank" {...rest} />;
@@ -160,7 +158,9 @@ export function ViewMarkdown({
                                     src={imageUrl}
                                     alt={rest.children as string}
                                 />
-                                <figcaption>{caption}</figcaption>
+                                <figcaption className="text-sm opacity-80 italic mt-2">
+                                    {caption}
+                                </figcaption>
                             </figure>
                         );
                     } else {

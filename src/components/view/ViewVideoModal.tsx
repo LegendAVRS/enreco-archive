@@ -20,7 +20,15 @@ const ViewVideoModal = ({
             <VisuallyHidden>
                 <DialogTitle>Video modal for ${videoUrl}</DialogTitle>
             </VisuallyHidden>
-            <DialogContent className="rounded-lg md:w-[50vw] max-w-none w-[95vw] h-auto aspect-video md:p-6 p-2">
+            <DialogContent
+                className="rounded-lg md:w-[50vw] max-w-none w-[95vw] h-auto aspect-video p-2"
+                style={{
+                    backgroundImage: "url('bg.webp')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                }}
+            >
                 <YouTubeEmbed
                     videoid={videoid}
                     params={params}
