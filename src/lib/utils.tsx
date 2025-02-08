@@ -81,9 +81,6 @@ export const urlToEmbedUrl = (url: string | null) => {
 
         return { videoid, params };
     } else {
-        // example https://www.youtube.com/embed/1_dhGL0K5-k?si=OCYF7bUx3zTLXPnC&amp;start=7439)
-        videoid = url.split("/embed/")[1].split("?si=")[0];
-        const params = url.split("start=")[1];
-        return { videoid, params };
+        return { videoid: "", params: "" };
     }
 };

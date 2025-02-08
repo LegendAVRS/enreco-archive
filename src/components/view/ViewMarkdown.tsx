@@ -230,7 +230,19 @@ export function ViewMarkdown({
                             />
                         );
                     } else if (href && href.startsWith("#embed")) {
-                        const url = href.replace("#embed:", "");
+                        let url = href.replace("#embed:", "");
+                        if (url.includes("embed")) {
+                            // turn embed to live
+                            // example https://www.youtube.com/embed/1_dhGL0K5-k?si=OCYF7bUx3zTLXPnC&amp;start=7439)
+                            // to https://www.youtube.com/embed/1_dhGL0K5-k?t=7439
+                            // This is mostly to handle mistakes I made at the beginning in the markdown
+                            const videoid = url
+                                .split("/embed/")[1]
+                                .split("?si=")[0];
+                            const params = url.split("start=")[1];
+                            url = `https://www.youtube.com/embed/${videoid}?t=${params}`;
+                        }
+
                         const caption = rest.children as string;
 
                         return (
