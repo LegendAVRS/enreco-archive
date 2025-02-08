@@ -225,9 +225,10 @@ export function ViewMarkdown({
                             </a>
                         );
                     } else if (href && href.startsWith("#out")) {
+                        const url = href.replace("#out:", "");
                         return (
                             <a
-                                href={href}
+                                href={url}
                                 target="_blank"
                                 {...rest}
                                 className="font-semibold"
