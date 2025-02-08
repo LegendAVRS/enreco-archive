@@ -189,9 +189,19 @@ export function ViewMarkdown({
                     // Empty href is an easy to retain the correct cursor.
                     if (href && href.startsWith("#node:")) {
                         const nodeId = href.replace("#node:", "");
+
+                        // Make the link's color the same as the node's
+                        // Not sure about this one, might remove.
+                        const node = getNode(nodeId);
+                        const style = node?.style;
+                        let nodeColor = "#831843";
+                        if (style && style.stroke) {
+                            nodeColor = style.stroke;
+                        }
                         return (
                             <a
-                                className="font-semibold"
+                                className="font-semibold underline"
+                                style={{ color: nodeColor }}
                                 href=""
                                 data-node-id={nodeId}
                                 onClick={nodeLinkHandler}
@@ -200,9 +210,19 @@ export function ViewMarkdown({
                         );
                     } else if (href && href.startsWith("#edge:")) {
                         const edgeId = href.replace("#edge:", "");
+
+                        // Make the link's color the same as the edge's
+                        // Not sure about this one either, might remove.
+                        const edge = getEdge(edgeId);
+                        const style = edge?.style;
+                        let edgeColor = "#831843";
+                        if (style && style.stroke) {
+                            edgeColor = style.stroke;
+                        }
                         return (
                             <a
-                                className="font-semibold"
+                                className="font-semibold underline"
+                                style={{ color: edgeColor }}
                                 href=""
                                 data-edge-id={edgeId}
                                 onClick={edgeLinkHandler}
