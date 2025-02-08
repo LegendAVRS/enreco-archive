@@ -191,6 +191,7 @@ export function ViewMarkdown({
                         const nodeId = href.replace("#node:", "");
                         return (
                             <a
+                                className="font-semibold"
                                 href=""
                                 data-node-id={nodeId}
                                 onClick={nodeLinkHandler}
@@ -201,6 +202,7 @@ export function ViewMarkdown({
                         const edgeId = href.replace("#edge:", "");
                         return (
                             <a
+                                className="font-semibold"
                                 href=""
                                 data-edge-id={edgeId}
                                 onClick={edgeLinkHandler}
@@ -223,7 +225,14 @@ export function ViewMarkdown({
                             </a>
                         );
                     } else if (href && href.startsWith("#out")) {
-                        return <a href={href} target="_blank" {...rest} />;
+                        return (
+                            <a
+                                href={href}
+                                target="_blank"
+                                {...rest}
+                                className="font-semibold"
+                            />
+                        );
                     } else if (href && href.startsWith("#image")) {
                         const imageUrl = href.replace("#image:", "");
                         const caption = rest.children as string;
@@ -241,6 +250,7 @@ export function ViewMarkdown({
                     } else {
                         return (
                             <a
+                                className="font-semibold"
                                 href={href}
                                 data-timestamp-url={href}
                                 onClick={timestampHandler}

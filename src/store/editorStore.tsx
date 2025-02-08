@@ -226,14 +226,6 @@ const createEditorDataSlice: StateCreator<
 
         set((state) => {
             const dayClone = structuredClone(get().data[ch].charts[day]);
-            dayClone.nodes.forEach(
-                (value: EditorImageNodeType) => (value.data.new = false),
-            );
-            dayClone.edges.forEach((value: CustomEdgeType) => {
-                if (value.data) {
-                    value.data!.new = false;
-                }
-            });
             state.data[ch].charts.splice(day + 1, 0, dayClone);
             state.data[ch].numberOfDays++;
         });

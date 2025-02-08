@@ -1,5 +1,6 @@
 import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { CustomEdgeProps } from "@/lib/type";
+import { useEditorStore } from "@/store/editorStore";
 import { BaseEdge, getSmoothStepPath } from "@xyflow/react";
 
 const EditorSmoothEdge = ({
@@ -14,8 +15,9 @@ const EditorSmoothEdge = ({
     style,
 }: CustomEdgeProps) => {
     const strokeColor = style?.stroke || "#000";
+    const { day: currentDay } = useEditorStore();
 
-    const isNew = data?.new || false;
+    const isNew = data?.day === currentDay || false;
 
     const [path] = getSmoothStepPath({
         sourceX,

@@ -125,7 +125,7 @@ export async function exportData(editorChapters: EditorChapter[]) {
                         imageSrc: node.data.imageSrc,
                         teamId: node.data.teamId,
                         status: node.data.status,
-                        new: node.data.new,
+                        day: node.data.day,
                         bgCardColor: node.data.bgCardColor,
                     },
                 };
@@ -141,10 +141,8 @@ export async function exportData(editorChapters: EditorChapter[]) {
                         relationshipId: edge.data!.relationshipId,
                         title: edge.data!.title,
                         content: edge.data!.content,
-                        timestampUrl: edge.data!.timestampUrl,
                         pathType: edge.data!.pathType,
-                        marker: edge.data!.marker,
-                        new: edge.data!.new,
+                        day: edge.data!.day,
                         offsets: edge.data!.offsets,
                     },
                 };

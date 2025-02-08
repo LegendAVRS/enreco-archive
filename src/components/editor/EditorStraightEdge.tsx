@@ -1,5 +1,6 @@
 import { EDGE_WIDTH } from "@/lib/constants";
 import { CustomEdgeProps } from "@/lib/type";
+import { useEditorStore } from "@/store/editorStore";
 
 import { BaseEdge, getStraightPath } from "@xyflow/react";
 
@@ -13,8 +14,9 @@ const EditorStraightEdge = ({
     style,
 }: CustomEdgeProps) => {
     const strokeColor = style?.stroke || "#000";
+    const { day: currentDay } = useEditorStore();
+    const isNew = data?.day === currentDay || false;
 
-    const isNew = data?.new || false;
     const [path] = getStraightPath({
         sourceX,
         sourceY,

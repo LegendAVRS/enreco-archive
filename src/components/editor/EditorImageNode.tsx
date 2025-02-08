@@ -6,6 +6,7 @@ import {
     Position,
     useUpdateNodeInternals,
 } from "@xyflow/react";
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 // Number of handles per side
@@ -49,7 +50,7 @@ const generateHandles = (numOfHandles: number) => {
 };
 
 const EditorImageNode = ({ data, id }: EditorImageNodeProps) => {
-    const { showHandles } = useEditorStore();
+    const { showHandles, day: currentDay } = useEditorStore();
     const [handles, setHandles] = useState(generateHandles(NUM_OF_HANDLES));
     const updateNodeInternals = useUpdateNodeInternals();
     const handleElements = handles.map((handle) => (
@@ -67,11 +68,17 @@ const EditorImageNode = ({ data, id }: EditorImageNodeProps) => {
         // filter for only connected handles
         updateNodeInternals(id);
     }, [id, handles, updateNodeInternals, setHandles]);
+
+    const isNew = data.day === currentDay || false;
+
     return (
         <>
             {handleElements}
             <img
-                className="aspect-square object-cover rounded-lg"
+                className={clsx("aspect-square object-cover rounded-lg", {
+                    "opacity-0": !isNew,
+                    "opacity-100": isNew,
+                })}
                 width={100}
                 src={data.imageSrc}
             />

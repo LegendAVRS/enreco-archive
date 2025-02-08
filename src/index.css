@@ -15,7 +15,7 @@ h2::after {
     width: 100%;
     height: 1px;
     background-color: rgba(63, 63, 70, 30%);
-    @apply w-full my-4;
+    @apply w-full my-2;
 }
 
 img {

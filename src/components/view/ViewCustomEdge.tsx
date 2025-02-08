@@ -2,6 +2,7 @@ import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { generatePath } from "@/lib/get-edge-svg-path";
 import { FixedEdgeProps } from "@/lib/type";
 import { cn } from "@/lib/utils";
+import { useViewStore } from "@/store/viewStore";
 import { BaseEdge } from "@xyflow/react";
 import { memo, useMemo } from "react";
 
@@ -15,7 +16,8 @@ const ViewCustomEdge = ({
     targetY,
     targetPosition,
 }: FixedEdgeProps) => {
-    const isNew = data?.new || false;
+    const { day: currentDay } = useViewStore();
+    const isNew = data?.day === currentDay || false;
 
     const path = useMemo(
         () =>
@@ -45,11 +47,11 @@ const ViewCustomEdge = ({
         <BaseEdge
             path={path}
             className={cn("transition-all", {
-                "pointer-events-none": data?.new === false,
+                "pointer-events-none": isNew === false,
             })}
             style={{
                 strokeWidth:
-                    data?.renderIsHoveredEdge && data?.new !== false
+                    data?.renderIsHoveredEdge && isNew
                         ? EDGE_WIDTH + 2
                         : EDGE_WIDTH,
                 opacity: isNew ? 1 : OLD_EDGE_OPACITY,

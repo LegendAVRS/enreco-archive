@@ -10,6 +10,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { DEFAULT_NODE_IMAGE } from "@/lib/constants";
 import { EditorImageNodeType, TeamMap } from "@/lib/type";
 
@@ -49,6 +50,7 @@ interface EditorNodeCardProps {
     ) => void;
     deleteNode: () => void;
     onCardClose: () => void;
+    numberOfDays: number;
 }
 
 export default function EditorNodeCard({
@@ -59,6 +61,7 @@ export default function EditorNodeCard({
     updateNode,
     deleteNode,
     onCardClose,
+    numberOfDays,
 }: EditorNodeCardProps) {
     const [autoGenIdFromTitle, setAutoGenIdFromTitle] = useState(true);
     const [workingNode, setWorkingNode] = useState(selectedNode);
@@ -150,11 +153,15 @@ export default function EditorNodeCard({
 
     return (
         <EditorCard>
-            <h1 className="text-xl font-bold">Node editor</h1>
-
-            <Button onClick={onClose} className="absolute top-2 right-2">
-                <LucideX />
-            </Button>
+            <div className="w-full sticky top-0 bg-white z-10">
+                <div className="flex justify-around items-center w-full">
+                    <div className="text-xl font-bold">Node Editor</div>
+                    <Button onClick={onClose}>
+                        <LucideX />
+                    </Button>
+                </div>
+                <Separator className="mt-2" />
+            </div>
 
             <div className="flex flex-row content-center gap-2">
                 <Checkbox
@@ -257,25 +264,35 @@ export default function EditorNodeCard({
                     </SelectContent>
                 </Select>
 
-                <div className="flex flex-row gap-2 col-start-2 items-center">
-                    <Checkbox
-                        id="node-isNew"
-                        name="isNew"
-                        checked={workingNode.data.new}
-                        onCheckedChange={(checked) =>
-                            checked === true
-                                ? setWorkingNodeAttr((draft) => {
-                                      draft.data.new = true;
-                                  })
-                                : setWorkingNodeAttr((draft) => {
-                                      draft.data.new = false;
-                                  })
-                        }
-                    />
-                    <Label htmlFor="node-isNew" className="text-lg">
-                        New
-                    </Label>
-                </div>
+                <Label
+                    htmlFor="node-day"
+                    className="text-right text-lg self-center"
+                >
+                    Day
+                </Label>
+                {/* Select to set the day the data belongs to */}
+                <Select
+                    value={workingNode.data.day.toString()}
+                    onValueChange={(value) =>
+                        setWorkingNodeAttr((draft) => {
+                            draft.data.day = parseInt(value);
+                        })
+                    }
+                    name="day"
+                >
+                    <SelectTrigger id="node-team">
+                        <SelectValue
+                            placeholder={`Day ${workingNode.data.day}`}
+                        />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {Array.from({ length: numberOfDays }, (_, i) => (
+                            <SelectItem key={i} value={i.toString()}>
+                                Day {i + 1}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
 
                 <hr className="col-span-2 my-0.5" />
 

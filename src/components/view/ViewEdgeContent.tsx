@@ -65,7 +65,7 @@ const ViewEdgeContent = ({
             {/* Header */}
             <div
                 ref={headerRef}
-                className="flex flex-col items-center transition-all duration-300 gap-2"
+                className="flex flex-col items-center transition-all duration-300"
                 style={{
                     opacity: isHeaderVisible ? 1 : 0,
                     height: isHeaderVisible ? "236px" : 0,
@@ -73,13 +73,13 @@ const ViewEdgeContent = ({
                     transform: isHeaderVisible ? "scale(1)" : "scale(0)",
                 }}
             >
-                <div className="z-10 flex flex-row gap-4 items-center justify-between">
+                <div className="z-10 flex gap-4 items-center justify-between">
                     <img
                         className="aspect-square w-[150px] object-cover"
                         src={nodeA.data.imageSrc}
                         alt="Node A"
                     />
-                    {getLineSvg(edgeStyle!, selectedEdge.data?.marker)}
+                    {getLineSvg(edgeStyle!)}
                     <img
                         className="aspect-square w-[150px] object-cover"
                         src={nodeB.data.imageSrc}
@@ -95,13 +95,9 @@ const ViewEdgeContent = ({
                 )}
                 <Separator />
 
-                <div className="flex flex-col items-center">
-                    <span className="">
-                        Relationship:{" "}
-                        <span className="underline underline-offset-2">
-                            {edgeRelationship.name}
-                        </span>
-                    </span>
+                <div className="my-2">
+                    <span className="font-semibold">Relationship:</span>{" "}
+                    <span className="">{edgeRelationship.name}</span>
                 </div>
                 <Separator />
             </div>
@@ -112,12 +108,18 @@ const ViewEdgeContent = ({
                 className="overflow-auto mt-2"
                 onScroll={handleScroll}
             >
+                {selectedEdge.data?.day !== undefined && (
+                    <div className="text-2xl font-bold my-2 underline underline-offset-4">
+                        Day {selectedEdge.data.day + 1}
+                    </div>
+                )}
                 <ViewMarkdown
                     onEdgeLinkClicked={onEdgeLinkClicked}
                     onNodeLinkClicked={onNodeLinkClicked}
                 >
                     {selectedEdge.data?.content || "No content available"}
                 </ViewMarkdown>
+                <Separator className="-mt-10" />
             </div>
         </div>
     );

@@ -106,12 +106,16 @@ const ViewNodeContent = ({
                 className="overflow-auto mt-2"
                 onScroll={handleScroll}
             >
+                <div className="text-2xl font-bold mb-2 underline underline-offset-4">
+                    Day {selectedNode.data.day + 1}
+                </div>
                 <ViewMarkdown
                     onEdgeLinkClicked={onEdgeLinkClicked}
                     onNodeLinkClicked={onNodeLinkClicked}
                 >
                     {selectedNode?.data.content || "No content available"}
                 </ViewMarkdown>
+                <Separator className="-mt-10" />
             </div>
         </div>
     );

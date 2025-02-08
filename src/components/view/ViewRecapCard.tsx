@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import {
     EdgeLinkClickHandler,
     NodeLinkClickHandler,
@@ -27,6 +28,7 @@ const ViewRecapCard = ({
                 >
                     {dayData.dayRecap || "No content available."}
                 </ViewMarkdown>
+                <Separator className="-mt-10" />
             </div>
         </div>
     );

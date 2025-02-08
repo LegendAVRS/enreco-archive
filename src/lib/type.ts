@@ -79,7 +79,7 @@ type CommonNodeData = {
     imageSrc: string;
     teamId: string;
     status: string;
-    new: boolean;
+    day: number;
     bgCardColor: string;
 };
 
@@ -107,9 +107,7 @@ type CommonEdgeData = {
     relationshipId: string;
     title: string;
     content: string;
-    timestampUrl: string;
-    marker: boolean;
-    new: boolean;
+    day: number;
     pathType: "invalid" | "custom" | "smoothstep" | "straight";
     offsets?: CustomEdgeOffsets;
 };

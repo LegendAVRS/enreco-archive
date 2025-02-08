@@ -10,6 +10,7 @@ import {
 import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { generateOrthogonalEdgePath } from "@/lib/get-edge-svg-path";
 import { produce } from "immer";
+import { useEditorStore } from "@/store/editorStore";
 
 //copied from reactflow lib - probably you can import this util directly from
 function getEdgeCenter({
@@ -170,6 +171,7 @@ const EditorCustomEdge = ({
         targetX,
         targetY,
     });
+    const { day: currentDay } = useEditorStore();
 
     const { getZoom, setEdges, updateEdgeData } = useReactFlow<
         EditorImageNodeType,
@@ -324,7 +326,7 @@ const EditorCustomEdge = ({
         }
     };
 
-    const isNew = data?.new || false;
+    const isNew = data?.day === currentDay || false;
 
     return (
         <>

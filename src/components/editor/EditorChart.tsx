@@ -74,7 +74,7 @@ export default function EditorChart({
                     imageSrc: DEFAULT_NODE_IMAGE,
                     teamId: "",
                     status: "",
-                    new: true,
+                    day: 0,
                     bgCardColor: "",
                     renderShowHandles: true,
                 },
@@ -118,9 +118,7 @@ export default function EditorChart({
                     relationshipId: "",
                     title: "",
                     content: "",
-                    timestampUrl: "",
-                    new: true,
-                    marker: false,
+                    day: 0,
                     pathType: pathType,
                     offsets:
                         pathType === "custom"

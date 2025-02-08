@@ -1,6 +1,5 @@
 import EditorCard from "@/components/editor/EditorCard";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -10,8 +9,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
 import { CustomEdgeType, RelationshipMap } from "@/lib/type";
+import MDEditor from "@uiw/react-md-editor";
 
 import { produce, WritableDraft } from "immer";
 import { LucideX } from "lucide-react";
@@ -24,6 +24,7 @@ interface EditorEdgeCard {
     updateEdge: (oldEdge: CustomEdgeType, newEdge: CustomEdgeType) => void;
     deleteEdge: () => void;
     onCardClose: () => void;
+    numberOfDays: number;
 }
 
 const EdgeEditorCard = ({
@@ -33,12 +34,9 @@ const EdgeEditorCard = ({
     updateEdge,
     deleteEdge,
     onCardClose,
+    numberOfDays,
 }: EditorEdgeCard) => {
     const [workingEdge, setWorkingEdge] = useState(selectedEdge);
-    const [streamPreviewLink, setStreamPreviewLink] = useState(
-        selectedEdge.data?.timestampUrl,
-    );
-
     const handleSave = () => {
         updateEdge(selectedEdge, workingEdge);
     };
@@ -59,13 +57,15 @@ const EdgeEditorCard = ({
 
     return (
         <EditorCard>
-            <div>
-                <h2 className="text-2lg font-bold">Edge Editor</h2>
+            <div className="w-full sticky top-0 bg-white z-10">
+                <div className="flex justify-around items-center w-full">
+                    <div className="text-xl font-bold">Edge Editor</div>
+                    <Button onClick={onClose}>
+                        <LucideX />
+                    </Button>
+                </div>
+                <Separator className="mt-2" />
             </div>
-
-            <Button onClick={onClose} className="absolute top-2 right-2">
-                <LucideX />
-            </Button>
 
             <div className="grid grid-cols-[1fr_4fr] gap-2 w-full">
                 <Label className="text-right text-lg self-center">Id</Label>
@@ -122,65 +122,63 @@ const EdgeEditorCard = ({
                     }
                 />
 
-                <div className="flex flex-row gap-2 items-center col-start-2">
-                    <Checkbox
-                        id="marker"
-                        checked={workingEdge.data?.new}
-                        onCheckedChange={(checked) =>
-                            checked === true
-                                ? setWorkingEdgeAttr((draft) => {
-                                      draft.data!.new = true;
-                                  })
-                                : setWorkingEdgeAttr((draft) => {
-                                      draft.data!.new = false;
-                                  })
-                        }
-                    />
-                    <Label
-                        htmlFor="marker"
-                        className="text-right text-lg self-center"
-                    >
-                        New
-                    </Label>
-                </div>
+                <Label
+                    htmlFor="node-day"
+                    className="text-right text-lg self-center"
+                >
+                    Day
+                </Label>
+                {/* Select to set the day the data belongs to */}
+                <Select
+                    value={workingEdge.data?.day.toString()}
+                    onValueChange={(value) =>
+                        setWorkingEdgeAttr((draft) => {
+                            if (draft.data) {
+                                draft.data.day = parseInt(value);
+                            }
+                        })
+                    }
+                    name="day"
+                >
+                    <SelectTrigger id="node-team">
+                        <SelectValue
+                            placeholder={
+                                workingEdge.data?.day !== undefined
+                                    ? `Day ${workingEdge.data.day + 1}`
+                                    : "Select a day"
+                            }
+                        />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {Array.from({ length: numberOfDays }, (_, i) => (
+                            <SelectItem key={i} value={i.toString()}>
+                                Day {i + 1}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
 
                 <hr className="col-span-2 my-0.5" />
 
-                <div className="flex flex-col col-span-2">
-                    <Label htmlFor="edge-content" className="text-lg">
-                        Content
-                    </Label>
-                    <Textarea
-                        id="edge-content"
-                        value={workingEdge.data!.content}
-                        onChange={(event) =>
-                            setWorkingEdgeAttr((draft) => {
-                                draft.data!.content = event.target.value;
-                            })
-                        }
-                    />
-                </div>
-
                 <Label
-                    htmlFor="edge-stream-link"
-                    className="text-right text-lg self-center"
+                    htmlFor="node-status"
+                    className="text-lg self-center col-span-2"
                 >
-                    Stream Link
+                    Edge Day Content
                 </Label>
-                <Input
-                    id="edge-stream-link"
-                    value={workingEdge.data!.timestampUrl}
-                    onChange={(event) =>
+                <MDEditor
+                    id="node-content"
+                    textareaProps={{ name: "content" }}
+                    value={workingEdge.data?.content}
+                    onChange={(content) =>
                         setWorkingEdgeAttr((draft) => {
-                            draft.data!.timestampUrl = event.target.value;
+                            if (draft.data) {
+                                draft.data.content = content || "";
+                            }
                         })
                     }
-                    onBlur={(event) => setStreamPreviewLink(event.target.value)}
+                    className="col-span-2"
                 />
-                <div className="col-span-2 h-48">
-                    <span className="text-lg">Stream Preview</span>
-                    {streamPreviewLink && <iframe src={streamPreviewLink} />}
-                </div>
             </div>
             <div className="flex flex-row gap-16">
                 <Button onClick={handleSave}>Save</Button>

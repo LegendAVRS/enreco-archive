@@ -48,7 +48,7 @@ const EMPTY_NODE: EditorImageNodeType = {
         imageSrc: DEFAULT_NODE_IMAGE,
         teamId: "",
         status: "",
-        new: true,
+        day: 0,
         bgCardColor: "",
         renderShowHandles: true,
     },
@@ -64,9 +64,7 @@ const EMPTY_EDGE: CustomEdgeType = {
         relationshipId: "",
         title: "",
         content: "",
-        timestampUrl: "",
-        new: true,
-        marker: false,
+        day: 0,
         pathType: "invalid",
         offsets: {
             HL: 0,
@@ -80,61 +78,42 @@ const EMPTY_EDGE: CustomEdgeType = {
 
 const EditorApp = () => {
     const { updateEdge, updateNode, deleteElements } = useReactFlow();
-    const {
-        mode,
-        setMode,
-        data,
-        setData,
-        chapter,
-        setChapter,
-        day,
-        setDay,
-        currentCard,
-        setCurrentCard,
-        edgeType,
-        setEdgeType,
-        setNodes,
-        setEdges,
-        showHandles,
-        setShowHandles,
-        addChapter,
-        insertChapter,
-        deleteChapter,
-        addDay,
-        insertDay,
-        deleteDay,
-        cloneDay,
-        moveDay,
-        setChapterTitle,
-        setChapterTeams,
-        setChapterRelationships,
-        setDayRecap,
-        selectedEdge,
-        setSelectedEdge,
-        selectedNode,
-        setSelectedNode,
-    } = useEditorStore();
+    const editorStore = useEditorStore();
     useKeyboard();
 
-    const numChapters = data.length;
-    const numDays = chapter !== null && data ? data[chapter].numberOfDays : 0;
-    const teams = chapter !== null && data ? data[chapter].teams : {};
+    const numChapters = editorStore.data.length;
+    const numDays =
+        editorStore.chapter !== null && editorStore.data
+            ? editorStore.data[editorStore.chapter].numberOfDays
+            : 0;
+    const teams =
+        editorStore.chapter !== null && editorStore.data
+            ? editorStore.data[editorStore.chapter].teams
+            : {};
     const relationships =
-        chapter !== null && data ? data[chapter].relationships : {};
+        editorStore.chapter !== null && editorStore.data
+            ? editorStore.data[editorStore.chapter].relationships
+            : {};
 
     const rawNodes =
-        chapter !== null && day !== null && data
-            ? data[chapter].charts[day]?.nodes
+        editorStore.chapter !== null &&
+        editorStore.day !== null &&
+        editorStore.data
+            ? editorStore.data[editorStore.chapter].charts[editorStore.day]
+                  ?.nodes
             : [];
     const nodes = rawNodes.map((node) => {
         const newNode = structuredClone(node);
-        newNode.data.renderShowHandles = showHandles;
+        newNode.data.renderShowHandles = editorStore.showHandles;
         return newNode;
     });
 
     const rawEdges =
-        chapter !== null && day !== null && data
-            ? data[chapter].charts[day]?.edges
+        editorStore.chapter !== null &&
+        editorStore.day !== null &&
+        editorStore.data
+            ? editorStore.data[editorStore.chapter].charts[editorStore.day]
+                  ?.edges
             : [];
     const edges = rawEdges.map((edge) => {
         const newEdge = structuredClone(edge);
@@ -178,74 +157,74 @@ const EditorApp = () => {
                         edge.targetHandle,
                     );
                 });
-            setEdges(edges);
+            editorStore.setEdges(edges);
         }
 
         updateNode(oldNode.id, newNode);
     };
 
     const deleteEdge = () => {
-        if (selectedEdge) {
+        if (editorStore.selectedEdge) {
             deleteElements({
-                edges: [selectedEdge],
+                edges: [editorStore.selectedEdge],
             });
         }
-        setSelectedEdge(null);
-        setCurrentCard(null);
+        editorStore.setSelectedEdge(null);
+        editorStore.setCurrentCard(null);
     };
 
     const deleteNode = () => {
-        if (selectedNode) {
+        if (editorStore.selectedNode) {
             deleteElements({
-                nodes: [selectedNode],
+                nodes: [editorStore.selectedNode],
             });
         }
-        setSelectedNode(null);
-        setCurrentCard(null);
+        editorStore.setSelectedNode(null);
+        editorStore.setCurrentCard(null);
     };
 
     const addChapterEH = () => {
-        if (chapter === null) {
-            setChapter(0);
-            addChapter();
+        if (editorStore.chapter === null) {
+            editorStore.setChapter(0);
+            editorStore.addChapter();
         } else {
-            insertChapter(chapter);
-            setChapter(chapter + 1);
+            editorStore.insertChapter(editorStore.chapter);
+            editorStore.setChapter(editorStore.chapter + 1);
         }
-        setDay(null);
+        editorStore.setDay(null);
     };
 
     const deleteChapterEH = () => {
-        if (chapter === 0) {
-            deleteChapter(0);
-            setChapter(numChapters === 1 ? null : 0);
-        } else if (chapter === numChapters - 1) {
-            deleteChapter(chapter);
-            setChapter(chapter - 1);
-        } else if (chapter !== null) {
-            deleteChapter(chapter);
+        if (editorStore.chapter === 0) {
+            editorStore.deleteChapter(0);
+            editorStore.setChapter(numChapters === 1 ? null : 0);
+        } else if (editorStore.chapter === numChapters - 1) {
+            editorStore.deleteChapter(editorStore.chapter);
+            editorStore.setChapter(editorStore.chapter - 1);
+        } else if (editorStore.chapter !== null) {
+            editorStore.deleteChapter(editorStore.chapter);
         }
     };
 
     const addDayEH = () => {
-        if (day === null) {
-            setDay(0);
-            addDay();
+        if (editorStore.day === null) {
+            editorStore.setDay(0);
+            editorStore.addDay();
         } else {
-            insertDay(day);
-            setDay(day + 1);
+            editorStore.insertDay(editorStore.day);
+            editorStore.setDay(editorStore.day + 1);
         }
     };
 
     const deleteDayEH = () => {
-        if (day === 0) {
-            deleteDay(0);
-            setDay(numDays === 1 ? null : 0);
-        } else if (day === numDays - 1) {
-            deleteDay(day);
-            setDay(day - 1);
-        } else if (day !== null) {
-            deleteDay(day);
+        if (editorStore.day === 0) {
+            editorStore.deleteDay(0);
+            editorStore.setDay(numDays === 1 ? null : 0);
+        } else if (editorStore.day === numDays - 1) {
+            editorStore.deleteDay(editorStore.day);
+            editorStore.setDay(editorStore.day - 1);
+        } else if (editorStore.day !== null) {
+            editorStore.deleteDay(editorStore.day);
         }
     };
 
@@ -254,21 +233,21 @@ const EditorApp = () => {
             <div className="w-screen h-screen">
                 <EditorChart
                     nodes={nodes}
-                    setNodes={setNodes}
+                    setNodes={editorStore.setNodes}
                     edges={edges}
-                    setEdges={setEdges}
-                    edgeType={edgeType}
-                    areNodesDraggable={mode === "edit"}
-                    canPlaceNewNode={mode === "place"}
+                    setEdges={editorStore.setEdges}
+                    edgeType={editorStore.edgeType}
+                    areNodesDraggable={editorStore.mode === "edit"}
+                    canPlaceNewNode={editorStore.mode === "place"}
                     onNodeClick={(node: EditorImageNodeType) => {
-                        setCurrentCard("node");
-                        setSelectedNode(node);
-                        setSelectedEdge(null);
+                        editorStore.setCurrentCard("node");
+                        editorStore.setSelectedNode(node);
+                        editorStore.setSelectedEdge(null);
                     }}
                     onEdgeClick={(edge: CustomEdgeType) => {
-                        setCurrentCard("edge");
-                        setSelectedEdge(edge);
-                        setSelectedNode(null);
+                        editorStore.setCurrentCard("edge");
+                        editorStore.setSelectedEdge(edge);
+                        editorStore.setSelectedNode(null);
                     }}
                 />
             </div>
@@ -280,8 +259,10 @@ const EditorApp = () => {
                 <div className="w-2/12 flex flex-col gap-y-0.5">
                     <span className="text-md font-bold">Editor Mode</span>
                     <Select
-                        value={mode}
-                        onValueChange={(value: EditorMode) => setMode(value)}
+                        value={editorStore.mode}
+                        onValueChange={(value: EditorMode) =>
+                            editorStore.setMode(value)
+                        }
                     >
                         <Toolbar.Button asChild>
                             <SelectTrigger className="h-8" useUpChevron={false}>
@@ -299,9 +280,9 @@ const EditorApp = () => {
 
                     <span className="text-md font-bold">Edge Type</span>
                     <Select
-                        value={edgeType}
+                        value={editorStore.edgeType}
                         onValueChange={(value: CustomEdgeTypeNames) =>
-                            setEdgeType(value)
+                            editorStore.setEdgeType(value)
                         }
                     >
                         <Toolbar.Button asChild>
@@ -324,33 +305,37 @@ const EditorApp = () => {
                 <Toolbar.Separator className="mx-2.5 w-px bg-black" />
                 <EditorTransportControls
                     className="w-4/12"
-                    chapter={chapter}
-                    chapters={data}
-                    day={day}
+                    chapter={editorStore.chapter}
+                    chapters={editorStore.data}
+                    day={editorStore.day}
                     onChapterChange={(newChapter: number) => {
-                        setChapter(newChapter);
-                        setDay(data[newChapter].numberOfDays === 0 ? null : 0);
+                        editorStore.setChapter(newChapter);
+                        editorStore.setDay(
+                            editorStore.data[newChapter].numberOfDays === 0
+                                ? null
+                                : 0,
+                        );
                     }}
-                    onDayChange={(newDay: number) => setDay(newDay)}
+                    onDayChange={(newDay: number) => editorStore.setDay(newDay)}
                     onChapterAdd={addChapterEH}
                     onChapterDelete={deleteChapterEH}
                     onDayAdd={addDayEH}
                     onDayDelete={deleteDayEH}
-                    onDayClone={cloneDay}
-                    onDayMove={moveDay}
+                    onDayClone={editorStore.cloneDay}
+                    onDayMove={editorStore.moveDay}
                 />
                 <Toolbar.Separator className="mx-2.5 w-px bg-black" />
                 <div className="w-2/12 flex flex-col gap-y-2">
                     <Toggle.Root
-                        disabled={chapter === null}
-                        pressed={currentCard === "general"}
+                        disabled={editorStore.chapter === null}
+                        pressed={editorStore.currentCard === "general"}
                         onPressedChange={(pressed: boolean) => {
                             if (pressed) {
-                                setCurrentCard("general");
-                                setSelectedNode(null);
-                                setSelectedEdge(null);
+                                editorStore.setCurrentCard("general");
+                                editorStore.setSelectedNode(null);
+                                editorStore.setSelectedEdge(null);
                             } else {
-                                setCurrentCard(null);
+                                editorStore.setCurrentCard(null);
                             }
                         }}
                         className="h-8 disabled:opacity-50 outline-none disabled:outline-none hover:outline hover:outline-black hover:outline-2 bg-white rounded-lg data-[state=on]:bg-neutral-300"
@@ -360,13 +345,13 @@ const EditorApp = () => {
                         </span>
                     </Toggle.Root>
                     <Toggle.Root
-                        disabled={chapter === null}
-                        pressed={currentCard === "teams"}
+                        disabled={editorStore.chapter === null}
+                        pressed={editorStore.currentCard === "teams"}
                         onPressedChange={(pressed: boolean) => {
                             if (pressed) {
-                                setCurrentCard("teams");
+                                editorStore.setCurrentCard("teams");
                             } else {
-                                setCurrentCard(null);
+                                editorStore.setCurrentCard(null);
                             }
                         }}
                         className="h-8 disabled:opacity-50 outline-none disabled:outline-none hover:outline hover:outline-black hover:outline-2 bg-white rounded-lg data-[state=on]:bg-neutral-300"
@@ -374,13 +359,13 @@ const EditorApp = () => {
                         <span className="text-md">Chapter Teams</span>
                     </Toggle.Root>
                     <Toggle.Root
-                        disabled={chapter === null}
-                        pressed={currentCard === "relationships"}
+                        disabled={editorStore.chapter === null}
+                        pressed={editorStore.currentCard === "relationships"}
                         onPressedChange={(pressed: boolean) => {
                             if (pressed) {
-                                setCurrentCard("relationships");
+                                editorStore.setCurrentCard("relationships");
                             } else {
-                                setCurrentCard(null);
+                                editorStore.setCurrentCard(null);
                             }
                         }}
                         className="h-8 disabled:opacity-50 outline-none disabled:outline-none hover:outline hover:outline-black hover:outline-2 bg-white rounded-lg data-[state=on]:bg-neutral-300"
@@ -392,21 +377,21 @@ const EditorApp = () => {
                 <div className="w-1/12 flex flex-col gap-y-2">
                     <Button
                         className="h-8 gap-2 bg-white text-black hover:text-white"
-                        onClick={() => saveData(data)}
+                        onClick={() => saveData(editorStore.data)}
                     >
                         <LucideSave />
                         <span className="text-md">Save</span>
                     </Button>
                     <Button
                         className="h-8 gap-2 bg-white text-black hover:text-white"
-                        onClick={() => loadData(setData)}
+                        onClick={() => loadData(editorStore.setData)}
                     >
                         <LucideFolderOpen />
                         <span className="text-md">Load</span>
                     </Button>
                     <Button
                         className="h-8 gap-2 bg-white text-black hover:text-white"
-                        onClick={() => exportData(data)}
+                        onClick={() => exportData(editorStore.data)}
                     >
                         <LucideArrowRightFromLine />
                         <span className="text-md">Export</span>
@@ -419,11 +404,11 @@ const EditorApp = () => {
                         <Checkbox
                             id="toggleHandles"
                             className="my-auto"
-                            checked={showHandles}
+                            checked={editorStore.showHandles}
                             onCheckedChange={(checked) =>
                                 checked && checked !== "indeterminate"
-                                    ? setShowHandles(true)
-                                    : setShowHandles(false)
+                                    ? editorStore.setShowHandles(true)
+                                    : editorStore.setShowHandles(false)
                             }
                         />
                         <label htmlFor="toggleHandles">Show Handles</label>
@@ -433,67 +418,81 @@ const EditorApp = () => {
 
             <EditorNodeCard
                 key={
-                    selectedNode
-                        ? `${selectedNode.id}-node-editor-card`
+                    editorStore.selectedNode
+                        ? `${editorStore.selectedNode.id}-node-editor-card`
                         : "null-node-editor-card"
                 }
-                isVisible={currentCard === "node"}
-                selectedNode={selectedNode || EMPTY_NODE}
+                isVisible={editorStore.currentCard === "node"}
+                selectedNode={editorStore.selectedNode || EMPTY_NODE}
                 teams={teams}
                 nodes={nodes}
                 updateNode={updateNodeEH}
                 deleteNode={deleteNode}
-                onCardClose={() => setCurrentCard(null)}
+                onCardClose={() => editorStore.setCurrentCard(null)}
+                numberOfDays={numDays}
             />
 
             <EdgeEditorCard
                 key={
-                    selectedEdge
-                        ? `${selectedEdge.id}-edge-editor-card`
+                    editorStore.selectedEdge
+                        ? `${editorStore.selectedEdge.id}-edge-editor-card`
                         : "null-edge-editor-card"
                 }
-                isVisible={currentCard === "edge"}
-                selectedEdge={selectedEdge || EMPTY_EDGE}
+                isVisible={editorStore.currentCard === "edge"}
+                selectedEdge={editorStore.selectedEdge || EMPTY_EDGE}
                 relationships={relationships}
                 deleteEdge={deleteEdge}
                 updateEdge={updateEdgeEH}
-                onCardClose={() => setCurrentCard(null)}
+                onCardClose={() => editorStore.setCurrentCard(null)}
+                numberOfDays={numDays}
             />
 
             <EditorGeneralCard
-                key={`${chapter}/${day}`}
-                isVisible={currentCard === "general"}
-                chapterData={chapter !== null ? data[chapter] : null}
-                dayData={
-                    chapter !== null && day !== null
-                        ? data[chapter].charts[day]
+                key={`${editorStore.chapter}/${editorStore.day}`}
+                isVisible={editorStore.currentCard === "general"}
+                chapterData={
+                    editorStore.chapter !== null
+                        ? editorStore.data[editorStore.chapter]
                         : null
                 }
-                onChapterTitleChange={setChapterTitle}
-                onDayRecapChange={setDayRecap}
-                onCardClose={() => setCurrentCard(null)}
+                dayData={
+                    editorStore.chapter !== null && editorStore.day !== null
+                        ? editorStore.data[editorStore.chapter].charts[
+                              editorStore.day
+                          ]
+                        : null
+                }
+                onChapterTitleChange={editorStore.setChapterTitle}
+                onDayRecapChange={editorStore.setDayRecap}
+                onCardClose={() => editorStore.setCurrentCard(null)}
             />
 
             <EditorTeamsCard
-                key={`${chapter}-teams-card`}
-                isVisible={currentCard === "teams"}
-                teamData={chapter !== null ? data[chapter].teams : {}}
+                key={`${editorStore.chapter}-teams-card`}
+                isVisible={editorStore.currentCard === "teams"}
+                teamData={
+                    editorStore.chapter !== null
+                        ? editorStore.data[editorStore.chapter].teams
+                        : {}
+                }
                 onTeamsChange={(teams: TeamMap) => {
-                    setChapterTeams(teams);
+                    editorStore.setChapterTeams(teams);
                 }}
-                onCardClose={() => setCurrentCard(null)}
+                onCardClose={() => editorStore.setCurrentCard(null)}
             />
 
             <EditorRelationshipsCard
-                key={`${chapter}-relationships-card`}
-                isVisible={currentCard === "relationships"}
+                key={`${editorStore.chapter}-relationships-card`}
+                isVisible={editorStore.currentCard === "relationships"}
                 relationshipData={
-                    chapter !== null ? data[chapter].relationships : {}
+                    editorStore.chapter !== null
+                        ? editorStore.data[editorStore.chapter].relationships
+                        : {}
                 }
                 onRelationshipsChange={(relationships: RelationshipMap) => {
-                    setChapterRelationships(relationships);
+                    editorStore.setChapterRelationships(relationships);
                 }}
-                onCardClose={() => setCurrentCard(null)}
+                onCardClose={() => editorStore.setCurrentCard(null)}
             />
         </>
     );

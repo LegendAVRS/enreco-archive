@@ -3,6 +3,7 @@ import { Handle, HandleType, Position } from "@xyflow/react";
 import { ImageNodeProps } from "../../lib/type";
 import Image from "next/image";
 import { OLD_NODE_OPACITY } from "@/lib/constants";
+import { useViewStore } from "@/store/viewStore";
 
 const NUM_OF_HANDLES = 5;
 
@@ -41,8 +42,9 @@ const generateHandles = (numOfHandles: number) => [
 const ViewImageNode = ({ data }: ImageNodeProps) => {
     // Generate handles only on mount since they’re static
     const handles = useMemo(() => generateHandles(NUM_OF_HANDLES), []);
+    const { day: currentDay } = useViewStore();
 
-    const isNew = data.new || false;
+    const isNew = data.day === currentDay || false;
 
     return (
         <>
