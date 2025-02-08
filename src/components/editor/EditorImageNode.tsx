@@ -76,7 +76,7 @@ const EditorImageNode = ({ data, id }: EditorImageNodeProps) => {
             {handleElements}
             <img
                 className={clsx("aspect-square object-cover rounded-lg", {
-                    "opacity-0": !isNew,
+                    "opacity-50": !isNew,
                     "opacity-100": isNew,
                 })}
                 width={100}
