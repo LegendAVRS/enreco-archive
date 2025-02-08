@@ -72,10 +72,18 @@ export const urlToEmbedUrl = (url: string | null) => {
     if (!url) return { videoid: "", params: "" };
 
     let videoid = url.split("/live/")[1];
-    let params = videoid.split("?")[1];
-    // replace t= with start=, cause YoutubeEmbed uses start= for timestamp (i think)
-    params = params.replace("t=", "start=");
-    videoid = videoid.split("?")[0];
+    if (videoid) {
+        // example https://www.youtube.com/live/2ATTd32AV-Q?feature=shared&t=10481
+        let params = videoid.split("?")[1];
+        // replace t= with start=, cause YoutubeEmbed uses start= for timestamp (i think)
+        params = params.replace("t=", "start=");
+        videoid = videoid.split("?")[0];
 
-    return { videoid, params };
+        return { videoid, params };
+    } else {
+        // example https://www.youtube.com/embed/1_dhGL0K5-k?si=OCYF7bUx3zTLXPnC&amp;start=7439)
+        videoid = url.split("/embed/")[1].split("?si=")[0];
+        const params = url.split("start=")[1];
+        return { videoid, params };
+    }
 };
