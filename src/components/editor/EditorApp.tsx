@@ -108,6 +108,27 @@ const EditorApp = () => {
         return newNode;
     });
 
+    const processedNodes = nodes
+        .map((node) => {
+            if (node.data.day !== editorStore.day) {
+                // get the node from the day it was created
+                if (
+                    !editorStore.data[editorStore.chapter!].charts[
+                        node.data.day
+                    ]
+                ) {
+                    return undefined;
+                }
+
+                const previousNode = editorStore.data[
+                    editorStore.chapter!
+                ].charts[node.data.day].nodes.find((n) => n.id === node.id);
+                return previousNode ? previousNode : node;
+            }
+            return node;
+        })
+        .filter((node): node is EditorImageNodeType => node !== undefined);
+
     const rawEdges =
         editorStore.chapter !== null &&
         editorStore.day !== null &&
@@ -125,6 +146,27 @@ const EditorApp = () => {
         }
         return newEdge;
     });
+
+    const processedEdges = edges
+        .map((edge) => {
+            if (edge.data && edge.data.day !== editorStore.day) {
+                // get the edge from the day it was created
+                if (
+                    !editorStore.data[editorStore.chapter!].charts[
+                        edge.data.day
+                    ]
+                ) {
+                    return undefined;
+                }
+
+                const previousEdge = editorStore.data[
+                    editorStore.chapter!
+                ].charts[edge.data.day].edges.find((e) => e.id === edge.id);
+                return previousEdge ? previousEdge : edge;
+            }
+            return edge;
+        })
+        .filter((edge): edge is CustomEdgeType => edge !== undefined);
 
     const updateEdgeEH = (oldEdge: CustomEdgeType, newEdge: CustomEdgeType) => {
         updateEdge(oldEdge.id, newEdge);
@@ -232,9 +274,9 @@ const EditorApp = () => {
         <>
             <div className="w-screen h-screen">
                 <EditorChart
-                    nodes={nodes}
+                    nodes={processedNodes}
                     setNodes={editorStore.setNodes}
-                    edges={edges}
+                    edges={processedEdges}
                     setEdges={editorStore.setEdges}
                     edgeType={editorStore.edgeType}
                     areNodesDraggable={editorStore.mode === "edit"}

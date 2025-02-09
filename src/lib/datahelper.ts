@@ -3,7 +3,9 @@
 import {
     Chapter,
     ChartData,
+    CustomEdgeType,
     EditorChapter,
+    EditorImageNodeType,
     EditorSaveMetadata,
     FixedEdgeType,
     ImageNodeType,
@@ -18,13 +20,113 @@ function getChapterFileName(chapterIndex: number) {
     return `chapter${chapterIndex}.json`;
 }
 
+// Clear the data for nodes on later dates if the same node (based on id and day) is present on an earlier date
+// example:
+// nodes = [chart[0] has {id: "1", data: {title: "title1", day: 1}}, chart[1] has {id: "1", data: {title: "title1", day: 1}}]
+// clearDuplicateNodes(chapter) => [chart[0] has {id: "1", data: {title: "title1", day: 1}}, chart[1] has {id: "1", data: {day: 1}}]
+const clearDuplicateNodesData = (chapter: EditorChapter) => {
+    const nodeMap = new Map<string, EditorImageNodeType>();
+
+    chapter.charts.forEach((chart) => {
+        chart.nodes.forEach((node) => {
+            if (!node.data) return;
+            const existingNode = nodeMap.get(node.id);
+            if (
+                !existingNode ||
+                !existingNode.data ||
+                existingNode.data.day > node.data.day
+            ) {
+                nodeMap.set(node.id, node);
+            }
+        });
+    });
+    const updatedChapter = {
+        ...chapter,
+        charts: chapter.charts.map((chart, index) => {
+            const newNodes = chart.nodes.map((node) => {
+                if (node.data.day < index) {
+                    const existingNode = nodeMap.get(node.id);
+                    if (existingNode) {
+                        return {
+                            ...node,
+                            data: {
+                                day: existingNode.data.day,
+                            },
+                        };
+                    }
+                }
+                return node;
+            });
+            return {
+                ...chart,
+                nodes: newNodes,
+            };
+        }),
+    };
+
+    return updatedChapter;
+};
+
+// Clear the data for edges on later dates if the same edge is present on an earlier date
+// Clear based on if the edge's day is greater than the current day aka the index of the chapter
+const clearDuplicateEdgesData = (chapter: EditorChapter) => {
+    const edgeMap = new Map<string, CustomEdgeType>();
+
+    chapter.charts.forEach((chart) => {
+        chart.edges.forEach((edge) => {
+            if (!edge.data) return;
+            const existingEdge = edgeMap.get(edge.id);
+            if (
+                !existingEdge ||
+                !existingEdge.data ||
+                existingEdge.data.day > edge.data.day
+            ) {
+                edgeMap.set(edge.id, edge);
+            }
+        });
+    });
+
+    const updatedChapter = {
+        ...chapter,
+        charts: chapter.charts.map((chart, index) => {
+            const newEdges = chart.edges.map((edge) => {
+                if (edge.data && edge.data.day < index) {
+                    const existingEdge = edgeMap.get(edge.id);
+                    if (existingEdge) {
+                        return {
+                            ...edge,
+                            data: {
+                                day: existingEdge.data
+                                    ? existingEdge.data.day
+                                    : 0,
+                            },
+                        };
+                    }
+                }
+                return edge;
+            });
+            return {
+                ...chart,
+                edges: newEdges,
+            };
+        }),
+    };
+
+    return updatedChapter;
+};
+
 export async function saveData(editorChapters: EditorChapter[]) {
     const utf8Encoder = new TextEncoder();
     const zipFile = new JSZip();
     let chNum = 0;
 
     for (const editorChapter of editorChapters) {
-        const chJson = JSON.stringify(editorChapter, null, 2);
+        // Clear duplicate nodes and edges in the save data
+        const updatedChapter = clearDuplicateNodesData(editorChapter);
+        // @ts-expect-error asd
+        const updatedChapterWithEdges = clearDuplicateEdgesData(updatedChapter);
+        const chJson = JSON.stringify(updatedChapterWithEdges, null, 2);
+
         zipFile.file(getChapterFileName(chNum), utf8Encoder.encode(chJson));
         chNum++;
     }
@@ -175,7 +277,11 @@ export async function exportData(editorChapters: EditorChapter[]) {
     let chNum = 0;
 
     for (const chapter of exportData) {
-        const chJson = JSON.stringify(chapter, null, 2);
+        // @ts-expect-error asd
+        const updatedChapter = clearDuplicateNodesData(chapter);
+        // @ts-expect-error asd
+        const updatedChapterWithEdges = clearDuplicateEdgesData(updatedChapter);
+        const chJson = JSON.stringify(updatedChapterWithEdges, null, 2);
         zipFile.file(getChapterFileName(chNum), utf8Encoder.encode(chJson));
         chNum++;
     }

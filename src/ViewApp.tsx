@@ -63,8 +63,33 @@ const ViewApp = ({ siteData }: Props) => {
     /* Data variables */
     const chapterData = siteData.chapters[viewStore.chapter];
     const dayData = chapterData.charts[viewStore.day];
+
     const nodes = dayData.nodes;
     const edges = dayData.edges;
+
+    const processedNodes = nodes
+        .map((node) => {
+            if (node.data.day !== viewStore.day) {
+                // get the node from the day it was created
+                return chapterData.charts[node.data.day].nodes.find(
+                    (n) => n.id === node.id,
+                );
+            }
+            return node;
+        })
+        .filter((node): node is ImageNodeType => node !== undefined);
+
+    const processedEdges = edges
+        .map((edge) => {
+            if (edge.data && edge.data.day !== viewStore.day) {
+                // get the edge from the day it was created
+                return chapterData.charts[edge.data.day].edges.find(
+                    (e) => e.id === edge.id,
+                );
+            }
+            return edge;
+        })
+        .filter((edge): edge is FixedEdgeType => edge !== undefined);
 
     /* Helper function to coordinate state updates when data changes. */
     function updateData(newChapter: number, newDay: number) {
@@ -186,8 +211,8 @@ const ViewApp = ({ siteData }: Props) => {
         <>
             <div className="w-screen h-screen top-0 inset-x-0 overflow-hidden">
                 <ViewChart
-                    nodes={nodes}
-                    edges={edges}
+                    nodes={processedNodes}
+                    edges={processedEdges}
                     edgeVisibility={viewStore.edgeVisibility}
                     teamVisibility={viewStore.teamVisibility}
                     characterVisibility={viewStore.characterVisibility}
