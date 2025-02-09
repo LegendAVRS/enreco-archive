@@ -182,8 +182,8 @@ function ViewChart({
         .filter(
             (node) =>
                 // Compute node visibility based on related edge and viewstore settings
-                (!node.data.teamId ||
-                    teamVisibility[node.data.teamId || "null"]) &&
+
+                teamVisibility[node.data.teamId || "null"] &&
                 characterVisibility[node.id],
         )
         .map((node) => {
@@ -218,10 +218,8 @@ function ViewChart({
 
             return (
                 edgeVisibility[edgeData.relationshipId] &&
-                (!nodeSrc.data.teamId ||
-                    teamVisibility[nodeSrc.data.teamId || "null"]) &&
-                (!nodeTarget.data.teamId ||
-                    teamVisibility[nodeTarget.data.teamId || "null"]) &&
+                teamVisibility[nodeSrc.data.teamId || "null"] &&
+                teamVisibility[nodeTarget.data.teamId || "null"] &&
                 characterVisibility[nodeSrc.id] &&
                 characterVisibility[nodeTarget.id]
             );
