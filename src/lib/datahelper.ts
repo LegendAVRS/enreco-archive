@@ -123,7 +123,7 @@ export async function saveData(editorChapters: EditorChapter[]) {
     for (const editorChapter of editorChapters) {
         // Clear duplicate nodes and edges in the save data
         const updatedChapter = clearDuplicateNodesData(editorChapter);
-        // @ts-expect-error asd
+        // @ts-expect-error Incompatible type due to all other data beside "day" being removed
         const updatedChapterWithEdges = clearDuplicateEdgesData(updatedChapter);
         const chJson = JSON.stringify(updatedChapterWithEdges, null, 2);
 
@@ -277,9 +277,9 @@ export async function exportData(editorChapters: EditorChapter[]) {
     let chNum = 0;
 
     for (const chapter of exportData) {
-        // @ts-expect-error asd
+        // @ts-expect-error Incompatible type due to all other data beside "day" being removed
         const updatedChapter = clearDuplicateNodesData(chapter);
-        // @ts-expect-error asd
+        // @ts-expect-error Incompatible type due to all other data beside "day" being removed
         const updatedChapterWithEdges = clearDuplicateEdgesData(updatedChapter);
         const chJson = JSON.stringify(updatedChapterWithEdges, null, 2);
         zipFile.file(getChapterFileName(chNum), utf8Encoder.encode(chJson));
