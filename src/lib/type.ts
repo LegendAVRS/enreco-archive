@@ -49,7 +49,7 @@ export type EditorChapter = {
 export type Team = {
     id: string;
     name: string;
-    teamIconSrc: string | undefined;
+    teamIconSrc: string;
 };
 
 export type Relationship = {

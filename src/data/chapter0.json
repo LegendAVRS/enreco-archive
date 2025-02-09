@@ -2159,7 +2159,8 @@
     },
     "none": {
       "id": "none",
-      "name": "None"
+      "name": "None",
+      "teamIconSrc": "https://cdn.holoen.fans/hefw/media/emblem.webp"
     }
   },
   "relationships": {

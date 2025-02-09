@@ -112,7 +112,7 @@ export default function EditorTeamsCard({
         let newTeamId = event.currentTarget.elements.newTeamId.value;
         const newTeamName = event.currentTarget.elements.newTeamName.value;
         const newTeamIconUrl =
-            event.currentTarget.elements.newTeamIconUrl.value || undefined;
+            event.currentTarget.elements.newTeamIconUrl.value;
 
         if ((!autoGenIdFromName && !newTeamId) || !newTeamName) {
             return;
@@ -287,7 +287,6 @@ export default function EditorTeamsCard({
                     id="new-team-icon-url"
                     name="newTeamIconUrl"
                     className="border rounded-lg"
-                    required={false}
                 />
 
                 <Button type="submit" className="col-span-2">
