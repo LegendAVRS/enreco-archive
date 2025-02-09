@@ -22,6 +22,7 @@ import ImageNodeView from "@/components/view/ViewImageNode";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useReactFlowFitViewToEdge } from "@/hooks/useReactFlowFitViewToEdge";
 import { usePreviousValue } from "@/hooks/usePreviousValue";
+import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 
 function findTopLeftNode(nodes: ImageNodeType[]) {
     let topLeftNode = nodes[0];
@@ -92,6 +93,7 @@ interface Props {
     onNodeClick: (node: ImageNodeType) => void;
     onEdgeClick: (edge: FixedEdgeType) => void;
     onPaneClick: () => void;
+    day: number;
 }
 
 function ViewChart({
@@ -110,6 +112,7 @@ function ViewChart({
     onNodeClick,
     onEdgeClick,
     onPaneClick,
+    day,
 }: Props) {
     const [hoveredEdgeId, setHoveredEdgeId] = useState<string | null>(null);
     const topLeftNode = useMemo(() => findTopLeftNode(nodes), [nodes]);
@@ -179,11 +182,13 @@ function ViewChart({
         .filter(
             (node) =>
                 // Compute node visibility based on related edge and viewstore settings
-                teamVisibility[node.data.teamId || "null"] &&
+                (!node.data.teamId ||
+                    teamVisibility[node.data.teamId || "null"]) &&
                 characterVisibility[node.id],
         )
         .map((node) => {
             // Set team icon image, if available.
+
             if (node.data.teamId) {
                 node.data.renderTeamImageSrc =
                     chapterData.teams[node.data.teamId].teamIconSrc || "";
@@ -212,12 +217,13 @@ function ViewChart({
             }
 
             return (
-                (edgeVisibility["new"] && edgeData.new) ||
-                (edgeVisibility[edgeData.relationshipId] &&
-                    teamVisibility[nodeSrc.data.teamId || "null"] &&
-                    teamVisibility[nodeTarget.data.teamId || "null"] &&
-                    characterVisibility[nodeSrc.id] &&
-                    characterVisibility[nodeTarget.id])
+                edgeVisibility[edgeData.relationshipId] &&
+                (!nodeSrc.data.teamId ||
+                    teamVisibility[nodeSrc.data.teamId || "null"]) &&
+                (!nodeTarget.data.teamId ||
+                    teamVisibility[nodeTarget.data.teamId || "null"]) &&
+                characterVisibility[nodeSrc.id] &&
+                characterVisibility[nodeTarget.id]
             );
         })
         .map((edge) => {
@@ -226,8 +232,26 @@ function ViewChart({
                 return edge;
             }
 
-            edge.style =
+            const edgeStyle =
                 chapterData.relationships[edgeData.relationshipId].style || {};
+            const isNew = edgeData.day === day;
+            if (edgeVisibility["new"]) {
+                edge.style = {
+                    ...edgeStyle,
+                    opacity: isNew ? 1 : OLD_EDGE_OPACITY,
+                    strokeWidth: edgeData.renderIsHoveredEdge
+                        ? EDGE_WIDTH + 2
+                        : EDGE_WIDTH,
+                    pointerEvents: isNew ? "auto" : "none",
+                };
+            } else {
+                edge.style = {
+                    ...edgeStyle,
+                    opacity: 1,
+                    strokeWidth: EDGE_WIDTH,
+                };
+            }
+
             edgeData.renderIsHoveredEdge = edge.id === hoveredEdgeId;
 
             return edge;
@@ -248,7 +272,7 @@ function ViewChart({
                 }}
                 onEdgeClick={(_, edge) => {
                     // Disable edge selection on if is old edge and only show new is true
-                    if (edge.data?.new === false && edgeVisibility["new"]) {
+                    if (edge.data?.day !== day && edgeVisibility["new"]) {
                         return;
                     }
 

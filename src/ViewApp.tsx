@@ -226,6 +226,7 @@ const ViewApp = ({ siteData }: Props) => {
                     onNodeClick={onNodeClick}
                     onEdgeClick={onEdgeClick}
                     onPaneClick={onPaneClick}
+                    day={viewStore.day}
                 />
                 <div
                     className="absolute top-0 left-0 w-screen h-screen -z-10"
