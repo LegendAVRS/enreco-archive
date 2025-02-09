@@ -240,7 +240,7 @@ export function ViewMarkdown({
                                 .split("/embed/")[1]
                                 .split("?si=")[0];
                             const params = url.split("start=")[1];
-                            url = `https://www.youtube.com/embed/${videoid}?t=${params}`;
+                            url = `https://www.youtube.com/live/${videoid}?t=${params}`;
                         }
 
                         const caption = rest.children as string;
