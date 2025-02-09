@@ -64,10 +64,7 @@ const ViewApp = ({ siteData }: Props) => {
     const chapterData = siteData.chapters[viewStore.chapter];
     const dayData = chapterData.charts[viewStore.day];
 
-    const nodes = dayData.nodes;
-    const edges = dayData.edges;
-
-    const processedNodes = nodes
+    const processedNodes = dayData.nodes
         .map((node) => {
             if (node.data.day !== viewStore.day) {
                 // get the node from the day it was created
@@ -79,7 +76,7 @@ const ViewApp = ({ siteData }: Props) => {
         })
         .filter((node): node is ImageNodeType => node !== undefined);
 
-    const processedEdges = edges
+    const processedEdges = dayData.edges
         .map((edge) => {
             if (edge.data && edge.data.day !== viewStore.day) {
                 // get the edge from the day it was created
@@ -90,6 +87,10 @@ const ViewApp = ({ siteData }: Props) => {
             return edge;
         })
         .filter((edge): edge is FixedEdgeType => edge !== undefined);
+
+    // Update dayData with the processed nodes and edges
+    dayData.nodes = processedNodes;
+    dayData.edges = processedEdges;
 
     /* Helper function to coordinate state updates when data changes. */
     function updateData(newChapter: number, newDay: number) {
@@ -211,8 +212,8 @@ const ViewApp = ({ siteData }: Props) => {
         <>
             <div className="w-screen h-screen top-0 inset-x-0 overflow-hidden">
                 <ViewChart
-                    nodes={processedNodes}
-                    edges={processedEdges}
+                    nodes={dayData.nodes}
+                    edges={dayData.edges}
                     edgeVisibility={viewStore.edgeVisibility}
                     teamVisibility={viewStore.teamVisibility}
                     characterVisibility={viewStore.characterVisibility}
