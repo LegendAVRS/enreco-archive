@@ -168,16 +168,12 @@ figcaption {
 
 /* Minigame stuff */
 .box {
-    @apply w-[50px] h-[50px] shadow-lg cursor-pointer;
+    @apply transition-all w-[50px] h-[50px] border border-black border-opacity-10 cursor-pointer;
 }
 
 .box-fixed-size {
     width: 100px;
     height: 100px;
-}
-
-.box-selected {
-    @apply border-4 p-4;
 }
 
 .box-empty {
