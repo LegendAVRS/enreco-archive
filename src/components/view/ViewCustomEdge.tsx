@@ -43,6 +43,9 @@ const ViewCustomEdge = ({
         ],
     );
 
+    // TODO: Implement a way to indicate read status
+    // Maybe a label on the edge
+
     return (
         <BaseEdge
             path={path}

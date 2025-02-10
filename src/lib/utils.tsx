@@ -84,3 +84,11 @@ export const urlToEmbedUrl = (url: string | null) => {
         return { videoid: "", params: "" };
     }
 };
+
+export const idFromDayChapterId = (
+    day: number,
+    chapter: number,
+    id: string,
+) => {
+    return `${day}-${chapter}-${id}`;
+};

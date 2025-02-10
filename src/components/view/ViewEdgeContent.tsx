@@ -1,7 +1,11 @@
 import { Separator } from "@/components/ui/separator";
 import EdgeCardDeco from "@/components/view/EdgeCardDeco";
 import { FixedEdgeType, ImageNodeType, Relationship } from "@/lib/type";
-import { getLighterOrDarkerColor, getLineSvg } from "@/lib/utils";
+import {
+    getLighterOrDarkerColor,
+    getLineSvg,
+    idFromDayChapterId,
+} from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import {
     EdgeLinkClickHandler,
@@ -9,6 +13,8 @@ import {
     ViewMarkdown,
 } from "./ViewMarkdown";
 import { isMobile } from "react-device-detect";
+import ReadMarker from "@/components/view/ReadMarker";
+import { useViewStore } from "@/store/viewStore";
 
 interface ViewEdgeContentProps {
     selectedEdge: FixedEdgeType;
@@ -32,6 +38,7 @@ const ViewEdgeContent = ({
         edgeStyle?.stroke || "",
         30,
     );
+    const { chapter } = useViewStore();
 
     const contentRef = useRef<HTMLDivElement>(null); // Ref for scrollable content
     const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility
@@ -120,6 +127,13 @@ const ViewEdgeContent = ({
                     {selectedEdge.data?.content || "No content available"}
                 </ViewMarkdown>
                 <Separator className="-mt-10" />
+                <ReadMarker
+                    id={idFromDayChapterId(
+                        selectedEdge.data!.day,
+                        chapter,
+                        selectedEdge.id,
+                    )}
+                />
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import NodeCardDeco from "@/components/view/NodeCardDeco";
 import { ImageNodeType, Team } from "@/lib/type";
-import { cn } from "@/lib/utils";
+import { cn, idFromDayChapterId } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -10,6 +10,8 @@ import {
     ViewMarkdown,
 } from "./ViewMarkdown";
 import { isMobile } from "react-device-detect";
+import ReadMarker from "@/components/view/ReadMarker";
+import { useViewStore } from "@/store/viewStore";
 
 interface ViewNodeContentProps {
     selectedNode: ImageNodeType;
@@ -25,6 +27,7 @@ const ViewNodeContent = ({
     onEdgeLinkClicked,
 }: ViewNodeContentProps) => {
     const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+    const { chapter } = useViewStore();
 
     const characterImageRef = useRef<HTMLImageElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
@@ -116,6 +119,13 @@ const ViewNodeContent = ({
                     {selectedNode?.data.content || "No content available"}
                 </ViewMarkdown>
                 <Separator className="-mt-10" />
+                <ReadMarker
+                    id={idFromDayChapterId(
+                        selectedNode.data.day,
+                        chapter,
+                        selectedNode.id,
+                    )}
+                />
             </div>
         </div>
     );

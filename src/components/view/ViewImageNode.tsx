@@ -4,6 +4,8 @@ import { ImageNodeProps } from "../../lib/type";
 import Image from "next/image";
 import { OLD_NODE_OPACITY } from "@/lib/constants";
 import { useViewStore } from "@/store/viewStore";
+import { idFromDayChapterId } from "@/lib/utils";
+import { Check } from "lucide-react";
 
 const NUM_OF_HANDLES = 5;
 
@@ -39,12 +41,14 @@ const generateHandles = (numOfHandles: number) => [
     ...generateHandlesOnSide(Position.Left, "top", numOfHandles),
 ];
 
-const ViewImageNode = ({ data }: ImageNodeProps) => {
+const ViewImageNode = ({ id, data }: ImageNodeProps) => {
     // Generate handles only on mount since they’re static
     const handles = useMemo(() => generateHandles(NUM_OF_HANDLES), []);
-    const { day: currentDay } = useViewStore();
+    const { day, chapter } = useViewStore();
 
-    const isNew = data.day === currentDay || false;
+    const isNew = data.day === day || false;
+    const isRead =
+        localStorage.getItem(idFromDayChapterId(day, chapter, id)) === "read";
 
     return (
         <>
@@ -76,6 +80,13 @@ const ViewImageNode = ({ data }: ImageNodeProps) => {
                         height={25}
                         src={data.renderTeamImageSrc || ""}
                         alt="team icon"
+                    />
+                )}
+                {isRead && (
+                    <Check
+                        size={25}
+                        className="absolute top-1 right-1 opacity-80"
+                        color="white"
                     />
                 )}
             </div>
