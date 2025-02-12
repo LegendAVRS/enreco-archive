@@ -156,7 +156,7 @@ const ViewGamblingGame = () => {
             <div className="grid grid-cols-5 grid-rows-5 h-fit w-fit">
                 {displayedBoard}
             </div>
-            <div className="flex flex-col gap-2 items-center grow mt-2">
+            <div className="flex flex-col sm:gap-2 items-center grow mt-2">
                 <div className="flex gap-2">
                     <span className="text-center">
                         <span className="font-semibold">Current Budget:</span>{" "}
