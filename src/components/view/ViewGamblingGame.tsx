@@ -187,32 +187,32 @@ const ViewGamblingGame = () => {
                         type="number"
                         onChange={(e) => setBetAmount(+e.target.value)}
                     />
-                </div>
-                <Button
-                    disabled={
-                        (currentRoll <= 4 && currentRoll !== 0) ||
-                        currentBudget <= 0 ||
-                        betAmount === 0 ||
-                        betAmount > currentBudget
-                    }
-                    onClick={() => {
-                        // reset the board
-                        setValueBoard(initialValueBoard);
-                        setPositionBoard(initialPositionBoard);
+                    <Button
+                        disabled={
+                            (currentRoll <= 4 && currentRoll !== 0) ||
+                            currentBudget <= 0 ||
+                            betAmount === 0 ||
+                            betAmount > currentBudget
+                        }
+                        onClick={() => {
+                            // reset the board
+                            setValueBoard(initialValueBoard);
+                            setPositionBoard(initialPositionBoard);
 
-                        // start roll
-                        setCurrentRoll(1);
-                        setCurrentBudget((prevCurrentBudget) => {
-                            return prevCurrentBudget - betAmount;
-                        });
-                    }}
-                >
-                    {currentBudget > 0
-                        ? currentRoll === 0 || currentRoll > 4
-                            ? "Lock In"
-                            : "Rolling"
-                        : "Out of money"}
-                </Button>
+                            // start roll
+                            setCurrentRoll(1);
+                            setCurrentBudget((prevCurrentBudget) => {
+                                return prevCurrentBudget - betAmount;
+                            });
+                        }}
+                    >
+                        {currentBudget > 0
+                            ? currentRoll === 0 || currentRoll > 4
+                                ? "Lock In"
+                                : "Rolling"
+                            : "Out of money"}
+                    </Button>
+                </div>
             </div>
         </div>
     );
