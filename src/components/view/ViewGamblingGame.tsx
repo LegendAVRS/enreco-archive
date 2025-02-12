@@ -84,13 +84,14 @@ const ViewGamblingGame = () => {
         }
     }, [currentBudget, highScore, setHighScore]);
 
-    // Select 12 random positions 4 times in such a way that there is a 4s delay after each
+    // Select 6 random positions 4 times in such a way that there is a 4s delay after each
     // Remove the selected positions from the board, by changing the value to box-empty
     // After 4 times, only one position/box is left
     useEffect(() => {
         const roll = () => {
+            // TODO: Add the "pre-roll" effect like in the original game
+
             setTimeout(() => {
-                // Select 12 random values from the position board
                 const randomPositions = _.sampleSize(positionBoard, 6);
                 setValueBoard((prevValueBoard) => {
                     const newValueBoard = [...prevValueBoard];
