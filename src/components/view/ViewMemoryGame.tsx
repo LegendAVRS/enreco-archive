@@ -18,17 +18,21 @@ const SHORTCUT_KEYS = {
     "4": 3,
 };
 
+const INITIAL_TIME = 10;
+
+const initBoardState = (boardSize: number) => {
+    return Array.from({ length: boardSize }, () => -1);
+};
+
 const ViewMemoryGame = () => {
-    const initBoardState = (boardSize: number) => {
-        return Array.from({ length: boardSize }, () => -1);
-    };
     const sideLength = 5;
 
+    // Game states
     const [board, setBoard] = useState(initBoardState(sideLength * sideLength));
     const [difficulty, setDifficulty] = useState(2);
     const [chosenValue, setChosenValue] = useState(0);
     const [score, setScore] = useState(0);
-    // const [timeLeft, setTimeLeft] = useState(60);
+    const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
     const [allowClick, setAllowClick] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
 
@@ -36,6 +40,7 @@ const ViewMemoryGame = () => {
         return board.filter((value) => value >= 4).length;
     };
 
+    // Get difficulty based on current score
     const calculateDifficulty = (score: number) => {
         return Math.min(Math.floor(score / 5) + 2, sideLength * sideLength);
     };
@@ -52,11 +57,13 @@ const ViewMemoryGame = () => {
         let newScore = score;
 
         if (chosenValue !== -1 && chosenValue + 4 === board[index]) {
+            // Final slot solved, so we're update the difficulty and the board
             if (getNumberOfUnsolvedSlots(board) === 1) {
                 newScore += difficulty;
                 setScore(newScore);
                 setDifficulty(calculateDifficulty(newScore));
             }
+
             setBoard((prevBoard) => {
                 const newBoard = [...prevBoard];
                 newBoard[index] = chosenValue;
@@ -69,6 +76,7 @@ const ViewMemoryGame = () => {
         }
     };
 
+    // Shortcut keys for selecting the colors
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
             const value =
@@ -87,16 +95,16 @@ const ViewMemoryGame = () => {
 
     useEffect(() => {
         if (!isPlaying) {
-            setBoard(initBoardState(sideLength * sideLength));
             return;
         }
         const setRandomBoardState = (boardSize: number, difficulty: number) => {
-            // Get "difficulty" number of random numbers between 0 and boardSize
+            // Sample a "difficulty" number of positions
             const randomPositions = _.sampleSize(
                 _.range(0, boardSize),
                 difficulty,
             );
-            // Get "difficulty" number of random numbers between 0 and 3
+
+            // Sample a "difficulty" number of values
             const randomValues: number[] = [];
             for (let i = 0; i < difficulty; i++) {
                 randomValues.push(Math.floor(Math.random() * 4));
@@ -111,10 +119,13 @@ const ViewMemoryGame = () => {
                 return newBoard;
             });
         };
+
         setAllowClick(false);
         setRandomBoardState(sideLength * sideLength, difficulty);
         setTimeout(() => {
-            // add 4 to all none -1 values in the board
+            // Add 4 to all none -1 values in the board
+            // Values >= 4 represent the values the user is trying to guess, respetive to the actual value -4
+            // We do this to seperate which has been guessed and which hasn't
             setBoard((prevBoard) => {
                 const newBoard = [...prevBoard];
                 for (let i = 0; i < newBoard.length; i++) {
@@ -128,6 +139,26 @@ const ViewMemoryGame = () => {
         }, 3000);
     }, [difficulty, score, isPlaying]);
 
+    // Update timer
+    useEffect(() => {
+        let interval = null;
+        if (isPlaying) {
+            interval = setInterval(() => {
+                setTimeLeft((prev) => prev - 1);
+            }, 1000);
+        } else {
+            if (interval) {
+                setTimeLeft(INITIAL_TIME);
+                setIsPlaying(false);
+                setBoard(initBoardState(sideLength * sideLength));
+                clearInterval(interval);
+            }
+        }
+        if (interval) {
+            return () => clearInterval(interval);
+        }
+    }, [isPlaying]);
+
     const displayedBoard = board.map((value, index) => {
         return (
             <div
@@ -138,35 +169,6 @@ const ViewMemoryGame = () => {
                 })}
                 id={`box-${index}`}
                 onClick={() => handleBoardClick(index)}
-                // onMouseEnter={() => {
-                //     if (!allowClick) {
-                //         return;
-                //     }
-                //     if (value === -1 || value >= 4) {
-                //         // add bg-opacity-50 class to this element and COLOR_MAP[chosenValue]
-                //         const element = document.getElementById(`box-${index}`);
-                //         if (element) {
-                //             element.classList.add(
-                //                 "opacity-50",
-                //             );
-                //         }
-                //     }
-                // }}
-                // onMouseLeave={() => {
-                //     if (!allowClick) {
-                //         return;
-                //     }
-                //     if (value === -1 || value >= 4) {
-                //         // remove bg-opacity-50 class to this element and COLOR_MAP[chosenValue]
-                //         const element = document.getElementById(`box-${index}`);
-                //         if (element) {
-                //             element.classList.remove(
-                //                 "opacity-50",
-                //                 COLOR_MAP[chosenValue]
-                //             );
-                //         }
-                //     }
-                // }}
             ></div>
         );
     });
@@ -191,11 +193,12 @@ const ViewMemoryGame = () => {
     };
 
     return (
-        <div className="flex justify-between">
+        <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
             <div className="grid grid-cols-5 grid-rows-5 h-fit w-fit">
                 {displayedBoard}
             </div>
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-4 grow">
+                <span>Choose color</span>
                 <div className="flex justify-center items-center gap-4">
                     {renderColorBox("red", 0, "1")}
                     {renderColorBox("green", 1, "2")}
@@ -203,9 +206,27 @@ const ViewMemoryGame = () => {
                     {renderColorBox("yellow", 3, "4")}
                 </div>
 
+                <div className="w-full relative h-4">
+                    <div
+                        className="absolute left-0 rounded-lg top-0 h-full transition-all bg-green-600"
+                        style={{ width: `${(timeLeft / INITIAL_TIME) * 100}%` }}
+                    />
+                </div>
+
                 <div className="flex items-center gap-2">
-                    <span>Difficulty: {difficulty}</span>
-                    <span>Score: {score}</span>
+                    <span>
+                        <span className="font-semibold">Difficulty:</span>{" "}
+                        {difficulty}
+                    </span>
+                    <span>|</span>
+                    <span>
+                        <span className="font-semi">Score:</span> {score}
+                    </span>
+                    <span>|</span>
+                    <span>
+                        <span className="font-semi">Personal Best:</span>{" "}
+                        {score}
+                    </span>
                 </div>
                 <Button
                     onClick={() =>

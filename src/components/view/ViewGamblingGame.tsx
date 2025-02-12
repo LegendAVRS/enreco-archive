@@ -13,33 +13,40 @@ const WINNING_MULTIPLIER = {
     "box-red": 10,
 };
 
+// Initialize the board, there are four values, RED, YELLOW, GREEN, BLUE
+// RED = 10, YELLOW = 5, GREEN = 3, BLUE = 2, mutipliers for winning
+// See original stream for reference
+
 const initializeBoard = () => {
     // Board should be a 1D array, flattening out the 2D array
-    const sideLength = 7;
+    const sideLength = 5;
     const boardSize = sideLength * sideLength;
-    const initialValueBoard = Array(boardSize).fill("box-empty");
+
+    const initialValueBoard: string[] = Array(boardSize).fill("box-empty");
+
+    // Position board to keep track of the remaining cells' positions
     const initialPositionBoard = Array.from({ length: boardSize }, (_, i) => i);
 
-    // A map a tuple to a value
-    const indexColorMap: { [key: number]: string } = {
-        0: "box-blue",
-        1: "box-green",
-        2: "box-yellow",
-        3: "box-red",
-    };
+    const bluePostions = [0, 1, 5, 3, 4, 9, 15, 20, 21, 19, 23, 24];
+    const greenPositions = [2, 6, 10, 16, 22, 18, 14, 8];
+    const yellowPositions = [7, 11, 17, 13];
+    const redPositions = [12];
 
-    for (let i = 0; i < boardSize; i++) {
-        const curCol = i % sideLength;
-        const curRow = Math.floor(i / sideLength);
-        // Calculate distance to edge
-        const currentVal = Math.min(
-            curCol,
-            curRow,
-            sideLength - curCol - 1,
-            sideLength - curRow - 1,
-        );
-        initialValueBoard[i] = indexColorMap[currentVal];
-    }
+    bluePostions.forEach((pos) => {
+        initialValueBoard[pos] = "box-blue";
+    });
+
+    greenPositions.forEach((pos) => {
+        initialValueBoard[pos] = "box-green";
+    });
+
+    yellowPositions.forEach((pos) => {
+        initialValueBoard[pos] = "box-yellow";
+    });
+
+    redPositions.forEach((pos) => {
+        initialValueBoard[pos] = "box-red";
+    });
 
     return { initialValueBoard, initialPositionBoard };
 };
@@ -47,10 +54,6 @@ const initializeBoard = () => {
 const { initialValueBoard, initialPositionBoard } = initializeBoard();
 
 const ViewGamblingGame = () => {
-    // Initialize the board, there are four values, RED, YELLOW, GREEN, BLUE
-    // RED = 10, YELLOW = 5, GREEN = 3, BLUE = 2, mutipliers for winning
-    // Indeally the size should be 7x7, red in the center, then surrounded by yellow, then green, then blue
-
     // Initialize the board
     const [valueBoard, setValueBoard] = useState(initialValueBoard);
     const [positionBoard, setPositionBoard] = useState(initialPositionBoard);
@@ -88,7 +91,7 @@ const ViewGamblingGame = () => {
         const roll = () => {
             setTimeout(() => {
                 // Select 12 random values from the position board
-                const randomPositions = _.sampleSize(positionBoard, 12);
+                const randomPositions = _.sampleSize(positionBoard, 6);
                 setValueBoard((prevValueBoard) => {
                     const newValueBoard = [...prevValueBoard];
                     randomPositions.forEach((position) => {
@@ -150,7 +153,7 @@ const ViewGamblingGame = () => {
 
     return (
         <div className="flex flex-col md:flex-row items-center md:gap-4 md:justify-between">
-            <div className="grid grid-cols-7 grid-rows-7 h-fit w-fit">
+            <div className="grid grid-cols-5 grid-rows-5 h-fit w-fit">
                 {displayedBoard}
             </div>
             <div className="flex flex-col gap-2 items-center grow mt-2">

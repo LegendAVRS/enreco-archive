@@ -27,34 +27,39 @@ const GAMES: { [key: string]: { label: string } } = {
 };
 
 const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
-    const [game, setGame] = useState("gambling");
+    const [game, setGame] = useState("memory");
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <VisuallyHidden>
                 <DialogTitle>Minigame Modal</DialogTitle>
             </VisuallyHidden>
-            <DialogContent className="rounded-lg flex flex-col justify-center max-w-none max-h-none md:w-[50vw] w-[70vw] md:h-[70vh] h-[95vh]">
-                <Select value={game} onValueChange={(value) => setGame(value)}>
-                    <SelectTrigger className="w-[400px] mx-auto">
-                        <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {Object.keys(GAMES).map((game) => {
-                            return (
-                                <SelectItem key={game} value={game}>
-                                    {GAMES[game].label}
-                                </SelectItem>
-                            );
-                        })}
-                    </SelectContent>
-                </Select>
+            <DialogContent className=" max-w-none max-h-none md:w-[50vw] w-[70vw] md:h-[70vh] h-[95vh]">
+                <div className="rounded-lg flex flex-col items-center justify-center h-full w-full">
+                    <Select
+                        value={game}
+                        onValueChange={(value) => setGame(value)}
+                    >
+                        <SelectTrigger className="w-[400px] mx-auto">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {Object.keys(GAMES).map((game) => {
+                                return (
+                                    <SelectItem key={game} value={game}>
+                                        {GAMES[game].label}
+                                    </SelectItem>
+                                );
+                            })}
+                        </SelectContent>
+                    </Select>
 
-                <Info className="absolute bottom-4 right-4" />
+                    <Info className="absolute bottom-4 right-4" />
 
-                {/* Game container */}
-                <div className="w-full h-full mt-4">
-                    {game === "gambling" && <ViewGamblingGame />}
-                    {game === "memory" && <ViewMemoryGame />}
+                    {/* Game container */}
+                    <div className="w-full h-full mt-4">
+                        {game === "gambling" && <ViewGamblingGame />}
+                        {game === "memory" && <ViewMemoryGame />}
+                    </div>
                 </div>
             </DialogContent>
         </Dialog>
