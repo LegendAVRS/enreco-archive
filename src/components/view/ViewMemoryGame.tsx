@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { LS_MEMORY_HS } from "@/lib/constants";
 import clsx from "clsx";
 import _ from "lodash";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { isMobile } from "react-device-detect";
 
 const COLOR_MAP: { [key: number]: string } = {
     [-1]: "box-empty",
@@ -18,11 +20,13 @@ const SHORTCUT_KEYS = {
     "4": 3,
 };
 
-const INITIAL_TIME = 10;
+const INITIAL_TIME = 30;
 
 const initBoardState = (boardSize: number) => {
     return Array.from({ length: boardSize }, () => -1);
 };
+
+type GuessState = "correct" | "incorrect" | "none";
 
 const ViewMemoryGame = () => {
     const sideLength = 5;
@@ -32,9 +36,13 @@ const ViewMemoryGame = () => {
     const [difficulty, setDifficulty] = useState(2);
     const [chosenValue, setChosenValue] = useState(0);
     const [score, setScore] = useState(0);
+    const [highScore, setHighScore] = useState(0);
     const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
     const [allowClick, setAllowClick] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [guessState, setGuessState] = useState<GuessState>("none");
+
+    const intervalRef = useRef<NodeJS.Timeout>();
 
     const getNumberOfUnsolvedSlots = (board: number[]) => {
         return board.filter((value) => value >= 4).length;
@@ -50,6 +58,10 @@ const ViewMemoryGame = () => {
             return;
         }
 
+        if (!isPlaying) {
+            return;
+        }
+
         if (!allowClick) {
             return;
         }
@@ -62,6 +74,7 @@ const ViewMemoryGame = () => {
                 newScore += difficulty;
                 setScore(newScore);
                 setDifficulty(calculateDifficulty(newScore));
+                setGuessState("correct");
             }
 
             setBoard((prevBoard) => {
@@ -73,6 +86,7 @@ const ViewMemoryGame = () => {
             newScore = Math.max(0, newScore - difficulty);
             setScore(newScore);
             setDifficulty(calculateDifficulty(newScore));
+            setGuessState("incorrect");
         }
     };
 
@@ -136,28 +150,40 @@ const ViewMemoryGame = () => {
                 return newBoard;
             });
             setAllowClick(true);
-        }, 3000);
+        }, 2000);
     }, [difficulty, score, isPlaying]);
 
     // Update timer
     useEffect(() => {
-        let interval = null;
         if (isPlaying) {
-            interval = setInterval(() => {
-                setTimeLeft((prev) => prev - 1);
+            intervalRef.current = setInterval(() => {
+                setTimeLeft((prevTimeLeft) => {
+                    if (prevTimeLeft === 0) {
+                        setIsPlaying(false);
+                        return INITIAL_TIME;
+                    }
+                    return prevTimeLeft - 1;
+                });
             }, 1000);
         } else {
-            if (interval) {
-                setTimeLeft(INITIAL_TIME);
-                setIsPlaying(false);
-                setBoard(initBoardState(sideLength * sideLength));
-                clearInterval(interval);
-            }
+            clearInterval(intervalRef.current);
         }
-        if (interval) {
-            return () => clearInterval(interval);
-        }
+        return () => clearInterval(intervalRef.current);
     }, [isPlaying]);
+
+    useEffect(() => {
+        const value = localStorage.getItem(LS_MEMORY_HS);
+        if (value) {
+            setHighScore(parseInt(value));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (score > highScore) {
+            localStorage.setItem(LS_MEMORY_HS, score.toString());
+            setHighScore(score);
+        }
+    }, [score, highScore, setHighScore]);
 
     const displayedBoard = board.map((value, index) => {
         return (
@@ -187,18 +213,18 @@ const ViewMemoryGame = () => {
                     })}
                     onClick={() => setChosenValue(value)}
                 ></div>
-                <span>{shortcutKey}</span>
+                {!isMobile && <span>{shortcutKey}</span>}
             </div>
         );
     };
 
     return (
-        <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
+        <div className="flex flex-col md:flex-row gap-4 justify-between items-center text-sm sm:text-base">
             <div className="grid grid-cols-5 grid-rows-5 h-fit w-fit">
                 {displayedBoard}
             </div>
-            <div className="flex flex-col items-center gap-4 grow">
-                <span>Choose color</span>
+            <div className="flex flex-col items-center gap-2 grow">
+                <span className="underline">Choose color</span>
                 <div className="flex justify-center items-center gap-4">
                     {renderColorBox("red", 0, "1")}
                     {renderColorBox("green", 1, "2")}
@@ -206,26 +232,34 @@ const ViewMemoryGame = () => {
                     {renderColorBox("yellow", 3, "4")}
                 </div>
 
-                <div className="w-full relative h-4">
+                <div className="w-full relative h-4 bg-gray-200 rounded-lg mt-2 sm:mt-0">
                     <div
-                        className="absolute left-0 rounded-lg top-0 h-full transition-all bg-green-600"
+                        className="absolute left-0 rounded-lg top-0 h-full transition-all bg-green-600 "
                         style={{ width: `${(timeLeft / INITIAL_TIME) * 100}%` }}
                     />
                 </div>
 
-                <div className="flex items-center gap-2">
-                    <span>
-                        <span className="font-semibold">Difficulty:</span>{" "}
-                        {difficulty}
+                <div className="flex items-center gap-4">
+                    <span className="items-center flex flex-col sm:flex-row sm:gap-2">
+                        <span className="font-semibold">Score:</span>{" "}
+                        <span
+                            className={clsx({
+                                "text-green-600": guessState === "correct",
+                                "text-red-600": guessState === "incorrect",
+                            })}
+                        >
+                            {score}
+                            {guessState === "correct"
+                                ? "↑"
+                                : guessState === "incorrect"
+                                  ? "↓"
+                                  : ""}
+                        </span>
                     </span>
                     <span>|</span>
-                    <span>
-                        <span className="font-semi">Score:</span> {score}
-                    </span>
-                    <span>|</span>
-                    <span>
-                        <span className="font-semi">Personal Best:</span>{" "}
-                        {score}
+                    <span className="items-center flex flex-col sm:flex-row sm:gap-2">
+                        <span className="font-semibold">Personal Best:</span>{" "}
+                        {highScore}
                     </span>
                 </div>
                 <Button

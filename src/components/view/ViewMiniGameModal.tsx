@@ -33,13 +33,13 @@ const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
             <VisuallyHidden>
                 <DialogTitle>Minigame Modal</DialogTitle>
             </VisuallyHidden>
-            <DialogContent className=" max-w-none max-h-none md:w-[50vw] w-[70vw] md:h-[70vh] h-[95vh]">
-                <div className="rounded-lg flex flex-col items-center justify-center h-full w-full">
+            <DialogContent className="rounded-lg max-w-none md:w-[50vw] w-[85vw] md:h-[50vh] h-[80vh] transition-all">
+                <div className="rounded-lg grid h-full w-full">
                     <Select
                         value={game}
                         onValueChange={(value) => setGame(value)}
                     >
-                        <SelectTrigger className="w-[400px] mx-auto">
+                        <SelectTrigger className="mx-auto">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>

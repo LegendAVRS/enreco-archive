@@ -10,3 +10,4 @@ export const DEFAULT_NODE_IMAGE = "/default-node-image.png";
 
 // Local storage keys
 export const LS_GAMBLING_HS = "gambling-hs";
+export const LS_MEMORY_HS = "memory-hs";

@@ -152,7 +152,7 @@ const ViewGamblingGame = () => {
     };
 
     return (
-        <div className="flex flex-col md:flex-row items-center md:gap-4 md:justify-between">
+        <div className="flex flex-col md:flex-row items-center md:gap-4 md:justify-between text-sm sm:text-base">
             <div className="grid grid-cols-5 grid-rows-5 h-fit w-fit">
                 {displayedBoard}
             </div>
@@ -168,8 +168,10 @@ const ViewGamblingGame = () => {
                         {highScore}
                     </span>
                 </div>
-                <div className="flex flex-col items-center">
-                    <span>Choose color</span>
+                <div className="flex flex-col gap-2 items-center">
+                    <span className="underline underline-offset-2">
+                        Choose color
+                    </span>
                     <div className="flex gap-2">
                         {renderColorBox("box-blue")}
                         {renderColorBox("box-green")}
@@ -177,8 +179,10 @@ const ViewGamblingGame = () => {
                         {renderColorBox("box-red")}
                     </div>
                 </div>
-                <div className="flex flex-col items-center">
-                    <span>Bet Amount</span>
+                <div className="flex flex-col gap-2 items-center">
+                    <span className="underline underline-offset-2">
+                        Bet Amount
+                    </span>
                     <Input
                         type="number"
                         onChange={(e) => setBetAmount(+e.target.value)}
