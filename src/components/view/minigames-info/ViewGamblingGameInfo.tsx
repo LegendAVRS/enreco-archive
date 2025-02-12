@@ -1,7 +1,53 @@
+import TimestampHref from "@/components/view/content-components/TimestampHref";
 import React from "react";
 
 const ViewGamblingGameInfo = () => {
-    return <div>ViewGamblingGameInfo</div>;
+    return (
+        <div className="flex flex-col gap-4">
+            <p>
+                The most frequently visited minigame—or rather, venue—of Chapter
+                One was undoubtedly the Amber Coin Casino, where everyone could
+                indulge in their favorite pastime: gambling.
+            </p>
+            <p>
+                The casino's signature minigame functioned like a roulette of
+                sorts. A board displayed four different colors, each occupying a
+                set number of squares with a corresponding multiplier:
+            </p>
+            <ul>
+                <li>
+                    <span className="text-blue-600">Blue:</span> 12 squares, 2x
+                    multiplier
+                </li>
+                <li>
+                    <span className="text-green-600">Green:</span> 8 squares, 3x
+                    multiplier
+                </li>
+                <li>
+                    <span className="text-yellow-600">Yellow:</span> 4 squares,
+                    5x multiplier
+                </li>
+                <li>
+                    <span className="text-red-600">Red:</span> 1 square, 10x
+                    multiplier
+                </li>
+            </ul>
+            <p>
+                Players could choose how much to bet on each color. Once the
+                game began, colors were eliminated one by one, slowly whittling
+                down the board—until only one remained.
+            </p>
+            <p>
+                Whoever bet on the final color would receive their wager
+                multiplied accordingly.
+            </p>
+            <TimestampHref
+                href="https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=587"
+                caption="Watch the gambling game in action"
+                type="embed"
+            />
+        </div>
+    );
 };
 
 export default ViewGamblingGameInfo;

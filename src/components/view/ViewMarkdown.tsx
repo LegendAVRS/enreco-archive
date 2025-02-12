@@ -1,14 +1,13 @@
+import TimestampHref from "@/components/view/content-components/TimestampHref";
 import { FixedEdgeType, ImageNodeType } from "@/lib/type";
-import { useSettingStore } from "@/store/settingStore";
-import { useViewStore } from "@/store/viewStore";
 import { useReactFlow } from "@xyflow/react";
 import {
     Children,
     cloneElement,
     isValidElement,
+    MouseEvent,
     MouseEventHandler,
     ReactNode,
-    MouseEvent,
 } from "react";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -37,8 +36,6 @@ export function ViewMarkdown({
     children,
 }: Props) {
     const { getNode, getEdge } = useReactFlow<ImageNodeType, FixedEdgeType>();
-    const viewStore = useViewStore();
-    const settingStore = useSettingStore();
 
     const nodeLinkHandler: MouseEventHandler<HTMLAnchorElement> = (
         event: MouseEvent<HTMLAnchorElement>,
@@ -68,44 +65,6 @@ export function ViewMarkdown({
         }
 
         onEdgeLinkClicked(targetEdge);
-    };
-
-    const timestampHandler: MouseEventHandler<HTMLAnchorElement> = async (
-        event: MouseEvent<HTMLAnchorElement>,
-    ) => {
-        event.preventDefault();
-
-        const timestampUrl =
-            (event.target as Element).getAttribute("data-timestamp-url") || "";
-
-        if (settingStore.timestampOption === "none") {
-            viewStore.setAskVideoModalOpen(true);
-
-            // Wait for user decision and opens the video accordingly
-            await new Promise<void>((resolve) => {
-                const unsubscribe = useSettingStore.subscribe((state) => {
-                    if (state.timestampOption !== "none") {
-                        if (state.timestampOption === "modal") {
-                            viewStore.setVideoModalOpen(true);
-                            viewStore.setVideoUrl(timestampUrl);
-                        } else if (state.timestampOption === "tab") {
-                            window.open(timestampUrl, "_blank");
-                        }
-                        unsubscribe();
-                        resolve();
-                    }
-                });
-            });
-
-            viewStore.setAskVideoModalOpen(false);
-        }
-
-        if (settingStore.timestampOption === "modal") {
-            viewStore.setVideoModalOpen(true);
-            viewStore.setVideoUrl(timestampUrl);
-        } else if (settingStore.timestampOption === "tab") {
-            window.open(timestampUrl, "_blank");
-        }
     };
 
     return (
@@ -246,15 +205,12 @@ export function ViewMarkdown({
                         const caption = rest.children as string;
 
                         return (
-                            <a
+                            <TimestampHref
                                 href={url}
-                                data-timestamp-url={href}
-                                onClick={timestampHandler}
+                                caption={caption}
                                 {...rest}
-                                className="block text-center italic underline underline-offset-4 text-bold text-[1.125rem]"
-                            >
-                                {caption}
-                            </a>
+                                type={"embed"}
+                            />
                         );
                     } else if (href && href.startsWith("#out")) {
                         const url = href.replace("#out:", "");
@@ -282,12 +238,11 @@ export function ViewMarkdown({
                         );
                     } else {
                         return (
-                            <a
-                                className="font-semibold"
-                                href={href}
-                                data-timestamp-url={href}
-                                onClick={timestampHandler}
+                            <TimestampHref
+                                href={href || ""}
+                                caption={rest.children as string}
                                 {...rest}
+                                type="general"
                             />
                         );
                     }

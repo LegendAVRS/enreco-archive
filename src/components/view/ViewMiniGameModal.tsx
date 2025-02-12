@@ -12,23 +12,25 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import ViewGamblingGameInfo from "@/components/view/minigames-info/ViewGamblingGameInfo";
 import ViewGamblingGame from "@/components/view/ViewGamblingGame";
-import { ViewMarkdown } from "@/components/view/ViewMarkdown";
 import ViewMemoryGame from "@/components/view/ViewMemoryGame";
 import { Info } from "lucide-react";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
 interface ViewMiniGameModalProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
 }
 
-const GAMES: { [key: string]: { label: string } } = {
+const GAMES: { [key: string]: { label: string; info: ReactElement } } = {
     gambling: {
         label: "Gambling Game (Chapter 1)",
+        info: <ViewGamblingGameInfo />,
     },
     memory: {
         label: "Memory Game (Chapter 1)",
+        info: <></>,
     },
 };
 
@@ -36,11 +38,11 @@ const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
     const [game, setGame] = useState("memory");
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="rounded-lg max-w-none md:w-[50vw] w-[85vw] md:h-[50vh] h-[80vh] transition-all">
+            <DialogContent className="max-w-none md:w-[50vw] md:h-[50vh] h-[85vh] transition-all">
                 <DialogHeader>
                     <DialogTitle>Minigames</DialogTitle>
                 </DialogHeader>
-                <div className="rounded-lg grid h-full w-full">
+                <div className="grid h-full w-full">
                     <Select
                         value={game}
                         onValueChange={(value) => setGame(value)}
@@ -62,16 +64,13 @@ const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
                         <DialogTrigger>
                             <Info className="absolute bottom-4 right-4" />
                         </DialogTrigger>
-                        <DialogContent>
+                        <DialogContent className="flex flex-col max-h-[85vh]">
                             <DialogHeader>
                                 <DialogTitle>{GAMES[game].label}</DialogTitle>
                             </DialogHeader>
-                            <ViewMarkdown
-                                onEdgeLinkClicked={() => {}}
-                                onNodeLinkClicked={() => {}}
-                            >
-                                Minigames info here
-                            </ViewMarkdown>
+                            <div className="overflow-auto grow pb-6">
+                                {GAMES[game].info}
+                            </div>
                         </DialogContent>
                     </Dialog>
 
