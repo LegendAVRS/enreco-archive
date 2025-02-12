@@ -1,11 +1,10 @@
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
     Dialog,
     DialogContent,
     DialogFooter,
+    DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
@@ -28,10 +27,10 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <VisuallyHidden.Root>
-                <DialogTitle>Settings</DialogTitle>
-            </VisuallyHidden.Root>
             <DialogContent className="rounded-lg h-max max-w-none md:w-[25vw] space-y-2">
+                <DialogHeader>
+                    <DialogTitle>Settings</DialogTitle>
+                </DialogHeader>
                 <div className="flex flex-col items-start justify-between flex-1">
                     <div className="flex flex-row justify-between items-center w-full">
                         <Label className="text-lg" htmlFor="enable-bgm">
@@ -59,11 +58,10 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                                     value as TimestampOption,
                                 )
                             }
+                            value={settingStore.timestampOption}
                         >
                             <SelectTrigger className="w-[100px]">
-                                <SelectValue
-                                    placeholder={settingStore.timestampOption}
-                                />
+                                <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="modal">Card</SelectItem>

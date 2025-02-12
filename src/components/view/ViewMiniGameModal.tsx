@@ -1,4 +1,9 @@
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
 import {
     Select,
     SelectContent,
@@ -8,7 +13,6 @@ import {
 } from "@/components/ui/select";
 import ViewGamblingGame from "@/components/view/ViewGamblingGame";
 import ViewMemoryGame from "@/components/view/ViewMemoryGame";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Info } from "lucide-react";
 import { useState } from "react";
 
@@ -30,10 +34,10 @@ const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
     const [game, setGame] = useState("memory");
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <VisuallyHidden>
-                <DialogTitle>Minigame Modal</DialogTitle>
-            </VisuallyHidden>
             <DialogContent className="rounded-lg max-w-none md:w-[50vw] w-[85vw] md:h-[50vh] h-[80vh] transition-all">
+                <DialogHeader>
+                    <DialogTitle>Minigames</DialogTitle>
+                </DialogHeader>
                 <div className="rounded-lg grid h-full w-full">
                     <Select
                         value={game}
@@ -56,7 +60,7 @@ const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
                     <Info className="absolute bottom-4 right-4" />
 
                     {/* Game container */}
-                    <div className="w-full h-full mt-4">
+                    <div className="w-full h-full">
                         {game === "gambling" && <ViewGamblingGame />}
                         {game === "memory" && <ViewMemoryGame />}
                     </div>
