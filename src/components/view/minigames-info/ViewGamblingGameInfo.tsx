@@ -10,8 +10,8 @@ const ViewGamblingGameInfo = () => {
                 indulge in their favorite pastime: gambling.
             </p>
             <p>
-                The casino's signature minigame functioned like a roulette of
-                sorts. A board displayed four different colors, each occupying a
+                The casino's signature minigame functions like a roulette of
+                sorts. A board displays four different colors, each occupying a
                 set number of squares with a corresponding multiplier:
             </p>
             <ul>
@@ -33,17 +33,17 @@ const ViewGamblingGameInfo = () => {
                 </li>
             </ul>
             <p>
-                Players could choose how much to bet on each color. Once the
-                game began, colors were eliminated one by one, slowly whittling
-                down the board—until only one remained.
+                Players can choose how much to bet on each color. Once the game
+                begins, colors are eliminated one by one, slowly whittling down
+                the board—until only one remained.
             </p>
             <p>
-                Whoever bet on the final color would receive their wager
+                Whoever bets on the final color would receive their wager
                 multiplied accordingly.
             </p>
             <TimestampHref
-                href="https://www.youtube.com/live/OSjlqA0FS9Q?feature=shared&t=587"
-                caption="Watch the gambling game in action"
+                href="https://www.youtube.com/live/PJtapc2_7ok?feature=shared&t=11173"
+                caption="Let's go gambling!"
                 type="embed"
             />
         </div>

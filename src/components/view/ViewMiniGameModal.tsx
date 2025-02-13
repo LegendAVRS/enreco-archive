@@ -13,6 +13,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import ViewGamblingGameInfo from "@/components/view/minigames-info/ViewGamblingGameInfo";
+import ViewMemoryGameInfo from "@/components/view/minigames-info/ViewMemoryGameInfo";
 import ViewGamblingGame from "@/components/view/ViewGamblingGame";
 import ViewMemoryGame from "@/components/view/ViewMemoryGame";
 import { Info } from "lucide-react";
@@ -30,7 +31,7 @@ const GAMES: { [key: string]: { label: string; info: ReactElement } } = {
     },
     memory: {
         label: "Memory Game (Chapter 1)",
-        info: <></>,
+        info: <ViewMemoryGameInfo />,
     },
 };
 
@@ -38,11 +39,11 @@ const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
     const [game, setGame] = useState("memory");
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-none md:w-[50vw] md:h-[50vh] h-[85vh] transition-all">
+            <DialogContent className="max-w-none md:w-[800px] md:h-[400px] h-[85vh] transition-all">
                 <DialogHeader>
                     <DialogTitle>Minigames</DialogTitle>
                 </DialogHeader>
-                <div className="grid h-full w-full">
+                <div className="h-full w-full">
                     <Select
                         value={game}
                         onValueChange={(value) => setGame(value)}
