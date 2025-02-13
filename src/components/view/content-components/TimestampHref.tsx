@@ -28,6 +28,7 @@ const TimestampHref = ({
 
         const timestampUrl =
             (event.target as Element).getAttribute("data-timestamp-url") || "";
+        console.log(timestampUrl);
 
         if (settingStore.timestampOption === "none") {
             viewStore.setAskVideoModalOpen(true);

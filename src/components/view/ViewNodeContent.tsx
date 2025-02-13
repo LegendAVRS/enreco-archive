@@ -98,7 +98,7 @@ const ViewNodeContent = ({
                     </div>
                     <div className="flex flex-col items-center">
                         <div className="font-semibold">Status</div>
-                        <div>Alive</div>
+                        <div>{selectedNode?.data.status}</div>
                     </div>
                 </div>
                 <Separator />

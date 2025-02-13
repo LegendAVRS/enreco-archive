@@ -20,7 +20,7 @@ const SHORTCUT_KEYS = {
     "4": 3,
 };
 
-const INITIAL_TIME = 30;
+const INITIAL_TIME = 60;
 
 const initBoardState = (boardSize: number) => {
     return Array.from({ length: boardSize }, () => -1);
