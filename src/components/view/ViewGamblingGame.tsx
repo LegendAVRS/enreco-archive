@@ -70,7 +70,6 @@ const ViewGamblingGame = () => {
     useEffect(() => {
         const value = localStorage.getItem(LS_GAMBLING_HS);
         if (value) {
-            console.log("hs", value);
             setHighScore(parseInt(value));
         }
     }, []);

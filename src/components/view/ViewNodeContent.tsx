@@ -12,6 +12,7 @@ import {
 import { isMobile } from "react-device-detect";
 import ReadMarker from "@/components/view/ReadMarker";
 import { useViewStore } from "@/store/viewStore";
+import clsx from "clsx";
 
 interface ViewNodeContentProps {
     selectedNode: ImageNodeType;
@@ -106,7 +107,9 @@ const ViewNodeContent = ({
             {/* Content */}
             <div
                 ref={contentRef}
-                className="overflow-auto mt-2"
+                className={clsx("mt-2", {
+                    "overflow-y-auto": !isMobile,
+                })}
                 onScroll={handleScroll}
             >
                 <div className="text-2xl font-bold mb-2 underline underline-offset-4">

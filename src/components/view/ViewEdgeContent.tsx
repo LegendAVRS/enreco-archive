@@ -15,6 +15,7 @@ import {
 import { isMobile } from "react-device-detect";
 import ReadMarker from "@/components/view/ReadMarker";
 import { useViewStore } from "@/store/viewStore";
+import clsx from "clsx";
 
 interface ViewEdgeContentProps {
     selectedEdge: FixedEdgeType;
@@ -112,7 +113,9 @@ const ViewEdgeContent = ({
             {/* Content */}
             <div
                 ref={contentRef}
-                className="overflow-auto mt-2"
+                className={clsx("mt-2", {
+                    "overflow-y-auto": !isMobile,
+                })}
                 onScroll={handleScroll}
             >
                 {selectedEdge.data?.day !== undefined && (
