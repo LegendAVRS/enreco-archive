@@ -15,7 +15,6 @@ const ViewVideoModal = ({
     videoUrl,
 }: ViewVideoModalProps) => {
     const { videoid, params } = urlToEmbedUrl(videoUrl);
-    console.log(videoid, params);
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <VisuallyHidden>
