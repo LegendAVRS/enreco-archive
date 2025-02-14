@@ -19,10 +19,10 @@ import { isMobile } from "react-device-detect";
 
 import ViewCustomEdge from "@/components/view/ViewCustomEdge";
 import ImageNodeView from "@/components/view/ViewImageNode";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useReactFlowFitViewToEdge } from "@/hooks/useReactFlowFitViewToEdge";
 import { usePreviousValue } from "@/hooks/usePreviousValue";
-import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
+import { useReactFlowFitViewToEdge } from "@/hooks/useReactFlowFitViewToEdge";
+import { OLD_EDGE_OPACITY } from "@/lib/constants";
+import { memo, useCallback, useEffect, useMemo, useRef } from "react";
 
 function findTopLeftNode(nodes: ImageNodeType[]) {
     let topLeftNode = nodes[0];
@@ -116,7 +116,6 @@ function ViewChart({
     day,
     previousSelectedDay,
 }: Props) {
-    const [hoveredEdgeId, setHoveredEdgeId] = useState<string | null>(null);
     const topLeftNode = useMemo(() => findTopLeftNode(nodes), [nodes]);
     const bottomRightNode = useMemo(() => findBottomRightNode(nodes), [nodes]);
 
@@ -239,23 +238,17 @@ function ViewChart({
                 edge.style = {
                     ...edgeStyle,
                     opacity: isCurrentDay ? 1 : OLD_EDGE_OPACITY,
-                    strokeWidth: edgeData.renderIsHoveredEdge
-                        ? EDGE_WIDTH + 2
-                        : EDGE_WIDTH,
                     pointerEvents: isCurrentDay ? "auto" : "none",
                 };
             } else {
                 edge.style = {
                     ...edgeStyle,
                     opacity: 1,
-                    strokeWidth: edgeData.renderIsHoveredEdge
-                        ? EDGE_WIDTH + 2
-                        : EDGE_WIDTH,
                     pointerEvents: "auto",
                 };
             }
 
-            edgeData.renderIsHoveredEdge = edge.id === hoveredEdgeId;
+            // edgeData.renderIsHoveredEdge = edge.id === hoveredEdgeId;
 
             // Check if edge is newly added, i.e see if from day 0 -> current day if this edge id exist in the
             const previousEdges = chapterData.charts[previousSelectedDay].edges;
@@ -298,12 +291,6 @@ function ViewChart({
                         fitViewAsync({ padding: 0.5, duration: 1000 });
                     }
                     onPaneClick();
-                }}
-                onEdgeMouseEnter={(_, edge) => {
-                    setHoveredEdgeId(edge.id);
-                }}
-                onEdgeMouseLeave={() => {
-                    setHoveredEdgeId("");
                 }}
                 proOptions={{
                     hideAttribution: true,
