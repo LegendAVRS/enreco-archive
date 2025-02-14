@@ -69,7 +69,6 @@ const ViewCustomEdge = ({
             style={style}
         >
             <path
-                className="transition-all"
                 ref={pathRef}
                 d={path}
                 style={{
@@ -78,6 +77,7 @@ const ViewCustomEdge = ({
                             ? EDGE_WIDTH + 2
                             : EDGE_WIDTH,
                     opacity: isCurrentDay ? 1 : OLD_EDGE_OPACITY,
+                    transition: "stroke-width 0.15s",
                 }}
             />
         </svg>
