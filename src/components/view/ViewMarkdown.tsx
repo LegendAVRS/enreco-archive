@@ -1,5 +1,6 @@
 import TimestampHref from "@/components/view/content-components/TimestampHref";
 import { FixedEdgeType, ImageNodeType } from "@/lib/type";
+import { getLighterOrDarkerColor } from "@/lib/utils";
 import { useReactFlow } from "@xyflow/react";
 import {
     Children,
@@ -155,7 +156,10 @@ export function ViewMarkdown({
                         const style = node?.style;
                         let nodeColor = "#831843";
                         if (style && style.stroke) {
-                            nodeColor = style.stroke;
+                            nodeColor = getLighterOrDarkerColor(
+                                style.stroke,
+                                -30,
+                            );
                         }
                         return (
                             <a
@@ -176,7 +180,10 @@ export function ViewMarkdown({
                         const style = edge?.style;
                         let edgeColor = "#831843";
                         if (style && style.stroke) {
-                            edgeColor = style.stroke;
+                            edgeColor = getLighterOrDarkerColor(
+                                style.stroke,
+                                -30,
+                            );
                         }
                         return (
                             <a

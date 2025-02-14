@@ -66,9 +66,9 @@ const TimestampHref = ({
             onClick={timestampHandler}
             {...rest}
             className={clsx({
-                "block text-center italic underline underline-offset-4 text-bold text-[1.125rem]":
+                "block text-center italic underline underline-offset-4 font-medium text-[1.125rem]":
                     type === "embed",
-                "font-semibold": type === "general",
+                "font-medium": type === "general",
             })}
         >
             {caption}
