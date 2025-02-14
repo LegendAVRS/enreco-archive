@@ -77,7 +77,7 @@ const ViewCustomEdge = ({
                             ? EDGE_WIDTH + 2
                             : EDGE_WIDTH,
                     opacity: isCurrentDay ? 1 : OLD_EDGE_OPACITY,
-                    transition: "stroke-width 0.15s",
+                    transition: "opacity 1s, stroke-width .3s",
                 }}
             />
         </svg>
