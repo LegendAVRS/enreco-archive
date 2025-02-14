@@ -44,7 +44,6 @@ const ViewCustomEdge = ({
             targetY,
         ],
     );
-    console.log(isNewlyAdded);
 
     useEffect(() => {
         if (isNewlyAdded && pathRef.current) {
@@ -53,6 +52,12 @@ const ViewCustomEdge = ({
             pathRef.current.style.strokeDashoffset = `${length}`;
             pathRef.current.style.animation =
                 "drawLine 1s ease-in-out forwards";
+        } else {
+            if (pathRef.current) {
+                pathRef.current.style.strokeDasharray = "none";
+                pathRef.current.style.strokeDashoffset = "none";
+                pathRef.current.style.animation = "none";
+            }
         }
     }, [isNewlyAdded]);
 
