@@ -111,7 +111,6 @@ const EditorApp = () => {
     const processedNodes = nodes
         .map((node) => {
             if (node.data.day !== editorStore.day) {
-                // get the node from the day it was created
                 if (
                     !editorStore.data[editorStore.chapter!].charts[
                         node.data.day
@@ -119,11 +118,19 @@ const EditorApp = () => {
                 ) {
                     return undefined;
                 }
-
-                const previousNode = editorStore.data[
-                    editorStore.chapter!
-                ].charts[node.data.day].nodes.find((n) => n.id === node.id);
-                return previousNode ? previousNode : node;
+                // get the node from the latest day it was updated
+                let latestUpdatedNode = undefined;
+                for (let i = editorStore.day! - 1; i >= 0; i--) {
+                    latestUpdatedNode = editorStore.data[
+                        editorStore.chapter!
+                    ].charts[i].nodes.find(
+                        (n) => n.id === node.id && n.data && i === n.data.day,
+                    );
+                    if (latestUpdatedNode) {
+                        break;
+                    }
+                }
+                return latestUpdatedNode ? latestUpdatedNode : node;
             }
             return node;
         })
@@ -150,7 +157,6 @@ const EditorApp = () => {
     const processedEdges = edges
         .map((edge) => {
             if (edge.data && edge.data.day !== editorStore.day) {
-                // get the edge from the day it was created
                 if (
                     !editorStore.data[editorStore.chapter!].charts[
                         edge.data.day
@@ -158,11 +164,19 @@ const EditorApp = () => {
                 ) {
                     return undefined;
                 }
-
-                const previousEdge = editorStore.data[
-                    editorStore.chapter!
-                ].charts[edge.data.day].edges.find((e) => e.id === edge.id);
-                return previousEdge ? previousEdge : edge;
+                // get the edge from the latest day it was updated
+                let latestUpdatedEdge = undefined;
+                for (let i = editorStore.day! - 1; i >= 0; i--) {
+                    latestUpdatedEdge = editorStore.data[
+                        editorStore.chapter!
+                    ].charts[i].edges.find(
+                        (e) => e.id === edge.id && e.data && i === e.data.day,
+                    );
+                    if (latestUpdatedEdge) {
+                        break;
+                    }
+                }
+                return latestUpdatedEdge ? latestUpdatedEdge : edge;
             }
             return edge;
         })

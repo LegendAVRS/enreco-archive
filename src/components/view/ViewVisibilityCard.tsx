@@ -69,7 +69,7 @@ const ViewVisibilityCard = ({
                 />
             </div>
             <div className="flex flex-row justify-between items-center">
-                <Label htmlFor="edge-new">Show new edges only</Label>
+                <Label htmlFor="edge-new">Show updated edges only</Label>
                 <Checkbox
                     id="edge-new"
                     checked={edgeVisibility.new}

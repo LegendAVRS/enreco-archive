@@ -248,7 +248,10 @@ function ViewChart({
                 edge.style = {
                     ...edgeStyle,
                     opacity: 1,
-                    strokeWidth: EDGE_WIDTH,
+                    strokeWidth: edgeData.renderIsHoveredEdge
+                        ? EDGE_WIDTH + 2
+                        : EDGE_WIDTH,
+                    pointerEvents: "auto",
                 };
             }
 

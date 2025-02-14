@@ -1,8 +1,6 @@
-import { EDGE_WIDTH, OLD_EDGE_OPACITY } from "@/lib/constants";
 import { generatePath } from "@/lib/get-edge-svg-path";
 import { FixedEdgeProps } from "@/lib/type";
 import { cn } from "@/lib/utils";
-import { useViewStore } from "@/store/viewStore";
 import { memo, useEffect, useMemo, useRef } from "react";
 
 const ViewCustomEdge = ({
@@ -15,8 +13,6 @@ const ViewCustomEdge = ({
     targetY,
     targetPosition,
 }: FixedEdgeProps) => {
-    const { day: currentDay } = useViewStore();
-    const isCurrentDay = data?.day === currentDay || false;
     const isNewlyAdded = data?.isNewlyAdded || false;
 
     const pathRef = useRef<SVGPathElement>(null);
@@ -63,21 +59,14 @@ const ViewCustomEdge = ({
 
     return (
         <svg
-            className={cn("transition-all fill-none duration-1000", {
-                "pointer-events-none": isCurrentDay === false,
-            })}
+            className={cn("transition-all fill-none duration-1000", {})}
             style={style}
         >
             <path
                 ref={pathRef}
                 d={path}
                 style={{
-                    strokeWidth:
-                        data?.renderIsHoveredEdge && isCurrentDay
-                            ? EDGE_WIDTH + 2
-                            : EDGE_WIDTH,
-                    opacity: isCurrentDay ? 1 : OLD_EDGE_OPACITY,
-                    transition: "opacity 1s, stroke-width .3s",
+                    transition: "opacity 1s, stroke-width .3s, stroke 1s",
                 }}
             />
         </svg>

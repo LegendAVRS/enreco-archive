@@ -67,10 +67,17 @@ const ViewApp = ({ siteData }: Props) => {
     const processedNodes = dayData.nodes
         .map((node) => {
             if (node.data.day !== viewStore.day) {
-                // get the node from the day it was created
-                return chapterData.charts[node.data.day].nodes.find(
-                    (n) => n.id === node.id,
-                );
+                // get the node from the latest day it was updated
+                let latestUpdatedNode = undefined;
+                for (let i = viewStore.day - 1; i >= 0; i--) {
+                    latestUpdatedNode = chapterData.charts[i].nodes.find(
+                        (n) => n.id === node.id && n.data && i === n.data.day,
+                    );
+                    if (latestUpdatedNode) {
+                        break;
+                    }
+                }
+                return latestUpdatedNode ? latestUpdatedNode : node;
             }
             return node;
         })
@@ -79,10 +86,17 @@ const ViewApp = ({ siteData }: Props) => {
     const processedEdges = dayData.edges
         .map((edge) => {
             if (edge.data && edge.data.day !== viewStore.day) {
-                // get the edge from the day it was created
-                return chapterData.charts[edge.data.day].edges.find(
-                    (e) => e.id === edge.id,
-                );
+                // get the edge from the latest day it was updated
+                let latestUpdatedEdge = undefined;
+                for (let i = viewStore.day - 1; i >= 0; i--) {
+                    latestUpdatedEdge = chapterData.charts[i].edges.find(
+                        (e) => e.id === edge.id && e.data && i === e.data.day,
+                    );
+                    if (latestUpdatedEdge) {
+                        break;
+                    }
+                }
+                return latestUpdatedEdge ? latestUpdatedEdge : edge;
             }
             return edge;
         })
