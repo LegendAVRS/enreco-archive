@@ -163,7 +163,7 @@ export function ViewMarkdown({
                         }
                         return (
                             <a
-                                className="font-semibold underline"
+                                className="font-semibold underline underline-offset-2"
                                 style={{ color: nodeColor }}
                                 href=""
                                 data-node-id={nodeId}
@@ -187,7 +187,7 @@ export function ViewMarkdown({
                         }
                         return (
                             <a
-                                className="font-semibold underline"
+                                className="font-semibold underline underline-offset-2"
                                 style={{ color: edgeColor }}
                                 href=""
                                 data-edge-id={edgeId}
