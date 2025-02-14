@@ -46,7 +46,7 @@ const ViewImageNode = ({ id, data }: ImageNodeProps) => {
     const handles = useMemo(() => generateHandles(NUM_OF_HANDLES), []);
     const { day, chapter } = useViewStore();
 
-    const isNew = data.day === day || false;
+    const isCurrentDay = data.day === day || false;
     const isRead =
         localStorage.getItem(idFromDayChapterId(day, chapter, id)) === "read";
 
@@ -63,7 +63,7 @@ const ViewImageNode = ({ id, data }: ImageNodeProps) => {
                 />
             ))}
             <div
-                style={{ opacity: isNew ? 1 : OLD_NODE_OPACITY }}
+                style={{ opacity: isCurrentDay ? 1 : OLD_NODE_OPACITY }}
                 className="transition-all relative cursor-pointer overflow-hidden w-[100px] h-[100px] rounded"
             >
                 <Image

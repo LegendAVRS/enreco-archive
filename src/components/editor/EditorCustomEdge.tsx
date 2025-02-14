@@ -326,7 +326,7 @@ const EditorCustomEdge = ({
         }
     };
 
-    const isNew = data?.day === currentDay || false;
+    const isCurrentDay = data?.day === currentDay || false;
 
     return (
         <>
@@ -336,7 +336,7 @@ const EditorCustomEdge = ({
                 style={{
                     strokeWidth: EDGE_WIDTH,
                     ...style,
-                    opacity: isNew ? 1 : OLD_EDGE_OPACITY,
+                    opacity: isCurrentDay ? 1 : OLD_EDGE_OPACITY,
                 }}
                 className="z-10"
             />

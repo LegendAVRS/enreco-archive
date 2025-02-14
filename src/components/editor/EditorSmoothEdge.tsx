@@ -17,7 +17,7 @@ const EditorSmoothEdge = ({
     const strokeColor = style?.stroke || "#000";
     const { day: currentDay } = useEditorStore();
 
-    const isNew = data?.day === currentDay || false;
+    const isCurrentDay = data?.day === currentDay || false;
 
     const [path] = getSmoothStepPath({
         sourceX,
@@ -52,7 +52,7 @@ const EditorSmoothEdge = ({
                 style={{
                     strokeWidth: EDGE_WIDTH,
                     ...style,
-                    opacity: isNew ? 1 : OLD_EDGE_OPACITY,
+                    opacity: isCurrentDay ? 1 : OLD_EDGE_OPACITY,
                 }}
                 className="z-10"
                 // markerEnd={data?.marker ? `url(#arrow-${id})` : ""}

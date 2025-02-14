@@ -172,7 +172,7 @@ td {
     @apply text-[#073471] underline cursor-pointer;
 }
 
-@keyframes dash {
+@keyframes drawLine {
     to {
         stroke-dashoffset: 0;
     }

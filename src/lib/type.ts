@@ -108,6 +108,8 @@ type CommonEdgeData = {
     title: string;
     content: string;
     day: number;
+    // Optional as this will be set during rendering
+    isNewlyAdded?: boolean;
     pathType: "invalid" | "custom" | "smoothstep" | "straight";
     offsets?: CustomEdgeOffsets;
 };

@@ -10,6 +10,7 @@ import { Chapter } from "@/lib/type";
 import { IconButton } from "@/components/ui/IconButton";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import clsx from "clsx";
+import { useEffect } from "react";
 
 interface ViewTransportControlsProps {
     chapter: number;
@@ -32,6 +33,35 @@ export default function ViewTransportControls({
     onChapterChange,
     onDayChange,
 }: ViewTransportControlsProps) {
+    // Keyboard navigation
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (isCardOpen) return;
+
+            if (event.key === "ArrowLeft") {
+                if (day !== 0) onDayChange(day - 1);
+            } else if (event.key === "ArrowRight") {
+                if (day !== numberOfDays - 1) onDayChange(day + 1);
+            } else if (event.key === "ArrowUp") {
+                if (chapter !== 0) onChapterChange(chapter - 1);
+            } else if (event.key === "ArrowDown") {
+                if (chapter !== numberOfChapters - 1)
+                    onChapterChange(chapter + 1);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [
+        chapter,
+        day,
+        numberOfChapters,
+        numberOfDays,
+        isCardOpen,
+        onChapterChange,
+        onDayChange,
+    ]);
+
     return (
         <div
             className={clsx(

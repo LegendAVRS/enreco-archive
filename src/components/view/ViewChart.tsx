@@ -232,15 +232,15 @@ function ViewChart({
 
             const edgeStyle =
                 chapterData.relationships[edgeData.relationshipId].style || {};
-            const isNew = edgeData.day === day;
+            const isCurrentDay = edgeData.day === day;
             if (edgeVisibility["new"]) {
                 edge.style = {
                     ...edgeStyle,
-                    opacity: isNew ? 1 : OLD_EDGE_OPACITY,
+                    opacity: isCurrentDay ? 1 : OLD_EDGE_OPACITY,
                     strokeWidth: edgeData.renderIsHoveredEdge
                         ? EDGE_WIDTH + 2
                         : EDGE_WIDTH,
-                    pointerEvents: isNew ? "auto" : "none",
+                    pointerEvents: isCurrentDay ? "auto" : "none",
                 };
             } else {
                 edge.style = {
@@ -251,6 +251,18 @@ function ViewChart({
             }
 
             edgeData.renderIsHoveredEdge = edge.id === hoveredEdgeId;
+
+            // Check if edge is newly added, i.e see if from day 0 -> current day if this edge id exist in the
+            let isNewlyAdded = true;
+            for (let i = 0; i < day; i++) {
+                if (chapterData.charts[i].edges.find((e) => e.id === edge.id)) {
+                    isNewlyAdded = false;
+                    break;
+                }
+            }
+            if (edge.data) {
+                edge.data.isNewlyAdded = isNewlyAdded;
+            }
 
             return edge;
         });

@@ -3,8 +3,7 @@ import { generatePath } from "@/lib/get-edge-svg-path";
 import { FixedEdgeProps } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import { useViewStore } from "@/store/viewStore";
-import { BaseEdge } from "@xyflow/react";
-import { memo, useMemo } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 
 const ViewCustomEdge = ({
     data,
@@ -17,7 +16,10 @@ const ViewCustomEdge = ({
     targetPosition,
 }: FixedEdgeProps) => {
     const { day: currentDay } = useViewStore();
-    const isNew = data?.day === currentDay || false;
+    const isCurrentDay = data?.day === currentDay || false;
+    const isNewlyAdded = data?.isNewlyAdded || false;
+
+    const pathRef = useRef<SVGPathElement>(null);
 
     const path = useMemo(
         () =>
@@ -42,26 +44,37 @@ const ViewCustomEdge = ({
             targetY,
         ],
     );
+    console.log(isNewlyAdded);
 
-    // TODO: Implement a way to indicate read status
-    // Maybe a label on the edge
+    useEffect(() => {
+        if (isNewlyAdded && pathRef.current) {
+            const length = pathRef.current.getTotalLength();
+            pathRef.current.style.strokeDasharray = `${length}`;
+            pathRef.current.style.strokeDashoffset = `${length}`;
+            pathRef.current.style.animation =
+                "drawLine 1s ease-in-out forwards";
+        }
+    }, [isNewlyAdded]);
 
     return (
-        <BaseEdge
-            path={path}
-            className={cn("transition-all", {
-                "pointer-events-none": isNew === false,
+        <svg
+            className={cn("transition-all fill-none", {
+                "pointer-events-none": isCurrentDay === false,
             })}
-            style={{
-                strokeWidth:
-                    data?.renderIsHoveredEdge && isNew
-                        ? EDGE_WIDTH + 2
-                        : EDGE_WIDTH,
-                opacity: isNew ? 1 : OLD_EDGE_OPACITY,
-                ...style,
-            }}
-            interactionWidth={20}
-        />
+            style={style}
+        >
+            <path
+                ref={pathRef}
+                d={path}
+                style={{
+                    strokeWidth:
+                        data?.renderIsHoveredEdge && isCurrentDay
+                            ? EDGE_WIDTH + 2
+                            : EDGE_WIDTH,
+                    opacity: isCurrentDay ? 1 : OLD_EDGE_OPACITY,
+                }}
+            />
+        </svg>
     );
 };
 

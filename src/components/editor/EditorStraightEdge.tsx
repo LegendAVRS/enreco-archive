@@ -15,7 +15,7 @@ const EditorStraightEdge = ({
 }: CustomEdgeProps) => {
     const strokeColor = style?.stroke || "#000";
     const { day: currentDay } = useEditorStore();
-    const isNew = data?.day === currentDay || false;
+    const isCurrentDay = data?.day === currentDay || false;
 
     const [path] = getStraightPath({
         sourceX,
@@ -47,7 +47,7 @@ const EditorStraightEdge = ({
                 style={{
                     strokeWidth: EDGE_WIDTH,
                     ...style,
-                    opacity: isNew ? 1 : 0.3,
+                    opacity: isCurrentDay ? 1 : 0.3,
                 }}
                 className="z-10"
                 // markerEnd={data?.marker ? `url(#arrow-${id})` : ""}

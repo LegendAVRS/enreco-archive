@@ -69,15 +69,15 @@ const EditorImageNode = ({ data, id }: EditorImageNodeProps) => {
         updateNodeInternals(id);
     }, [id, handles, updateNodeInternals, setHandles]);
 
-    const isNew = data.day === currentDay || false;
+    const isCurrentDay = data.day === currentDay || false;
 
     return (
         <>
             {handleElements}
             <img
                 className={clsx("aspect-square object-cover rounded-lg", {
-                    "opacity-50": !isNew,
-                    "opacity-100": isNew,
+                    "opacity-50": !isCurrentDay,
+                    "opacity-100": isCurrentDay,
                 })}
                 width={100}
                 src={data.imageSrc}
