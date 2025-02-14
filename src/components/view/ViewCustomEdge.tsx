@@ -63,7 +63,7 @@ const ViewCustomEdge = ({
 
     return (
         <svg
-            className={cn("transition-all fill-none", {
+            className={cn("transition-all fill-none duration-1000", {
                 "pointer-events-none": isCurrentDay === false,
             })}
             style={style}

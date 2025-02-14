@@ -64,7 +64,7 @@ const ViewImageNode = ({ id, data }: ImageNodeProps) => {
             ))}
             <div
                 style={{ opacity: isCurrentDay ? 1 : OLD_NODE_OPACITY }}
-                className="transition-all relative cursor-pointer overflow-hidden w-[100px] h-[100px] rounded"
+                className="transition-all relative cursor-pointer overflow-hidden w-[100px] h-[100px] rounded duration-1000"
             >
                 <Image
                     className="aspect-square object-cover rounded-lg transition-transform duration-300 ease-in-out transform scale-100 hover:scale-110"
