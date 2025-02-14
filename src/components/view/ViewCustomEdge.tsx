@@ -69,6 +69,7 @@ const ViewCustomEdge = ({
             style={style}
         >
             <path
+                className="transition-all"
                 ref={pathRef}
                 d={path}
                 style={{
