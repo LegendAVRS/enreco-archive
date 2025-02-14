@@ -228,6 +228,7 @@ const ViewApp = ({ siteData }: Props) => {
                     onEdgeClick={onEdgeClick}
                     onPaneClick={onPaneClick}
                     day={viewStore.day}
+                    previousSelectedDay={viewStore.previousSelectedDay}
                 />
                 <div
                     className="absolute top-0 left-0 w-screen h-screen -z-10"
@@ -364,9 +365,10 @@ const ViewApp = ({ siteData }: Props) => {
                         setDoFitView(!doFitView);
                         updateData(newChapter, viewStore.day);
                     }}
-                    onDayChange={(newDay) =>
-                        updateData(viewStore.chapter, newDay)
-                    }
+                    onDayChange={(newDay) => {
+                        viewStore.setPreviousSelectedDay(viewStore.day);
+                        updateData(viewStore.chapter, newDay);
+                    }}
                 />
             </div>
         </>

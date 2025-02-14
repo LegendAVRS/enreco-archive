@@ -9,6 +9,9 @@ interface ViewState {
     day: number;
     setDay: (day: number) => void;
 
+    previousSelectedDay: number;
+    setPreviousSelectedDay: (previousSelectedDay: number) => void;
+
     currentCard: CardType;
     setCurrentCard: (name: CardType) => void;
 
@@ -59,6 +62,10 @@ export const useViewStore = create<ViewState>((set) => {
 
         day: initialDay,
         setDay: (day: number) => set(() => ({ day })),
+
+        previousSelectedDay: initialDay,
+        setPreviousSelectedDay: (previousSelectedDay: number) =>
+            set(() => ({ previousSelectedDay })),
 
         currentCard: null,
         setCurrentCard: (currentCard: CardType) => set(() => ({ currentCard })),

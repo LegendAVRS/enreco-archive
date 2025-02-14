@@ -94,6 +94,7 @@ interface Props {
     onEdgeClick: (edge: FixedEdgeType) => void;
     onPaneClick: () => void;
     day: number;
+    previousSelectedDay: number;
 }
 
 function ViewChart({
@@ -113,6 +114,7 @@ function ViewChart({
     onEdgeClick,
     onPaneClick,
     day,
+    previousSelectedDay,
 }: Props) {
     const [hoveredEdgeId, setHoveredEdgeId] = useState<string | null>(null);
     const topLeftNode = useMemo(() => findTopLeftNode(nodes), [nodes]);
@@ -253,15 +255,13 @@ function ViewChart({
             edgeData.renderIsHoveredEdge = edge.id === hoveredEdgeId;
 
             // Check if edge is newly added, i.e see if from day 0 -> current day if this edge id exist in the
-            let isNewlyAdded = true;
-            for (let i = 0; i < day; i++) {
-                if (chapterData.charts[i].edges.find((e) => e.id === edge.id)) {
-                    isNewlyAdded = false;
-                    break;
-                }
-            }
+            const previousEdges = chapterData.charts[previousSelectedDay].edges;
             if (edge.data) {
-                edge.data.isNewlyAdded = isNewlyAdded;
+                edge.data.isNewlyAdded = previousEdges.find(
+                    (e) => e.id === edge.id,
+                )
+                    ? false
+                    : true;
             }
 
             return edge;
