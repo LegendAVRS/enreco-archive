@@ -12,6 +12,7 @@ interface AudioState {
     playBGM: () => void;
     stopBGM: () => void;
     playSFX: (name: string) => void;
+    pauseBGM: () => void;
     setAllSfxVolume: (volume: number) => void;
     setBgmVolume: (volume: number) => void;
 }
@@ -37,6 +38,14 @@ export const useAudioStore = create<AudioState>((set, get) => ({
         if (bgm) {
             bgm.fade(get().bgmVolume, 0, 1000);
             setTimeout(() => bgm.stop(), 1000);
+        }
+    },
+    pauseBGM: () => {
+        const { bgm } = get();
+        // pause with a fade
+        if (bgm && bgm.playing()) {
+            bgm.fade(get().bgmVolume, 0, 1000);
+            setTimeout(() => bgm.pause(), 1000);
         }
     },
     playSFX: (name: string) => {

@@ -1,3 +1,4 @@
+import { useAudioStore } from "@/store/audioStore";
 import { useSettingStore } from "@/store/settingStore";
 import { useViewStore } from "@/store/viewStore";
 import clsx from "clsx";
@@ -21,10 +22,12 @@ const TimestampHref = ({
 }: TimestampHrefProps) => {
     const settingStore = useSettingStore();
     const viewStore = useViewStore();
+    const audioStore = useAudioStore();
     const timestampHandler: MouseEventHandler<HTMLAnchorElement> = async (
         event: MouseEvent<HTMLAnchorElement>,
     ) => {
         event.preventDefault();
+        audioStore.pauseBGM();
 
         const timestampUrl =
             (event.target as Element).getAttribute("data-timestamp-url") || "";
@@ -56,6 +59,20 @@ const TimestampHref = ({
             viewStore.setVideoUrl(timestampUrl);
         } else if (settingStore.timestampOption === "tab") {
             window.open(timestampUrl, "_blank");
+            // Visibility change listener when user switches tabs
+            const handleVisibilityChange = () => {
+                if (document.visibilityState === "visible") {
+                    audioStore.playBGM();
+                    document.removeEventListener(
+                        "visibilitychange",
+                        handleVisibilityChange,
+                    );
+                }
+            };
+            document.addEventListener(
+                "visibilitychange",
+                handleVisibilityChange,
+            );
         }
     };
 

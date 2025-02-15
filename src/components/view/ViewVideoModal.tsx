@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { urlToEmbedUrl } from "@/lib/utils";
+import { useAudioStore } from "@/store/audioStore";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
@@ -15,8 +16,15 @@ const ViewVideoModal = ({
     videoUrl,
 }: ViewVideoModalProps) => {
     const { videoid, params } = urlToEmbedUrl(videoUrl);
+    const audioStore = useAudioStore();
+    const handleOpenChange = (newOpen: boolean) => {
+        if (!newOpen) {
+            audioStore.playBGM();
+        }
+        onOpenChange(newOpen);
+    };
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
+        <Dialog open={open} onOpenChange={handleOpenChange}>
             <VisuallyHidden>
                 <DialogTitle>Video modal for ${videoUrl}</DialogTitle>
             </VisuallyHidden>
