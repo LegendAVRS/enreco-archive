@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { LS_MEMORY_HS } from "@/lib/constants";
+import { useAudioStore } from "@/store/audioStore";
 import clsx from "clsx";
 import _ from "lodash";
 import { useEffect, useRef, useState } from "react";
@@ -30,7 +31,7 @@ type GuessState = "correct" | "incorrect" | "none";
 
 const ViewMemoryGame = () => {
     const sideLength = 5;
-
+    const audioStore = useAudioStore();
     // Game states
     const [board, setBoard] = useState(initBoardState(sideLength * sideLength));
     const [difficulty, setDifficulty] = useState(2);
@@ -69,7 +70,8 @@ const ViewMemoryGame = () => {
         let newScore = score;
 
         if (chosenValue !== -1 && chosenValue + 4 === board[index]) {
-            // Final slot solved, so we're update the difficulty and the board
+            // Final slot solved, so we're updating the difficulty and the board
+            audioStore.playSFX("xp");
             if (getNumberOfUnsolvedSlots(board) === 1) {
                 newScore += difficulty;
                 setScore(newScore);
@@ -83,6 +85,7 @@ const ViewMemoryGame = () => {
                 return newBoard;
             });
         } else {
+            audioStore.playSFX("break");
             newScore = Math.max(0, newScore - difficulty);
             setScore(newScore);
             setDifficulty(calculateDifficulty(newScore));
@@ -151,7 +154,7 @@ const ViewMemoryGame = () => {
             });
             setAllowClick(true);
         }, 2000);
-    }, [difficulty, score, isPlaying]);
+    }, [difficulty, score, isPlaying, guessState]);
 
     // Update timer
     useEffect(() => {
@@ -263,9 +266,12 @@ const ViewMemoryGame = () => {
                     </span>
                 </div>
                 <Button
-                    onClick={() =>
-                        setIsPlaying((prevIsPlaying) => !prevIsPlaying)
-                    }
+                    onClick={() => {
+                        if (!isPlaying) {
+                            audioStore.playSFX("xp");
+                        }
+                        setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+                    }}
                 >
                     {isPlaying ? "Stop" : "Start"}
                 </Button>

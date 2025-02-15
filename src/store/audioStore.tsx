@@ -23,7 +23,24 @@ export const useAudioStore = create<AudioState>((set, get) => ({
         loop: true,
         volume: useSettingStore.getState().bgmVolume,
     }),
-    sfx: {},
+    sfx: {
+        click: new Howl({
+            src: ["/audio/click.mp3"],
+            volume: useSettingStore.getState().sfxVolume,
+        }),
+        break: new Howl({
+            src: ["/audio/break.mp3"],
+            volume: useSettingStore.getState().sfxVolume,
+        }),
+        stone: new Howl({
+            src: ["/audio/stone.mp3"],
+            volume: useSettingStore.getState().sfxVolume,
+        }),
+        xp: new Howl({
+            src: ["/audio/xp.mp3"],
+            volume: useSettingStore.getState().sfxVolume,
+        }),
+    },
     bgmVolume: useSettingStore.getState().bgmVolume,
     sfxVolume: useSettingStore.getState().sfxVolume,
     playBGM: () => {

@@ -36,7 +36,7 @@ const GAMES: { [key: string]: { label: string; info: ReactElement } } = {
 };
 
 const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
-    const [game, setGame] = useState("memory");
+    const [game, setGame] = useState("gambling");
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-none md:w-[800px] md:h-[400px] h-[85vh] transition-all">

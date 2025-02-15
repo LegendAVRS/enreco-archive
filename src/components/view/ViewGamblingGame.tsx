@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import * as _ from "lodash";
 import clsx from "clsx";
 import { LS_GAMBLING_HS } from "@/lib/constants";
+import { useAudioStore } from "@/store/audioStore";
 
 const WINNING_MULTIPLIER = {
     "box-blue": 2,
@@ -61,9 +62,23 @@ const ViewGamblingGame = () => {
     const [currentBudget, setCurrentBudget] = useState(1000);
     const [currentRoll, setCurrentRoll] = useState(0);
     const [highScore, setHighScore] = useState(currentBudget);
+    const [highlightedPositions, setHighlightedPositions] = useState<number[]>(
+        [],
+    );
+
+    const audioStore = useAudioStore();
 
     const displayedBoard = valueBoard.map((value, index) => {
-        return <div key={index} className={`${value}`}></div>;
+        const isHighlighted = highlightedPositions.includes(index);
+        return (
+            <div
+                key={index}
+                className={clsx(
+                    value,
+                    isHighlighted && "transition-all opacity-60",
+                )}
+            ></div>
+        );
     });
 
     // Init highscore
@@ -87,26 +102,46 @@ const ViewGamblingGame = () => {
     // After 4 times, only one position/box is left
     useEffect(() => {
         const roll = () => {
-            // TODO: Add the "pre-roll" effect like in the original game
-
-            setTimeout(() => {
-                const randomPositions = _.sampleSize(positionBoard, 6);
-                setValueBoard((prevValueBoard) => {
-                    const newValueBoard = [...prevValueBoard];
-                    randomPositions.forEach((position) => {
-                        newValueBoard[position] = "box-empty";
-                    });
-                    return newValueBoard;
-                });
-
-                setPositionBoard((prevPositionBoard) => {
-                    const newPositionBoard = prevPositionBoard.filter(
-                        (position) => !randomPositions.includes(position),
+            // Pre-roll effect
+            let preRollCount = 0;
+            const preRollInterval = setInterval(() => {
+                // Highlight random positions
+                if (preRollCount < 3) {
+                    const randomHighlights = _.sampleSize(
+                        positionBoard,
+                        3 + Math.floor(Math.random() * 3),
                     );
-                    return newPositionBoard;
-                });
-                setCurrentRoll((prevCurrentRoll) => prevCurrentRoll + 1);
-            }, 4000);
+                    setHighlightedPositions(randomHighlights);
+                    audioStore.playSFX("click");
+                }
+                console.log(preRollCount);
+
+                preRollCount++;
+                if (preRollCount >= 4) {
+                    // Show 3 pre-roll animations
+                    audioStore.playSFX("stone");
+                    clearInterval(preRollInterval);
+                    setHighlightedPositions([]); // Clear highlights
+
+                    // Actual roll logic
+                    const randomPositions = _.sampleSize(positionBoard, 6);
+                    setValueBoard((prevValueBoard) => {
+                        const newValueBoard = [...prevValueBoard];
+                        randomPositions.forEach((position) => {
+                            newValueBoard[position] = "box-empty";
+                        });
+                        return newValueBoard;
+                    });
+
+                    setPositionBoard((prevPositionBoard) => {
+                        const newPositionBoard = prevPositionBoard.filter(
+                            (position) => !randomPositions.includes(position),
+                        );
+                        return newPositionBoard;
+                    });
+                    setCurrentRoll((prevCurrentRoll) => prevCurrentRoll + 1);
+                }
+            }, 1000); // Run every second
         };
         if (currentRoll > 0 && currentRoll <= 4) {
             roll();
@@ -116,6 +151,7 @@ const ViewGamblingGame = () => {
                 (value) => value !== "box-empty",
             );
             if (winningColor === chosenValue) {
+                audioStore.playSFX("xp");
                 const winningMutiplier =
                     WINNING_MULTIPLIER[
                         winningColor as keyof typeof WINNING_MULTIPLIER
@@ -134,6 +170,7 @@ const ViewGamblingGame = () => {
         betAmount,
         currentBudget,
         currentRoll,
+        audioStore,
     ]);
 
     const renderColorBox = (value: string) => {
@@ -199,6 +236,7 @@ const ViewGamblingGame = () => {
                             setPositionBoard(initialPositionBoard);
 
                             // start roll
+                            audioStore.playSFX("xp");
                             setCurrentRoll(1);
                             setCurrentBudget((prevCurrentBudget) => {
                                 return prevCurrentBudget - betAmount;
