@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
     Dialog,
     DialogContent,
@@ -15,6 +14,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
 import { TimestampOption, useSettingStore } from "@/store/settingStore";
 
 interface ViewSettingsModalProps {
@@ -36,21 +36,19 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                         <Label className="text-lg" htmlFor="enable-bgm">
                             Background Music
                         </Label>
-                        <Checkbox
-                            className="mr-1"
-                            id="enable-bgm"
-                            checked={settingStore.bgmEnabled}
-                            onCheckedChange={() =>
-                                settingStore.setBgmEnabled(
-                                    !settingStore.bgmEnabled,
-                                )
+                        <Slider
+                            defaultValue={[settingStore.bgmVolume]}
+                            max={1}
+                            step={0.01}
+                            onValueChange={(value) =>
+                                settingStore.setBgmVolume(value[0])
                             }
                         />
                     </div>
 
                     <div className="flex flex-row justify-between items-center w-full">
                         <Label className="text-lg" htmlFor="timestamp-option">
-                            Timestamp
+                            Timestamp Option
                         </Label>
                         <Select
                             onValueChange={(value) =>

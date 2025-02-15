@@ -1,26 +1,27 @@
 "use client";
 import { useState } from "react";
 
+import ViewEdgeCard from "@/components/view/ViewEdgeCard";
+import ViewInfoModal from "@/components/view/ViewInfoModal";
+import ViewNodeCard from "@/components/view/ViewNodeCard";
+import ViewSettingCard from "@/components/view/ViewSettingCard";
 import {
     FitViewOperation,
     FixedEdgeType,
     ImageNodeType,
     SiteData,
 } from "@/lib/type";
-import ViewEdgeCard from "@/components/view/ViewEdgeCard";
-import ViewInfoModal from "@/components/view/ViewInfoModal";
-import ViewNodeCard from "@/components/view/ViewNodeCard";
-import ViewSettingCard from "@/components/view/ViewSettingCard";
 import { CardType, useViewStore } from "@/store/viewStore";
 
 import ViewAskVideoModal from "@/components/view/ViewAskVideoModal";
 import ViewMiniGameModal from "@/components/view/ViewMiniGameModal";
 import ViewVideoModal from "@/components/view/ViewVideoModal";
+import { useAudioSettingsSync } from "@/store/audioStore";
+import { Dice6, Info, Settings } from "lucide-react";
+import { IconButton } from "./components/ui/IconButton";
 import ViewChart from "./components/view/ViewChart";
 import ViewSettingsModal from "./components/view/ViewSettingsModal";
 import ViewTransportControls from "./components/view/ViewTransportControls";
-import { IconButton } from "./components/ui/IconButton";
-import { Dice6, Info, Settings } from "lucide-react";
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMobilePinchZoom";
 
@@ -47,6 +48,7 @@ interface Props {
 
 let didInit = false;
 const ViewApp = ({ siteData }: Props) => {
+    useAudioSettingsSync();
     /* State variables */
     const viewStore = useViewStore();
 
