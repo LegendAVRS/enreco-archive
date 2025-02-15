@@ -19,7 +19,7 @@ interface AudioState {
 
 export const useAudioStore = create<AudioState>((set, get) => ({
     bgm: new Howl({
-        src: ["/audio/bgm.mp3"],
+        src: ["/audio/bgm-edit.mp3"],
         loop: true,
         volume: useSettingStore.getState().bgmVolume,
     }),
