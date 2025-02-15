@@ -18,11 +18,10 @@ const ViewLoadingPage = ({
     const handleClick = () => {
         if (!isDrawingComplete) return;
         setIsClicked(true);
+        // Set the visibility before the fade out
         setViewAppVisible();
-        setTimeout(onStart, 1000); // Wait for fade out animation
+        setTimeout(onStart, 1000);
     };
-
-    console.log(isDrawingComplete);
 
     const svgVariants = {
         hidden: {

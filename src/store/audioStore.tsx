@@ -32,8 +32,8 @@ export const useAudioStore = create<AudioState>((set, get) => ({
             src: ["/audio/break.mp3"],
             volume: useSettingStore.getState().sfxVolume,
         }),
-        stone: new Howl({
-            src: ["/audio/stone.mp3"],
+        explosion: new Howl({
+            src: ["/audio/explosion.mp3"],
             volume: useSettingStore.getState().sfxVolume,
         }),
         xp: new Howl({

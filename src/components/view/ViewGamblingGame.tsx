@@ -118,7 +118,7 @@ const ViewGamblingGame = () => {
                 preRollCount++;
                 if (preRollCount >= 4) {
                     // Show 3 pre-roll animations
-                    audioStore.playSFX("stone");
+                    audioStore.playSFX("explosion");
                     clearInterval(preRollInterval);
                     setHighlightedPositions([]); // Clear highlights
 
