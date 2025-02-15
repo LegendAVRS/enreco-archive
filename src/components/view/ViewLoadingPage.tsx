@@ -5,15 +5,20 @@ import LogoSVG from "./LogoSVG";
 
 interface ViewLoadingPageProps {
     onStart: () => void;
+    setViewAppVisible: () => void;
 }
 
-const ViewLoadingPage = ({ onStart }: ViewLoadingPageProps) => {
+const ViewLoadingPage = ({
+    onStart,
+    setViewAppVisible,
+}: ViewLoadingPageProps) => {
     const [isClicked, setIsClicked] = useState(false);
     const [isDrawingComplete, setIsDrawingComplete] = useState(false);
 
     const handleClick = () => {
         if (!isDrawingComplete) return;
         setIsClicked(true);
+        setViewAppVisible();
         setTimeout(onStart, 1000); // Wait for fade out animation
     };
 
@@ -28,7 +33,7 @@ const ViewLoadingPage = ({ onStart }: ViewLoadingPageProps) => {
         visible: {
             opacity: 1,
             pathLength: 1,
-            fill: "rgba(255, 255, 255, 1)",
+            fill: "rgba(111, 156, 192, 1)",
             transition: {
                 duration: 2,
                 ease: "easeInOut",
@@ -50,19 +55,19 @@ const ViewLoadingPage = ({ onStart }: ViewLoadingPageProps) => {
             animate={{ opacity: isClicked ? 0 : 1 }}
             transition={{ duration: 1 }}
             className={cn(
-                "fixed inset-0 z-50 flex flex-col items-center justify-center bg-black",
+                "fixed inset-0 z-50 flex flex-col items-center justify-center",
                 "cursor-pointer select-none",
                 { "pointer-events-none": isClicked },
             )}
-            // style={{
-            //     backgroundImage: "url('bg.webp')",
-            //     backgroundSize: "cover",
-            //     backgroundPosition: "center",
-            //     backgroundRepeat: "no-repeat",
-            // }}
+            style={{
+                backgroundImage: "url('bg.webp')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+            }}
             onClick={handleClick}
         >
-            <motion.div className="w-[400px] h-[400px] text-white">
+            <motion.div className="md:h-[60vh] md:max-h-[600px] md:w-auto w-[400px] h-[400px] text-[#6f9cc0] mr-2">
                 <LogoSVG
                     onAnimationComplete={() => {
                         setTimeout(() => setIsDrawingComplete(true), 3000);
@@ -73,9 +78,8 @@ const ViewLoadingPage = ({ onStart }: ViewLoadingPageProps) => {
                     animate="visible"
                 />
             </motion.div>
-
             <motion.div
-                className="mt-8 text-white text-2xl font-semibold"
+                className="mt-8 text-[#6f9cc0] text-2xl font-semibold"
                 initial={{ opacity: 0 }}
                 transition={{
                     duration: 0.5,

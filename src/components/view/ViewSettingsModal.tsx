@@ -27,11 +27,11 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="rounded-lg h-max max-w-none md:w-[25vw] space-y-2">
+            <DialogContent className="rounded-lg space-y-2">
                 <DialogHeader>
                     <DialogTitle>Settings</DialogTitle>
                 </DialogHeader>
-                <div className="flex flex-col items-start justify-between flex-1">
+                <div className="flex flex-col gap-2 items-start justify-between flex-1">
                     <div className="flex flex-row justify-between items-center w-full">
                         <Label className="text-lg" htmlFor="enable-bgm">
                             Background Music
@@ -40,8 +40,24 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                             defaultValue={[settingStore.bgmVolume]}
                             max={1}
                             step={0.01}
+                            className="w-[150px]"
                             onValueChange={(value) =>
                                 settingStore.setBgmVolume(value[0])
+                            }
+                        />
+                    </div>
+
+                    <div className="flex flex-row justify-between items-center w-full">
+                        <Label className="text-lg" htmlFor="enable-bgm">
+                            Sound Effects
+                        </Label>
+                        <Slider
+                            defaultValue={[settingStore.sfxVolume]}
+                            max={1}
+                            step={0.01}
+                            className="w-[150px]"
+                            onValueChange={(value) =>
+                                settingStore.setSfxVolume(value[0])
                             }
                         />
                     </div>

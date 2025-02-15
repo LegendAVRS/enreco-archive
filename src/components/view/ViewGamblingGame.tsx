@@ -114,7 +114,6 @@ const ViewGamblingGame = () => {
                     setHighlightedPositions(randomHighlights);
                     audioStore.playSFX("click");
                 }
-                console.log(preRollCount);
 
                 preRollCount++;
                 if (preRollCount >= 4) {

@@ -16,6 +16,7 @@ const data: SiteData = {
 
 export const ViewAppWrapper = () => {
     const [isLoading, setIsLoading] = useState(true);
+    const [viewAppVisible, setViewAppVisible] = useState(false);
     const playBGM = useAudioStore((state) => state.playBGM);
 
     const handleStart = () => {
@@ -25,8 +26,13 @@ export const ViewAppWrapper = () => {
 
     return (
         <>
-            {isLoading && <ViewLoadingPage onStart={handleStart} />}
-            <div className={isLoading ? "hidden" : ""}>
+            {isLoading && (
+                <ViewLoadingPage
+                    onStart={handleStart}
+                    setViewAppVisible={() => setViewAppVisible(true)}
+                />
+            )}
+            <div className={!viewAppVisible ? "hidden" : ""}>
                 <ViewApp siteData={data} />
             </div>
         </>
