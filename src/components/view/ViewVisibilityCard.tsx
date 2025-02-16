@@ -90,7 +90,7 @@ const ViewVisibilityCard = ({
                         <div className="flex flex-row gap-2 items-center">
                             {getLineSvg(chapterData.relationships[key].style)}
                             <span className="capitalize">
-                                {key.toLowerCase()}
+                                {chapterData.relationships[key].name || key}
                             </span>
                         </div>
                     </Label>
@@ -109,7 +109,7 @@ const ViewVisibilityCard = ({
             ))}
             <div className="flex flex-row justify-between items-center">
                 <Label htmlFor="team-all">
-                    <span className="font-bold">Team toggles</span>
+                    <span className="font-bold">Team Toggles</span>
                 </Label>
 
                 <Checkbox
@@ -142,7 +142,7 @@ const ViewVisibilityCard = ({
                                 alt={`${key} logo`}
                             />
                             <span className="capitalize">
-                                {key.toLowerCase()}
+                                {chapterData.teams[key].name || key}
                             </span>
                         </div>
                     </Label>
@@ -161,7 +161,7 @@ const ViewVisibilityCard = ({
             ))}
             <div className="flex flex-row justify-between items-center">
                 <Label htmlFor="character-all">
-                    <span className="font-bold">Character toggles</span>
+                    <span className="font-bold">Character Toggles</span>
                 </Label>
 
                 <Checkbox
@@ -193,7 +193,10 @@ const ViewVisibilityCard = ({
                                 className="w-8 h-8"
                                 alt={`${key} logo`}
                             />
-                            <span className="capitalize">{key}</span>
+                            <span className="capitalize">
+                                {nodes.find((node) => node.id === key)?.data
+                                    .title || key}
+                            </span>
                         </div>
                     </Label>
 
