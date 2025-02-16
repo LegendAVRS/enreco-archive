@@ -2,19 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-p,
-h1,
-h2,
-h3 {
-    color: rgb(63, 63, 70);
-}
-
 h2::after {
     content: "";
     display: block;
     width: 100%;
     height: 1px;
-    background-color: rgba(63, 63, 70, 30%);
+    background-color: var(--foreground);
     @apply w-full my-2;
 }
 
@@ -25,11 +18,11 @@ img {
 @layer base {
     :root {
         --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
+        --foreground: 0 0% 27%;
         --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
+        --card-foreground: 0 0% 27%;
         --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
+        --popover-foreground: 0 0% 27%;
         --primary: 0 0% 9%;
         --primary-foreground: 0 0% 98%;
         --secondary: 0 0% 96.1%;
@@ -42,7 +35,7 @@ img {
         --destructive-foreground: 0 0% 98%;
         --border: 0 0% 89.8%;
         --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
+        --ring: 0 0% 27%;
         --chart-1: 12 76% 61%;
         --chart-2: 173 58% 39%;
         --chart-3: 197 37% 24%;
