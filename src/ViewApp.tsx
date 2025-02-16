@@ -17,6 +17,7 @@ import ViewAskVideoModal from "@/components/view/ViewAskVideoModal";
 import ViewMiniGameModal from "@/components/view/ViewMiniGameModal";
 import ViewVideoModal from "@/components/view/ViewVideoModal";
 import { useAudioSettingsSync } from "@/store/audioStore";
+import { useSettingStore } from "@/store/settingStore";
 import { Dice6, Info, Settings } from "lucide-react";
 import { IconButton } from "./components/ui/IconButton";
 import ViewChart from "./components/view/ViewChart";
@@ -51,6 +52,7 @@ const ViewApp = ({ siteData }: Props) => {
     useAudioSettingsSync();
     /* State variables */
     const viewStore = useViewStore();
+    const settingsStore = useSettingStore();
 
     const [chartShrink, setChartShrink] = useState(0);
     const [fitViewOperation, setFitViewOperation] =
@@ -143,7 +145,6 @@ const ViewApp = ({ siteData }: Props) => {
             (node) => (characterVisibilityLoaded[node.id] = true),
         );
 
-        onCurrentCardChange(null);
         viewStore.setEdgeVisibility(edgeVisibilityLoaded);
         viewStore.setTeamVisibility(teamVisibilityLoaded);
         viewStore.setCharacterVisibility(characterVisibilityLoaded);
@@ -164,13 +165,9 @@ const ViewApp = ({ siteData }: Props) => {
 
     // Update react flow renderer width when setting card is open, so the flow is not covered by the card
     function onCurrentCardChange(newCurrentCard: CardType) {
-        if (newCurrentCard === "setting") {
-            // Same width as the ViewCard
-            setChartShrink(500);
-        } else {
+        if (newCurrentCard !== "setting") {
             setChartShrink(0);
         }
-
         if (newCurrentCard === "setting" || newCurrentCard === null) {
             setFitViewOperation("fit-to-all");
         } else if (newCurrentCard === "node") {
@@ -178,7 +175,6 @@ const ViewApp = ({ siteData }: Props) => {
         } else if (newCurrentCard === "edge") {
             setFitViewOperation("fit-to-edge");
         }
-
         viewStore.setCurrentCard(newCurrentCard);
         setDoFitView(!doFitView);
     }
@@ -268,6 +264,7 @@ const ViewApp = ({ siteData }: Props) => {
                         viewStore.setCharacterVisibility
                     }
                     chapterData={chapterData}
+                    setChartShrink={setChartShrink}
                 />
                 <ViewNodeCard
                     isCardOpen={viewStore.currentCard === "node"}
@@ -375,7 +372,7 @@ const ViewApp = ({ siteData }: Props) => {
                     day={viewStore.day}
                     numberOfChapters={siteData.numberOfChapters}
                     numberOfDays={chapterData.numberOfDays}
-                    isCardOpen={viewStore.currentCard !== null}
+                    currentCard={viewStore.currentCard}
                     onChapterChange={(newChapter) => {
                         setFitViewOperation("fit-to-all");
                         setDoFitView(!doFitView);
@@ -383,6 +380,9 @@ const ViewApp = ({ siteData }: Props) => {
                     }}
                     onDayChange={(newDay) => {
                         viewStore.setPreviousSelectedDay(viewStore.day);
+                        if (settingsStore.openDayRecapOnDayChange) {
+                            onCurrentCardChange("setting");
+                        }
                         updateData(viewStore.chapter, newDay);
                     }}
                 />

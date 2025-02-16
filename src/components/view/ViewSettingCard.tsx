@@ -24,6 +24,7 @@ interface Props {
     onCharacterVisibilityChange: (
         newCharacterVisibility: StringToBooleanObjectMap,
     ) => void;
+    setChartShrink: (width: number) => void;
 }
 
 const ViewSettingCard = ({
@@ -37,12 +38,19 @@ const ViewSettingCard = ({
     onTeamVisibilityChange,
     characterVisibility,
     onCharacterVisibilityChange,
+    setChartShrink,
 }: Props) => {
     function onDrawerOpenChange(newOpenState: boolean): void {
         if (!newOpenState) {
             onCardClose();
         }
     }
+
+    const handleCardWidthChange = (width: number) => {
+        if (isCardOpen) {
+            setChartShrink(width + 56); // Add 56px for the right margin (14 * 4)
+        }
+    };
 
     if (!isCardOpen) {
         return;
@@ -52,6 +60,7 @@ const ViewSettingCard = ({
         <>
             <BrowserView>
                 <ViewCard
+                    onWidthChange={handleCardWidthChange}
                     isCardOpen={isCardOpen}
                     className={cn("transition-all absolute p-0", {
                         "opacity-0 -z-10 invisible": !isCardOpen,
@@ -94,7 +103,7 @@ const ViewSettingCard = ({
             </BrowserView>
             <MobileView>
                 <VaulDrawer
-                    open={true}
+                    open={isCardOpen}
                     onOpenChange={onDrawerOpenChange}
                     disableScrollablity={true}
                 >

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
     Dialog,
     DialogContent,
@@ -33,9 +34,7 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                 </DialogHeader>
                 <div className="flex flex-col gap-2 items-start justify-between flex-1">
                     <div className="flex flex-row justify-between items-center w-full">
-                        <Label className="text-lg" htmlFor="enable-bgm">
-                            Background Music
-                        </Label>
+                        <Label htmlFor="enable-bgm">Background Music</Label>
                         <Slider
                             defaultValue={[settingStore.bgmVolume]}
                             max={1}
@@ -48,9 +47,7 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                     </div>
 
                     <div className="flex flex-row justify-between items-center w-full">
-                        <Label className="text-lg" htmlFor="enable-bgm">
-                            Sound Effects
-                        </Label>
+                        <Label htmlFor="enable-bgm">Sound Effects</Label>
                         <Slider
                             defaultValue={[settingStore.sfxVolume]}
                             max={1}
@@ -63,7 +60,7 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                     </div>
 
                     <div className="flex flex-row justify-between items-center w-full">
-                        <Label className="text-lg" htmlFor="timestamp-option">
+                        <Label htmlFor="timestamp-option">
                             Timestamp Option
                         </Label>
                         <Select
@@ -82,6 +79,28 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                                 <SelectItem value="tab">Tab</SelectItem>
                             </SelectContent>
                         </Select>
+                    </div>
+
+                    <div className="flex flex-row justify-between items-center w-full">
+                        <Label htmlFor="timestamp-option">
+                            Show Recap On Day Change
+                        </Label>
+                        <Checkbox
+                            onCheckedChange={
+                                settingStore.setOpenDayRecapOnDayChange
+                            }
+                            checked={settingStore.openDayRecapOnDayChange}
+                        />
+                    </div>
+
+                    <div className="flex flex-row justify-between items-center w-full">
+                        <Label htmlFor="timestamp-option">
+                            Auto Pan Back On Close
+                        </Label>
+                        <Checkbox
+                            onCheckedChange={settingStore.setAutoPanBack}
+                            checked={settingStore.autoPanBack}
+                        />
                     </div>
                 </div>
                 <DialogFooter>

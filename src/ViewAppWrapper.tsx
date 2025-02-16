@@ -21,7 +21,7 @@ export const ViewAppWrapper = () => {
 
     const handleStart = () => {
         setIsLoading(false);
-        playBGM(); // Start playing BGM when user clicks
+        playBGM();
     };
 
     return (
