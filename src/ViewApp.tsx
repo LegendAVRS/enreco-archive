@@ -245,7 +245,8 @@ const ViewApp = ({ siteData }: Props) => {
                 <div
                     className="absolute top-0 left-0 w-screen h-screen -z-10"
                     style={{
-                        backgroundImage: "url('bg.webp')",
+                        backgroundImage:
+                            "url('images/original-optimized/bg.webp')",
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         backgroundRepeat: "no-repeat",

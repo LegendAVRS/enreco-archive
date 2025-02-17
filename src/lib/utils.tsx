@@ -2,6 +2,7 @@ import { ImageNodeType } from "@/lib/type";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { DEFAULT_NODE_IMAGE } from "@/lib/constants";
+import blurData from "public/blur-data.json";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -92,4 +93,11 @@ export const idFromDayChapterId = (
     id: string,
 ) => {
     return `${day}-${chapter}-${id}`;
+};
+
+export const getBlurDataURL = (imageSrc: string | undefined) => {
+    if (!imageSrc) return undefined;
+    const filename = imageSrc.split("/").pop()?.split(".")[0];
+    // @ts-expect-error
+    return filename ? blurData[filename] : imageSrc;
 };

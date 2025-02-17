@@ -5,6 +5,7 @@ import {
     ViewMarkdown,
 } from "@/components/view/ViewMarkdown";
 import { ChartData } from "@/lib/type";
+import { useEffect, useRef } from "react";
 
 interface Props {
     dayData: ChartData;
@@ -18,10 +19,17 @@ const ViewRecapCard = ({
     onNodeLinkClicked,
     onEdgeLinkClicked,
 }: Props) => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTo(0, 0);
+        }
+    }, [dayData]);
     return (
         <div className="flex flex-col gap-4 m-4 h-full">
             {/* Scrollable Content */}
-            <div className="overflow-auto">
+            <div className="overflow-auto scroll-smooth" ref={scrollRef}>
                 <ViewMarkdown
                     onNodeLinkClicked={onNodeLinkClicked}
                     onEdgeLinkClicked={onEdgeLinkClicked}

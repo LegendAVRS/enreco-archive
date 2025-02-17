@@ -32,7 +32,7 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                 <DialogHeader>
                     <DialogTitle>Settings</DialogTitle>
                 </DialogHeader>
-                <div className="flex flex-col gap-2 items-start justify-between flex-1">
+                <div className="flex flex-col gap-4 items-start justify-between flex-1">
                     <div className="flex flex-row justify-between items-center w-full">
                         <Label htmlFor="enable-bgm">Background Music</Label>
                         <Slider
@@ -61,28 +61,6 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
 
                     <div className="flex flex-row justify-between items-center w-full">
                         <Label htmlFor="timestamp-option">
-                            Timestamp Option
-                        </Label>
-                        <Select
-                            onValueChange={(value) =>
-                                settingStore.setTimestampOption(
-                                    value as TimestampOption,
-                                )
-                            }
-                            value={settingStore.timestampOption}
-                        >
-                            <SelectTrigger className="w-[100px]">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="modal">Card</SelectItem>
-                                <SelectItem value="tab">Tab</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    <div className="flex flex-row justify-between items-center w-full">
-                        <Label htmlFor="timestamp-option">
                             Show Recap On Day Change
                         </Label>
                         <Checkbox
@@ -101,6 +79,28 @@ const ViewSettingsModal = ({ open, onOpenChange }: ViewSettingsModalProps) => {
                             onCheckedChange={settingStore.setAutoPanBack}
                             checked={settingStore.autoPanBack}
                         />
+                    </div>
+
+                    <div className="flex flex-row justify-between items-center w-full">
+                        <Label htmlFor="timestamp-option">
+                            Timestamp Option
+                        </Label>
+                        <Select
+                            onValueChange={(value) =>
+                                settingStore.setTimestampOption(
+                                    value as TimestampOption,
+                                )
+                            }
+                            value={settingStore.timestampOption}
+                        >
+                            <SelectTrigger className="w-[100px]">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="modal">Card</SelectItem>
+                                <SelectItem value="tab">Tab</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>
                 <DialogFooter>

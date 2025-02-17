@@ -4,7 +4,7 @@ import { ImageNodeProps } from "../../lib/type";
 import Image from "next/image";
 import { OLD_NODE_OPACITY } from "@/lib/constants";
 import { useViewStore } from "@/store/viewStore";
-import { idFromDayChapterId } from "@/lib/utils";
+import { getBlurDataURL, idFromDayChapterId } from "@/lib/utils";
 import { Check } from "lucide-react";
 
 const NUM_OF_HANDLES = 5;
@@ -72,6 +72,9 @@ const ViewImageNode = ({ id, data }: ImageNodeProps) => {
                     width={100}
                     height={100}
                     alt="character node"
+                    placeholder="blur"
+                    blurDataURL={getBlurDataURL(data.imageSrc)}
+                    priority={true}
                 />
                 {data.renderTeamImageSrc !== "" && (
                     <Image
@@ -80,6 +83,7 @@ const ViewImageNode = ({ id, data }: ImageNodeProps) => {
                         height={25}
                         src={data.renderTeamImageSrc || ""}
                         alt="team icon"
+                        priority={true}
                     />
                 )}
                 {isRead && (
