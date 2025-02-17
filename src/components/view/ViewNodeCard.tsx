@@ -31,17 +31,7 @@ const ViewNodeCard = ({
         }
     }
 
-    // If this card is not meant to be open, return nothing.
-    if (!isCardOpen) {
-        return;
-    }
-
-    // If selectedNode is null but the card is meant to be visible, throw Error.
-    if (!selectedNode || !nodeTeam) {
-        throw new Error(
-            "selectedNode or nodeTeam is null but the card is being shown!",
-        );
-    }
+    const renderContent = selectedNode !== null && nodeTeam !== null;
 
     return (
         <>
@@ -56,12 +46,14 @@ const ViewNodeCard = ({
                         },
                     )}
                 >
-                    <ViewNodeContent
-                        onNodeLinkClicked={onNodeLinkClicked}
-                        onEdgeLinkClicked={onEdgeLinkClicked}
-                        selectedNode={selectedNode}
-                        team={nodeTeam}
-                    />
+                    { renderContent &&
+                        <ViewNodeContent
+                            onNodeLinkClicked={onNodeLinkClicked}
+                            onEdgeLinkClicked={onEdgeLinkClicked}
+                            selectedNode={selectedNode}
+                            team={nodeTeam}
+                        />
+                    }
                 </ViewCard>
             </BrowserView>
             <MobileView>
@@ -71,12 +63,14 @@ const ViewNodeCard = ({
                     disableScrollablity={false}
                 >
                     <div className="flex-col flex items-center gap-4 max-h-full">
-                        <ViewNodeContent
-                            onNodeLinkClicked={onNodeLinkClicked}
-                            onEdgeLinkClicked={onEdgeLinkClicked}
-                            selectedNode={selectedNode}
-                            team={nodeTeam}
-                        />
+                        { renderContent &&
+                            <ViewNodeContent
+                                onNodeLinkClicked={onNodeLinkClicked}
+                                onEdgeLinkClicked={onEdgeLinkClicked}
+                                selectedNode={selectedNode}
+                                team={nodeTeam}
+                            />
+                        }
                     </div>
                 </VaulDrawer>
             </MobileView>

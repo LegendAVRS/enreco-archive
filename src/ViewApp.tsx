@@ -253,6 +253,7 @@ const ViewApp = ({ siteData }: Props) => {
                         backgroundRepeat: "no-repeat",
                     }}
                 />
+                
                 <ViewSettingCard
                     isCardOpen={viewStore.currentCard === "setting"}
                     onCardClose={() => onCurrentCardChange(null)}
@@ -268,6 +269,7 @@ const ViewApp = ({ siteData }: Props) => {
                     chapterData={chapterData}
                     setChartShrink={setChartShrink}
                 />
+                
                 <ViewNodeCard
                     isCardOpen={viewStore.currentCard === "node"}
                     selectedNode={viewStore.selectedNode}
@@ -276,6 +278,7 @@ const ViewApp = ({ siteData }: Props) => {
                     onEdgeLinkClicked={onEdgeClick}
                     nodeTeam={selectedNodeTeam}
                 />
+
                 <ViewEdgeCard
                     isCardOpen={viewStore.currentCard === "edge"}
                     selectedEdge={viewStore.selectedEdge}
