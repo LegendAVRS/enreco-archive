@@ -12,6 +12,7 @@ interface Props {
     isCardOpen: boolean;
     selectedNode: ImageNodeType | null;
     nodeTeam: Team | null;
+    chapter: number;
     onCardClose: () => void;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
@@ -21,6 +22,7 @@ const ViewNodeCard = ({
     isCardOpen,
     selectedNode,
     nodeTeam,
+    chapter,
     onCardClose,
     onNodeLinkClicked,
     onEdgeLinkClicked,
@@ -52,6 +54,7 @@ const ViewNodeCard = ({
                             onEdgeLinkClicked={onEdgeLinkClicked}
                             selectedNode={selectedNode}
                             team={nodeTeam}
+                            chapter={chapter}
                         />
                     }
                 </ViewCard>
@@ -69,6 +72,7 @@ const ViewNodeCard = ({
                                 onEdgeLinkClicked={onEdgeLinkClicked}
                                 selectedNode={selectedNode}
                                 team={nodeTeam}
+                                chapter={chapter}
                             />
                         }
                     </div>

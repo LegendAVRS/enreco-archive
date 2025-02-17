@@ -277,6 +277,7 @@ const ViewApp = ({ siteData }: Props) => {
                     onNodeLinkClicked={onNodeClick}
                     onEdgeLinkClicked={onEdgeClick}
                     nodeTeam={selectedNodeTeam}
+                    chapter={viewStore.chapter}
                 />
 
                 <ViewEdgeCard
