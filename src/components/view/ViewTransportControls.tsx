@@ -70,7 +70,7 @@ export default function ViewTransportControls({
     return (
         <div
             className={clsx(
-                "flex justify-start items-stretch md:items-center gap-2 transition-all",
+                "w-full flex justify-center items-stretch md:items-center gap-2 transition-all",
                 {
                     // Hide when a card is selected
                     "opacity-0 invisible":
@@ -130,7 +130,7 @@ export default function ViewTransportControls({
             <div
                 className={clsx("flex gap-2 h-10", {
                     "flex-1": currentCard !== "setting",
-                    "w-[50%]": currentCard === "setting",
+                    "w-1/2": currentCard === "setting",
                 })}
             >
                 <IconButton

@@ -25,6 +25,7 @@ import ViewSettingsModal from "./components/view/ViewSettingsModal";
 import ViewTransportControls from "./components/view/ViewTransportControls";
 import { useBrowserHash } from "./hooks/useBrowserHash";
 import { useDisabledDefaultMobilePinchZoom } from "./hooks/useDisabledDefaultMobilePinchZoom";
+import clsx from "clsx";
 
 function parseChapterAndDayFromBrowserHash(hash: string): number[] | null {
     const parseOrZero = (value: string): number => {
@@ -366,7 +367,14 @@ const ViewApp = ({ siteData }: Props) => {
                 </IconButton>
             </div>
 
-            <div className="fixed inset-x-0 bottom-0 w-full md:w-4/5 2xl:w-2/5 mb-2 px-2 md:p-0 md:mx-auto">
+            <div
+                className={clsx("fixed inset-x-0 bottom-0 mb-2 px-2 md:p-0 ", {
+                    "w-[60%] lg:block hidden":
+                        viewStore.currentCard === "setting",
+                    "w-full md:w-4/5 2xl:w-2/5 mx-auto":
+                        viewStore.currentCard !== "setting",
+                })}
+            >
                 <ViewTransportControls
                     chapter={viewStore.chapter}
                     chapterData={siteData.chapters}
