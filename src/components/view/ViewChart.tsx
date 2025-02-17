@@ -266,6 +266,12 @@ function ViewChart({
     return (
         <div ref={flowRendererSizer} className="w-full h-full">
             <ReactFlow
+                // Make nodes not draggable and not connectable
+                // Accidentally found out you can move the nodes with arrow keys
+                nodesDraggable={false}
+                nodesConnectable={false}
+                connectOnClick={false}
+                deleteKeyCode={null}
                 connectionMode={ConnectionMode.Loose}
                 nodes={renderableNodes}
                 edges={renderableEdges}
