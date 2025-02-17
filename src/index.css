@@ -201,3 +201,7 @@ td {
 .box-yellow {
     @apply box bg-yellow-500;
 }
+
+.x-close {
+    @apply absolute top-6 right-6 cursor-pointer opacity-70 hover:opacity-100;
+}

@@ -7,6 +7,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 
 import { cn } from "@/lib/utils";
 import { EdgeLinkClickHandler, NodeLinkClickHandler } from "./ViewMarkdown";
+import { X } from "lucide-react";
 
 interface Props {
     isCardOpen: boolean;
@@ -67,6 +68,7 @@ const ViewEdgeCard = ({
                         onEdgeLinkClicked={onEdgeLinkClicked}
                         onNodeLinkClicked={onNodeLinkClicked}
                     />
+                    <X className="x-close" onClick={onCardClose} />
                 </ViewCard>
             </BrowserView>
             <MobileView>

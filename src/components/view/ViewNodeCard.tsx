@@ -7,6 +7,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { cn } from "@/lib/utils";
 import { ImageNodeType, Team } from "@/lib/type";
 import { EdgeLinkClickHandler, NodeLinkClickHandler } from "./ViewMarkdown";
+import { X } from "lucide-react";
 
 interface Props {
     isCardOpen: boolean;
@@ -62,6 +63,7 @@ const ViewNodeCard = ({
                         selectedNode={selectedNode}
                         team={nodeTeam}
                     />
+                    <X className="x-close" onClick={onCardClose} />
                 </ViewCard>
             </BrowserView>
             <MobileView>
