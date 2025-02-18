@@ -6,7 +6,7 @@ import { isMobile } from "react-device-detect";
 const BASKET_WIDTH = 50;
 const BASKET_HEIGHT = 60;
 const CHICKEN_SIZE = 30;
-const CHICKEN_FALL_SPEED = 1.5;
+const CHICKEN_FALL_SPEED = 3;
 const SPAWN_INTERVAL = 300;
 const GAME_DURATION = 30;
 

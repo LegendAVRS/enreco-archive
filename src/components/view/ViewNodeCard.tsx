@@ -63,7 +63,7 @@ const ViewNodeCard = ({
             </BrowserView>
             <MobileView>
                 <VaulDrawer
-                    open={true}
+                    open={isCardOpen}
                     onOpenChange={onDrawerOpenChange}
                     disableScrollablity={false}
                 >

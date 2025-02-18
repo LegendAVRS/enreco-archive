@@ -76,7 +76,7 @@ const ViewEdgeCard = ({
             </BrowserView>
             <MobileView>
                 <VaulDrawer
-                    open={true}
+                    open={isCardOpen}
                     onOpenChange={onDrawerOpenChange}
                     disableScrollablity={false}
                 >
