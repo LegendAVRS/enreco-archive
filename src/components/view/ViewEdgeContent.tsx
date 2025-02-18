@@ -3,7 +3,6 @@ import EdgeCardDeco from "@/components/view/EdgeCardDeco";
 import { FixedEdgeType, ImageNodeType, Relationship } from "@/lib/type";
 import {
     getLighterOrDarkerColor,
-    getLineSvg,
     idFromDayChapterId,
 } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
@@ -14,14 +13,15 @@ import {
 } from "./ViewMarkdown";
 import { isMobile } from "react-device-detect";
 import ReadMarker from "@/components/view/ReadMarker";
-import { useViewStore } from "@/store/viewStore";
 import clsx from "clsx";
+import LineSvg from "../LineSvg";
 
 interface ViewEdgeContentProps {
     selectedEdge: FixedEdgeType;
     edgeRelationship: Relationship;
     nodeA: ImageNodeType;
     nodeB: ImageNodeType;
+    chapter: number;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
 }
@@ -31,6 +31,7 @@ const ViewEdgeContent = ({
     edgeRelationship,
     nodeA,
     nodeB,
+    chapter,
     onNodeLinkClicked,
     onEdgeLinkClicked,
 }: ViewEdgeContentProps) => {
@@ -39,7 +40,6 @@ const ViewEdgeContent = ({
         edgeStyle?.stroke || "",
         30,
     );
-    const { chapter } = useViewStore();
 
     const contentRef = useRef<HTMLDivElement>(null); // Ref for scrollable content
     const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility
@@ -87,7 +87,7 @@ const ViewEdgeContent = ({
                         src={nodeA.data.imageSrc}
                         alt="Node A"
                     />
-                    {getLineSvg(edgeStyle!)}
+                    <LineSvg style={edgeStyle!} />
                     <img
                         className="aspect-square w-[150px] object-cover"
                         src={nodeB.data.imageSrc}

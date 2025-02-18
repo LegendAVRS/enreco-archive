@@ -1,7 +1,8 @@
+import LineSvg from "@/components/LineSvg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Chapter, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
-import { extractImageSrcFromNodes, getLineSvg } from "@/lib/utils";
+import { extractImageSrcFromNodes } from "@/lib/utils";
 import { useMemo } from "react";
 
 interface Props {
@@ -44,9 +45,29 @@ const ViewVisibilityCard = ({
                 {/* Edges */}
                 <div className="flex flex-col gap-4">
                     <div className="flex justify-between items-center">
+                        <span className="font-bold">
+                            Relationship Toggles
+                        </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <Label htmlFor="edge-new">
+                            Show updated edges only
+                        </Label>
+                        <Checkbox
+                            id="edge-new"
+                            checked={edgeVisibility.new}
+                            onCheckedChange={(checked) =>
+                                onEdgeVisibilityChange({
+                                    ...edgeVisibility,
+                                    new: checked as boolean,
+                                })
+                            }
+                        />
+                    </div>
+                    <div className="flex justify-between items-center">
                         <Label htmlFor="edge-all">
-                            <span className="font-bold">
-                                Relationship Toggles
+                            <span className="">
+                                Show all edges
                             </span>
                         </Label>
 
@@ -64,32 +85,13 @@ const ViewVisibilityCard = ({
                                     edgeVisibility,
                                 ).reduce(
                                     (acc, key) => {
-                                        if (key === "new") {
-                                            acc[key] = true;
-                                        } else {
-                                            acc[key] = checked as boolean;
-                                        }
+                                        acc[key] = checked as boolean;
                                         return acc;
                                     },
                                     {} as Record<string, boolean>,
                                 );
                                 onEdgeVisibilityChange(newEdgeVisibility);
                             }}
-                        />
-                    </div>
-                    <div className="flex justify-between items-center">
-                        <Label htmlFor="edge-new">
-                            Show updated edges only
-                        </Label>
-                        <Checkbox
-                            id="edge-new"
-                            checked={edgeVisibility.new}
-                            onCheckedChange={(checked) =>
-                                onEdgeVisibilityChange({
-                                    ...edgeVisibility,
-                                    new: checked as boolean,
-                                })
-                            }
                         />
                     </div>
                     {Object.keys(chapterData.relationships).map((key) => (
@@ -99,9 +101,9 @@ const ViewVisibilityCard = ({
                         >
                             <Label htmlFor={`edge-${key.toLowerCase()}`}>
                                 <div className="flex gap-2 items-center">
-                                    {getLineSvg(
-                                        chapterData.relationships[key].style,
-                                    )}
+                                    <LineSvg 
+                                        style={chapterData.relationships[key].style}
+                                    />
                                     <span className="capitalize">
                                         {chapterData.relationships[key].name ||
                                             key}
@@ -126,8 +128,11 @@ const ViewVisibilityCard = ({
                 {/* Teams */}
                 <div className="flex flex-col gap-4">
                     <div className="flex justify-between items-center">
+                        <span className="font-bold">Team Toggles</span>
+                    </div>
+                    <div className="flex justify-between items-center">
                         <Label htmlFor="team-all">
-                            <span className="font-bold">Team Toggles</span>
+                            <span>Show all teams</span>
                         </Label>
 
                         <Checkbox
@@ -183,28 +188,34 @@ const ViewVisibilityCard = ({
             </div>
             {/* Characters */}
             <div className="flex justify-between items-center">
-                <Label htmlFor="character-all">
-                    <span className="font-bold">Character Toggles</span>
-                </Label>
-
-                <Checkbox
-                    id="character-all"
-                    checked={Object.values(characterVisibility).every((v) => v)}
-                    onCheckedChange={(checked) => {
-                        const newCharacterVisibility = Object.keys(
-                            characterVisibility,
-                        ).reduce(
-                            (acc, key) => {
-                                acc[key] = checked as boolean;
-                                return acc;
-                            },
-                            {} as Record<string, boolean>,
-                        );
-                        onCharacterVisibilityChange(newCharacterVisibility);
-                    }}
-                />
+                <span className="font-bold">Character Toggles</span>
             </div>
             <div className="grid md:grid-rows-10 md:grid-cols-2 gap-4">
+                <div className="flex justify-between items-center">
+                    <Label htmlFor="character-all">
+                        <span>Show all characters</span>
+                    </Label>
+
+                    <Checkbox
+                        id="character-all"
+                        checked={Object.values(characterVisibility).every((v) => v)}
+                        onCheckedChange={(checked) => {
+                            const newCharacterVisibility = Object.keys(
+                                characterVisibility,
+                            ).reduce(
+                                (acc, key) => {
+                                    acc[key] = checked as boolean;
+                                    return acc;
+                                },
+                                {} as Record<string, boolean>,
+                            );
+                            onCharacterVisibilityChange(newCharacterVisibility);
+                        }}
+                    />
+                </div>
+                <div>
+                    {/* This is a blank element used as a filler for row 1, column 2. */}
+                </div>
                 {Object.keys(characterVisibility).map((key) => (
                     <div
                         className="flex justify-between w-full items-center gap-10"

@@ -11,12 +11,12 @@ import {
 } from "./ViewMarkdown";
 import { isMobile } from "react-device-detect";
 import ReadMarker from "@/components/view/ReadMarker";
-import { useViewStore } from "@/store/viewStore";
 import clsx from "clsx";
 
 interface ViewNodeContentProps {
     selectedNode: ImageNodeType;
     team: Team;
+    chapter: number;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
 }
@@ -24,13 +24,12 @@ interface ViewNodeContentProps {
 const ViewNodeContent = ({
     selectedNode,
     team,
+    chapter,
     onNodeLinkClicked,
     onEdgeLinkClicked,
 }: ViewNodeContentProps) => {
     const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-    const { chapter } = useViewStore();
 
-    const characterImageRef = useRef<HTMLImageElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
 
@@ -56,10 +55,6 @@ const ViewNodeContent = ({
         setIsHeaderVisible(true);
     }, [selectedNode]);
 
-    if (!selectedNode) {
-        return;
-    }
-
     return (
         <div className="h-full flex flex-col w-full" ref={cardRef}>
             {/* Header */}
@@ -79,7 +74,6 @@ const ViewNodeContent = ({
                         alt="character image"
                         className="aspect-square w-[150px] z-10"
                         src={selectedNode?.data.imageSrc}
-                        ref={characterImageRef}
                         width={150}
                         height={150}
                     />
