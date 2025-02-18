@@ -287,6 +287,7 @@ const ViewApp = ({ siteData }: Props) => {
                     onNodeLinkClicked={onNodeClick}
                     onEdgeLinkClicked={onEdgeClick}
                     edgeRelationship={selectedEdgeRelationship}
+                    chapter={viewStore.chapter}
                 />
             </div>
 

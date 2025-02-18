@@ -14,7 +14,6 @@ import {
 } from "./ViewMarkdown";
 import { isMobile } from "react-device-detect";
 import ReadMarker from "@/components/view/ReadMarker";
-import { useViewStore } from "@/store/viewStore";
 import clsx from "clsx";
 
 interface ViewEdgeContentProps {
@@ -22,6 +21,7 @@ interface ViewEdgeContentProps {
     edgeRelationship: Relationship;
     nodeA: ImageNodeType;
     nodeB: ImageNodeType;
+    chapter: number;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
 }
@@ -31,6 +31,7 @@ const ViewEdgeContent = ({
     edgeRelationship,
     nodeA,
     nodeB,
+    chapter,
     onNodeLinkClicked,
     onEdgeLinkClicked,
 }: ViewEdgeContentProps) => {
@@ -39,7 +40,6 @@ const ViewEdgeContent = ({
         edgeStyle?.stroke || "",
         30,
     );
-    const { chapter } = useViewStore();
 
     const contentRef = useRef<HTMLDivElement>(null); // Ref for scrollable content
     const [isHeaderVisible, setIsHeaderVisible] = useState(true); // Track header visibility

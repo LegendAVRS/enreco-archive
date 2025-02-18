@@ -12,6 +12,7 @@ interface Props {
     isCardOpen: boolean;
     selectedEdge: FixedEdgeType | null;
     edgeRelationship: Relationship | null;
+    chapter: number;
     onCardClose: () => void;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
@@ -21,6 +22,7 @@ const ViewEdgeCard = ({
     isCardOpen,
     selectedEdge,
     edgeRelationship,
+    chapter,
     onCardClose,
     onEdgeLinkClicked,
     onNodeLinkClicked,
@@ -58,6 +60,7 @@ const ViewEdgeCard = ({
                             edgeRelationship={edgeRelationship}
                             nodeA={nodeA}
                             nodeB={nodeB}
+                            chapter={chapter}
                             onEdgeLinkClicked={onEdgeLinkClicked}
                             onNodeLinkClicked={onNodeLinkClicked}
                         />
@@ -77,6 +80,7 @@ const ViewEdgeCard = ({
                                 edgeRelationship={edgeRelationship}
                                 nodeA={nodeA}
                                 nodeB={nodeB}
+                                chapter={chapter}
                                 onEdgeLinkClicked={onEdgeLinkClicked}
                                 onNodeLinkClicked={onNodeLinkClicked}
                             />
