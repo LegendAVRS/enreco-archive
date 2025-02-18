@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { LS_CHICKEN_HS } from "@/lib/constants";
 import { useAudioStore } from "@/store/audioStore";
 import { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
@@ -55,10 +56,18 @@ const ViewChickenGame = () => {
 
     // Update highscore
     useEffect(() => {
-        if (!isPlaying) {
-            setHighScore((prev) => Math.max(prev, score));
+        if (score > highScore) {
+            setHighScore(score);
+            localStorage.setItem(LS_CHICKEN_HS, score.toString());
         }
-    }, [score, isPlaying]);
+    }, [score, highScore]);
+
+    // Initial highscore
+    useEffect(() => {
+        // Set basket to center
+        setBasketX(boardRef.current!.clientWidth / 2 - BASKET_WIDTH / 2);
+        setHighScore(parseInt(localStorage.getItem(LS_CHICKEN_HS) || "0", 10));
+    }, []);
 
     const handleGameStart = () => {
         if (!isPlaying) {
@@ -74,7 +83,7 @@ const ViewChickenGame = () => {
 
     // Handle mouse/touch movement
     useEffect(() => {
-        // if (!isPlaying) return;
+        if (!isPlaying) return;
 
         const handleMouseMove = (e: MouseEvent | TouchEvent) => {
             const board = boardRef.current;
@@ -115,7 +124,7 @@ const ViewChickenGame = () => {
                 }
             }
         };
-    }, []);
+    }, [isPlaying]);
 
     // Game loop
     useEffect(() => {
@@ -191,7 +200,7 @@ const ViewChickenGame = () => {
             </div>
             <div
                 ref={boardRef}
-                className="relative bg-blue-100  overflow-hidden w-full h-full"
+                className="relative grid-bg  overflow-hidden w-full h-full border-4"
             >
                 {/* Chickens */}
                 {chickens.map((chicken) => (
@@ -228,8 +237,9 @@ const ViewChickenGame = () => {
                 <span>Score: {score}</span>
                 <span>High Score: {highScore}</span>
                 <Button
-                    onClick={handleGameStart}
-                    disabled={timeLeft !== 0 && isPlaying}
+                    onClick={
+                        isPlaying ? () => setIsPlaying(false) : handleGameStart
+                    }
                 >
                     {isPlaying ? "Stop" : "Start"}
                 </Button>

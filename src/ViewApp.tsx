@@ -246,14 +246,14 @@ const ViewApp = ({ siteData }: Props) => {
                 <div
                     className="absolute top-0 left-0 w-screen h-screen -z-10"
                     style={{
-                        backgroundImage:
-                            "url('images/original-optimized/bg.webp')",
+                        // The optimized background looks bad so using original for now
+                        backgroundImage: "url('bg.webp')",
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         backgroundRepeat: "no-repeat",
                     }}
                 />
-                
+
                 <ViewSettingCard
                     isCardOpen={viewStore.currentCard === "setting"}
                     onCardClose={() => onCurrentCardChange(null)}
@@ -269,7 +269,7 @@ const ViewApp = ({ siteData }: Props) => {
                     chapterData={chapterData}
                     setChartShrink={setChartShrink}
                 />
-                
+
                 <ViewNodeCard
                     isCardOpen={viewStore.currentCard === "node"}
                     selectedNode={viewStore.selectedNode}
