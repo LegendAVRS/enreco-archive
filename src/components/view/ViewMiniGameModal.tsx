@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import ViewGamblingGameInfo from "@/components/view/minigames-info/ViewGamblingGameInfo";
 import ViewMemoryGameInfo from "@/components/view/minigames-info/ViewMemoryGameInfo";
+import ViewChickenGame from "@/components/view/ViewChickenGame";
 import ViewGamblingGame from "@/components/view/ViewGamblingGame";
 import ViewMemoryGame from "@/components/view/ViewMemoryGame";
 import { Info } from "lucide-react";
@@ -33,6 +34,10 @@ const GAMES: { [key: string]: { label: string; info: ReactElement } } = {
         label: "Memory Game (Chapter 1)",
         info: <ViewMemoryGameInfo />,
     },
+    chicken: {
+        label: "Chicken Game (Chapter 1)",
+        info: <></>,
+    },
 };
 
 const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
@@ -43,7 +48,7 @@ const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
                 <DialogHeader>
                     <DialogTitle>Minigames</DialogTitle>
                 </DialogHeader>
-                <div className="h-full w-full">
+                <div className="h-full w-full flex flex-col items-center">
                     <Select
                         value={game}
                         onValueChange={(value) => setGame(value)}
@@ -76,9 +81,10 @@ const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
                     </Dialog>
 
                     {/* Game container */}
-                    <div className="w-full h-full">
+                    <div className="flex grow items-center justify-center w-full">
                         {game === "gambling" && <ViewGamblingGame />}
                         {game === "memory" && <ViewMemoryGame />}
+                        {game === "chicken" && <ViewChickenGame />}
                     </div>
                 </div>
             </DialogContent>

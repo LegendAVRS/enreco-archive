@@ -187,7 +187,7 @@ const ViewGamblingGame = () => {
     };
 
     return (
-        <div className="flex flex-col md:flex-row items-center md:gap-4 md:justify-between text-sm sm:text-base">
+        <div className="flex flex-col md:flex-row items-center w-full md:gap-4 md:justify-between text-sm sm:text-base">
             <div className="grid grid-cols-5 grid-rows-5 h-fit w-fit">
                 {displayedBoard}
             </div>
