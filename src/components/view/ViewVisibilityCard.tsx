@@ -1,7 +1,8 @@
+import LineSvg from "@/components/LineSvg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Chapter, ImageNodeType, StringToBooleanObjectMap } from "@/lib/type";
-import { extractImageSrcFromNodes, getLineSvg } from "@/lib/utils";
+import { extractImageSrcFromNodes } from "@/lib/utils";
 import { useMemo } from "react";
 
 interface Props {
@@ -100,9 +101,9 @@ const ViewVisibilityCard = ({
                         >
                             <Label htmlFor={`edge-${key.toLowerCase()}`}>
                                 <div className="flex gap-2 items-center">
-                                    {getLineSvg(
-                                        chapterData.relationships[key].style,
-                                    )}
+                                    <LineSvg 
+                                        style={chapterData.relationships[key].style}
+                                    />
                                     <span className="capitalize">
                                         {chapterData.relationships[key].name ||
                                             key}

@@ -3,7 +3,6 @@ import EdgeCardDeco from "@/components/view/EdgeCardDeco";
 import { FixedEdgeType, ImageNodeType, Relationship } from "@/lib/type";
 import {
     getLighterOrDarkerColor,
-    getLineSvg,
     idFromDayChapterId,
 } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
@@ -15,6 +14,7 @@ import {
 import { isMobile } from "react-device-detect";
 import ReadMarker from "@/components/view/ReadMarker";
 import clsx from "clsx";
+import LineSvg from "../LineSvg";
 
 interface ViewEdgeContentProps {
     selectedEdge: FixedEdgeType;
@@ -87,7 +87,7 @@ const ViewEdgeContent = ({
                         src={nodeA.data.imageSrc}
                         alt="Node A"
                     />
-                    {getLineSvg(edgeStyle!)}
+                    <LineSvg style={edgeStyle!} />
                     <img
                         className="aspect-square w-[150px] object-cover"
                         src={nodeB.data.imageSrc}
