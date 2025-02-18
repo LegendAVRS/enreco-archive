@@ -13,6 +13,7 @@ interface Props {
     isCardOpen: boolean;
     selectedNode: ImageNodeType | null;
     nodeTeam: Team | null;
+    chapter: number;
     onCardClose: () => void;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
@@ -22,6 +23,7 @@ const ViewNodeCard = ({
     isCardOpen,
     selectedNode,
     nodeTeam,
+    chapter,
     onCardClose,
     onNodeLinkClicked,
     onEdgeLinkClicked,
@@ -32,17 +34,7 @@ const ViewNodeCard = ({
         }
     }
 
-    // If this card is not meant to be open, return nothing.
-    if (!isCardOpen) {
-        return;
-    }
-
-    // If selectedNode is null but the card is meant to be visible, throw Error.
-    if (!selectedNode || !nodeTeam) {
-        throw new Error(
-            "selectedNode or nodeTeam is null but the card is being shown!",
-        );
-    }
+    const renderContent = selectedNode !== null && nodeTeam !== null;
 
     return (
         <>
@@ -57,12 +49,15 @@ const ViewNodeCard = ({
                         },
                     )}
                 >
-                    <ViewNodeContent
-                        onNodeLinkClicked={onNodeLinkClicked}
-                        onEdgeLinkClicked={onEdgeLinkClicked}
-                        selectedNode={selectedNode}
-                        team={nodeTeam}
-                    />
+                    {renderContent && (
+                        <ViewNodeContent
+                            onNodeLinkClicked={onNodeLinkClicked}
+                            onEdgeLinkClicked={onEdgeLinkClicked}
+                            selectedNode={selectedNode}
+                            team={nodeTeam}
+                            chapter={chapter}
+                        />
+                    )}
                     <X className="x-close" onClick={onCardClose} />
                 </ViewCard>
             </BrowserView>
@@ -73,12 +68,15 @@ const ViewNodeCard = ({
                     disableScrollablity={false}
                 >
                     <div className="flex-col flex items-center gap-4 max-h-full">
-                        <ViewNodeContent
-                            onNodeLinkClicked={onNodeLinkClicked}
-                            onEdgeLinkClicked={onEdgeLinkClicked}
-                            selectedNode={selectedNode}
-                            team={nodeTeam}
-                        />
+                        {renderContent && (
+                            <ViewNodeContent
+                                onNodeLinkClicked={onNodeLinkClicked}
+                                onEdgeLinkClicked={onEdgeLinkClicked}
+                                selectedNode={selectedNode}
+                                team={nodeTeam}
+                                chapter={chapter}
+                            />
+                        )}
                     </div>
                 </VaulDrawer>
             </MobileView>

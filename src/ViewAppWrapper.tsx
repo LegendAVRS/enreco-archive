@@ -32,7 +32,7 @@ export const ViewAppWrapper = () => {
                     setViewAppVisible={() => setViewAppVisible(true)}
                 />
             )}
-            <div className={!viewAppVisible ? "hidden" : ""}>
+            <div className={!viewAppVisible ? "invisible" : ""}>
                 <ViewApp siteData={data} />
             </div>
         </>

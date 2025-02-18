@@ -52,9 +52,6 @@ const ViewSettingCard = ({
         }
     };
 
-    if (!isCardOpen) {
-        return;
-    }
 
     return (
         <>
@@ -62,9 +59,9 @@ const ViewSettingCard = ({
                 <ViewCard
                     onWidthChange={handleCardWidthChange}
                     isCardOpen={isCardOpen}
-                    className={cn("transition-all absolute p-0", {
-                        "opacity-0 -z-10 invisible": !isCardOpen,
-                        "opacity-1 z-10 visible": isCardOpen,
+                    className={cn("transition-all absolute p-0 z-10", {
+                        "opacity-0 invisible": !isCardOpen,
+                        "opacity-1 visible": isCardOpen,
                     })}
                 >
                     <Tabs

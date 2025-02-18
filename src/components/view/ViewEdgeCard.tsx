@@ -13,6 +13,7 @@ interface Props {
     isCardOpen: boolean;
     selectedEdge: FixedEdgeType | null;
     edgeRelationship: Relationship | null;
+    chapter: number;
     onCardClose: () => void;
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
@@ -22,6 +23,7 @@ const ViewEdgeCard = ({
     isCardOpen,
     selectedEdge,
     edgeRelationship,
+    chapter,
     onCardClose,
     onEdgeLinkClicked,
     onNodeLinkClicked,
@@ -34,21 +36,19 @@ const ViewEdgeCard = ({
         }
     }
 
-    // If this card is not meant to be open, return nothing.
-    if (!isCardOpen) {
-        return;
-    }
-
-    // If selectedEdge is null but the card is meant to be visible, throw Error.
-    if (!selectedEdge || !edgeRelationship) {
-        throw new Error(
-            "selectedEdge or edgeRelationship is null but the card is being shown!",
-        );
-    }
-
     // An edge always has a source and target node, which explains the !
-    const nodeA: ImageNodeType = getNode(selectedEdge.source)! as ImageNodeType;
-    const nodeB: ImageNodeType = getNode(selectedEdge.target)! as ImageNodeType;
+    const nodeA = selectedEdge
+        ? (getNode(selectedEdge.source)! as ImageNodeType)
+        : null;
+    const nodeB = selectedEdge
+        ? (getNode(selectedEdge.target)! as ImageNodeType)
+        : null;
+
+    const renderContent =
+        selectedEdge !== null &&
+        edgeRelationship !== null &&
+        nodeA !== null &&
+        nodeB !== null;
 
     return (
         <>
@@ -60,14 +60,17 @@ const ViewEdgeCard = ({
                         "opacity-1 z-10 visible": isCardOpen,
                     })}
                 >
-                    <ViewEdgeContent
-                        selectedEdge={selectedEdge}
-                        edgeRelationship={edgeRelationship}
-                        nodeA={nodeA}
-                        nodeB={nodeB}
-                        onEdgeLinkClicked={onEdgeLinkClicked}
-                        onNodeLinkClicked={onNodeLinkClicked}
-                    />
+                    {renderContent && (
+                        <ViewEdgeContent
+                            selectedEdge={selectedEdge}
+                            edgeRelationship={edgeRelationship}
+                            nodeA={nodeA}
+                            nodeB={nodeB}
+                            chapter={chapter}
+                            onEdgeLinkClicked={onEdgeLinkClicked}
+                            onNodeLinkClicked={onNodeLinkClicked}
+                        />
+                    )}
                     <X className="x-close" onClick={onCardClose} />
                 </ViewCard>
             </BrowserView>
@@ -78,14 +81,17 @@ const ViewEdgeCard = ({
                     disableScrollablity={false}
                 >
                     <div className="h-full flex flex-col gap-4 items-center">
-                        <ViewEdgeContent
-                            selectedEdge={selectedEdge}
-                            edgeRelationship={edgeRelationship}
-                            nodeA={nodeA}
-                            nodeB={nodeB}
-                            onEdgeLinkClicked={onEdgeLinkClicked}
-                            onNodeLinkClicked={onNodeLinkClicked}
-                        />
+                        {renderContent && (
+                            <ViewEdgeContent
+                                selectedEdge={selectedEdge}
+                                edgeRelationship={edgeRelationship}
+                                nodeA={nodeA}
+                                nodeB={nodeB}
+                                chapter={chapter}
+                                onEdgeLinkClicked={onEdgeLinkClicked}
+                                onNodeLinkClicked={onNodeLinkClicked}
+                            />
+                        )}
                     </div>
                 </VaulDrawer>
             </MobileView>
