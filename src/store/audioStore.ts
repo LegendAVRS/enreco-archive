@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 interface AudioState {
     bgm: Howl | null;
+    currentBgmKey: string | null;
     sfx: { [key: string]: Howl };
     bgmVolume: number;
     sfxVolume: number;
@@ -15,14 +16,18 @@ interface AudioState {
     pauseBGM: () => void;
     setAllSfxVolume: (volume: number) => void;
     setBgmVolume: (volume: number) => void;
+    changeBGM: (key: string) => void;
 }
 
+const BGM: { [key: string]: string } = {
+    "chapter-1": "/audio/bgm-edit.mp3",
+    "chapter-2": "/audio/bgm-edit.mp3",
+    potato: "/audio/potato.mp3",
+};
+
 export const useAudioStore = create<AudioState>((set, get) => ({
-    bgm: new Howl({
-        src: ["/audio/bgm-edit.mp3"],
-        loop: true,
-        volume: useSettingStore.getState().bgmVolume,
-    }),
+    bgm: null,
+    currentBgmKey: null,
     sfx: {
         click: new Howl({
             src: ["/audio/click.mp3"],
@@ -44,24 +49,23 @@ export const useAudioStore = create<AudioState>((set, get) => ({
     bgmVolume: useSettingStore.getState().bgmVolume,
     sfxVolume: useSettingStore.getState().sfxVolume,
     playBGM: () => {
-        const { bgm } = get();
+        const { bgm, bgmVolume } = get();
         if (bgm && !bgm.playing()) {
-            bgm.fade(0, get().bgmVolume, 1000);
+            bgm.fade(0, bgmVolume, 1000);
             bgm.play();
         }
     },
     stopBGM: () => {
-        const { bgm } = get();
+        const { bgm, bgmVolume } = get();
         if (bgm) {
-            bgm.fade(get().bgmVolume, 0, 1000);
+            bgm.fade(bgmVolume, 0, 1000);
             setTimeout(() => bgm.stop(), 1000);
         }
     },
     pauseBGM: () => {
-        const { bgm } = get();
-        // pause with a fade
+        const { bgm, bgmVolume } = get();
         if (bgm && bgm.playing()) {
-            bgm.fade(get().bgmVolume, 0, 1000);
+            bgm.fade(bgmVolume, 0, 1000);
             setTimeout(() => bgm.pause(), 1000);
         }
     },
@@ -90,6 +94,34 @@ export const useAudioStore = create<AudioState>((set, get) => ({
         if (bgm) {
             bgm.volume(volume);
         }
+    },
+    changeBGM: (key: string) => {
+        if (!BGM[key]) return;
+
+        const { bgm, bgmVolume } = get();
+        const fadeOutDuration = 1000;
+        const fadeInDuration = 1000;
+
+        // Fade out current BGM
+        if (bgm) {
+            bgm.fade(bgmVolume, 0, fadeOutDuration);
+            setTimeout(() => {
+                bgm.unload();
+            }, fadeOutDuration);
+        }
+
+        // Create and fade in new BGM
+        const newBgm = new Howl({
+            src: [BGM[key]],
+            loop: true,
+            volume: 0,
+        });
+
+        setTimeout(() => {
+            newBgm.play();
+            newBgm.fade(0, bgmVolume, fadeInDuration);
+            set({ bgm: newBgm, currentBgmKey: key });
+        }, fadeOutDuration);
     },
 }));
 
