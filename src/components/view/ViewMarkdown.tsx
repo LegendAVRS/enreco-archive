@@ -1,5 +1,6 @@
 import TimestampHref from "@/components/view/content-components/TimestampHref";
 import ViewFaunaEasterEgg from "@/components/view/easter-eggs/ViewFaunaEasterEgg";
+import ViewPotatoSalidEasterEgg from "@/components/view/easter-eggs/ViewPotatoSalidEasterEgg";
 import { FixedEdgeType, ImageNodeType } from "@/lib/type";
 import { getBlurDataURL, getLighterOrDarkerColor } from "@/lib/utils";
 import { useReactFlow } from "@xyflow/react";
@@ -21,6 +22,7 @@ export type EdgeLinkClickHandler = (targetEdge: FixedEdgeType) => void;
 
 const EASTER_EGGS: { [key: string]: ReactNode } = {
     faunamart: <ViewFaunaEasterEgg />,
+    potato: <ViewPotatoSalidEasterEgg />,
 };
 
 interface Props {
@@ -257,6 +259,7 @@ export function ViewMarkdown({
                         );
                     } else if (href && href.startsWith("#easter")) {
                         const egg = href.replace("#easter:", "");
+                        console.log(egg);
                         return EASTER_EGGS[egg];
                     } else {
                         return (

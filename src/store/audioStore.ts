@@ -26,8 +26,12 @@ const BGM: { [key: string]: string } = {
 };
 
 export const useAudioStore = create<AudioState>((set, get) => ({
-    bgm: null,
-    currentBgmKey: null,
+    bgm: new Howl({
+        src: [BGM["chapter-1"]],
+        loop: true,
+        volume: useSettingStore.getState().bgmVolume,
+    }),
+    currentBgmKey: "chapter-1",
     sfx: {
         click: new Howl({
             src: ["/audio/click.mp3"],
@@ -115,7 +119,7 @@ export const useAudioStore = create<AudioState>((set, get) => ({
         if (!BGM[key]) return;
 
         const { bgm, bgmVolume } = get();
-        const fadeOutDuration = 1000;
+        const fadeOutDuration = 2000;
         const fadeInDuration = 1000;
 
         // Fade out current BGM
@@ -134,9 +138,13 @@ export const useAudioStore = create<AudioState>((set, get) => ({
         });
 
         setTimeout(() => {
+            let newBgmVolume = useSettingStore.getState().bgmVolume;
+            if (key === "potato") {
+                newBgmVolume = 0.5;
+            }
             newBgm.play();
-            newBgm.fade(0, bgmVolume, fadeInDuration);
-            set({ bgm: newBgm, currentBgmKey: key });
+            newBgm.fade(0, newBgmVolume, fadeInDuration);
+            set({ bgm: newBgm, currentBgmKey: key, bgmVolume: newBgmVolume });
         }, fadeOutDuration);
     },
 }));
