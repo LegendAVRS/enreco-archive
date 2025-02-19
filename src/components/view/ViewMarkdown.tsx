@@ -1,4 +1,5 @@
 import TimestampHref from "@/components/view/content-components/TimestampHref";
+import ViewFaunaEasterEgg from "@/components/view/easter-eggs/ViewFaunaEasterEgg";
 import { FixedEdgeType, ImageNodeType } from "@/lib/type";
 import { getBlurDataURL, getLighterOrDarkerColor } from "@/lib/utils";
 import { useReactFlow } from "@xyflow/react";
@@ -18,6 +19,10 @@ import remarkGfm from "remark-gfm";
 export type NodeLinkClickHandler = (targetNode: ImageNodeType) => void;
 export type EdgeLinkClickHandler = (targetEdge: FixedEdgeType) => void;
 
+const EASTER_EGGS: { [key: string]: ReactNode } = {
+    faunamart: <ViewFaunaEasterEgg />,
+};
+
 interface Props {
     onNodeLinkClicked: NodeLinkClickHandler;
     onEdgeLinkClicked: EdgeLinkClickHandler;
@@ -29,8 +34,12 @@ Wraps react-markdown while transforming links with a special href value to jump 
 All other links are transformed to open in a new tab.
 
 You can generate these special links by using the following markdown: 
-For a link to jump to a specific node: [node link](#node:<node id>)
-For a link to jump to a specific edge: [edge link](#edge:<edge id>)
+For a link to jump to a specific node: [node label](#node:<node id>)
+For a link to jump to a specific edge: [edge label](#edge:<edge id>)
+For a link to open in a new tab: [out label](#out:<url>)
+For a link to embed a video: [embed label](#embed:<url>)
+For a link to show an image: [image label](#image:<url>)
+For a link to show an easter egg: [easter label](#easter:<egg>)
 */
 export function ViewMarkdown({
     onNodeLinkClicked,
@@ -126,7 +135,7 @@ export function ViewMarkdown({
             className={"pb-20"}
             rehypePlugins={[rehypeRaw, remarkGfm]}
             components={{
-                // br styles not working for some reason, will use a div instead
+                // <br> styles not working for some reason, will use a div instead
                 br: () => <div className="block my-6" />,
                 p: ({ children }) => {
                     const processedChildren = Children.map(
@@ -246,6 +255,9 @@ export function ViewMarkdown({
                                 </figcaption>
                             </figure>
                         );
+                    } else if (href && href.startsWith("#easter")) {
+                        const egg = href.replace("#easter:", "");
+                        return EASTER_EGGS[egg];
                     } else {
                         return (
                             <TimestampHref
