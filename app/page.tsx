@@ -9,7 +9,7 @@ const inDevEnvironment = !!process && process.env.NODE_ENV === "development";
 export const metadata: Metadata = {
     title: "ENreco Archive",
     // temporary icon
-    icons: ["images/teams/emblem.webp"],
+    icons: ["favicon.svg"],
 };
 
 const Page = () => {

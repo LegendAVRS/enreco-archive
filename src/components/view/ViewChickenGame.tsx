@@ -39,8 +39,8 @@ const ViewChickenGame = () => {
         timerRef.current = setInterval(() => {
             setTimeLeft((prev: number) => {
                 if (prev <= 1) {
-                    // Game over
                     setIsPlaying(false);
+                    audioStore.playSFX("xp");
                     return 0;
                 }
                 return prev - 1;
@@ -52,7 +52,7 @@ const ViewChickenGame = () => {
                 clearInterval(timerRef.current);
             }
         };
-    }, [isPlaying]);
+    }, [isPlaying, audioStore]);
 
     // Update highscore
     useEffect(() => {
@@ -71,6 +71,7 @@ const ViewChickenGame = () => {
 
     const handleGameStart = () => {
         if (!isPlaying) {
+            audioStore.playSFX("xp");
             setScore(0);
             setTimeLeft(GAME_DURATION);
             setChickens([]);
@@ -136,6 +137,13 @@ const ViewChickenGame = () => {
                 timestamp - lastSpawnRef.current - Math.random() >
                 SPAWN_INTERVAL
             ) {
+                // Randomize chance to play sfx
+                if (Math.random() < 0.3) {
+                    audioStore.playSFX(
+                        `chicken-${Math.floor(Math.random() * 3) + 1}`,
+                    );
+                }
+
                 setChickens((prev) => [
                     ...prev,
                     {
@@ -161,8 +169,7 @@ const ViewChickenGame = () => {
                             chicken.x + CHICKEN_SIZE > basketX &&
                             chicken.x < basketX + BASKET_WIDTH
                         ) {
-                            // This sfx is too annoying, might change to sth else
-                            // audioStore.playSFX("xp");
+                            audioStore.playSFX("chicken-pop");
                             setScore((s) => s + 1);
                             return false;
                         }
@@ -233,7 +240,7 @@ const ViewChickenGame = () => {
                 </div>
             </div>
 
-            <div className="flex gap-4 items-center">
+            <div className="flex w-full items-center justify-around ">
                 <span>Score: {score}</span>
                 <span>High Score: {highScore}</span>
                 <Button

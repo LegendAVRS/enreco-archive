@@ -12,6 +12,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import ViewChickenGameInfo from "@/components/view/minigames-info/ViewChickenGameInfo";
 import ViewGamblingGameInfo from "@/components/view/minigames-info/ViewGamblingGameInfo";
 import ViewMemoryGameInfo from "@/components/view/minigames-info/ViewMemoryGameInfo";
 import ViewChickenGame from "@/components/view/ViewChickenGame";
@@ -36,7 +37,7 @@ const GAMES: { [key: string]: { label: string; info: ReactElement } } = {
     },
     chicken: {
         label: "Chicken Game (Chapter 1)",
-        info: <></>,
+        info: <ViewChickenGameInfo />,
     },
 };
 
@@ -48,6 +49,7 @@ const ViewMiniGameModal = ({ open, onOpenChange }: ViewMiniGameModalProps) => {
                 <DialogHeader>
                     <DialogTitle>Minigames</DialogTitle>
                 </DialogHeader>
+
                 <div className="h-full w-full flex flex-col items-center">
                     <Select
                         value={game}

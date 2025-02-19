@@ -45,6 +45,22 @@ export const useAudioStore = create<AudioState>((set, get) => ({
             src: ["/audio/xp.mp3"],
             volume: useSettingStore.getState().sfxVolume,
         }),
+        "chicken-1": new Howl({
+            src: ["/audio/chicken-1.mp3"],
+            volume: useSettingStore.getState().sfxVolume,
+        }),
+        "chicken-2": new Howl({
+            src: ["/audio/chicken-2.mp3"],
+            volume: useSettingStore.getState().sfxVolume,
+        }),
+        "chicken-3": new Howl({
+            src: ["/audio/chicken-3.mp3"],
+            volume: useSettingStore.getState().sfxVolume,
+        }),
+        "chicken-pop": new Howl({
+            src: ["/audio/chicken-pop.mp3"],
+            volume: useSettingStore.getState().sfxVolume,
+        }),
     },
     bgmVolume: useSettingStore.getState().bgmVolume,
     sfxVolume: useSettingStore.getState().sfxVolume,
